@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-10-19T04:00:08.095Z</updated>
+  <updated>2019-10-19T04:01:24.200Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/2019/10/18/hello-world-1/"/>
     <id>http://yoursite.com/2019/10/18/hello-world-1/</id>
     <published>2019-10-18T14:47:37.000Z</published>
-    <updated>2019-10-19T04:00:08.095Z</updated>
+    <updated>2019-10-19T04:01:24.200Z</updated>
     
     <content type="html"><![CDATA[<p>最近看到一句话，</p><pre><code>有了自己的博客，就仿佛自己在互联网中留下了自己的脚印.</code></pre><p>还挺有诗意的，所以我就把这个博客搭建起来了。</p><a id="more"></a><h1 id="博客写点啥呢"><a href="#博客写点啥呢" class="headerlink" title="博客写点啥呢"></a>博客写点啥呢</h1><h2 id="可能会帮到别人的东西"><a href="#可能会帮到别人的东西" class="headerlink" title="可能会帮到别人的东西"></a>可能会帮到别人的东西</h2><p>本部分包含但不限于代码的bug解决办法，代码规范，leetcode题解。</p><h2 id="自己觉得需要整理的东西"><a href="#自己觉得需要整理的东西" class="headerlink" title="自己觉得需要整理的东西"></a>自己觉得需要整理的东西</h2><p>本部分包含但不限于对于某个问题的求解过程。</p><h2 id="也许写点乱七八糟的推荐"><a href="#也许写点乱七八糟的推荐" class="headerlink" title="也许写点乱七八糟的推荐"></a>也许写点乱七八糟的推荐</h2><p>本部分包含但是不限于对于书籍电影动漫等的推荐。</p><p>目标就是等我回忆青春的时候，再来这个博客瞅瞅，让我能够感慨一句，我当年也干了很多事情呀。</p><h1 id="博客搭建参考"><a href="#博客搭建参考" class="headerlink" title="博客搭建参考"></a>博客搭建参考</h1><ol><li><a href="https://cuiqingcai.com/7625.html" target="_blank" rel="noopener">崔庆才-利用 GitHub + Hexo + Next 从零搭建一个博客</a></li><li><a href="https://juejin.im/post/5a308ae551882540f363879a" target="_blank" rel="noopener">为你的hexo博客配置个性域名</a></li><li><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo-中文文档</a></li></ol>]]></content>
     
