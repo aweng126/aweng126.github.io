@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Kingwen&#39;s blog</title>
   
-  <subtitle>好好写代码</subtitle>
+  <subtitle>没有输出的输入是不完整的</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>喜大普奔，庆文又搭博客了。</title>
-    <link href="http://yoursite.com/2019/10/18/hello-world-1/"/>
-    <id>http://yoursite.com/2019/10/18/hello-world-1/</id>
+    <link href="http://yoursite.com/2019/10/18/hello-world/"/>
+    <id>http://yoursite.com/2019/10/18/hello-world/</id>
     <published>2019-10-18T14:47:37.000Z</published>
     <updated>2019-10-19T04:01:24.200Z</updated>
     
