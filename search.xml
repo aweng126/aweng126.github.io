@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>终端工具tmux资料分享</title>
+    <url>/2019/10/21/tmux-reference/</url>
+    <content><![CDATA[<ol>
+<li><a href="https://www.ruanyifeng.com/blog/2019/10/tmux.html" target="_blank" rel="noopener">阮一峰-Tmux 使用教程</a><br>从浅入深，娓娓道来，非常棒。</li>
+<li><a href="https://louiszhai.github.io/2017/09/30/tmux/#Tmux%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4" target="_blank" rel="noopener">路易斯-Tmux使用手册</a><br>大牛无疑，介绍的非常干练，私人定制部分写的特别好。</li>
+<li><a href="https://gist.github.com/ryerh/14b7c24dfd623ef8edc7#file-tmux-cheatsheet-markdown" target="_blank" rel="noopener">GitHub-Tmux 快捷键 &amp; 速查表 &amp; 简明教程</a><br>方便大家使用。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>工具推荐</category>
+      </categories>
+      <tags>
+        <tag>tmux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>喜大普奔，庆文又搭博客了。</title>
     <url>/2019/10/18/hello-world-1/</url>
     <content><![CDATA[<p>最近看到一句话，</p>

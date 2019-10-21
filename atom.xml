@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-10-19T04:01:24.200Z</updated>
+  <updated>2019-10-21T08:45:18.419Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>终端工具tmux资料分享</title>
+    <link href="http://yoursite.com/2019/10/21/tmux-reference/"/>
+    <id>http://yoursite.com/2019/10/21/tmux-reference/</id>
+    <published>2019-10-21T08:36:02.000Z</published>
+    <updated>2019-10-21T08:45:18.419Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li><a href="https://www.ruanyifeng.com/blog/2019/10/tmux.html" target="_blank" rel="noopener">阮一峰-Tmux 使用教程</a><br>从浅入深，娓娓道来，非常棒。</li><li><a href="https://louiszhai.github.io/2017/09/30/tmux/#Tmux%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4" target="_blank" rel="noopener">路易斯-Tmux使用手册</a><br>大牛无疑，介绍的非常干练，私人定制部分写的特别好。</li><li><a href="https://gist.github.com/ryerh/14b7c24dfd623ef8edc7#file-tmux-cheatsheet-markdown" target="_blank" rel="noopener">GitHub-Tmux 快捷键 &amp; 速查表 &amp; 简明教程</a><br>方便大家使用。</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.ruanyifeng.com/blog/2019/10/tmux.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;阮一峰-Tmux 使用教程&lt;/a&gt;&lt;br&gt;从浅入深，娓娓道来，非常棒。&lt;/li&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="工具推荐" scheme="http://yoursite.com/categories/%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
+    
+    
+      <category term="tmux" scheme="http://yoursite.com/tags/tmux/"/>
+    
+  </entry>
   
   <entry>
     <title>喜大普奔，庆文又搭博客了。</title>
