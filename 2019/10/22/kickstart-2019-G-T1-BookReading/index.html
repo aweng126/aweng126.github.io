@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Kingwen's blog" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="上周六和同学一起尝试了一下Google Kickstart的题目，开了开眼，涨了涨见识！本文是G轮第一题BookReading的思路以及代码，留个纪念。">
+<meta name="keywords" content="kickstart,DP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kickstart-2019-G-T1-BookReading">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;22&#x2F;kickstart-2019-G-T1-BookReading&#x2F;index.html">
+<meta property="og:site_name" content="Kingwen&#39;s blog">
+<meta property="og:description" content="上周六和同学一起尝试了一下Google Kickstart的题目，开了开眼，涨了涨见识！本文是G轮第一题BookReading的思路以及代码，留个纪念。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;note.youdao.com&#x2F;yws&#x2F;res&#x2F;9843&#x2F;C751CB16D4404C2EACEB633D10C29621">
+<meta property="og:updated_time" content="2019-10-22T09:51:28.710Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;note.youdao.com&#x2F;yws&#x2F;res&#x2F;9843&#x2F;C751CB16D4404C2EACEB633D10C29621">
+  <link rel="canonical" href="http://yoursite.com/2019/10/22/kickstart-2019-G-T1-BookReading/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>kickstart-2019-G-T1-BookReading | Kingwen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kingwen's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">没有输出的输入是不完整的</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-talk">
+
+    <a href="/talk" rel="section"><i class="fa fa-fw fa-envelope"></i>呓语</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/22/kickstart-2019-G-T1-BookReading/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          kickstart-2019-G-T1-BookReading
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-10-22 17:38:01 / 修改时间：17:51:28" itemprop="dateCreated datePublished" datetime="2019-10-22T17:38:01+08:00">2019-10-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/" itemprop="url" rel="index">
+                    <span itemprop="name">算法训练</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>上周六和同学一起尝试了一下Google Kickstart的题目，开了开眼，涨了涨见识！<br>本文是G轮第一题BookReading的思路以及代码，留个纪念。</p>
+<a id="more"></a>
+
+<h2 id="题目详情"><a href="#题目详情" class="headerlink" title="题目详情"></a><a href="https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050e02/000000000018fd0d" target="_blank" rel="noopener">题目详情</a></h2><h3 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h3><p>Supervin is a librarian handling an ancient book with N pages, numbered from 1 to N. Since the book is too old, unfortunately M pages are torn out: page number P1, P2, …, PM.</p>
+<p>Today, there are Q lazy readers who are interested in reading the ancient book. Since they are lazy, each reader will not necessarily read all the pages. Instead, the i-th reader will only read the pages that are numbered multiples of Ri and not torn out. Supervin would like to know the sum of the number of pages read by each reader.</p>
+<h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><p>The first line of the input gives the number of test cases, T. T test cases follow. Each test case begins with a line containing the three integers N, M, and Q, the number of pages in the book, the number of torn out pages in the book, and the number of readers, respectively. The second line contains M integers, the i-th of which is Pi. The third line contains Q integers, the i-th of which is Ri.</p>
+<h3 id="Limits"><a href="#Limits" class="headerlink" title="Limits"></a>Limits</h3><p>Time limit: 40 seconds per test set.<br>Memory limit: 1GB.<br>1 ≤ T ≤ 100.<br>1 ≤ P1 &lt; P2 &lt; … &lt; PM ≤ N.<br>1 ≤ Ri ≤ N, for all i.</p>
+<p>Test set 1 (Visible)<br>1 ≤ M ≤ N ≤ 1000.<br>1 ≤ Q ≤ 1000.</p>
+<p>Test set 2 (Hidden)<br>1 ≤ M ≤ N ≤ 105.<br>1 ≤ Q ≤ 105.</p>
+<h3 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h3><p><img src="http://note.youdao.com/yws/res/9843/C751CB16D4404C2EACEB633D10C29621" alt="image"></p>
+<h2 id="题意理解"><a href="#题意理解" class="headerlink" title="题意理解"></a>题意理解</h2><p>图书管理员想知道大家一共读了多少页书，需要我们统计。<br>已知情况是书的总页数N，坏了的页数M，有Q个读者。<br>然后知道坏的M分别是那些页，知道读者每个人都要读那些页（实际上知道的是基数，这个读者会读这个基数的整数倍）。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>如果大家想看最终结果，可以直接翻到最后，然后前面的代码写的比较乱，后来经过王博指点，有了很大的改善。好的代码习惯还是要保持的。</p>
+<h3 id="暴力求解"><a href="#暴力求解" class="headerlink" title="暴力求解"></a>暴力求解</h3><p>一看题目很简单，对于每个人来说，如果书籍不坏，那么他可以读页数/基数页，然后看看坏了的页数中有几个是基数的倍数，减去就可以。然后我们最终的结果就是每个人的结果加和。<br>代码如下，写的很乱，而且第二个样例不出意外的超时了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">void solve(int case_num)&#123;</span><br><span class="line">    int N,M,Q;</span><br><span class="line">    cin&gt;&gt;N&gt;&gt;M&gt;&gt;Q;</span><br><span class="line">    vector&lt;int&gt; torn;</span><br><span class="line">    int res =0;</span><br><span class="line">    //vector&lt;int&gt; reader;</span><br><span class="line">    for(int i = 0;i&lt;M;i++)&#123;</span><br><span class="line">        int mi;</span><br><span class="line">        cin &gt;&gt; mi;</span><br><span class="line">        torn.emplace_back(mi);</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i =0;i&lt;Q;i++)&#123;</span><br><span class="line">        int ri;</span><br><span class="line">        cin &gt;&gt; ri;</span><br><span class="line">        int num = N/ri;</span><br><span class="line">        int sortnum =0;</span><br><span class="line">        for(int j = 0;j&lt;M;j++)&#123;</span><br><span class="line">            if(torn[j]%ri==0)&#123;</span><br><span class="line">                sortnum++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res += (num - sortnum);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; &quot;Case #&quot; &lt;&lt; case_num &lt;&lt; &quot;: &quot; &lt;&lt; res &lt;&lt; endl;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">  int t;</span><br><span class="line">  cin &gt;&gt; t;</span><br><span class="line">  for (int i = 1; i &lt;= t; ++i) &#123;</span><br><span class="line">    solve(i);</span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="动态规划求解"><a href="#动态规划求解" class="headerlink" title="动态规划求解"></a>动态规划求解</h3><p>仔细想想，其实我们上面暴力的时间复杂度是O（M<em>Q），当破坏的页数很多的时候，很多判断是无效的，没有意义的，比如某位读者只读2的倍数，那么我其实只要判断2，4，6，2</em>n&lt;=N这些页就可以。其他的页数完全可以不用判断，所以这个地方可以简化。于是是不是可以把每个基数对应的结果都算出来，然后当读读者的基数的时候，直接将其求和就可以呢？当然可以！于是就有了下面的代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long LL;</span><br><span class="line">const int MAXN = 1e5+10;</span><br><span class="line"></span><br><span class="line">int a[MAXN],ans[MAXN];</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">  int t,x;</span><br><span class="line">  scanf(&quot;%d&quot;,&amp;t);</span><br><span class="line">  for (int i = 1; i &lt;= t; ++i) &#123;</span><br><span class="line">        int N,M,Q;</span><br><span class="line">        scanf(&quot;%d %d %d&quot;,&amp;N,&amp;M,&amp;Q);</span><br><span class="line"></span><br><span class="line">        for(int i = 1;i&lt;=N;i++)&#123;</span><br><span class="line">            a[i] = 1;</span><br><span class="line">        &#125;</span><br><span class="line">      </span><br><span class="line">        for(int i = 1;i&lt;=M;i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;,&amp;x);</span><br><span class="line">            a[x] = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        for(int i = 1; i&lt;=N; i++)&#123;</span><br><span class="line">            for(int j =i; j &lt;= N; j+=i)&#123;</span><br><span class="line">                 ans[i] += a[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        LL res =0;</span><br><span class="line">        for( int i = 1; i &lt;= Q; i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;,&amp;x);</span><br><span class="line">            res += ans[x];</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;Case #%d: %lld\n&quot;,i,res);</span><br><span class="line">        </span><br><span class="line">        for(int i = 0;i&lt;=N;i++)&#123;</span><br><span class="line">            ans[i] = 0;</span><br><span class="line">            a[i] =0;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="进一步动态规划"><a href="#进一步动态规划" class="headerlink" title="进一步动态规划"></a>进一步动态规划</h3><p>上面的方法把所有的基数对应的结果都算出来了，但是其实中间的很多结果我们是用不到的，比如我们就两个读者，分别读2的倍数和3的倍数，而上面那个方法将1-N的所有结果都算出来了，最后只用了2和3对应的结果而已，这样就造成了浪费。所以我们是不是可以将结果进行保存，下次来了一个读者，看看之前有没有算过，如果算过，就直接用之前保存的结果，如果没有算过，那么就计算一下，然后保存起来呢？当然可以！于是就有了下面的代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long LL;</span><br><span class="line">const int MAXN = 1e5+10;</span><br><span class="line"></span><br><span class="line">int getPage(int N,int i,int arr[])&#123;</span><br><span class="line">    int res =0;</span><br><span class="line">    for(int j = i; j&lt;=N; j+=i)&#123;</span><br><span class="line">        res += arr[j];</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int a[MAXN],ans[MAXN];</span><br><span class="line">int N,M,Q;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">  int t,x;</span><br><span class="line">  scanf(&quot;%d&quot;,&amp;t);</span><br><span class="line">  for (int i = 1; i &lt;= t; ++i) &#123;</span><br><span class="line">        scanf(&quot;%d %d %d&quot;,&amp;N,&amp;M,&amp;Q);</span><br><span class="line">        for(int i = 1;i&lt;=N;i++)&#123;</span><br><span class="line">            a[i] = 1;</span><br><span class="line">        &#125;</span><br><span class="line">      </span><br><span class="line">        for(int i = 1;i&lt;=M;i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;,&amp;x);</span><br><span class="line">            a[x] = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        memset(ans, 0, sizeof ans);</span><br><span class="line">      </span><br><span class="line">        LL res =0;</span><br><span class="line">        for( int i = 1; i &lt;= Q; i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;,&amp;x);</span><br><span class="line">            if(ans[x]==0)&#123;</span><br><span class="line">                ans[x] = getPage(N, x,a);</span><br><span class="line">            &#125;</span><br><span class="line">            res += ans[x];</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;Case #%d: %lld\n&quot;,i,res);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="本题收获"><a href="#本题收获" class="headerlink" title="本题收获"></a>本题收获</h2><ol>
+<li>了解到了比较好的编码规范，以后会应用到实践中。</li>
+<li>锻炼了自己分析问题的能力，提高算法的效率很重要，而其中的意识要逐渐培养。</li>
+<li>认识到了c++灵活但是有时候太灵活，以后需要好好注意如何使用。</li>
+<li>知道了kickstart的难度以及自己的水平。刷题路漫漫，以后请加油。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/kickstart/" rel="tag"># kickstart</a>
+              <a href="/tags/DP/" rel="tag"># DP</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/10/21/tmux-reference/" rel="next" title="终端工具tmux资料分享">
+                  <i class="fa fa-chevron-left"></i> 终端工具tmux资料分享
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目详情"><span class="nav-number">1.</span> <span class="nav-text">题目详情</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem"><span class="nav-number">1.1.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Input"><span class="nav-number">1.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Limits"><span class="nav-number">1.3.</span> <span class="nav-text">Limits</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample"><span class="nav-number">1.4.</span> <span class="nav-text">Sample</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题意理解"><span class="nav-number">2.</span> <span class="nav-text">题意理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#暴力求解"><span class="nav-number">3.1.</span> <span class="nav-text">暴力求解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划求解"><span class="nav-number">3.2.</span> <span class="nav-text">动态规划求解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进一步动态规划"><span class="nav-number">3.3.</span> <span class="nav-text">进一步动态规划</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本题收获"><span class="nav-number">4.</span> <span class="nav-text">本题收获</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="李庆文"
+    src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">李庆文</p>
+  <div class="site-description" itemprop="description">热爱生活，享受生活。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/aweng126" title="GitHub &rarr; https://github.com/aweng126" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kingwensli@gmail.com" title="E-Mail &rarr; mailto:kingwensli@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李庆文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">4k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        本站访客共计<span id="busuanzi_value_site_uv"></span>人
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
