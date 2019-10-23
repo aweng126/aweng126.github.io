@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-10-23T02:01:05.535Z</updated>
+  <updated>2019-10-23T02:43:49.510Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>build-image-hosting-service-with-github-and-PicGo</title>
+    <link href="http://yoursite.com/2019/10/23/build-image-hosting-service-with-github-and-PicGo/"/>
+    <id>http://yoursite.com/2019/10/23/build-image-hosting-service-with-github-and-PicGo/</id>
+    <published>2019-10-23T02:38:32.000Z</published>
+    <updated>2019-10-23T02:43:49.510Z</updated>
+    
+    <content type="html"><![CDATA[<p>图床，就是用来存放图片的地方。</p><p>目前各个网站为了保证自己的图片不会被其他人盗用，几乎都设置了访问条件验证（比如通过网站登录所保存的cookie等），这样的话其他人可能就访问不到你的图片了，而我写博客就是想给别人看的呀，所以搭建一个自己的图床就迫在眉睫。</p><a id="more"></a><h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><ol><li>github账号</li><li>良好的网络条件</li><li>耐心</li></ol><h2 id="具体做法参考"><a href="#具体做法参考" class="headerlink" title="具体做法参考"></a>具体做法参考</h2><ol><li><a href="https://juejin.im/entry/5c4ec5aaf265da614420689f" target="_blank" rel="noopener">掘金-PicGo+GitHub图床，让Markdown飞</a></li></ol><p>按照这个流程就可以完美搭建起来了，我就是照着这个做的。</p><ol start="2"><li><a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">PicGo github下载地址</a></li></ol><p>这个是PicGo的下载地址，选择最新版本的进行下载即可。mac下载dmg格式，win下载exe格式即可。</p><ol start="3"><li><a href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E9%A2%84%E8%A7%88" target="_blank" rel="noopener">PicGo 官方文档</a></li></ol><p>之所以把这个放上，是因为这个PicGo其实有很多扩展或者其他的功能，包括设置各种快捷键，各种图床的支持（包括七牛，阿里，github，腾讯云，又拍云等等。话说微博图床现在放盗链了，不建议使用），各种代理等的支持，大家可以进行私人定制，将这个软件做成自己喜欢的样子。</p><h2 id="本文感受"><a href="#本文感受" class="headerlink" title="本文感受"></a>本文感受</h2><ol><li>github是个好地方，开源的力量极其伟大。</li></ol><p>本来享用iPic来进行图片上传来着，但是它默认只给你微博图床，而现在不能用了。然后如果要开启其他图床支持，是要花钱的，难过的是我都要准备花钱了，网络问题，付费一直不成功，所以就找到了PicGo，完美。</p><ol start="2"><li>有机会还是要花钱买服务</li></ol><p>github尽管免费，但是说实话，访问是有延迟的，七牛云我也注册了，但是实名认证需要时间，所以我就先直接用github来搭建图床了。等到博客访问量大了的时候到时候再付费买七牛云存储吧，嘿嘿。</p><ol start="3"><li>好的教程感觉一份就够了</li></ol><p>所以对于自己感觉比较好的教程我就直接放链接了，如果有补充的话我再专门写文章来介绍一下。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;图床，就是用来存放图片的地方。&lt;/p&gt;
+&lt;p&gt;目前各个网站为了保证自己的图片不会被其他人盗用，几乎都设置了访问条件验证（比如通过网站登录所保存的cookie等），这样的话其他人可能就访问不到你的图片了，而我写博客就是想给别人看的呀，所以搭建一个自己的图床就迫在眉睫。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="实用技能" scheme="http://yoursite.com/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E8%83%BD/"/>
+    
+    
+      <category term="FigureBed" scheme="http://yoursite.com/tags/FigureBed/"/>
+    
+      <category term="Github" scheme="http://yoursite.com/tags/Github/"/>
+    
+      <category term="PicGo" scheme="http://yoursite.com/tags/PicGo/"/>
+    
+  </entry>
   
   <entry>
     <title>kickstart-2019-G-T2-TheEquation</title>
