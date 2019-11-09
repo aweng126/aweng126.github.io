@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>leetcode-330-PatchingArray</title>
+    <url>/2019/11/09/leetcode-330-PatchingArray/</url>
+    <content><![CDATA[<p>今天周六，好好做个题，明天就可以心安理得的出去玩啦！<br>然后就碰见了这个解题方法特别让人觉得奇妙的题目，算法这个东西实在是太神奇了。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>Given a sorted positive integer array nums and an integer n, add/patch elements to the array such that any number in range [1, n] inclusive can be formed by the sum of some elements in the array. Return the minimum number of patches required.</p>
+<h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1:"></a>Example 1:</h3><p>Input: nums = [1,3], n = 6<br>Output: 1<br>Explanation:<br>Combinations of nums are [1], [3], [1,3], which form possible sums of: 1, 3, 4.<br>Now if we add/patch 2 to nums, the combinations are: [1], [2], [3], [1,3], [2,3], [1,2,3].<br>Possible sums are 1, 2, 3, 4, 5, 6, which now covers the range [1, 6].<br>So we only need 1 patch.</p>
+<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2:"></a>Example 2:</h3><p>Input: nums = [1,5,10], n = 20<br>Output: 2<br>Explanation: The two patches can be [2, 4].</p>
+<h3 id="Example-3"><a href="#Example-3" class="headerlink" title="Example 3:"></a>Example 3:</h3><p>Input: nums = [1,2,2], n = 5<br>Output: 0</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>贪心</p>
+<h2 id="巧妙之处"><a href="#巧妙之处" class="headerlink" title="巧妙之处"></a>巧妙之处</h2><p>构造了一个miss缺失值，表示不能覆盖的最小值。最开始表示为1，表示此时不能表示范围为[0,1),然后去依次找数组中的值（要注意数组中的数据是排好序的，所以才可以这么用！），如果缺失值小于数组中的值，那么肯定要添加数，如果缺失值要是大于数组中的值，那么那么最小缺失值可以得到更新。最后如果最小缺失值大于n，那么就说明已经完成要求了。</p>
+<h2 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h2><p>以sample2也就是nums = [1,5,10], n=20举例来讲</p>
+<ol>
+<li>初始化的时候，数组索引index = 0，最小缺失值miss为1，res为0；</li>
+<li>此时miss&lt;=20成立，没有覆盖到[1,n]的范围，所以进入循环判断，此时nums[0] = 1&lt;=miss 而且index没有超出数组范围，所以miss会更新，加上当前数组索引位置，也就是说miss = 2，表示此时可以表示范围为[0,2)啦。</li>
+<li>然后miss此时仍然不能表示n，继续往后走，此时nums[1] = 5, 是大于miss的，也就是说此时我们最多表示到1，但是你突然来了个5，那我[2,4]的数据怎么办，就只能自己往里添加啦，所以此时为了尽可能表示的数字变得更大，所以此时加上miss本身这个数，从而就可以表示  [0，miss+miss)的数字了，所以此时添加一个2，res在原来的基础上+1变为1，miss也就变成了4；</li>
+<li>[0,4)依然不能表示[0,n],所以还是要继续判断，此时miss仍然小于nums[1],所以我仍然不能用nums中的数字来表示4这个数，所以继续向数组中添加4,然后此时可表示范围变成了[0,8),res+1变成2，添加了4这个数字。</li>
+<li>[0,8)仍然表示不了[0,n],所以仍然没有结束，此时的miss大于nums[1],也就是miss&gt;5成立，所以此时nums到索引1然后再加上添加的元素可以表示数的范围就变成了[0,13).</li>
+<li>[0.13)仍然表示不了[0,20]，所以继续，此时miss大于nums[2],所以如果nums中从0到索引2的所有数字加上之前添加的数字可以表示的数字范围就变成了[0,23).</li>
+<li>[0.23)是可以表示[0,20]的，所以结束，最终结果需要添加两个数，一个2，一个4即可。<br>太神奇了。<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:    </span><br><span class="line">    int minPatches(vector&lt;int&gt;&amp; nums, int n) &#123;</span><br><span class="line">        int res  = 0;</span><br><span class="line">        long miss = 1, i = 0;</span><br><span class="line">        while(miss &lt;= n)&#123;</span><br><span class="line">            if(i&lt;nums.size() &amp;&amp; nums[i] &lt;= miss)&#123;</span><br><span class="line">                miss += nums[i];</span><br><span class="line">                i++;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                miss += miss;</span><br><span class="line">                res++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>hard</tag>
+        <tag>Greedy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>create-my-leetcode-artical-template</title>
     <url>/2019/11/09/create-my-leetcode-artical-template/</url>
     <content><![CDATA[<p>在我每次写leetcode解题文章的时候，经常需要搞排版信息，一次两次还好，但是次数多了就会比较烦。那么我们能不能自定义一个属于自己的leetcode文章模版呢？当然可以！于是就有了本篇文章。</p>
