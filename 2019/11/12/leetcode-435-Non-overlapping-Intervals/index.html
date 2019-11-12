@@ -51,16 +51,17 @@
   };
 </script>
 
-  <meta name="description" content="2019-10 2019-10-19历时1天，本博客终于收拾的差不多可以和大家见面啦！撒花～ 2019-10-22搞定了两个Google的题，让我心情非常舒畅，之前的郁闷一扫而尽，自己水平还不行啊，继续加油！！ 2019-10-24每次做算法题做不出来我就觉得我不是学计算机的料，要不趁早回家当老师去？ 一旦做出来了，我就会想，好像还可以挣扎一下哦～">
-<meta property="og:type" content="website">
-<meta property="og:title" content="呓语">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;talk&#x2F;index.html">
+  <meta name="description" content="非重复区间的一个题目，思路比较清晰,感觉和406题有点异曲同工之妙。">
+<meta name="keywords" content="leetcode,Greedy,medium">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode-435-Non-overlapping-Intervals">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;12&#x2F;leetcode-435-Non-overlapping-Intervals&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="2019-10 2019-10-19历时1天，本博客终于收拾的差不多可以和大家见面啦！撒花～ 2019-10-22搞定了两个Google的题，让我心情非常舒畅，之前的郁闷一扫而尽，自己水平还不行啊，继续加油！！ 2019-10-24每次做算法题做不出来我就觉得我不是学计算机的料，要不趁早回家当老师去？ 一旦做出来了，我就会想，好像还可以挣扎一下哦～">
+<meta property="og:description" content="非重复区间的一个题目，思路比较清晰,感觉和406题有点异曲同工之妙。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-24T11:24:40.330Z">
+<meta property="og:updated_time" content="2019-11-12T08:34:11.698Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/talk/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/12/leetcode-435-Non-overlapping-Intervals/">
 
 
 <script id="page-configurations">
@@ -68,14 +69,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
-    isPage: true,
+    isPost: true,
+    isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>呓语 | Kingwen's blog
-  </title>
+  <title>leetcode-435-Non-overlapping-Intervals | Kingwen's blog</title>
   
 
 
@@ -208,49 +208,134 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-  
-  
 
           <div class="content">
             
 
   <div class="posts-expand">
-    
-    
-    
-    <div class="post-block" lang="zh-CN">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/leetcode-435-Non-overlapping-Intervals/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
       <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          leetcode-435-Non-overlapping-Intervals
+        </h1>
 
-<h1 class="post-title" itemprop="name headline">呓语
-</h1>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
 
-<div class="post-meta">
+              <time title="创建时间：2019-11-12 16:28:49 / 修改时间：16:34:11" itemprop="dateCreated datePublished" datetime="2019-11-12T16:28:49+08:00">2019-11-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/" itemprop="url" rel="index">
+                    <span itemprop="name">算法训练</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>非重复区间的一个题目，思路比较清晰,感觉和406题有点异曲同工之妙。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1:"></a>Example 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2],[2,3],[3,4],[1,3]]</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
+<p>Explanation: [1,3] can be removed and the rest of intervals are non-overlapping.</p>
+<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2:"></a>Example 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2],[1,2],[1,2]]</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
+<p>Explanation: You need to remove two [1,2] to make the rest of intervals non-overlapping.</p>
+<h3 id="Example-3"><a href="#Example-3" class="headerlink" title="Example 3:"></a>Example 3:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2],[2,3]]</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
+<p>Explanation: You don’t need to remove any of the intervals since they’re already non-overlapping.</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>贪心算法</p>
+<h2 id="巧妙之处"><a href="#巧妙之处" class="headerlink" title="巧妙之处"></a>巧妙之处</h2><p>要记得按照从小到大的顺序进行排序,然后看后一个区间的头是否在前一个区间内，如果没有，那么不用删，如果在，那么肯定要删一个。要么删除前面那个区间，要么删除后面那个区间。比如说[1,3]和[2,4],那么因为2在[1,3]内，所以这个时候肯定要删除[2,4],因为[2,4]在[1,3]更加靠后的位置。但是如果前面是[1,10],然后后面有[2,3]和[4,5]这种情况最好是删除第一个[1,10]，因为[1,10]包含的区间更加靠后。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int eraseOverlapIntervals(vector&lt;vector&lt;int&gt;&gt;&amp; intervals) &#123;</span><br><span class="line">        if(intervals.empty()) return 0;</span><br><span class="line">        sort(intervals.begin(), intervals.end());</span><br><span class="line">       </span><br><span class="line">        int res = 0;</span><br><span class="line">        vector&lt;int&gt; temp;</span><br><span class="line">        for(auto p : intervals)&#123;</span><br><span class="line">            if( temp.empty() || p[0] &gt;= temp[1])&#123;</span><br><span class="line">                temp = p; </span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                res++;</span><br><span class="line">                temp = p[1] &lt; temp[1]? p:temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>以上，本题结束！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+              <a href="/tags/Greedy/" rel="tag"># Greedy</a>
+              <a href="/tags/medium/" rel="tag"># medium</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/11/leetcode-406-QueueReconstructionbyHeight/" rel="next" title="leetcode-406-QueueReconstructionbyHeight">
+                  <i class="fa fa-chevron-left"></i> leetcode-406-QueueReconstructionbyHeight
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
-</div>
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
-          <h1 id="2019-10"><a href="#2019-10" class="headerlink" title="2019-10"></a>2019-10</h1><ul>
-<li>2019-10-19<br>历时1天，本博客终于收拾的差不多可以和大家见面啦！撒花～</li>
-<li>2019-10-22<br>搞定了两个Google的题，让我心情非常舒畅，之前的郁闷一扫而尽，自己水平还不行啊，继续加油！！</li>
-<li>2019-10-24<br>每次做算法题做不出来我就觉得我不是学计算机的料，要不趁早回家当老师去？ 一旦做出来了，我就会想，好像还可以挣扎一下哦～</li>
-</ul>
-
-      </div>
-      
-      
-      
-    </div>
-    
-
-    
-    
-    
   </div>
 
 
@@ -280,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2019-10"><span class="nav-number">1.</span> <span class="nav-text">2019-10</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-1"><span class="nav-number">2.1.</span> <span class="nav-text">Example 1:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-2"><span class="nav-number">2.2.</span> <span class="nav-text">Example 2:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-3"><span class="nav-number">2.3.</span> <span class="nav-text">Example 3:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#巧妙之处"><span class="nav-number">4.</span> <span class="nav-text">巧妙之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">5.</span> <span class="nav-text">解题代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
