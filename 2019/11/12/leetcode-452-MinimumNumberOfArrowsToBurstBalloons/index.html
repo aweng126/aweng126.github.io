@@ -51,17 +51,17 @@
   };
 </script>
 
-  <meta name="description" content="非重复区间的一个题目，思路比较清晰,感觉和406题有点异曲同工之妙。">
+  <meta name="description" content="射箭，问射穿所有气球最少射几箭。抽象出来之后，其实也是区间类型的题目。只是这次的排序方式相比与之前发生了点变化。">
 <meta name="keywords" content="leetcode,Greedy,medium">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-435-Non-overlapping-Intervals">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;12&#x2F;leetcode-435-Non-overlapping-Intervals&#x2F;index.html">
+<meta property="og:title" content="leetcode-452-MinimumNumberOfArrowsToBurstBalloons">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;12&#x2F;leetcode-452-MinimumNumberOfArrowsToBurstBalloons&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="非重复区间的一个题目，思路比较清晰,感觉和406题有点异曲同工之妙。">
+<meta property="og:description" content="射箭，问射穿所有气球最少射几箭。抽象出来之后，其实也是区间类型的题目。只是这次的排序方式相比与之前发生了点变化。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-12T08:34:11.698Z">
+<meta property="og:updated_time" content="2019-11-12T10:25:17.317Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/2019/11/12/leetcode-435-Non-overlapping-Intervals/">
+  <link rel="canonical" href="http://yoursite.com/2019/11/12/leetcode-452-MinimumNumberOfArrowsToBurstBalloons/">
 
 
 <script id="page-configurations">
@@ -75,7 +75,7 @@
   };
 </script>
 
-  <title>leetcode-435-Non-overlapping-Intervals | Kingwen's blog</title>
+  <title>leetcode-452-MinimumNumberOfArrowsToBurstBalloons | Kingwen's blog</title>
   
 
 
@@ -217,7 +217,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/leetcode-435-Non-overlapping-Intervals/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/leetcode-452-MinimumNumberOfArrowsToBurstBalloons/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -230,7 +230,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode-435-Non-overlapping-Intervals
+          leetcode-452-MinimumNumberOfArrowsToBurstBalloons
         </h1>
 
         <div class="post-meta">
@@ -241,7 +241,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-12 16:28:49 / 修改时间：16:34:11" itemprop="dateCreated datePublished" datetime="2019-11-12T16:28:49+08:00">2019-11-12</time>
+              <time title="创建时间：2019-11-12 18:24:17 / 修改时间：18:25:17" itemprop="dateCreated datePublished" datetime="2019-11-12T18:24:17+08:00">2019-11-12</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,14 +268,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -287,19 +287,21 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>非重复区间的一个题目，思路比较清晰,感觉和406题有点异曲同工之妙。</p>
+        <p>射箭，问射穿所有气球最少射几箭。<br>抽象出来之后，其实也是区间类型的题目。只是这次的排序方式相比与之前发生了点变化。</p>
 <a id="more"></a>
 
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1:"></a>Example 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2],[2,3],[3,4],[1,3]]</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
-<p>Explanation: [1,3] can be removed and the rest of intervals are non-overlapping.</p>
-<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2:"></a>Example 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2],[1,2],[1,2]]</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
-<p>Explanation: You need to remove two [1,2] to make the rest of intervals non-overlapping.</p>
-<h3 id="Example-3"><a href="#Example-3" class="headerlink" title="Example 3:"></a>Example 3:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2],[2,3]]</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
-<p>Explanation: You don’t need to remove any of the intervals since they’re already non-overlapping.</p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>There are a number of spherical balloons spread in two-dimensional space. For each balloon, provided input is the start and end coordinates of the horizontal diameter. Since it’s horizontal, y-coordinates don’t matter and hence the x-coordinates of start and end of the diameter suffice. Start is always smaller than end. There will be at most 104 balloons.</p>
+<p>An arrow can be shot up exactly vertically from different points along the x-axis. A balloon with xstart and xend bursts by an arrow shot at x if xstart ≤ x ≤ xend. There is no limit to the number of arrows that can be shot. An arrow once shot keeps travelling up infinitely. The problem is to find the minimum number of arrows that must be shot to burst all balloons.</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[[10,16], [2,8], [1,6], [7,12]]</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<p>Explanation:<br>One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] and [1,6]) and another arrow at x = 11 (bursting the other two balloons).</p>
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>贪心算法</p>
-<h2 id="巧妙之处"><a href="#巧妙之处" class="headerlink" title="巧妙之处"></a>巧妙之处</h2><p>要记得按照从小到大的顺序进行排序,然后看后一个区间的头是否在前一个区间内，如果没有，那么不用删，如果在，那么肯定要删一个。要么删除前面那个区间，要么删除后面那个区间。比如说[1,3]和[2,4],那么因为2在[1,3]内，所以这个时候肯定要删除[2,4],因为[2,4]在[1,3]更加靠后的位置。但是如果前面是[1,10],然后后面有[2,3]和[4,5]这种情况最好是删除第一个[1,10]，因为[1,10]包含的区间更加靠后。</p>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int eraseOverlapIntervals(vector&lt;vector&lt;int&gt;&gt;&amp; intervals) &#123;</span><br><span class="line">        if(intervals.empty()) return 0;</span><br><span class="line">        sort(intervals.begin(), intervals.end());</span><br><span class="line">       </span><br><span class="line">        int res = 0;</span><br><span class="line">        vector&lt;int&gt; temp;</span><br><span class="line">        for(auto p : intervals)&#123;</span><br><span class="line">            if( temp.empty() || p[0] &gt;= temp[1])&#123;</span><br><span class="line">                temp = p; </span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                res++;</span><br><span class="line">                temp = p[1] &lt; temp[1]? p:temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="详细解释"><a href="#详细解释" class="headerlink" title="详细解释"></a>详细解释</h2><p>射气球，总的来看，其实第一支箭一定会射在第一个气球的范围之内，比如说[1,6]，而第二支箭一定是要射在第一个[1,6]覆盖不到的第一个气球的区间之内的。所以当我们按照他们的区间后端进行排序之后，就会很容易找到第一个不重合的气球，每次遇到一个与之前不重合的气球，就射一箭，从而可以实现最优解。</p>
+<h2 id="巧妙之处"><a href="#巧妙之处" class="headerlink" title="巧妙之处"></a>巧妙之处</h2><ol>
+<li>之前的排序其实都是按照有序对的第一个元素进行排序，然后本题目是按照第二个元素排序，就可以使得题目变得非常的简单有效。</li>
+<li>复习之前的lambda表达式的用法。<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int findMinArrowShots(vector&lt;vector&lt;int&gt;&gt;&amp; points) &#123;</span><br><span class="line">        if(points.empty()) return 0;</span><br><span class="line">        sort(points.begin(), points.end(),[](vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">            return (a[1] &lt; b[1]);</span><br><span class="line">        &#125;);</span><br><span class="line">        int res = 1;</span><br><span class="line">        int end = points[0][1];</span><br><span class="line">        for(int i = 1; i &lt;  points.size(); i++)&#123;</span><br><span class="line">            if(points[i][0] &gt; end)&#123;</span><br><span class="line">                res++;</span><br><span class="line">                end = points[i][1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
 <p>以上，本题结束！</p>
 
     </div>
@@ -319,17 +321,14 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/11/leetcode-406-QueueReconstructionbyHeight/" rel="next" title="leetcode-406-QueueReconstructionbyHeight">
-                  <i class="fa fa-chevron-left"></i> leetcode-406-QueueReconstructionbyHeight
+                <a href="/2019/11/12/leetcode-435-Non-overlapping-Intervals/" rel="next" title="leetcode-435-Non-overlapping-Intervals">
+                  <i class="fa fa-chevron-left"></i> leetcode-435-Non-overlapping-Intervals
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/12/leetcode-452-MinimumNumberOfArrowsToBurstBalloons/" rel="prev" title="leetcode-452-MinimumNumberOfArrowsToBurstBalloons">
-                  leetcode-452-MinimumNumberOfArrowsToBurstBalloons <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -368,7 +367,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-1"><span class="nav-number">2.1.</span> <span class="nav-text">Example 1:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-2"><span class="nav-number">2.2.</span> <span class="nav-text">Example 2:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-3"><span class="nav-number">2.3.</span> <span class="nav-text">Example 3:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#巧妙之处"><span class="nav-number">4.</span> <span class="nav-text">巧妙之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">5.</span> <span class="nav-text">解题代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细解释"><span class="nav-number">4.</span> <span class="nav-text">详细解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#巧妙之处"><span class="nav-number">5.</span> <span class="nav-text">巧妙之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">6.</span> <span class="nav-text">解题代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
