@@ -3,7 +3,7 @@
   <entry>
     <title>kickstart-2019-H-T1-HIndex</title>
     <url>/2019/11/17/kickstart-2019-H-T1-HIndex/</url>
-    <content><![CDATA[<p>2019年kickstart最后一轮，<br>真心感慨，自己要学的东西还有很多啊，<br>人家怎么就能16分钟三道题目全部做对呢？<br>本篇文章为2019年kickstart比赛H轮第一题的解法～</p>
+    <content><![CDATA[<p>2019年kickstart最后一轮，下午1点到4点。<br>真心感慨，自己要学的东西还有很多啊，<br>本文是第一题H-index，计算科研人员影响因子的一道题目。</p>
 <a id="more"></a>
 
 <h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><a href="https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050edd/00000000001a274e" target="_blank" rel="noopener">Problem</a></h2><p>It is important for researchers to write many high quality academic papers. Jorge has recently discovered a way to measure how impactful a researcher’s papers are: the H-index.</p>
