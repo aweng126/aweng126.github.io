@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Kingwen's blog" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="2019年kickstart最后一轮，真心感慨，自己要学的东西还有很多啊，人家怎么就能16分钟三道题目全部做对呢？本篇文章为2019年kickstart比赛H轮第一题的解法～">
+<meta name="keywords" content="kickstart,multiset">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kickstart-2019-H-T1-HIndex">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;17&#x2F;kickstart-2019-H-T1-HIndex&#x2F;index.html">
+<meta property="og:site_name" content="Kingwen&#39;s blog">
+<meta property="og:description" content="2019年kickstart最后一轮，真心感慨，自己要学的东西还有很多啊，人家怎么就能16分钟三道题目全部做对呢？本篇文章为2019年kickstart比赛H轮第一题的解法～">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-17T12:40:35.947Z">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="http://yoursite.com/2019/11/17/kickstart-2019-H-T1-HIndex/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>kickstart-2019-H-T1-HIndex | Kingwen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kingwen's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">没有输出的输入是不完整的</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-talk">
+
+    <a href="/talk" rel="section"><i class="fa fa-fw fa-envelope"></i>呓语</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/kickstart-2019-H-T1-HIndex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          kickstart-2019-H-T1-HIndex
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-11-17 20:31:08 / 修改时间：20:40:35" itemprop="dateCreated datePublished" datetime="2019-11-17T20:31:08+08:00">2019-11-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/" itemprop="url" rel="index">
+                    <span itemprop="name">算法训练</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>2019年kickstart最后一轮，<br>真心感慨，自己要学的东西还有很多啊，<br>人家怎么就能16分钟三道题目全部做对呢？<br>本篇文章为2019年kickstart比赛H轮第一题的解法～</p>
+<a id="more"></a>
+
+<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><a href="https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050edd/00000000001a274e" target="_blank" rel="noopener">Problem</a></h2><p>It is important for researchers to write many high quality academic papers. Jorge has recently discovered a way to measure how impactful a researcher’s papers are: the H-index.</p>
+<p>The H-index score of a researcher is the largest integer h such that the researcher has h papers with at least h citations each.</p>
+<p>Jorge has written N papers in his lifetime. The i-th paper has Ai citations. The number of citations that each paper has will never change after it is written. Please help Jorge determine his H-index score after each paper he wrote.</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The first line of the input gives the number of test cases, T. T test cases follow. Each test case begins with a line containing N, the number of papers Jorge wrote.</p>
+<p>The second line contains N integers. The i-th integer is Ai, the number of citations the i-th paper has.</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>For each test case, output one line containing Case #x: y, where x is the test case number (starting from 1) and y is a space-separated list of integers. The i-th integer is the H-index score after Jorge wrote his i-th paper.</p>
+<h2 id="Limits"><a href="#Limits" class="headerlink" title="Limits"></a>Limits</h2><p>Time limit: 50 seconds per test set.<br>Memory limit: 1GB.<br>1 ≤ T ≤ 100.<br>1 ≤ Ai ≤ 105.</p>
+<h2 id="Test-set"><a href="#Test-set" class="headerlink" title="Test set"></a>Test set</h2><h3 id="Test-set-1-Visible"><a href="#Test-set-1-Visible" class="headerlink" title="Test set 1 (Visible)"></a>Test set 1 (Visible)</h3><p>1 ≤ N ≤ 1000.</p>
+<h3 id="Test-set-2-Hidden"><a href="#Test-set-2-Hidden" class="headerlink" title="Test set 2 (Hidden)"></a>Test set 2 (Hidden)</h3><p>1 ≤ N ≤ 105.</p>
+<h2 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// Input</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">5 1 2</span><br><span class="line">6</span><br><span class="line">1 3 3 2 2 15</span><br><span class="line"></span><br><span class="line">//Output</span><br><span class="line">Case #1: 1 1 2</span><br><span class="line">Case #2: 1 1 2 2 2 3</span><br></pre></td></tr></table></figure>
+
+<p>In Sample Case #1, Jorge wrote N = 3 papers.<br>After the 1st paper, Jorge’s H-index score is 1, since he has 1 paper with at least 1 citation.<br>After the 2nd paper, Jorge’s H-index score is still 1.<br>After the 3rd paper, Jorge’s H-index score is 2, since he has 2 papers with at least 2 citations (the 1st and 3rd papers).</p>
+<p>In Sample Case #2, Jorge wrote N = 6 papers.<br>After the 1st paper, Jorge’s H-index score is 1, since he has 1 paper with at least 1 citation.<br>After the 2nd paper, Jorge’s H-index score is still 1.<br>After the 3rd paper, Jorge’s H-index score is 2, since he has 2 papers with at least 2 citations (the 2nd and 3rd papers).<br>After the 4th paper, Jorge’s H-index score is still 2.<br>After the 5th paper, Jorge’s H-index score is still 2.<br>After the 6th paper, Jorge’s H-index score is 3, since he has 3 papers with at least 3 citations (the 2nd, 3rd and 6th papers).</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h3 id="原始版思路"><a href="#原始版思路" class="headerlink" title="原始版思路"></a>原始版思路</h3><p>因为每次写完一篇文章都要给出一个结果，所以肯定每次有新的文章都要重新计算一次，而H-index的计算方式是说至少有h篇文章，然后每篇文章都至少有h的引用数，所以我就联想到上一轮kickstart的第一题，借鉴到相同思路，我们可以通过建立一个数组，保存对应的引用数目，</p>
+<p>比如有N篇文章，那么引用最高为N，方便起见，我们建立一个N+1的数组（全部初始化为0）。0索引位置不再使用。然后每个位置代表有这个引用的文章有多少篇，然后在我寻找h-index的时候，只要当前位置寻找arr[i] &gt;=i的第一个数字即可。</p>
+<p>以[5,1,2]为例进行讲解。</p>
+<ol>
+<li>首先建立一个4(也就是3+1)个元素的数组，[0,0,0,0]</li>
+<li>第一个数字为5，那么1到3号索引位置元素都+1，变成[0,1,1,1];<br>这个时候从1号索引位置往前找第一个符合arr[i]&gt;=i的元素，也就是1；</li>
+<li>第二个数字为1，那么1号索引位置元素+1，变成[0,2,1,1];<br>这个时候从2号索引位置往前找第一个符合arr[i]&gt;=i的元素，还是1；</li>
+<li>第三个数字是2，那么1号到2号索引位置元素+1，变成[0,3,2,1];<br>这个时候从3号索引位置往前找第一个符合arr[i]&gt;=i的元素，此时变成了2；</li>
+<li>所以最终的结果也就是[1,1,2]</li>
+</ol>
+<p>算法复杂度是O(n^2)，可以通过小case。</p>
+<h3 id="升级版思路"><a href="#升级版思路" class="headerlink" title="升级版思路"></a>升级版思路</h3><p>这个思路就会比较好，构造了一个multiset来存储元素，这里的一个好处就是他会对插入的元素进行自动排序，默认是从小到大的顺序，底层是用红黑树实现的，插入删除查找的复杂度都是lg(n)级别的。然后我们每次将读入的数字插入到multiset中，然后判断头元素（实际就是所有元素中最小的元素）是否小于容器内元素个数。如果小于，那么删除头元素。最后我们想要的h-index其实就是每一轮之后的容器内元素个数。</p>
+<p>还是以[5,1,2]为例进行讲解。</p>
+<ol>
+<li>开始插入5，此时s={5},然后5大于当前元素个数1，所以s保持不变s={5},所以第一轮结果为1；</li>
+<li>然后插入1，此时s={1,5}, 此时1是小于当前元素个数2，所以要删除第一个元素，s变成{5},所以第二轮结果为1；</li>
+<li>然后插入2，此时s={2,5},然后2要等于当前元素个数，所以s保持不变，s= {2,5},所以第三轮返回结果为2.</li>
+<li>所以最终结果也就是[1,1,2]</li>
+</ol>
+<p>算法的复杂度为O(nlgn)</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="原始版"><a href="#原始版" class="headerlink" title="原始版"></a>原始版</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstdio&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;set&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long LL;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    int T;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;T);</span><br><span class="line">    string res;</span><br><span class="line">    for (int t = 1; t &lt;= T; ++t) &#123;</span><br><span class="line">        int M;</span><br><span class="line">        scanf(&quot;%d&quot;,&amp;M);</span><br><span class="line">        vector&lt;int&gt; arr(M+1,0);</span><br><span class="line">  </span><br><span class="line">        int x;</span><br><span class="line">        arr[0] = 0;</span><br><span class="line">        res =&quot;&quot;;</span><br><span class="line">        for(int i = 1;i&lt;=M;i++)&#123;</span><br><span class="line">             scanf(&quot;%d&quot;,&amp;x);</span><br><span class="line">             for(int j = 1; j &lt;= x &amp;&amp; j&lt;=M ; j++)&#123;</span><br><span class="line">                  arr[j]++;</span><br><span class="line">                &#125;</span><br><span class="line">             int k = i;</span><br><span class="line">             while(k&gt;0)&#123;</span><br><span class="line">                 if(arr[k] &gt;= k)&#123;</span><br><span class="line">                     res  += &quot; &quot;+to_string(k);</span><br><span class="line">                     break;</span><br><span class="line">                 &#125;</span><br><span class="line">                 k--;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">        printf(&quot;Case #%d: %s \n&quot;, t, res.c_str());</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="升级版"><a href="#升级版" class="headerlink" title="升级版"></a>升级版</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstdio&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;set&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long LL;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    int T;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;T);</span><br><span class="line">    string res;</span><br><span class="line">    for (int t = 1; t &lt;= T; ++t) &#123;</span><br><span class="line">        int M;</span><br><span class="line">        scanf(&quot;%d&quot;,&amp;M);</span><br><span class="line">        int x;</span><br><span class="line">        string res = &quot;&quot;;</span><br><span class="line">        multiset&lt;int&gt; aset;</span><br><span class="line">        for(int i = 0;i&lt;M;i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;, &amp;x);</span><br><span class="line">            aset.insert(x);</span><br><span class="line">            int b = *aset.begin();</span><br><span class="line">            if(b &lt; aset.size())&#123;</span><br><span class="line">                aset.erase(aset.begin());</span><br><span class="line">            &#125;</span><br><span class="line">            res += &quot; &quot;+to_string(aset.size());</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;Case #%d: %s \n&quot;, t, res.c_str());</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="反思"><a href="#反思" class="headerlink" title="反思"></a>反思</h2><ol>
+<li>想了一下这个题目和之前G轮的第一题<a href="http://kingwen.cn/2019/10/22/kickstart-2019-G-T1-BookReading/" target="_blank" rel="noopener">BookReading</a>有什么不同，结论是对于bookreading来说，首先是把所有的结果都统计一遍之后，然后所有的测试用例都只需要访问之前的结果就可以了（用一个数组来表示每页书的情况，然后读取对应因子的倍数得到相应的结果，其实就是上面链接中的动态规划第一版）从而可以节省大量的时间。但是本题目并不是这样子，本题目对于每次的有一个新的数值输入，都会进行新一轮的结果运算，所以如果我们再依次的去保存每一个位置的结果，尤其是通过对数组中元素依次加1的方式实现，复杂度必然会很高，现在想想的话，其实就比每次都完全的遍历一遍（每一次都从index开始找，看看paper数组中元素个数有没有大于index，找到第一个复合条件的即可,总的时间复杂度为O(n^3)）好那么一点。然后考虑到我们其实想要的结果是数量，所以就可以非常巧妙的利用一些数据结构，上面的测试用例用的是multiset，其实用最小堆，用unordered_map都可以实现，重点是保证内部元素有序，从而可以利用容器中的数量来变相的表示我们想要的结果。</li>
+<li>以后要注意很多有用的数据结构的使用方法，比如本次使用的就是multiset这个数据结构，有机会再去看看其内部实现，首先要知道才能在真正要使用的时候想到它。</li>
+<li>题目做的还是太少了，见识太少了，以后还是要坚持刷题啊，见多识广才能见怪不怪。</li>
+<li>看人家的好的解题思路真的是赏心悦目，倍感舒适啊。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/kickstart/" rel="tag"># kickstart</a>
+              <a href="/tags/multiset/" rel="tag"># multiset</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/11/13/leetcode-861-ScoreAfterFlippingMatrix/" rel="next" title="leetcode-861-ScoreAfterFlippingMatrix">
+                  <i class="fa fa-chevron-left"></i> leetcode-861-ScoreAfterFlippingMatrix
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">1.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Input"><span class="nav-number">2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Output"><span class="nav-number">3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Limits"><span class="nav-number">4.</span> <span class="nav-text">Limits</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-set"><span class="nav-number">5.</span> <span class="nav-text">Test set</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Test-set-1-Visible"><span class="nav-number">5.1.</span> <span class="nav-text">Test set 1 (Visible)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Test-set-2-Hidden"><span class="nav-number">5.2.</span> <span class="nav-text">Test set 2 (Hidden)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sample"><span class="nav-number">6.</span> <span class="nav-text">Sample</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">7.</span> <span class="nav-text">思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原始版思路"><span class="nav-number">7.1.</span> <span class="nav-text">原始版思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级版思路"><span class="nav-number">7.2.</span> <span class="nav-text">升级版思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">8.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原始版"><span class="nav-number">8.1.</span> <span class="nav-text">原始版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级版"><span class="nav-number">8.2.</span> <span class="nav-text">升级版</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反思"><span class="nav-number">9.</span> <span class="nav-text">反思</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="李庆文"
+    src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">李庆文</p>
+  <div class="site-description" itemprop="description">热爱生活，享受生活。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/aweng126" title="GitHub &rarr; https://github.com/aweng126" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kingwensli@gmail.com" title="E-Mail &rarr; mailto:kingwensli@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李庆文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">29k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">32 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        本站访客共计<span id="busuanzi_value_site_uv"></span>人
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
