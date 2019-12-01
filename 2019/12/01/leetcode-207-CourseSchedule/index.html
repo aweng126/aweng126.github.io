@@ -51,17 +51,19 @@
   };
 </script>
 
-  <meta name="description" content="编辑距离是一个非常经典的动态规划的题目，之前搞懂过，但是总是会忘，所以又搞了一遍，顺便做个笔记。">
-<meta name="keywords" content="leetcode,hard">
+  <meta name="description" content="这个是leetcode中为数不多的关于Graph的题目，判断图中是否有环，可以用BFS或者DFS两种思路进行求解。">
+<meta name="keywords" content="leetcode,medium,Graph,BFS,DFS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-72-EditDistance">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;24&#x2F;leetcode-72-EditDistance&#x2F;index.html">
+<meta property="og:title" content="leetcode-207-CourseSchedule">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;01&#x2F;leetcode-207-CourseSchedule&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="编辑距离是一个非常经典的动态规划的题目，之前搞懂过，但是总是会忘，所以又搞了一遍，顺便做个笔记。">
+<meta property="og:description" content="这个是leetcode中为数不多的关于Graph的题目，判断图中是否有环，可以用BFS或者DFS两种思路进行求解。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-24T06:32:19.247Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;q1tldblw4.bkt.clouddn.com&#x2F;qiniu_kwimg20191201143417.png">
+<meta property="og:updated_time" content="2019-12-01T06:42:57.142Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/2019/10/24/leetcode-72-EditDistance/">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;q1tldblw4.bkt.clouddn.com&#x2F;qiniu_kwimg20191201143417.png">
+  <link rel="canonical" href="http://yoursite.com/2019/12/01/leetcode-207-CourseSchedule/">
 
 
 <script id="page-configurations">
@@ -75,7 +77,7 @@
   };
 </script>
 
-  <title>leetcode-72-EditDistance | Kingwen's blog</title>
+  <title>leetcode-207-CourseSchedule | Kingwen's blog</title>
   
 
 
@@ -217,7 +219,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/24/leetcode-72-EditDistance/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/01/leetcode-207-CourseSchedule/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -230,7 +232,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode-72-EditDistance
+          leetcode-207-CourseSchedule
         </h1>
 
         <div class="post-meta">
@@ -241,7 +243,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-24 14:26:49 / 修改时间：14:32:19" itemprop="dateCreated datePublished" datetime="2019-10-24T14:26:49+08:00">2019-10-24</time>
+              <time title="创建时间：2019-12-01 14:13:45 / 修改时间：14:42:57" itemprop="dateCreated datePublished" datetime="2019-12-01T14:13:45+08:00">2019-12-01</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,14 +270,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -287,34 +289,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>编辑距离是一个非常经典的动态规划的题目，之前搞懂过，但是总是会忘，所以又搞了一遍，顺便做个笔记。</p>
+        <p>这个是leetcode中为数不多的关于Graph的题目，判断图中是否有环，可以用BFS或者DFS两种思路进行求解。</p>
 <a id="more"></a>
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://leetcode.com/problems/edit-distance/" target="_blank" rel="noopener">题目描述</a></h2><p>Given two words word1 and word2, find the minimum number of operations required to convert word1 to word2.</p>
-<p>You have the following 3 operations permitted on a word:</p>
-<ol>
-<li>Insert a character</li>
-<li>Delete a character</li>
-<li>Replace a character</li>
-</ol>
-<h2 id="题目解读"><a href="#题目解读" class="headerlink" title="题目解读"></a>题目解读</h2><p>就是求两个字符串的最小编辑距离，也就是计算word1最少可以经过多少次变化(插入，删除，替换)可以变成word2。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="动态规划的具体思路"><a href="#动态规划的具体思路" class="headerlink" title="动态规划的具体思路"></a>动态规划的具体思路</h3><ol>
-<li>dp[i][j]表示word1的[0,i)变成word2的[0,j)位需要多少次变化。</li>
-<li>对于第0行，dp[0][i] = i for 0&lt;= i &lt;= len2; (len2是word2的字符串长度)</li>
-<li>对于第0列，dp[i][0] = i for 0=&lt; i &lt;= len1; (len1是word1的字符串长度)</li>
-<li>如果最后一位相同，则arr[i][j] = arr[i-1][j-1]</li>
-<li>若是判断的最后一位不同，则arr[i][j] = min(arr[i-1][j]+1, arr[i][j-1]+1 ,arr[i-1][j-1]+1)</li>
-<li>最后返回arr[len1][len2]</li>
-</ol>
-<h3 id="细节剖析"><a href="#细节剖析" class="headerlink" title="细节剖析"></a>细节剖析</h3><p>这里解释一下第4步，也是看了好久才明白的。</p>
-<p>下面以word1=”abb”,word2=”ac”为例。</p>
-<ol>
-<li>首先明确一下问题：我们现在要求的是abb需要多少步会变到ac，而假设我们已经知道了ab变ac，abb变a，ab变a三种情况，我们只需要现在的情况变到之前已知的情况就解决了。</li>
-<li>假设abb-&gt;ac是从ab-&gt;ac变过来的，那么我们只要将abb去掉最后一个b就可以，剩下的就是要考虑ab如何变成ac了。也就是arr[i][j]=arr[i-1][j]+1;</li>
-<li>假设abb-&gt;ac是从abb-&gt;a变过来的，那么我们只要在abb后面插入一个c就可以实现最后一位的匹配，剩下的就是考虑abb如何变成a了。也就是arr[i][j] = arr[i][j-1]+1;</li>
-<li>假设abb-&gt;ac是从ab-&gt;a变过来的，那么我们只要将abb的最后一位变成c，剩下的就是考虑如何将ab变成a了。也就是arr[i][j]=arr[i-1][j-1]+1;</li>
-<li>最后我们选一个从三种方式中修改次数最小的一个就可以了</li>
-</ol>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minDistance(string word1, string word2) &#123;</span><br><span class="line">        int len1 = word1.length();</span><br><span class="line">        int len2 = word2.length();</span><br><span class="line">        </span><br><span class="line">        int arr[len1+1][len2+1];</span><br><span class="line">        memset(arr,0,sizeof arr);</span><br><span class="line">        </span><br><span class="line">        for(int i = 0; i &lt;= len1; i++)&#123;</span><br><span class="line">            arr[i][0] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        for(int i = 0; i &lt;= len2; i++)&#123;</span><br><span class="line">            arr[0][i] = i;</span><br><span class="line">        &#125;      </span><br><span class="line">         for(int i = 1; i &lt;= len1; i++)&#123;</span><br><span class="line">             for(int j = 1;j &lt;= len2; j++)&#123;</span><br><span class="line">                 if(word1[i-1]==word2[j-1])&#123;</span><br><span class="line">                     arr[i][j] = arr[i-1][j-1];</span><br><span class="line">                 &#125;else&#123;</span><br><span class="line">                     arr[i][j] = min(min(arr[i-1][j],arr[i][j-1]),arr[i-1][j-1])+1;</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">        // for(int i = 0; i &lt;= len1; i++)&#123;</span><br><span class="line">        //      for(int j = 0;j &lt;= len2; j++)&#123;</span><br><span class="line">        //         cout&lt;&lt;arr[i][j]&lt;&lt;&apos;\t&apos;;         </span><br><span class="line">        //      &#125;</span><br><span class="line">        //     cout&lt;&lt;endl;</span><br><span class="line">        // &#125;</span><br><span class="line">        </span><br><span class="line">        return arr[len1][len2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>There are a total of n courses you have to take, labeled from 0 to n-1.</p>
+<p>Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]</p>
+<p>Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1"></a>Example 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Input: 2, [[1,0]] </span><br><span class="line">Output: true</span><br><span class="line">Explanation: There are a total of 2 courses to take. </span><br><span class="line">             To take course 1 you should have finished course 0. So it is possible.</span><br></pre></td></tr></table></figure>
+<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input: 2, [[1,0],[0,1]]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: There are a total of 2 courses to take. </span><br><span class="line">             To take course 1 you should have finished course 0, and to take course 0 you should</span><br><span class="line">             also have finished course 1. So it is impossible.</span><br></pre></td></tr></table></figure>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>BFS或者DFS</p>
+<h2 id="详细解释"><a href="#详细解释" class="headerlink" title="详细解释"></a>详细解释</h2><p>其实这个题目就是说对于每一个课程都有一个前置课程，然后问如果前置课程这样安排能不能成立，其实就可以抽象出查看一个图中是否有环，因为一旦有环路，那肯定是不成立的，反之，肯定成立。</p>
+<h3 id="BFS思路"><a href="#BFS思路" class="headerlink" title="BFS思路"></a>BFS思路</h3><p>我们创建一个队列，用于保存目前入度为0的点，然后我们对于每个节点都保存一个入度的值。然后从入度为0的值开始，进行遍历，对于这个点能达到的所有的点将其入度减去1，如果此时这个点入度为0，将其加入到队列中。当队列为空的时候，如果此时所有节点的入读都变成0，那么肯定没有环路，否则有环路。<br>举例说明,假设输入是如下情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4 [[1,0],[2,0],[1,2],[3,1]]</span><br></pre></td></tr></table></figure>
+<p>对应的图其实就是<br><img src="http://q1tldblw4.bkt.clouddn.com/qiniu_kwimg20191201143417.png" alt=""></p>
+<p>1.初始化队列q中元素只有0，入度数组arr=[0,2,1,1]<br>2. 然后经过0号节点，arr变为[0,1,0,1],此时2号加入队列<br>3. 然后处理2号节点，arr变成[0,0,0,1],此时1号加入队列<br>4. 然后处理1号节点，arr变成[0,0,0,0] 此时3号加入队列<br>5. 然后处理3号节点，arr变成[0,0,0,0] 此时队列为空。<br>6. 然后判断arr数组中每个节点的入度是否是0，全为0，返回true。</p>
+<h3 id="DFS思路"><a href="#DFS思路" class="headerlink" title="DFS思路"></a>DFS思路</h3><p>DFS就是用深度优先搜索，我们对于每个节点记录一个状态，-1表示是当前节点：如果在遍历过程中发现了-1，说明又回到了自身，那就是有环路，返回flase；0是默认值，代表之前还没有访问；1表示已经访问过了。对于每一个节点都进行如此的遍历，即可得到结果。<br>PS：要记得传引用而不要传对象本身，否则容易Time Limit Exceeded</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="BFS解题代码"><a href="#BFS解题代码" class="headerlink" title="BFS解题代码"></a>BFS解题代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool canFinish(int numCourses, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites) &#123;</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; graph(numCourses,vector&lt;int&gt;());</span><br><span class="line">        vector&lt;int&gt; in(numCourses,0);</span><br><span class="line">        for(auto a:prerequisites)&#123;</span><br><span class="line">            graph[a[1]].push_back(a[0]);</span><br><span class="line">            in[a[0]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        queue&lt;int&gt; q;</span><br><span class="line">        for(int i = 0;i&lt;in.size();i++)&#123;</span><br><span class="line">            if(in[i]==0) q.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while(!q.empty())&#123;</span><br><span class="line">            auto a = q.front(); q.pop();</span><br><span class="line">            for(int b:graph[a])&#123;</span><br><span class="line">                --in[b];</span><br><span class="line">                if(in[b]==0) q.push(b);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        for(int i:in)&#123;</span><br><span class="line">            if(i!=0) return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="DFS解题代码"><a href="#DFS解题代码" class="headerlink" title="DFS解题代码"></a>DFS解题代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool canFinish(int numCourses, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites) &#123;</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; graph(numCourses,vector&lt;int&gt;());</span><br><span class="line">        vector&lt;int&gt; visit(numCourses);</span><br><span class="line">        for(auto a:prerequisites)&#123;</span><br><span class="line">            graph[a[1]].push_back(a[0]);</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 0; i &lt; numCourses; ++i)&#123;</span><br><span class="line">            if(!findSelf(graph,visit,i)) return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    bool findSelf(vector&lt;vector&lt;int&gt;&gt;&amp; graph,vector&lt;int&gt;&amp; visit,int i)&#123;</span><br><span class="line">        if(visit[i] == -1) return false;</span><br><span class="line">        if(visit[i] == 1) return true;</span><br><span class="line">        visit[i] = -1;</span><br><span class="line">        for(auto a:graph[i])&#123;</span><br><span class="line">            if(!findSelf(graph,visit,a)) return false;</span><br><span class="line">        &#125;</span><br><span class="line">        visit[i] = 1;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>以上，本题结束！</p>
+
     </div>
 
     
@@ -324,24 +317,24 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/leetcode/" rel="tag"># leetcode</a>
-              <a href="/tags/hard/" rel="tag"># hard</a>
+              <a href="/tags/medium/" rel="tag"># medium</a>
+              <a href="/tags/Graph/" rel="tag"># Graph</a>
+              <a href="/tags/BFS/" rel="tag"># BFS</a>
+              <a href="/tags/DFS/" rel="tag"># DFS</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/10/23/build-image-hosting-service-with-github-and-PicGo/" rel="next" title="build-image-hosting-service-with-github-and-PicGo">
-                  <i class="fa fa-chevron-left"></i> build-image-hosting-service-with-github-and-PicGo
+                <a href="/2019/11/22/Class-with-pointer-mString-Houjie-Bilibili/" rel="next" title="Class-with-pointer-mString-Houjie-Bilibili">
+                  <i class="fa fa-chevron-left"></i> Class-with-pointer-mString-Houjie-Bilibili
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/08/leetcode-67-AddBinary/" rel="prev" title="leetcode-67-AddBinary">
-                  leetcode-67-AddBinary <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -380,7 +373,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题目解读"><span class="nav-number">2.</span> <span class="nav-text">题目解读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划的具体思路"><span class="nav-number">3.1.</span> <span class="nav-text">动态规划的具体思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#细节剖析"><span class="nav-number">3.2.</span> <span class="nav-text">细节剖析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">4.</span> <span class="nav-text">解题代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-1"><span class="nav-number">2.1.</span> <span class="nav-text">Example 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-2"><span class="nav-number">2.2.</span> <span class="nav-text">Example 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细解释"><span class="nav-number">4.</span> <span class="nav-text">详细解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BFS思路"><span class="nav-number">4.1.</span> <span class="nav-text">BFS思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DFS思路"><span class="nav-number">4.2.</span> <span class="nav-text">DFS思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">5.</span> <span class="nav-text">解题代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BFS解题代码"><span class="nav-number">5.1.</span> <span class="nav-text">BFS解题代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DFS解题代码"><span class="nav-number">5.2.</span> <span class="nav-text">DFS解题代码</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

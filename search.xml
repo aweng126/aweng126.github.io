@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>leetcode-207-CourseSchedule</title>
+    <url>/2019/12/01/leetcode-207-CourseSchedule/</url>
+    <content><![CDATA[<p>这个是leetcode中为数不多的关于Graph的题目，判断图中是否有环，可以用BFS或者DFS两种思路进行求解。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>There are a total of n courses you have to take, labeled from 0 to n-1.</p>
+<p>Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]</p>
+<p>Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1"></a>Example 1</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: 2, [[1,0]] </span><br><span class="line">Output: true</span><br><span class="line">Explanation: There are a total of 2 courses to take. </span><br><span class="line">             To take course 1 you should have finished course 0. So it is possible.</span><br></pre></td></tr></table></figure>
+<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Input: 2, [[1,0],[0,1]]</span><br><span class="line">Output: false</span><br><span class="line">Explanation: There are a total of 2 courses to take. </span><br><span class="line">             To take course 1 you should have finished course 0, and to take course 0 you should</span><br><span class="line">             also have finished course 1. So it is impossible.</span><br></pre></td></tr></table></figure>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>BFS或者DFS</p>
+<h2 id="详细解释"><a href="#详细解释" class="headerlink" title="详细解释"></a>详细解释</h2><p>其实这个题目就是说对于每一个课程都有一个前置课程，然后问如果前置课程这样安排能不能成立，其实就可以抽象出查看一个图中是否有环，因为一旦有环路，那肯定是不成立的，反之，肯定成立。</p>
+<h3 id="BFS思路"><a href="#BFS思路" class="headerlink" title="BFS思路"></a>BFS思路</h3><p>我们创建一个队列，用于保存目前入度为0的点，然后我们对于每个节点都保存一个入度的值。然后从入度为0的值开始，进行遍历，对于这个点能达到的所有的点将其入度减去1，如果此时这个点入度为0，将其加入到队列中。当队列为空的时候，如果此时所有节点的入读都变成0，那么肯定没有环路，否则有环路。<br>举例说明,假设输入是如下情况</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">4 [[1,0],[2,0],[1,2],[3,1]]</span><br></pre></td></tr></table></figure>
+<p>对应的图其实就是<br><img src="http://q1tldblw4.bkt.clouddn.com/qiniu_kwimg20191201143417.png" alt=""></p>
+<p>1.初始化队列q中元素只有0，入度数组arr=[0,2,1,1]<br>2. 然后经过0号节点，arr变为[0,1,0,1],此时2号加入队列<br>3. 然后处理2号节点，arr变成[0,0,0,1],此时1号加入队列<br>4. 然后处理1号节点，arr变成[0,0,0,0] 此时3号加入队列<br>5. 然后处理3号节点，arr变成[0,0,0,0] 此时队列为空。<br>6. 然后判断arr数组中每个节点的入度是否是0，全为0，返回true。</p>
+<h3 id="DFS思路"><a href="#DFS思路" class="headerlink" title="DFS思路"></a>DFS思路</h3><p>DFS就是用深度优先搜索，我们对于每个节点记录一个状态，-1表示是当前节点：如果在遍历过程中发现了-1，说明又回到了自身，那就是有环路，返回flase；0是默认值，代表之前还没有访问；1表示已经访问过了。对于每一个节点都进行如此的遍历，即可得到结果。<br>PS：要记得传引用而不要传对象本身，否则容易Time Limit Exceeded</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="BFS解题代码"><a href="#BFS解题代码" class="headerlink" title="BFS解题代码"></a>BFS解题代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool canFinish(int numCourses, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites) &#123;</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; graph(numCourses,vector&lt;int&gt;());</span><br><span class="line">        vector&lt;int&gt; in(numCourses,0);</span><br><span class="line">        for(auto a:prerequisites)&#123;</span><br><span class="line">            graph[a[1]].push_back(a[0]);</span><br><span class="line">            in[a[0]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        queue&lt;int&gt; q;</span><br><span class="line">        for(int i = 0;i&lt;in.size();i++)&#123;</span><br><span class="line">            if(in[i]==0) q.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while(!q.empty())&#123;</span><br><span class="line">            auto a = q.front(); q.pop();</span><br><span class="line">            for(int b:graph[a])&#123;</span><br><span class="line">                --in[b];</span><br><span class="line">                if(in[b]==0) q.push(b);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        for(int i:in)&#123;</span><br><span class="line">            if(i!=0) return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="DFS解题代码"><a href="#DFS解题代码" class="headerlink" title="DFS解题代码"></a>DFS解题代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool canFinish(int numCourses, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites) &#123;</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; graph(numCourses,vector&lt;int&gt;());</span><br><span class="line">        vector&lt;int&gt; visit(numCourses);</span><br><span class="line">        for(auto a:prerequisites)&#123;</span><br><span class="line">            graph[a[1]].push_back(a[0]);</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 0; i &lt; numCourses; ++i)&#123;</span><br><span class="line">            if(!findSelf(graph,visit,i)) return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    bool findSelf(vector&lt;vector&lt;int&gt;&gt;&amp; graph,vector&lt;int&gt;&amp; visit,int i)&#123;</span><br><span class="line">        if(visit[i] == -1) return false;</span><br><span class="line">        if(visit[i] == 1) return true;</span><br><span class="line">        visit[i] = -1;</span><br><span class="line">        for(auto a:graph[i])&#123;</span><br><span class="line">            if(!findSelf(graph,visit,a)) return false;</span><br><span class="line">        &#125;</span><br><span class="line">        visit[i] = 1;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>以上，本题结束！</p>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+        <tag>medium</tag>
+        <tag>Graph</tag>
+        <tag>BFS</tag>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Class-with-pointer-mString-Houjie-Bilibili</title>
     <url>/2019/11/22/Class-with-pointer-mString-Houjie-Bilibili/</url>
     <content><![CDATA[<p>在Bilibili跟着侯捷老师学C++系列第二篇，带指针的类mString类。<br>人生得遇良师，实属大幸，侯捷老师就属于这种老师，再夸一遍！！</p>
@@ -192,8 +225,8 @@
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -254,8 +287,8 @@
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -281,8 +314,8 @@
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -328,8 +361,8 @@
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
