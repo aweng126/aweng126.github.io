@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Make-MacOs-Support-NTFS</title>
+    <url>/2019/12/01/Make-MacOs-Support-NTFS/</url>
+    <content><![CDATA[<p>我有一个2T的硬盘，文件格式是NTFS格式的，在MAC系统上一直能读不能写，让我很苦恼，这次从网上找了一个方法而且亲测有效，所以特地记录一下。</p>
+<a id="more"></a>
+<h2 id="什么是NTFS"><a href="#什么是NTFS" class="headerlink" title="什么是NTFS"></a>什么是<a href="https://zh.wikipedia.org/wiki/NTFS" target="_blank" rel="noopener">NTFS</a></h2><p>简单来讲，NTFS是微软开发的专用文件系统，Mac OS X内核能对NTFS进行有限的读操作。Linux和BSD提供自由及开放源代码的软件，可用于读写NTFS文件。</p>
+<pre><code>NTFS（英语：New Technology File System），是Microsoft公司开发的专用文件系统，
+从Windows NT 3.1开始成为Windows NT家族的标准文件系统。[4]
+NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一系列改进，例如增强对元数据的支持，
+使用更高级的数据结构以提升性能、可靠性和磁盘空间利用率，并附带一系列增强功能，
+如访问控制列表（ACL）和文件系统日志等。
+——维基百科</code></pre><h2 id="解决措施"><a href="#解决措施" class="headerlink" title="解决措施"></a>解决措施</h2><h3 id="流程简介"><a href="#流程简介" class="headerlink" title="流程简介"></a>流程简介</h3><ol>
+<li>挂载上你的NTFS硬盘，查看硬盘名称</li>
+<li>编辑/etc/fstab文件，使其支持NTFS写入</li>
+<li>将/Volumes中的NTFS磁盘快捷方式到Finder</li>
+</ol>
+<h3 id="详细流程"><a href="#详细流程" class="headerlink" title="详细流程"></a>详细流程</h3><ol>
+<li><p>插上硬盘后，查看你的硬盘名称，这里假设名称是AngleDisk，牢记之（你的可不是这个呀！！）</p>
+</li>
+<li><p>打开Applications的Terminal, 你也可以直接spotlight输入terminal打开</p>
+</li>
+<li><p>在终端输入sudo nano /etc/fstab 敲击回车</p>
+</li>
+<li><p>现在你看到了一个编辑界面，输入LABEL=AngleDisk none ntfs rw,auto,nobrowse后，敲击回车，再Ctrl+X，再敲击Y，再敲击回车</p>
+</li>
+<li><p>此时，退出你的移动硬盘，再重新插入，你会发现磁盘没有显示再桌面或是Finder之前出现的地方，别慌</p>
+</li>
+<li><p>打开Finder，Command+Shift+G，输入框中输入/Volumes，回车，你就可以看到你的磁盘啦！是可以读写的哟，Enjoy</p>
+</li>
+<li><p>方便起见，你可以直接把磁盘拖到Finder侧边栏中，这样下次使用就不用进入到/Volumes目录打开了</p>
+</li>
+</ol>
+<h2 id="原文地址"><a href="#原文地址" class="headerlink" title="原文地址"></a>原文地址</h2><p><a href="https://blog.csdn.net/u013247765/article/details/77932144" target="_blank" rel="noopener">无需第三方软件实现Mac支持ntfs读写的最简单操作</a></p>
+]]></content>
+      <categories>
+        <category>实用技能</category>
+      </categories>
+      <tags>
+        <tag>MacOs</tag>
+        <tag>NTFS</tag>
+        <tag>转载</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>leetcode-207-CourseSchedule</title>
     <url>/2019/12/01/leetcode-207-CourseSchedule/</url>
     <content><![CDATA[<p>这个是leetcode中为数不多的关于Graph的题目，判断图中是否有环，可以用BFS或者DFS两种思路进行求解。</p>
