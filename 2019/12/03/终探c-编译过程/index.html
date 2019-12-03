@@ -51,17 +51,19 @@
   };
 </script>
 
-  <meta name="description" content="这道题目不是很难，但是思路也很好玩.通过这道题，我们还可以顺便掌握c++11中刚刚引入的lambda表达式，非常棒！">
-<meta name="keywords" content="leetcode,medium,Greedy">
+  <meta name="description" content="在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。本篇文章探究c++编译过程的第三篇，属于本系列暂时的最后一篇，总结了本次对于整个编译过程的探究结果，同时解释了动态链接和静态链接以及g++和gcc的一些区别和联系。">
+<meta name="keywords" content="g++,编译">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-406-QueueReconstructionbyHeight">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;leetcode-406-QueueReconstructionbyHeight&#x2F;index.html">
+<meta property="og:title" content="终探c++编译过程">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;%E7%BB%88%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="这道题目不是很难，但是思路也很好玩.通过这道题，我们还可以顺便掌握c++11中刚刚引入的lambda表达式，非常棒！">
+<meta property="og:description" content="在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。本篇文章探究c++编译过程的第三篇，属于本系列暂时的最后一篇，总结了本次对于整个编译过程的探究结果，同时解释了动态链接和静态链接以及g++和gcc的一些区别和联系。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-11T11:14:08.929Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;q1tldblw4.bkt.clouddn.com&#x2F;qiniu_kwimg20191203232929.png">
+<meta property="og:updated_time" content="2019-12-03T15:33:47.130Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/2019/11/11/leetcode-406-QueueReconstructionbyHeight/">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;q1tldblw4.bkt.clouddn.com&#x2F;qiniu_kwimg20191203232929.png">
+  <link rel="canonical" href="http://yoursite.com/2019/12/03/%E7%BB%88%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">
 
 
 <script id="page-configurations">
@@ -75,7 +77,7 @@
   };
 </script>
 
-  <title>leetcode-406-QueueReconstructionbyHeight | Kingwen's blog</title>
+  <title>终探c++编译过程 | Kingwen's blog</title>
   
 
 
@@ -217,7 +219,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/11/leetcode-406-QueueReconstructionbyHeight/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/%E7%BB%88%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -230,7 +232,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode-406-QueueReconstructionbyHeight
+          终探c++编译过程
         </h1>
 
         <div class="post-meta">
@@ -241,7 +243,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-11 19:04:35 / 修改时间：19:14:08" itemprop="dateCreated datePublished" datetime="2019-11-11T19:04:35+08:00">2019-11-11</time>
+              <time title="创建时间：2019-12-03 23:11:35 / 修改时间：23:33:47" itemprop="dateCreated datePublished" datetime="2019-12-03T23:11:35+08:00">2019-12-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -249,8 +251,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/" itemprop="url" rel="index">
-                    <span itemprop="name">算法训练</span>
+                  <a href="/categories/C-%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">C++基础</span>
                   </a>
                 </span>
             </span>
@@ -268,14 +270,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.9k</span>
+              <span>1.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -287,40 +289,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>这道题目不是很难，但是思路也很好玩.<br>通过这道题，我们还可以顺便掌握c++11中刚刚引入的lambda表达式，非常棒！</p>
+        <p>在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。<br>本篇文章探究c++编译过程的第三篇，属于本系列暂时的最后一篇，总结了本次对于整个编译过程的探究结果，同时解释了动态链接和静态链接以及g++和gcc的一些区别和联系。</p>
 <a id="more"></a>
-
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>Suppose you have a random list of people standing in a queue. Each person is described by a pair of integers (h, k), where h is the height of the person and k is the number of people in front of this person who have a height greater than or equal to h. Write an algorithm to reconstruct the queue.</p>
-<p>Note:<br>The number of people is less than 1,100.</p>
-<h3 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h3><p>Input:<br>[[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]</p>
-<p>Output:<br>[[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>贪心算法。</p>
-<h2 id="详细解释"><a href="#详细解释" class="headerlink" title="详细解释"></a>详细解释</h2><p>最开始先排序，按照如下规则进行排序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如果第一个元素不等，那么大的在前。</span><br><span class="line">如果第一个元素相等，那么第二个元素小的在前。</span><br></pre></td></tr></table></figure>
-<p>所以变化如下。</p>
+<p>其实c++编译过程很复杂，一本《编译原理》让无数从业人员感到自己能力有限，我们这里介绍的仅仅是最简单的，比较概括性的内容，如果想继续深入了解可以自行去看《编译原理》书籍。</p>
+<h2 id="编译过程总结"><a href="#编译过程总结" class="headerlink" title="编译过程总结"></a>编译过程总结</h2><p><img src="http://q1tldblw4.bkt.clouddn.com/qiniu_kwimg20191203232929.png" alt=""><br>我们现在应用的g++编译器其实是一个比较成熟的工具，内部细节我们不做深入探讨。但是从总体上来讲，它将整个编译过程分成了如下的四个步骤：</p>
+<h3 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h3><h4 id="g-执行编译"><a href="#g-执行编译" class="headerlink" title="g++执行编译"></a>g++执行编译</h4><p>从源代码文件变成预处理之后的源代码文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -E helloword.cpp helloword.ii</span><br></pre></td></tr></table></figure>
+<h4 id="原理解释"><a href="#原理解释" class="headerlink" title="原理解释"></a>原理解释</h4><p>简单点说，就是将代码进行整合，包括宏定义，include等都替换进来，没用的东西都删掉，比如注释等。</p>
+<p>详细点说<br>预处理相当于根据预处理指令组装新的C/C++程序。经过预处理，会产生一个没有宏定义，没有条件编译指令，没有特殊符号的输出文件，这个文件的含义同原本的文件无异，只是内容上有所不同。</p>
 <ol>
-<li>初始状态：[[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]</li>
-<li>排序之后：[[7,0], [7,1], [6,1], [5,0], [5,2], [4,4]]</li>
+<li>读取C/C++源程序，对其中的伪指令（以#开头的指令）进行处理<ol>
+<li>将所有的“#define”删除，并且展开所有的宏定义</li>
+<li>处理所有的条件编译指令，如：“#if”、“#ifdef”、“#elif”、“#else”、“endif”等。这些伪指令的引入使得程序员可以通过定义不同的宏来决定编译程序对哪些代码进行处理。预编译程序将根据有关的文件，将那些不必要的代码过滤掉。</li>
+<li>处理“#include”预编译指令，将被包含的文件插入到该预编译指令的位置。</li>
 </ol>
-<p>接下来从第二个元素开始插入，按照如下规则进行排序。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将两个数构成的数组插入到数组中第二个数的位置。</span><br><span class="line">如将[6,1]插入到1号位置，将[5,2]插入到2号位置，注意这个地方要从前往后一次的进行插入。</span><br></pre></td></tr></table></figure>
-<p>插入之后的变化依次如下,这里可以从第二个元素开始进行判断</p>
-<ol start="3">
-<li>插入[7,1]元素：[[7,0], [7,1], [6,1], [5,0], [5,2], [4,4]]</li>
-<li>插入[6,1]元素：[[7,0], [6,1], [7,1], [5,0], [5,2], [4,4]]</li>
-<li>插入[5,0]元素：[[5,0], [7,0], [6,1], [7,1], [5,2], [4,4]]</li>
-<li>插入[5,2]元素：[[5,0], [7,0], [5,2], [6,1], [7,1], [4,4]]</li>
-<li>插入[4,4]元素：[[5,0], [7,0], [5,2], [6,1], [4,4]，[7,1]]<h2 id="巧妙之处"><a href="#巧妙之处" class="headerlink" title="巧妙之处"></a>巧妙之处</h2></li>
-<li>要学会使用lambda表达式，也就是如下的代码。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort(people.begin(), people.end(),[](vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">                 return ((a[0] &gt; b[0]) ||(a[0] == b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
-如果不使用lambda表达式那么就需要写成如下模样。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static bool cmp(vector&lt;int&gt;&amp; a, vector&lt;int&gt; b)&#123;</span><br><span class="line">    return ((a[0] &gt; b[0]) ||(a[0] == b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">&#125;</span><br><span class="line"># 然后调用的时候如下</span><br><span class="line">sort(people.begin(),people.end(),cmp);</span><br></pre></td></tr></table></figure></li>
-<li>发现排序之后整个vector可以插入的位置刚刚好是vector中第二个元素的位置。</li>
+</li>
 </ol>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="原始代码"><a href="#原始代码" class="headerlink" title="原始代码"></a>原始代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;</span><br><span class="line">        sort(people.begin(), people.end(),</span><br><span class="line">             [](vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">                 return ((a[0] &gt; b[0]) ||(a[0] == b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">             &#125;</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">        for(int i = 1; i &lt; people.size(); i++ )&#123;</span><br><span class="line">            auto p = people[i]; </span><br><span class="line">            if(p[1] != i)&#123;</span><br><span class="line">                people.erase(people.begin()+i);</span><br><span class="line">                people.insert(people.begin() + p[1],p);   </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return people;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="升级代码"><a href="#升级代码" class="headerlink" title="升级代码"></a>升级代码</h3><p>上面的那种方法速度比较满，原因在于是在原数组上进行插入同时还要进行删除操作，而如果我们直接新建一个vector来保存结果，那么就只需要插入就可以了，然后速度会有很大的提升。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    static bool cmp(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">        return (a[0] &gt; b[0] ||(a[0]==b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;</span><br><span class="line">        sort(people.begin(), people.end(),cmp);</span><br><span class="line">        </span><br><span class="line">        vector&lt; vector&lt;int&gt; &gt; ans;</span><br><span class="line">        for(int i = 0; i &lt; people.size(); i++ )&#123;</span><br><span class="line">            auto p = people[i]; </span><br><span class="line">            ans.insert(ans.begin()+p[1],p);</span><br><span class="line">        &#125;</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="再次升级代码"><a href="#再次升级代码" class="headerlink" title="再次升级代码"></a>再次升级代码</h3><p>为了代码好看，可以再次升级代码，使用增强的for循环。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    static bool cmp(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">        return (a[0] &gt; b[0] ||(a[0]==b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;</span><br><span class="line">        sort(people.begin(), people.end(),cmp);</span><br><span class="line">        </span><br><span class="line">        vector&lt; vector&lt;int&gt; &gt; ans;</span><br><span class="line">        for(auto p:people)&#123;</span><br><span class="line">            ans.insert(ans.begin()+p[1],p);</span><br><span class="line">        &#125;</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>以上，本题结束。</p>
+<p>（注意：这个过程可能是递归进行的，也就是说被包含的文件可能还包含其他文件）<br>2. 删除所有的注释<br>3. 添加行号和文件名标识<br>以便于编译时编译器产生调试用的行号信息及用于编译时产生的编译错误或警告时能够显示行号<br>4. 保留所有的#pragma编译器指令</p>
+<h3 id="编译优化"><a href="#编译优化" class="headerlink" title="编译优化"></a>编译优化</h3><h4 id="g-执行编译-1"><a href="#g-执行编译-1" class="headerlink" title="g++执行编译"></a>g++执行编译</h4><p>从源代码文件变成汇编代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -S helloword.cpp helloword.s</span><br></pre></td></tr></table></figure>
+<h4 id="原理解释-1"><a href="#原理解释-1" class="headerlink" title="原理解释"></a>原理解释</h4><p>将预处理完的文件进行一系列词法分析、语法分析、语义分析及优化后，产生相应的汇编代码文件。</p>
+<h3 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h3><h4 id="g-执行编译-2"><a href="#g-执行编译-2" class="headerlink" title="g++执行编译"></a>g++执行编译</h4><p>从源代码文件变成对象文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -c talk.cpp -o talk.o</span><br><span class="line">g++ -c talktest.cpp -o talktest.o</span><br></pre></td></tr></table></figure>
+<h4 id="原理解释-2"><a href="#原理解释-2" class="headerlink" title="原理解释"></a>原理解释</h4><p><strong>将编译完的汇编代码文件翻译成机器指令，并生成可重定位目标程序的.o文件，该文件为二进制文件，字节编码是机器指令。</strong></p>
+<p>汇编器是将汇编代码转变成机器可以执行的指令，每一个汇编语句几乎都对应一条机器指令。所以汇编器的汇编过程相对于编译器来讲比较简单，它没有复杂的语法，也没有语义，也不需要做指令优化，只是根据汇编指令和机器指令的对照表一一翻译即可</p>
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><h4 id="gcc执行编译"><a href="#gcc执行编译" class="headerlink" title="gcc执行编译"></a>gcc执行编译</h4><p>从对象文件变成可执行文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ talk.o talktest.o -o talktest</span><br><span class="line">./talktest</span><br></pre></td></tr></table></figure>
+<p>也可以从源代码文件变成可执行文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ helloword.cpp -o helloworld</span><br><span class="line">./helloworld</span><br></pre></td></tr></table></figure>
+<h4 id="原理解释-3"><a href="#原理解释-3" class="headerlink" title="原理解释"></a>原理解释</h4><p>通过链接器将一个个目标文件（或许还会有库文件）链接在一起生成一个完整的可执行程序</p>
+<h2 id="关于链接过程"><a href="#关于链接过程" class="headerlink" title="关于链接过程"></a>关于链接过程</h2><p>在编译器的第四步链接的时候，主要工作是将对象文件和标准库中的文件进行链接，打包成可执行文件，这个大家应该已经很清楚啦。那么怎么链接呢？</p>
+<h3 id="静态链接"><a href="#静态链接" class="headerlink" title="静态链接"></a>静态链接</h3><p>静态链接是直接将所需要的库都直接嵌入到我们的主程序中，然后直接打包成可执行程序。</p>
+<h3 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h3><p>在主程序中仅仅对这个库进行一次声明，等到程序执行到这个地方的时候，再去引用这个库。</p>
+<h3 id="共同存在的必要性"><a href="#共同存在的必要性" class="headerlink" title="共同存在的必要性"></a>共同存在的必要性</h3><p>静态库有容易使用和理解，而且也达到了代码复用的目的，那为什么我们还要有动态库呢？</p>
+<ol>
+<li>静态库容易造成空间浪费。</li>
+<li>静态库对程序的更新、部署和发布页会带来麻烦</li>
+</ol>
+<p>这两个缺点也就决定了动态库存在的必要性。</p>
+<ol>
+<li>动态库在程序编译时并不会被连接到目标代码中，而是在程序运行是才被载入。不同的应用程序如果调用相同的库，那么在内存里只需要有一份该共享库的实例，规避了空间浪费问题。</li>
+<li>动态库在程序运行是才被载入，也解决了静态库对程序的更新、部署和发布页会带来麻烦。用户只需要更新动态库即可，增量更新。</li>
+</ol>
+<h2 id="Gcc和G-区别与联系"><a href="#Gcc和G-区别与联系" class="headerlink" title="Gcc和G++区别与联系"></a>Gcc和G++区别与联系</h2><p>gcc和g++都是<a href="https://en.wikipedia.org/wiki/GNU" target="_blank" rel="noopener">GNU组织</a>的编译器。<br>1、对于.c后缀的文件，gcc把它当做是C程序；g++ 当做是C++程序；<br>2、对于.cpp后缀的文件，gcc和g++ 都会当做c++程序。<br>3、编译阶段，g++ 会调用gcc；<br>4、连接阶段，通常会用g++ 来完成，这是因为gcc命令不能自动和c++程序使用的库连接</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://blog.csdn.net/wcc27857285/article/details/84945519" target="_blank" rel="noopener">C/C++ 程序编译过程详解</a></li>
+<li><a href="https://blog.csdn.net/baidu_33604078/article/details/79091049" target="_blank" rel="noopener">程序编译的四个过程</a></li>
+<li><a href="https://www.cnblogs.com/mickole/articles/3659112.html" target="_blank" rel="noopener">C/C++程序编译过程详解</a></li>
+<li><a href="https://www.cnblogs.com/skynet/p/3372855.html" target="_blank" rel="noopener">C++静态库与动态库</a></li>
+</ol>
 
     </div>
 
@@ -330,26 +347,22 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/leetcode/" rel="tag"># leetcode</a>
-              <a href="/tags/medium/" rel="tag"># medium</a>
-              <a href="/tags/Greedy/" rel="tag"># Greedy</a>
+              <a href="/tags/g/" rel="tag"># g++</a>
+              <a href="/tags/%E7%BC%96%E8%AF%91/" rel="tag"># 编译</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/11/how-to-save-pdf-images/" rel="next" title="how-to-save-pdf-images">
-                  <i class="fa fa-chevron-left"></i> how-to-save-pdf-images
+                <a href="/2019/12/03/%E5%86%8D%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/" rel="next" title="再探c++编译过程">
+                  <i class="fa fa-chevron-left"></i> 再探c++编译过程
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/12/leetcode-435-Non-overlapping-Intervals/" rel="prev" title="leetcode-435-Non-overlapping-Intervals">
-                  leetcode-435-Non-overlapping-Intervals <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -388,7 +401,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sample"><span class="nav-number">1.1.</span> <span class="nav-text">sample</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细解释"><span class="nav-number">3.</span> <span class="nav-text">详细解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#巧妙之处"><span class="nav-number">4.</span> <span class="nav-text">巧妙之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">5.</span> <span class="nav-text">解题代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原始代码"><span class="nav-number">5.1.</span> <span class="nav-text">原始代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级代码"><span class="nav-number">5.2.</span> <span class="nav-text">升级代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再次升级代码"><span class="nav-number">5.3.</span> <span class="nav-text">再次升级代码</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译过程总结"><span class="nav-number">1.</span> <span class="nav-text">编译过程总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预编译"><span class="nav-number">1.1.</span> <span class="nav-text">预编译</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#g-执行编译"><span class="nav-number">1.1.1.</span> <span class="nav-text">g++执行编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理解释"><span class="nav-number">1.1.2.</span> <span class="nav-text">原理解释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译优化"><span class="nav-number">1.2.</span> <span class="nav-text">编译优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#g-执行编译-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">g++执行编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理解释-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">原理解释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#汇编"><span class="nav-number">1.3.</span> <span class="nav-text">汇编</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#g-执行编译-2"><span class="nav-number">1.3.1.</span> <span class="nav-text">g++执行编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理解释-2"><span class="nav-number">1.3.2.</span> <span class="nav-text">原理解释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接"><span class="nav-number">1.4.</span> <span class="nav-text">链接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gcc执行编译"><span class="nav-number">1.4.1.</span> <span class="nav-text">gcc执行编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理解释-3"><span class="nav-number">1.4.2.</span> <span class="nav-text">原理解释</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于链接过程"><span class="nav-number">2.</span> <span class="nav-text">关于链接过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态链接"><span class="nav-number">2.1.</span> <span class="nav-text">静态链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态链接"><span class="nav-number">2.2.</span> <span class="nav-text">动态链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共同存在的必要性"><span class="nav-number">2.3.</span> <span class="nav-text">共同存在的必要性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gcc和G-区别与联系"><span class="nav-number">3.</span> <span class="nav-text">Gcc和G++区别与联系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Kingwen's blog" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。本篇文章探究c++编译过程的第二篇，主要解释了第一篇中的一些现象，同时尝试编译出预处理文件、汇编文件、对象文件等编译过程中的中间产物。">
+<meta name="keywords" content="g++,编译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="再探c++编译过程">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;%E5%86%8D%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B&#x2F;index.html">
+<meta property="og:site_name" content="Kingwen&#39;s blog">
+<meta property="og:description" content="在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。本篇文章探究c++编译过程的第二篇，主要解释了第一篇中的一些现象，同时尝试编译出预处理文件、汇编文件、对象文件等编译过程中的中间产物。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-03T15:10:22.769Z">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="http://yoursite.com/2019/12/03/%E5%86%8D%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>再探c++编译过程 | Kingwen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kingwen's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">没有输出的输入是不完整的</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-talk">
+
+    <a href="/talk" rel="section"><i class="fa fa-fw fa-envelope"></i>呓语</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/03/%E5%86%8D%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          再探c++编译过程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-03 23:02:27 / 修改时间：23:10:22" itemprop="dateCreated datePublished" datetime="2019-12-03T23:02:27+08:00">2019-12-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">C++基础</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。<br>本篇文章探究c++编译过程的第二篇，主要解释了第一篇中的一些现象，同时尝试编译出预处理文件、汇编文件、对象文件等编译过程中的中间产物。</p>
+<a id="more"></a>
+<h2 id="编译原理解释"><a href="#编译原理解释" class="headerlink" title="编译原理解释"></a>编译原理解释</h2><h3 id="编译器的作用"><a href="#编译器的作用" class="headerlink" title="编译器的作用"></a>编译器的作用</h3><p>编译器 g++ 通过检查命令行中指定的文件的后缀名可识别其为 C++ 源代码文件。</p>
+<p>编译器默认的动作：编译源代码文件生成<strong>对象文件(object file)</strong>，将<strong>对象文件</strong>和 <strong>libstdc++ 库中的函数</strong>进行链接得到可执行程序。</p>
+<h3 id="c-编程中常见文件后缀"><a href="#c-编程中常见文件后缀" class="headerlink" title="c++编程中常见文件后缀"></a>c++编程中常见文件后缀</h3><table>
+    <tbody>
+  <tr>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">
+      <strong>.a</strong></td>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">静态库 (archive)</td></tr>
+  <tr>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">
+      <strong>.C
+        <br>.c
+        <br>.cc
+        <br>.cp
+        <br>.cpp
+        <br>.cxx
+        <br>.c++</strong></td>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">C++源代码（需要编译预处理）</td></tr>
+  <tr>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">
+      <strong>.h</strong></td>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">C或者C++源代码头文件</td></tr>
+  <tr>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">
+      <strong>.ii</strong></td>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">C++源代码（不需编译预处理）</td></tr>
+  <tr>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">
+      <strong>.o</strong></td>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">对象文件</td></tr>
+  <tr>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">
+      <strong>.s</strong></td>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">汇编语言代码</td></tr>
+  <tr>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">
+      <strong>.so</strong></td>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">动态库</td></tr>
+  <tr>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">
+      <strong>&lt;none&gt;</strong></td>
+    <td style="font-family:verdana, sans-serif;font-size:12px;">标准C++系统头文件</td></tr>
+</tbody>
+</table>
+
+<h3 id="初探解疑"><a href="#初探解疑" class="headerlink" title="初探解疑"></a>初探解疑</h3><ol>
+<li>初探过程中，当我们直接通过如下命令编译出最后的执行文件的过程中，<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ helloworld.cpp -o helloworld</span><br></pre></td></tr></table></figure>
+其实是存在中间状态文件的，也就是编译过程中所说到的<strong>对象文件</strong>，查表可知应该是以.o为后缀的文件。</li>
+<li>初探过程中，当我们将头文件talk.h和实现源文件talk.cpp分开之后，然后只编译测试文件talktest.cpp的时候是报错的，那么现在我们就可以理解为什么报错了，原因在于最终的可执行文件是要链接对象文件和标准库中的文件形成的，而对象文件是必须要通过cpp等c++源代码编译形成的，所以对于我们自己编写的cpp文件是一定要经过自己手动编译才能参与到后续的链接过程中的。</li>
+</ol>
+<h2 id="再探c-编译过程"><a href="#再探c-编译过程" class="headerlink" title="再探c++编译过程"></a>再探c++编译过程</h2><h3 id="生成对象文件"><a href="#生成对象文件" class="headerlink" title="生成对象文件"></a>生成对象文件</h3><p>1.利用初探中写好的talk.h,talk.cpp,talktest.cpp文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">talk.h</span><br><span class="line">*/</span><br><span class="line">class Talk&#123;</span><br><span class="line">    public:</span><br><span class="line">        void say(const char*); </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">talk.cpp</span><br><span class="line">*/</span><br><span class="line">#include &quot;talk.h&quot;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">void Talk::say(const char* str)&#123;</span><br><span class="line">    std::cout&lt;&lt;&quot;talk with&quot;&lt;&lt;&apos;\t&apos;&lt;&lt;str&lt;&lt;std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">talktest.cpp</span><br><span class="line">*/</span><br><span class="line">#include &quot;talk.h&quot;</span><br><span class="line">int main()&#123;</span><br><span class="line">    Talk talk;</span><br><span class="line">    talk.say(&quot;kingwen&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>直接编译出对象文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -c talk.cpp</span><br><span class="line">g++ -c talktest.cpp</span><br></pre></td></tr></table></figure></li>
+<li><p>查看当前文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
+<p>可以发现多了两个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">talk.o talktest.o</span><br></pre></td></tr></table></figure></li>
+<li><p>编译对象文件生成可执行文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ talk.o talktest.o -o talktest1</span><br></pre></td></tr></table></figure></li>
+<li><p>执行talktest1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./talktest1</span><br></pre></td></tr></table></figure>
+<p>结果和我们执行直接生成编译结果是一样的,结果如下所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">talk with   kingwen</span><br></pre></td></tr></table></figure></li>
+<li><p>对象文件输出<br>我们在第二步中是通过<strong>gcc -c talk.cpp</strong>直接编译出了<strong>talk.o</strong>这个对象。<br>这里会使得编译结果的默认名称和源码名称一致。但是我们其实可以自定义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -c talk.cpp -o talker.o</span><br><span class="line">g++ -c talktest.cpp -o talkertest.o</span><br></pre></td></tr></table></figure>
+<p>然后编译运行方式和前面说明的一致即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ talker.o talkertest.o -o talkertest</span><br><span class="line">./talkertest</span><br></pre></td></tr></table></figure>
+<p>最后得到的结果也和之前是一样的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">talk with   kingwen</span><br></pre></td></tr></table></figure>
+<p>PS:所以如果以后在编码过程中如果碰见说缺少对象文件，那么就是对应的cpp源代码文件没有编译，我们可以通过g++命令对其进行编译即可解决问题。</p>
+<h3 id="生成预处理文件"><a href="#生成预处理文件" class="headerlink" title="生成预处理文件"></a>生成预处理文件</h3></li>
+<li><p>找到初探中的helloworld.cpp代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/* </span><br><span class="line">  helloworld.cpp </span><br><span class="line">  用于测试g++编译单个源文件生成可执行程序</span><br><span class="line">*/</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">    std::cout&lt;&lt;&quot;hello world&quot;&lt;&lt;std::endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过wc命令来查看helloworld.cpp文件的行数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  compilec++ wc -l helloworld.cpp</span><br><span class="line">       8 helloworld.cpp</span><br></pre></td></tr></table></figure></li>
+<li><p>代码预处理<br>通过如下命令会将预处理的结果在标准输出中进行输出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -E helloworld.cpp</span><br></pre></td></tr></table></figure>
+<p>当然我们也可以将结果进行输出保存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -E helloworld.cpp -o helloworld.ii</span><br></pre></td></tr></table></figure>
+<p>通过wc命令来查看预处理结果helloworld.ii的行数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">compilec++ wc -l helloworld.ii</span><br><span class="line">  41484 helloworld.ii</span><br></pre></td></tr></table></figure>
+<p>可以发现文件大小有了翻天覆地的变化，这里主要就是将头文件等引入了我们的文件中。</p>
+</li>
+</ol>
+<h3 id="生成汇编文件"><a href="#生成汇编文件" class="headerlink" title="生成汇编文件"></a>生成汇编文件</h3><ol>
+<li>同样还是之前的helloworld.cpp代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/* </span><br><span class="line">  helloworld.cpp </span><br><span class="line">  用于测试g++编译单个源文件生成可执行程序</span><br><span class="line">*/</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">    std::cout&lt;&lt;&quot;hello world&quot;&lt;&lt;std::endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>直接编译生成汇编代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -S helloworld.cpp -o helloworld.s</span><br></pre></td></tr></table></figure></li>
+<li>查看生成的汇编代码<br>其实可以使用cat或者head或者tail进行查看，<br>这里我用的是sed命令查看了从1360到1372行，因为我觉得这块代码更加符合我对汇编的想象。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n &apos;1360,1372p&apos; helloworld.s</span><br></pre></td></tr></table></figure>
+结果如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">compilec++ sed -n &apos;1360,1372p&apos; helloworld.s</span><br><span class="line">    movq    %rsp, %rbp</span><br><span class="line">    .cfi_def_cfa_register %rbp</span><br><span class="line">    movl    %edi, -4(%rbp)</span><br><span class="line">    movl    %esi, -8(%rbp)</span><br><span class="line">    movl    -4(%rbp), %esi</span><br><span class="line">    cmpl    -8(%rbp), %esi</span><br><span class="line">    sete    %al</span><br><span class="line">    andb    $1, %al</span><br><span class="line">    movzbl  %al, %eax</span><br><span class="line">    popq    %rbp</span><br><span class="line">    retq</span><br><span class="line">    .cfi_endproc</span><br><span class="line">                                        ## -- End function</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><a href="https://blog.csdn.net/guoxiaoqian8028/article/details/18915513" target="_blank" rel="noopener">GCC编译C++</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/g/" rel="tag"># g++</a>
+              <a href="/tags/%E7%BC%96%E8%AF%91/" rel="tag"># 编译</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/12/03/%E5%88%9D%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/" rel="next" title="初探c++编译过程">
+                  <i class="fa fa-chevron-left"></i> 初探c++编译过程
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/12/03/%E7%BB%88%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/" rel="prev" title="终探c++编译过程">
+                  终探c++编译过程 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译原理解释"><span class="nav-number">1.</span> <span class="nav-text">编译原理解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译器的作用"><span class="nav-number">1.1.</span> <span class="nav-text">编译器的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-编程中常见文件后缀"><span class="nav-number">1.2.</span> <span class="nav-text">c++编程中常见文件后缀</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初探解疑"><span class="nav-number">1.3.</span> <span class="nav-text">初探解疑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再探c-编译过程"><span class="nav-number">2.</span> <span class="nav-text">再探c++编译过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成对象文件"><span class="nav-number">2.1.</span> <span class="nav-text">生成对象文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成预处理文件"><span class="nav-number">2.2.</span> <span class="nav-text">生成预处理文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成汇编文件"><span class="nav-number">2.3.</span> <span class="nav-text">生成汇编文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="李庆文"
+    src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">李庆文</p>
+  <div class="site-description" itemprop="description">热爱生活，享受生活。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/aweng126" title="GitHub &rarr; https://github.com/aweng126" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kingwensli@gmail.com" title="E-Mail &rarr; mailto:kingwensli@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李庆文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">46k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">52 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        本站访客共计<span id="busuanzi_value_site_uv"></span>人
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
