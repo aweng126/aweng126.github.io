@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-03T15:33:47.130Z</updated>
+  <updated>2019-12-05T14:36:03.277Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>make命令与MakeFile文件</title>
+    <link href="http://yoursite.com/2019/12/05/make%E5%91%BD%E4%BB%A4%E4%B8%8EMakeFile%E6%96%87%E4%BB%B6/"/>
+    <id>http://yoursite.com/2019/12/05/make命令与MakeFile文件/</id>
+    <published>2019-12-05T14:26:08.000Z</published>
+    <updated>2019-12-05T14:36:03.277Z</updated>
+    
+    <content type="html"><![CDATA[<p>前面三篇文章主要讲述了c++的编译过程，本篇文章主要讲述用Makefile文件来定义编译过程，用make命令来对项目进行构建，从而项目在编译过程中存在的各种依赖等可以程序化生成并保持最新版本，一次编写，永久受益。</p><a id="more"></a><h2 id="make与Makefile是什么"><a href="#make与Makefile是什么" class="headerlink" title="make与Makefile是什么"></a>make与Makefile是什么</h2><h3 id="make命令"><a href="#make命令" class="headerlink" title="make命令"></a>make命令</h3><p>源代码变成可执行文件的过程，叫做编译（compile）；而对一整个项目而言，先编译这个文件还是先编译另外一个文件的过程叫做构建（build），make命令是一个GNU组织提供的一个构建工具，诞生于1977年，起初主要应用于c语言的项目，但是实际上，任何只要有某个文件有变化就要重新构建的项目，就可以用make来进行构建。</p><h3 id="Makefile文件"><a href="#Makefile文件" class="headerlink" title="Makefile文件"></a>Makefile文件</h3><p>make是一个构建的命令，而具体的规则都是写在MakeFile文件中的。</p><h2 id="如何编写makefile文件"><a href="#如何编写makefile文件" class="headerlink" title="如何编写makefile文件"></a>如何编写makefile文件</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Makefile文件由一系列的规则（rules）构成，每条规则的形式如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;target&gt; : &lt;prerequisites&gt;</span><br><span class="line">[tab] &lt;commands&gt;</span><br></pre></td></tr></table></figure><p>上面第一行冒号前面的部分，叫做”目标”（target），冒号后面的部分叫做”前置条件”（prerequisites）；第二行必须由一个tab键起首，后面跟着”命令”（commands）。</p><p>“目标”是必需的，不可省略；”前置条件”和”命令”都是可选的，但是两者之中必须至少存在一个。</p><p>每条规则就明确两件事：构建目标的前置条件是什么，以及如何构建。</p><h3 id="目标-target"><a href="#目标-target" class="headerlink" title="目标(target)"></a>目标(target)</h3><ol><li>目标指的是具体要生成的文件名字,也可以是文件的列表。</li><li>目标也可以是某个操作的名字，这称作“伪目标”（phony target）</li></ol><h3 id="前置条件-prerequisites"><a href="#前置条件-prerequisites" class="headerlink" title="前置条件(prerequisites)"></a>前置条件(prerequisites)</h3><ol><li>前置条件通常是一组文件名，中间用空格分隔。</li><li>前置条件指定了“目标”是否要重新构建的判断标准：只要有一个前置文件不存在，或者有过更新，那么目标就需要重新构建。</li></ol><h3 id="命令-commands"><a href="#命令-commands" class="headerlink" title="命令(commands)"></a>命令(commands)</h3><ol><li>命令表示如何构建或者更新目标文件，由一行或者多行的shell命令组成，他是构成“目标”的具体指令，他的运行结果通常就是生成目标文件。</li><li>每行命令之前必须有一个tab键。</li><li>需要注意，每行命令在一个单独的shell中执行，这些shell没有独立关系，如果需要，可以在换行符前加反斜杠转义。</li></ol><h2 id="如何使用make命令"><a href="#如何使用make命令" class="headerlink" title="如何使用make命令"></a>如何使用make命令</h2><h3 id="有目标无条件"><a href="#有目标无条件" class="headerlink" title="有目标无条件"></a>有目标无条件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a.txt:</span><br><span class="line">    echo &apos;this is the a.txt&apos; &gt; a.txt</span><br></pre></td></tr></table></figure><p>解释：目标是创建a.txt, 没有前置条件。具体的执行命令是将“this is the a.txt”这个字符串写入到a.txt中。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make t.txt //执行Makefile文件  </span><br><span class="line">cat a.txt //查看a.txt文件内容，发现就是this is the a.txt。</span><br></pre></td></tr></table></figure><h3 id="有目标有条件"><a href="#有目标有条件" class="headerlink" title="有目标有条件"></a>有目标有条件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b.txt : a.txt</span><br><span class="line">    cat a.txt &gt; b.txt</span><br></pre></td></tr></table></figure><p>解释：目标是创建b.txt，前置条件是要有a.txt文件，具体命令是将a.txt的内容输出到b.txt中去。</p><h3 id="伪目标无前置条件"><a href="#伪目标无前置条件" class="headerlink" title="伪目标无前置条件"></a>伪目标无前置条件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br></pre></td></tr></table></figure><p>解释：目标是clean，没有前置条件，具体命令是将所有的txt文件删除。<br>这里要说明一下，如果当前目录下也有一个叫做clean的文件，那么上述命令便不会执行了，所以我们可以声明这个命令是一个“伪目标”,也就是说变成了如下的样子</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.PHONY: clean</span><br><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br></pre></td></tr></table></figure><h3 id="阶段小结"><a href="#阶段小结" class="headerlink" title="阶段小结"></a>阶段小结</h3><p>按照前面部分的介绍，我们可以得到如下内容的Makefile文件。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a.txt:</span><br><span class="line">    echo &apos;this is the a.txt&apos; &gt; a.txt</span><br><span class="line"></span><br><span class="line">b.txt : a.txt</span><br><span class="line">    cat a.txt &gt; b.txt</span><br><span class="line"></span><br><span class="line">.PHONY: clean</span><br><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br></pre></td></tr></table></figure><p>其实这个时候我们如果直接执行make命令，那么会默认执行第一条规则，也就是说，对于上面的Makefile文件，</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure><p>和</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make a.txt</span><br></pre></td></tr></table></figure><p>是等价的。</p><h3 id="前置条件不符"><a href="#前置条件不符" class="headerlink" title="前置条件不符"></a>前置条件不符</h3><p>还是在之前的Makefile的基础上继续修改。这个时候我们想创建c.txt,但是我们当前没有d.txt</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c.txt : d.txt</span><br><span class="line">    echo &apos;test no prerequists with c.txt&apos; &gt;c.txt</span><br></pre></td></tr></table></figure><p>这个时候执行make c.txt命令，肯定会报错，报错信息如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make: *** No rule to make target `d.txt&apos;, needed by `c.txt&apos;.  Stop.</span><br></pre></td></tr></table></figure><h2 id="MakeFile语法"><a href="#MakeFile语法" class="headerlink" title="MakeFile语法"></a>MakeFile语法</h2><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 这是注释</span><br><span class="line">.PHONY :print</span><br><span class="line">print :</span><br><span class="line">    # 这也是注释</span><br><span class="line">    echo &apos;hello world&apos;  #这还是注释</span><br></pre></td></tr></table></figure><p>通过如下命令执行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make print</span><br></pre></td></tr></table></figure><p>结果如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  maketest git:(dev) ✗ make print</span><br><span class="line"># 这也是注释</span><br><span class="line">echo &apos;hello world&apos;  #这还是注释</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure><p>大家会发现，print对应的命令也打印出来了，这就涉及了回声这个概念</p><h3 id="回声（echoing）"><a href="#回声（echoing）" class="headerlink" title="回声（echoing）"></a>回声（echoing）</h3><p>正常情况下，make会打印每条命令，然后再执行，这就叫做回声（echoing）。<br>所以上面print执行的时候，会将命令的内容也打印出来，然后才是真正的执行结果。<br><strong>在命令的前面加上@，就可以关闭回声</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.PHONY :printnoecho</span><br><span class="line">printnoecho :</span><br><span class="line">    @echo &apos;hello world&apos;</span><br></pre></td></tr></table></figure><p>输出结果就不会有命令内容，而仅仅剩下执行结果了。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  maketest git:(dev) ✗ make printnoecho</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure><h3 id="自定义赋值"><a href="#自定义赋值" class="headerlink" title="自定义赋值"></a>自定义赋值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">txt = &apos;hello world&apos;</span><br><span class="line">printxt:</span><br><span class="line">    @echo $(txt)</span><br></pre></td></tr></table></figure><p>执行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make printxt</span><br></pre></td></tr></table></figure><p>输出结果</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure><h3 id="编译多个文件"><a href="#编译多个文件" class="headerlink" title="编译多个文件"></a>编译多个文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ALL  =  d.txt e.txt \</span><br><span class="line">f.txt</span><br><span class="line"></span><br><span class="line">all : $(ALL)</span><br><span class="line">    echo &apos;all&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d.txt : a.txt</span><br><span class="line">    cat a.txt &gt; d.txt</span><br><span class="line"></span><br><span class="line">e.txt : d.txt</span><br><span class="line">    cat d.txt &gt; e.txt</span><br><span class="line"></span><br><span class="line">f.txt : d.txt e.txt  </span><br><span class="line">    cat d.txt e.txt &gt; f.txt</span><br></pre></td></tr></table></figure><p>然后执行命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make all</span><br></pre></td></tr></table></figure><p>会发现d.txt,e.txt,f.txt都会得到创建。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  maketest git:(dev) ✗ make all</span><br><span class="line">cat a.txt &gt; d.txt</span><br><span class="line">cat d.txt &gt; e.txt</span><br><span class="line">cat d.txt e.txt &gt; f.txt</span><br><span class="line">echo &apos;all&apos;</span><br><span class="line">all</span><br></pre></td></tr></table></figure><h3 id="自动变量"><a href="#自动变量" class="headerlink" title="自动变量"></a>自动变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$@ : 当前目标</span><br><span class="line">$&lt; : 指代第一个前置条件</span><br><span class="line">$^ : 指代所有的前置条件</span><br></pre></td></tr></table></figure><p>暂时先写这些，以后遇到什么问题再做补充。</p><h2 id="本文的代码文件"><a href="#本文的代码文件" class="headerlink" title="本文的代码文件"></a>本文的代码文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">a.txt:</span><br><span class="line">    echo &apos;this is the a.txt&apos; &gt; a.txt</span><br><span class="line"></span><br><span class="line">b.txt : a.txt</span><br><span class="line">    cat a.txt &gt; b.txt</span><br><span class="line"></span><br><span class="line">.PHONY: clean</span><br><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br><span class="line"></span><br><span class="line">c.txt : d.txt</span><br><span class="line">    echo &apos;test no prerequists with c.txt&apos; &gt;c.txt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 这是注释</span><br><span class="line">.PHONY :print</span><br><span class="line">print :</span><br><span class="line">    # 这也是注释</span><br><span class="line">    echo &apos;hello world&apos;  #这还是注释</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.PHONY :printnoecho</span><br><span class="line">printnoecho :</span><br><span class="line">    @echo &apos;hello world&apos; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">compile : %.cpp</span><br><span class="line">    g++ -o %.cpp %.cpp </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">txt = &apos;hello world&apos;</span><br><span class="line">printxt:</span><br><span class="line">    @echo $(txt)</span><br><span class="line"></span><br><span class="line">printcc:</span><br><span class="line">    $(CC) -o test test.cpp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ALL  =  d.txt e.txt \</span><br><span class="line">f.txt</span><br><span class="line"></span><br><span class="line">all : $(ALL)</span><br><span class="line">    echo &apos;all&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d.txt : a.txt</span><br><span class="line">    cat a.txt &gt; d.txt</span><br><span class="line"></span><br><span class="line">e.txt : d.txt</span><br><span class="line">    cat d.txt &gt; e.txt</span><br><span class="line"></span><br><span class="line">f.txt : d.txt e.txt  </span><br><span class="line">    cat d.txt e.txt &gt; f.txt</span><br></pre></td></tr></table></figure><h2 id="文章参考"><a href="#文章参考" class="headerlink" title="文章参考"></a>文章参考</h2><ol><li><a href="https://www.ruanyifeng.com/blog/2015/02/make.html" target="_blank" rel="noopener">Make 命令教程-阮一峰</a> </li><li><a href="https://www.cnblogs.com/wujing-hubei/p/5223113.html" target="_blank" rel="noopener">makefile文件编写</a></li><li><a href="https://blog.csdn.net/u014066037/article/details/54602273" target="_blank" rel="noopener">Makefile文件编写</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前面三篇文章主要讲述了c++的编译过程，本篇文章主要讲述用Makefile文件来定义编译过程，用make命令来对项目进行构建，从而项目在编译过程中存在的各种依赖等可以程序化生成并保持最新版本，一次编写，永久受益。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="C++基础" scheme="http://yoursite.com/categories/C-%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="编译" scheme="http://yoursite.com/tags/%E7%BC%96%E8%AF%91/"/>
+    
+      <category term="shell" scheme="http://yoursite.com/tags/shell/"/>
+    
+  </entry>
   
   <entry>
     <title>终探c++编译过程</title>
@@ -274,9 +299,9 @@
     
       <category term="leetcode" scheme="http://yoursite.com/tags/leetcode/"/>
     
-      <category term="medium" scheme="http://yoursite.com/tags/medium/"/>
-    
       <category term="Greedy" scheme="http://yoursite.com/tags/Greedy/"/>
+    
+      <category term="medium" scheme="http://yoursite.com/tags/medium/"/>
     
   </entry>
   
@@ -328,9 +353,9 @@
     
       <category term="leetcode" scheme="http://yoursite.com/tags/leetcode/"/>
     
-      <category term="medium" scheme="http://yoursite.com/tags/medium/"/>
-    
       <category term="Greedy" scheme="http://yoursite.com/tags/Greedy/"/>
+    
+      <category term="medium" scheme="http://yoursite.com/tags/medium/"/>
     
   </entry>
   
@@ -355,9 +380,9 @@
     
       <category term="leetcode" scheme="http://yoursite.com/tags/leetcode/"/>
     
-      <category term="medium" scheme="http://yoursite.com/tags/medium/"/>
-    
       <category term="Greedy" scheme="http://yoursite.com/tags/Greedy/"/>
+    
+      <category term="medium" scheme="http://yoursite.com/tags/medium/"/>
     
   </entry>
   
@@ -382,9 +407,9 @@
     
       <category term="leetcode" scheme="http://yoursite.com/tags/leetcode/"/>
     
-      <category term="medium" scheme="http://yoursite.com/tags/medium/"/>
-    
       <category term="Greedy" scheme="http://yoursite.com/tags/Greedy/"/>
+    
+      <category term="medium" scheme="http://yoursite.com/tags/medium/"/>
     
   </entry>
   
@@ -512,34 +537,6 @@
       <category term="leetcode" scheme="http://yoursite.com/tags/leetcode/"/>
     
       <category term="hard" scheme="http://yoursite.com/tags/hard/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>build-image-hosting-service-with-github-and-PicGo</title>
-    <link href="http://yoursite.com/2019/10/23/build-image-hosting-service-with-github-and-PicGo/"/>
-    <id>http://yoursite.com/2019/10/23/build-image-hosting-service-with-github-and-PicGo/</id>
-    <published>2019-10-23T02:38:32.000Z</published>
-    <updated>2019-10-23T02:43:49.510Z</updated>
-    
-    <content type="html"><![CDATA[<p>图床，就是用来存放图片的地方。</p><p>目前各个网站为了保证自己的图片不会被其他人盗用，几乎都设置了访问条件验证（比如通过网站登录所保存的cookie等），这样的话其他人可能就访问不到你的图片了，而我写博客就是想给别人看的呀，所以搭建一个自己的图床就迫在眉睫。</p><a id="more"></a><h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><ol><li>github账号</li><li>良好的网络条件</li><li>耐心</li></ol><h2 id="具体做法参考"><a href="#具体做法参考" class="headerlink" title="具体做法参考"></a>具体做法参考</h2><ol><li><a href="https://juejin.im/entry/5c4ec5aaf265da614420689f" target="_blank" rel="noopener">掘金-PicGo+GitHub图床，让Markdown飞</a></li></ol><p>按照这个流程就可以完美搭建起来了，我就是照着这个做的。</p><ol start="2"><li><a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">PicGo github下载地址</a></li></ol><p>这个是PicGo的下载地址，选择最新版本的进行下载即可。mac下载dmg格式，win下载exe格式即可。</p><ol start="3"><li><a href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E9%A2%84%E8%A7%88" target="_blank" rel="noopener">PicGo 官方文档</a></li></ol><p>之所以把这个放上，是因为这个PicGo其实有很多扩展或者其他的功能，包括设置各种快捷键，各种图床的支持（包括七牛，阿里，github，腾讯云，又拍云等等。话说微博图床现在放盗链了，不建议使用），各种代理等的支持，大家可以进行私人定制，将这个软件做成自己喜欢的样子。</p><h2 id="本文感受"><a href="#本文感受" class="headerlink" title="本文感受"></a>本文感受</h2><ol><li>github是个好地方，开源的力量极其伟大。</li></ol><p>本来享用iPic来进行图片上传来着，但是它默认只给你微博图床，而现在不能用了。然后如果要开启其他图床支持，是要花钱的，难过的是我都要准备花钱了，网络问题，付费一直不成功，所以就找到了PicGo，完美。</p><ol start="2"><li>有机会还是要花钱买服务</li></ol><p>github尽管免费，但是说实话，访问是有延迟的，七牛云我也注册了，但是实名认证需要时间，所以我就先直接用github来搭建图床了。等到博客访问量大了的时候到时候再付费买七牛云存储吧，嘿嘿。</p><ol start="3"><li>好的教程感觉一份就够了</li></ol><p>所以对于自己感觉比较好的教程我就直接放链接了，如果有补充的话我再专门写文章来介绍一下。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;图床，就是用来存放图片的地方。&lt;/p&gt;
-&lt;p&gt;目前各个网站为了保证自己的图片不会被其他人盗用，几乎都设置了访问条件验证（比如通过网站登录所保存的cookie等），这样的话其他人可能就访问不到你的图片了，而我写博客就是想给别人看的呀，所以搭建一个自己的图床就迫在眉睫。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="实用技能" scheme="http://yoursite.com/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E8%83%BD/"/>
-    
-    
-      <category term="FigureBed" scheme="http://yoursite.com/tags/FigureBed/"/>
-    
-      <category term="Github" scheme="http://yoursite.com/tags/Github/"/>
-    
-      <category term="PicGo" scheme="http://yoursite.com/tags/PicGo/"/>
     
   </entry>
   

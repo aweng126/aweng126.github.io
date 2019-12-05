@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Kingwen's blog" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="前面三篇文章主要讲述了c++的编译过程，本篇文章主要讲述用Makefile文件来定义编译过程，用make命令来对项目进行构建，从而项目在编译过程中存在的各种依赖等可以程序化生成并保持最新版本，一次编写，永久受益。">
+<meta name="keywords" content="编译,shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="make命令与MakeFile文件">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;05&#x2F;make%E5%91%BD%E4%BB%A4%E4%B8%8EMakeFile%E6%96%87%E4%BB%B6&#x2F;index.html">
+<meta property="og:site_name" content="Kingwen&#39;s blog">
+<meta property="og:description" content="前面三篇文章主要讲述了c++的编译过程，本篇文章主要讲述用Makefile文件来定义编译过程，用make命令来对项目进行构建，从而项目在编译过程中存在的各种依赖等可以程序化生成并保持最新版本，一次编写，永久受益。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-05T14:36:03.277Z">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="http://yoursite.com/2019/12/05/make%E5%91%BD%E4%BB%A4%E4%B8%8EMakeFile%E6%96%87%E4%BB%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>make命令与MakeFile文件 | Kingwen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kingwen's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">没有输出的输入是不完整的</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-talk">
+
+    <a href="/talk" rel="section"><i class="fa fa-fw fa-envelope"></i>呓语</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/05/make%E5%91%BD%E4%BB%A4%E4%B8%8EMakeFile%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          make命令与MakeFile文件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-05 22:26:08 / 修改时间：22:36:03" itemprop="dateCreated datePublished" datetime="2019-12-05T22:26:08+08:00">2019-12-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">C++基础</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>前面三篇文章主要讲述了c++的编译过程，本篇文章主要讲述用Makefile文件来定义编译过程，用make命令来对项目进行构建，从而项目在编译过程中存在的各种依赖等可以程序化生成并保持最新版本，一次编写，永久受益。</p>
+<a id="more"></a>
+
+<h2 id="make与Makefile是什么"><a href="#make与Makefile是什么" class="headerlink" title="make与Makefile是什么"></a>make与Makefile是什么</h2><h3 id="make命令"><a href="#make命令" class="headerlink" title="make命令"></a>make命令</h3><p>源代码变成可执行文件的过程，叫做编译（compile）；而对一整个项目而言，先编译这个文件还是先编译另外一个文件的过程叫做构建（build），make命令是一个GNU组织提供的一个构建工具，诞生于1977年，起初主要应用于c语言的项目，但是实际上，任何只要有某个文件有变化就要重新构建的项目，就可以用make来进行构建。</p>
+<h3 id="Makefile文件"><a href="#Makefile文件" class="headerlink" title="Makefile文件"></a>Makefile文件</h3><p>make是一个构建的命令，而具体的规则都是写在MakeFile文件中的。</p>
+<h2 id="如何编写makefile文件"><a href="#如何编写makefile文件" class="headerlink" title="如何编写makefile文件"></a>如何编写makefile文件</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Makefile文件由一系列的规则（rules）构成，每条规则的形式如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;target&gt; : &lt;prerequisites&gt;</span><br><span class="line">[tab] &lt;commands&gt;</span><br></pre></td></tr></table></figure>
+<p>上面第一行冒号前面的部分，叫做”目标”（target），冒号后面的部分叫做”前置条件”（prerequisites）；第二行必须由一个tab键起首，后面跟着”命令”（commands）。</p>
+<p>“目标”是必需的，不可省略；”前置条件”和”命令”都是可选的，但是两者之中必须至少存在一个。</p>
+<p>每条规则就明确两件事：构建目标的前置条件是什么，以及如何构建。</p>
+<h3 id="目标-target"><a href="#目标-target" class="headerlink" title="目标(target)"></a>目标(target)</h3><ol>
+<li>目标指的是具体要生成的文件名字,也可以是文件的列表。</li>
+<li>目标也可以是某个操作的名字，这称作“伪目标”（phony target）</li>
+</ol>
+<h3 id="前置条件-prerequisites"><a href="#前置条件-prerequisites" class="headerlink" title="前置条件(prerequisites)"></a>前置条件(prerequisites)</h3><ol>
+<li>前置条件通常是一组文件名，中间用空格分隔。</li>
+<li>前置条件指定了“目标”是否要重新构建的判断标准：只要有一个前置文件不存在，或者有过更新，那么目标就需要重新构建。</li>
+</ol>
+<h3 id="命令-commands"><a href="#命令-commands" class="headerlink" title="命令(commands)"></a>命令(commands)</h3><ol>
+<li>命令表示如何构建或者更新目标文件，由一行或者多行的shell命令组成，他是构成“目标”的具体指令，他的运行结果通常就是生成目标文件。</li>
+<li>每行命令之前必须有一个tab键。</li>
+<li>需要注意，每行命令在一个单独的shell中执行，这些shell没有独立关系，如果需要，可以在换行符前加反斜杠转义。</li>
+</ol>
+<h2 id="如何使用make命令"><a href="#如何使用make命令" class="headerlink" title="如何使用make命令"></a>如何使用make命令</h2><h3 id="有目标无条件"><a href="#有目标无条件" class="headerlink" title="有目标无条件"></a>有目标无条件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a.txt:</span><br><span class="line">    echo &apos;this is the a.txt&apos; &gt; a.txt</span><br></pre></td></tr></table></figure>
+<p>解释：目标是创建a.txt, 没有前置条件。具体的执行命令是将“this is the a.txt”这个字符串写入到a.txt中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make t.txt //执行Makefile文件  </span><br><span class="line">cat a.txt //查看a.txt文件内容，发现就是this is the a.txt。</span><br></pre></td></tr></table></figure>
+<h3 id="有目标有条件"><a href="#有目标有条件" class="headerlink" title="有目标有条件"></a>有目标有条件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b.txt : a.txt</span><br><span class="line">    cat a.txt &gt; b.txt</span><br></pre></td></tr></table></figure>
+<p>解释：目标是创建b.txt，前置条件是要有a.txt文件，具体命令是将a.txt的内容输出到b.txt中去。</p>
+<h3 id="伪目标无前置条件"><a href="#伪目标无前置条件" class="headerlink" title="伪目标无前置条件"></a>伪目标无前置条件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br></pre></td></tr></table></figure>
+<p>解释：目标是clean，没有前置条件，具体命令是将所有的txt文件删除。<br>这里要说明一下，如果当前目录下也有一个叫做clean的文件，那么上述命令便不会执行了，所以我们可以声明这个命令是一个“伪目标”,也就是说变成了如下的样子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.PHONY: clean</span><br><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br></pre></td></tr></table></figure>
+<h3 id="阶段小结"><a href="#阶段小结" class="headerlink" title="阶段小结"></a>阶段小结</h3><p>按照前面部分的介绍，我们可以得到如下内容的Makefile文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a.txt:</span><br><span class="line">    echo &apos;this is the a.txt&apos; &gt; a.txt</span><br><span class="line"></span><br><span class="line">b.txt : a.txt</span><br><span class="line">    cat a.txt &gt; b.txt</span><br><span class="line"></span><br><span class="line">.PHONY: clean</span><br><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br></pre></td></tr></table></figure>
+<p>其实这个时候我们如果直接执行make命令，那么会默认执行第一条规则，也就是说，对于上面的Makefile文件，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+<p>和</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make a.txt</span><br></pre></td></tr></table></figure>
+<p>是等价的。</p>
+<h3 id="前置条件不符"><a href="#前置条件不符" class="headerlink" title="前置条件不符"></a>前置条件不符</h3><p>还是在之前的Makefile的基础上继续修改。这个时候我们想创建c.txt,但是我们当前没有d.txt</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c.txt : d.txt</span><br><span class="line">    echo &apos;test no prerequists with c.txt&apos; &gt;c.txt</span><br></pre></td></tr></table></figure>
+<p>这个时候执行make c.txt命令，肯定会报错，报错信息如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make: *** No rule to make target `d.txt&apos;, needed by `c.txt&apos;.  Stop.</span><br></pre></td></tr></table></figure>
+<h2 id="MakeFile语法"><a href="#MakeFile语法" class="headerlink" title="MakeFile语法"></a>MakeFile语法</h2><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 这是注释</span><br><span class="line">.PHONY :print</span><br><span class="line">print :</span><br><span class="line">    # 这也是注释</span><br><span class="line">    echo &apos;hello world&apos;  #这还是注释</span><br></pre></td></tr></table></figure>
+<p>通过如下命令执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make print</span><br></pre></td></tr></table></figure>
+<p>结果如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  maketest git:(dev) ✗ make print</span><br><span class="line"># 这也是注释</span><br><span class="line">echo &apos;hello world&apos;  #这还是注释</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<p>大家会发现，print对应的命令也打印出来了，这就涉及了回声这个概念</p>
+<h3 id="回声（echoing）"><a href="#回声（echoing）" class="headerlink" title="回声（echoing）"></a>回声（echoing）</h3><p>正常情况下，make会打印每条命令，然后再执行，这就叫做回声（echoing）。<br>所以上面print执行的时候，会将命令的内容也打印出来，然后才是真正的执行结果。<br><strong>在命令的前面加上@，就可以关闭回声</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.PHONY :printnoecho</span><br><span class="line">printnoecho :</span><br><span class="line">    @echo &apos;hello world&apos;</span><br></pre></td></tr></table></figure>
+<p>输出结果就不会有命令内容，而仅仅剩下执行结果了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  maketest git:(dev) ✗ make printnoecho</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<h3 id="自定义赋值"><a href="#自定义赋值" class="headerlink" title="自定义赋值"></a>自定义赋值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">txt = &apos;hello world&apos;</span><br><span class="line">printxt:</span><br><span class="line">    @echo $(txt)</span><br></pre></td></tr></table></figure>
+<p>执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make printxt</span><br></pre></td></tr></table></figure>
+<p>输出结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<h3 id="编译多个文件"><a href="#编译多个文件" class="headerlink" title="编译多个文件"></a>编译多个文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ALL  =  d.txt e.txt \</span><br><span class="line">f.txt</span><br><span class="line"></span><br><span class="line">all : $(ALL)</span><br><span class="line">    echo &apos;all&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d.txt : a.txt</span><br><span class="line">    cat a.txt &gt; d.txt</span><br><span class="line"></span><br><span class="line">e.txt : d.txt</span><br><span class="line">    cat d.txt &gt; e.txt</span><br><span class="line"></span><br><span class="line">f.txt : d.txt e.txt  </span><br><span class="line">    cat d.txt e.txt &gt; f.txt</span><br></pre></td></tr></table></figure>
+<p>然后执行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make all</span><br></pre></td></tr></table></figure>
+<p>会发现d.txt,e.txt,f.txt都会得到创建。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  maketest git:(dev) ✗ make all</span><br><span class="line">cat a.txt &gt; d.txt</span><br><span class="line">cat d.txt &gt; e.txt</span><br><span class="line">cat d.txt e.txt &gt; f.txt</span><br><span class="line">echo &apos;all&apos;</span><br><span class="line">all</span><br></pre></td></tr></table></figure>
+<h3 id="自动变量"><a href="#自动变量" class="headerlink" title="自动变量"></a>自动变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$@ : 当前目标</span><br><span class="line">$&lt; : 指代第一个前置条件</span><br><span class="line">$^ : 指代所有的前置条件</span><br></pre></td></tr></table></figure>
+<p>暂时先写这些，以后遇到什么问题再做补充。</p>
+<h2 id="本文的代码文件"><a href="#本文的代码文件" class="headerlink" title="本文的代码文件"></a>本文的代码文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">a.txt:</span><br><span class="line">    echo &apos;this is the a.txt&apos; &gt; a.txt</span><br><span class="line"></span><br><span class="line">b.txt : a.txt</span><br><span class="line">    cat a.txt &gt; b.txt</span><br><span class="line"></span><br><span class="line">.PHONY: clean</span><br><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br><span class="line"></span><br><span class="line">c.txt : d.txt</span><br><span class="line">    echo &apos;test no prerequists with c.txt&apos; &gt;c.txt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 这是注释</span><br><span class="line">.PHONY :print</span><br><span class="line">print :</span><br><span class="line">    # 这也是注释</span><br><span class="line">    echo &apos;hello world&apos;  #这还是注释</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.PHONY :printnoecho</span><br><span class="line">printnoecho :</span><br><span class="line">    @echo &apos;hello world&apos; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">compile : %.cpp</span><br><span class="line">    g++ -o %.cpp %.cpp </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">txt = &apos;hello world&apos;</span><br><span class="line">printxt:</span><br><span class="line">    @echo $(txt)</span><br><span class="line"></span><br><span class="line">printcc:</span><br><span class="line">    $(CC) -o test test.cpp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ALL  =  d.txt e.txt \</span><br><span class="line">f.txt</span><br><span class="line"></span><br><span class="line">all : $(ALL)</span><br><span class="line">    echo &apos;all&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d.txt : a.txt</span><br><span class="line">    cat a.txt &gt; d.txt</span><br><span class="line"></span><br><span class="line">e.txt : d.txt</span><br><span class="line">    cat d.txt &gt; e.txt</span><br><span class="line"></span><br><span class="line">f.txt : d.txt e.txt  </span><br><span class="line">    cat d.txt e.txt &gt; f.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="文章参考"><a href="#文章参考" class="headerlink" title="文章参考"></a>文章参考</h2><ol>
+<li><a href="https://www.ruanyifeng.com/blog/2015/02/make.html" target="_blank" rel="noopener">Make 命令教程-阮一峰</a> </li>
+<li><a href="https://www.cnblogs.com/wujing-hubei/p/5223113.html" target="_blank" rel="noopener">makefile文件编写</a></li>
+<li><a href="https://blog.csdn.net/u014066037/article/details/54602273" target="_blank" rel="noopener">Makefile文件编写</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BC%96%E8%AF%91/" rel="tag"># 编译</a>
+              <a href="/tags/shell/" rel="tag"># shell</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/12/03/%E7%BB%88%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/" rel="next" title="终探c++编译过程">
+                  <i class="fa fa-chevron-left"></i> 终探c++编译过程
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#make与Makefile是什么"><span class="nav-number">1.</span> <span class="nav-text">make与Makefile是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#make命令"><span class="nav-number">1.1.</span> <span class="nav-text">make命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Makefile文件"><span class="nav-number">1.2.</span> <span class="nav-text">Makefile文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何编写makefile文件"><span class="nav-number">2.</span> <span class="nav-text">如何编写makefile文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目标-target"><span class="nav-number">2.2.</span> <span class="nav-text">目标(target)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前置条件-prerequisites"><span class="nav-number">2.3.</span> <span class="nav-text">前置条件(prerequisites)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令-commands"><span class="nav-number">2.4.</span> <span class="nav-text">命令(commands)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用make命令"><span class="nav-number">3.</span> <span class="nav-text">如何使用make命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有目标无条件"><span class="nav-number">3.1.</span> <span class="nav-text">有目标无条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有目标有条件"><span class="nav-number">3.2.</span> <span class="nav-text">有目标有条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪目标无前置条件"><span class="nav-number">3.3.</span> <span class="nav-text">伪目标无前置条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阶段小结"><span class="nav-number">3.4.</span> <span class="nav-text">阶段小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前置条件不符"><span class="nav-number">3.5.</span> <span class="nav-text">前置条件不符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MakeFile语法"><span class="nav-number">4.</span> <span class="nav-text">MakeFile语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">4.1.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回声（echoing）"><span class="nav-number">4.2.</span> <span class="nav-text">回声（echoing）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义赋值"><span class="nav-number">4.3.</span> <span class="nav-text">自定义赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译多个文件"><span class="nav-number">4.4.</span> <span class="nav-text">编译多个文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动变量"><span class="nav-number">4.5.</span> <span class="nav-text">自动变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文的代码文件"><span class="nav-number">5.</span> <span class="nav-text">本文的代码文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章参考"><span class="nav-number">6.</span> <span class="nav-text">文章参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="李庆文"
+    src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">李庆文</p>
+  <div class="site-description" itemprop="description">热爱生活，享受生活。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/aweng126" title="GitHub &rarr; https://github.com/aweng126" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kingwensli@gmail.com" title="E-Mail &rarr; mailto:kingwensli@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李庆文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">50k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">55 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        本站访客共计<span id="busuanzi_value_site_uv"></span>人
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
