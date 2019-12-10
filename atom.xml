@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-05T14:36:03.277Z</updated>
+  <updated>2019-12-10T04:01:51.188Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>为什么c++比java运行的速度快</title>
+    <link href="http://yoursite.com/2019/12/10/%E4%B8%BA%E4%BB%80%E4%B9%88c-%E6%AF%94java%E8%BF%90%E8%A1%8C%E7%9A%84%E9%80%9F%E5%BA%A6%E5%BF%AB/"/>
+    <id>http://yoursite.com/2019/12/10/为什么c-比java运行的速度快/</id>
+    <published>2019-12-10T03:46:49.000Z</published>
+    <updated>2019-12-10T04:01:51.188Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近和同学讨论算法题目的时候，突然讲到为什么java的速度比c++慢，当时一知半解，雾里看花。<br>于是回来之后查了一下资料，整理一下放在这里，方便以后查看。<br>暂时理解到这个程度，如果以后有新的理解再做补充。</p><a id="more"></a><h2 id="明确原则"><a href="#明确原则" class="headerlink" title="明确原则"></a>明确原则</h2><p>首先，我们要明确一个放之世界皆准的原则:</p><blockquote><p>在资源一定的情况下，鱼与熊掌不可得兼。</p></blockquote><p>在程序运行方面，也就是说效率和便捷性往往不能同时满足。</p><p>c++ 和java的比较就是一个很典型的例子。java的抽象层级要比c++高一点，很多情况下java语言已经替我们做出了选择（可能是考虑了全局的程序性能之后得到的最优解），所以用起来就比较方便，但是这就有可能放弃了对于某些特定问题的更优的选择（可能他们仅仅在某几类问题上性能优秀，但是全局所有问题来看不是那么理想）也就在一定程度上损失了效率。</p><p>比如我们在使用java语言的时候可以直接通过obj.method()这种方式进行调用，它默认传递的都是引用。但是我们如果使用的是c++，那么就需要自己来确定我们的方法参数传的是指针还是引用，根据不同的选择在方法内部也有不同的使用方式。</p><h2 id="原因浅析"><a href="#原因浅析" class="headerlink" title="原因浅析"></a>原因浅析</h2><h3 id="编译过程不一样"><a href="#编译过程不一样" class="headerlink" title="编译过程不一样"></a>编译过程不一样</h3><p>在前面我们已经介绍过c++ 的编译过程，g++编译器可以直接将我们的源码编译成为机器可以执行的二进制代码（机器指令的集合），从而直接执行。</p><p>而对于java语言，java编译器会将java源码解析成字节码（独立于CPU架构，cpu不认识），然后字节码会被JVM加载然后再编译成当前cpu架构所对应的二进制代码（机器指令的集合）然后再执行。</p><p>简而言之，java在源码与机器指令之间又加了一层字节码的处理，这样可以保证在不同的机器上运行，但是相比于c++直接编译到机器指令来讲就会慢很多。</p><h3 id="对象的创建不同"><a href="#对象的创建不同" class="headerlink" title="对象的创建不同"></a>对象的创建不同</h3><p>在java中一切皆对象（这里忽略基本数据类型的情况），而对象的创建是通过new来实现的，也就是说对象本身都是保存在堆内存中的，而栈内存中仅仅保存了一个对象的引用。这样在获得对象的时候实际上可以认为是间接寻址，速度就会比较慢。</p><p>而在c++ 中，很多局部变量和对象的创建都是保存在栈中的，可以直接访问，所以效率就会很高。</p><h3 id="检查机制不同"><a href="#检查机制不同" class="headerlink" title="检查机制不同"></a>检查机制不同</h3><p>java虚拟机本身在运行时会对程序进行很多的检查，比如说检查数组越界，检查类型是否错误，检查是否空指针，检查对象是否需要回收(JVM)等等，比较充分的保证了java程序的安全性和稳定性，但是也浪费了检查的时间。</p><p>但是在c++程序中，这些检查都是需要程序员自己进行检查判断和处理的，如果程序员不写，那就硬着头皮执行，所以效率会很高，但是安全性和稳定性会有一定的损失。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol><li><a href="https://www.iteye.com/blog/leowzy-819206" target="_blank" rel="noopener">java运行速度比C++慢的原因</a></li><li><a href="https://www.zhihu.com/question/22050405" target="_blank" rel="noopener">知乎-为什么说 Java 比 C / C++ 慢？</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近和同学讨论算法题目的时候，突然讲到为什么java的速度比c++慢，当时一知半解，雾里看花。&lt;br&gt;于是回来之后查了一下资料，整理一下放在这里，方便以后查看。&lt;br&gt;暂时理解到这个程度，如果以后有新的理解再做补充。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="C++基础" scheme="http://yoursite.com/categories/C-%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+      <category term="Why" scheme="http://yoursite.com/tags/Why/"/>
+    
+  </entry>
   
   <entry>
     <title>make命令与MakeFile文件</title>
@@ -512,31 +537,6 @@
       <category term="leetcode" scheme="http://yoursite.com/tags/leetcode/"/>
     
       <category term="easy" scheme="http://yoursite.com/tags/easy/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-72-EditDistance</title>
-    <link href="http://yoursite.com/2019/10/24/leetcode-72-EditDistance/"/>
-    <id>http://yoursite.com/2019/10/24/leetcode-72-EditDistance/</id>
-    <published>2019-10-24T06:26:49.000Z</published>
-    <updated>2019-10-24T06:32:19.247Z</updated>
-    
-    <content type="html"><![CDATA[<p>编辑距离是一个非常经典的动态规划的题目，之前搞懂过，但是总是会忘，所以又搞了一遍，顺便做个笔记。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://leetcode.com/problems/edit-distance/" target="_blank" rel="noopener">题目描述</a></h2><p>Given two words word1 and word2, find the minimum number of operations required to convert word1 to word2.</p><p>You have the following 3 operations permitted on a word:</p><ol><li>Insert a character</li><li>Delete a character</li><li>Replace a character</li></ol><h2 id="题目解读"><a href="#题目解读" class="headerlink" title="题目解读"></a>题目解读</h2><p>就是求两个字符串的最小编辑距离，也就是计算word1最少可以经过多少次变化(插入，删除，替换)可以变成word2。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="动态规划的具体思路"><a href="#动态规划的具体思路" class="headerlink" title="动态规划的具体思路"></a>动态规划的具体思路</h3><ol><li>dp[i][j]表示word1的[0,i)变成word2的[0,j)位需要多少次变化。</li><li>对于第0行，dp[0][i] = i for 0&lt;= i &lt;= len2; (len2是word2的字符串长度)</li><li>对于第0列，dp[i][0] = i for 0=&lt; i &lt;= len1; (len1是word1的字符串长度)</li><li>如果最后一位相同，则arr[i][j] = arr[i-1][j-1]</li><li>若是判断的最后一位不同，则arr[i][j] = min(arr[i-1][j]+1, arr[i][j-1]+1 ,arr[i-1][j-1]+1)</li><li>最后返回arr[len1][len2]</li></ol><h3 id="细节剖析"><a href="#细节剖析" class="headerlink" title="细节剖析"></a>细节剖析</h3><p>这里解释一下第4步，也是看了好久才明白的。</p><p>下面以word1=”abb”,word2=”ac”为例。</p><ol><li>首先明确一下问题：我们现在要求的是abb需要多少步会变到ac，而假设我们已经知道了ab变ac，abb变a，ab变a三种情况，我们只需要现在的情况变到之前已知的情况就解决了。</li><li>假设abb-&gt;ac是从ab-&gt;ac变过来的，那么我们只要将abb去掉最后一个b就可以，剩下的就是要考虑ab如何变成ac了。也就是arr[i][j]=arr[i-1][j]+1;</li><li>假设abb-&gt;ac是从abb-&gt;a变过来的，那么我们只要在abb后面插入一个c就可以实现最后一位的匹配，剩下的就是考虑abb如何变成a了。也就是arr[i][j] = arr[i][j-1]+1;</li><li>假设abb-&gt;ac是从ab-&gt;a变过来的，那么我们只要将abb的最后一位变成c，剩下的就是考虑如何将ab变成a了。也就是arr[i][j]=arr[i-1][j-1]+1;</li><li>最后我们选一个从三种方式中修改次数最小的一个就可以了</li></ol><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minDistance(string word1, string word2) &#123;</span><br><span class="line">        int len1 = word1.length();</span><br><span class="line">        int len2 = word2.length();</span><br><span class="line">        </span><br><span class="line">        int arr[len1+1][len2+1];</span><br><span class="line">        memset(arr,0,sizeof arr);</span><br><span class="line">        </span><br><span class="line">        for(int i = 0; i &lt;= len1; i++)&#123;</span><br><span class="line">            arr[i][0] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        for(int i = 0; i &lt;= len2; i++)&#123;</span><br><span class="line">            arr[0][i] = i;</span><br><span class="line">        &#125;      </span><br><span class="line">         for(int i = 1; i &lt;= len1; i++)&#123;</span><br><span class="line">             for(int j = 1;j &lt;= len2; j++)&#123;</span><br><span class="line">                 if(word1[i-1]==word2[j-1])&#123;</span><br><span class="line">                     arr[i][j] = arr[i-1][j-1];</span><br><span class="line">                 &#125;else&#123;</span><br><span class="line">                     arr[i][j] = min(min(arr[i-1][j],arr[i][j-1]),arr[i-1][j-1])+1;</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">        // for(int i = 0; i &lt;= len1; i++)&#123;</span><br><span class="line">        //      for(int j = 0;j &lt;= len2; j++)&#123;</span><br><span class="line">        //         cout&lt;&lt;arr[i][j]&lt;&lt;&apos;\t&apos;;         </span><br><span class="line">        //      &#125;</span><br><span class="line">        //     cout&lt;&lt;endl;</span><br><span class="line">        // &#125;</span><br><span class="line">        </span><br><span class="line">        return arr[len1][len2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;编辑距离是一个非常经典的动态规划的题目，之前搞懂过，但是总是会忘，所以又搞了一遍，顺便做个笔记。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="leetcode" scheme="http://yoursite.com/tags/leetcode/"/>
-    
-      <category term="hard" scheme="http://yoursite.com/tags/hard/"/>
     
   </entry>
   

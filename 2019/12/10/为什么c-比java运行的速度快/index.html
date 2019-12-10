@@ -51,15 +51,17 @@
   };
 </script>
 
-  <meta name="description" content="热爱生活，享受生活。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Kingwen&#39;s blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;shell&#x2F;index.html">
+  <meta name="description" content="最近和同学讨论算法题目的时候，突然讲到为什么java的速度比c++慢，当时一知半解，雾里看花。于是回来之后查了一下资料，整理一下放在这里，方便以后查看。暂时理解到这个程度，如果以后有新的理解再做补充。">
+<meta name="keywords" content="Java,Why">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么c++比java运行的速度快">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;10&#x2F;%E4%B8%BA%E4%BB%80%E4%B9%88c-%E6%AF%94java%E8%BF%90%E8%A1%8C%E7%9A%84%E9%80%9F%E5%BA%A6%E5%BF%AB&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="热爱生活，享受生活。">
+<meta property="og:description" content="最近和同学讨论算法题目的时候，突然讲到为什么java的速度比c++慢，当时一知半解，雾里看花。于是回来之后查了一下资料，整理一下放在这里，方便以后查看。暂时理解到这个程度，如果以后有新的理解再做补充。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-10T04:01:51.188Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/tags/shell/">
+  <link rel="canonical" href="http://yoursite.com/2019/12/10/%E4%B8%BA%E4%BB%80%E4%B9%88c-%E6%AF%94java%E8%BF%90%E8%A1%8C%E7%9A%84%E9%80%9F%E5%BA%A6%E5%BF%AB/">
 
 
 <script id="page-configurations">
@@ -67,13 +69,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>标签: shell | Kingwen's blog</title>
+  <title>为什么c++比java运行的速度快 | Kingwen's blog</title>
   
 
 
@@ -210,50 +212,136 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">shell
-          <small>标签</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/10/%E4%B8%BA%E4%BB%80%E4%B9%88c-%E6%AF%94java%E8%BF%90%E8%A1%8C%E7%9A%84%E9%80%9F%E5%BA%A6%E5%BF%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          为什么c++比java运行的速度快
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-12-10 11:46:49 / 修改时间：12:01:51" itemprop="dateCreated datePublished" datetime="2019-12-10T11:46:49+08:00">2019-12-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">C++基础</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
+        <p>最近和同学讨论算法题目的时候，突然讲到为什么java的速度比c++慢，当时一知半解，雾里看花。<br>于是回来之后查了一下资料，整理一下放在这里，方便以后查看。<br>暂时理解到这个程度，如果以后有新的理解再做补充。</p>
+<a id="more"></a>
+<h2 id="明确原则"><a href="#明确原则" class="headerlink" title="明确原则"></a>明确原则</h2><p>首先，我们要明确一个放之世界皆准的原则:</p>
+<blockquote>
+<p>在资源一定的情况下，鱼与熊掌不可得兼。</p>
+</blockquote>
+<p>在程序运行方面，也就是说效率和便捷性往往不能同时满足。</p>
+<p>c++ 和java的比较就是一个很典型的例子。java的抽象层级要比c++高一点，很多情况下java语言已经替我们做出了选择（可能是考虑了全局的程序性能之后得到的最优解），所以用起来就比较方便，但是这就有可能放弃了对于某些特定问题的更优的选择（可能他们仅仅在某几类问题上性能优秀，但是全局所有问题来看不是那么理想）也就在一定程度上损失了效率。</p>
+<p>比如我们在使用java语言的时候可以直接通过obj.method()这种方式进行调用，它默认传递的都是引用。但是我们如果使用的是c++，那么就需要自己来确定我们的方法参数传的是指针还是引用，根据不同的选择在方法内部也有不同的使用方式。</p>
+<h2 id="原因浅析"><a href="#原因浅析" class="headerlink" title="原因浅析"></a>原因浅析</h2><h3 id="编译过程不一样"><a href="#编译过程不一样" class="headerlink" title="编译过程不一样"></a>编译过程不一样</h3><p>在前面我们已经介绍过c++ 的编译过程，g++编译器可以直接将我们的源码编译成为机器可以执行的二进制代码（机器指令的集合），从而直接执行。</p>
+<p>而对于java语言，java编译器会将java源码解析成字节码（独立于CPU架构，cpu不认识），然后字节码会被JVM加载然后再编译成当前cpu架构所对应的二进制代码（机器指令的集合）然后再执行。</p>
+<p>简而言之，java在源码与机器指令之间又加了一层字节码的处理，这样可以保证在不同的机器上运行，但是相比于c++直接编译到机器指令来讲就会慢很多。</p>
+<h3 id="对象的创建不同"><a href="#对象的创建不同" class="headerlink" title="对象的创建不同"></a>对象的创建不同</h3><p>在java中一切皆对象（这里忽略基本数据类型的情况），而对象的创建是通过new来实现的，也就是说对象本身都是保存在堆内存中的，而栈内存中仅仅保存了一个对象的引用。这样在获得对象的时候实际上可以认为是间接寻址，速度就会比较慢。</p>
+<p>而在c++ 中，很多局部变量和对象的创建都是保存在栈中的，可以直接访问，所以效率就会很高。</p>
+<h3 id="检查机制不同"><a href="#检查机制不同" class="headerlink" title="检查机制不同"></a>检查机制不同</h3><p>java虚拟机本身在运行时会对程序进行很多的检查，比如说检查数组越界，检查类型是否错误，检查是否空指针，检查对象是否需要回收(JVM)等等，比较充分的保证了java程序的安全性和稳定性，但是也浪费了检查的时间。</p>
+<p>但是在c++程序中，这些检查都是需要程序员自己进行检查判断和处理的，如果程序员不写，那就硬着头皮执行，所以效率会很高，但是安全性和稳定性会有一定的损失。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://www.iteye.com/blog/leowzy-819206" target="_blank" rel="noopener">java运行速度比C++慢的原因</a></li>
+<li><a href="https://www.zhihu.com/question/22050405" target="_blank" rel="noopener">知乎-为什么说 Java 比 C / C++ 慢？</a></li>
+</ol>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-12-05T22:26:08+08:00"
-              content="2019-12-05">
-          12-05
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/Why/" rel="tag"># Why</a>
+          </div>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/12/05/make%E5%91%BD%E4%BB%A4%E4%B8%8EMakeFile%E6%96%87%E4%BB%B6/" itemprop="url">
-            <span itemprop="name">make命令与MakeFile文件</span>
-          </a>
-      </h2>
+        
 
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/12/05/make%E5%91%BD%E4%BB%A4%E4%B8%8EMakeFile%E6%96%87%E4%BB%B6/" rel="next" title="make命令与MakeFile文件">
+                  <i class="fa fa-chevron-left"></i> make命令与MakeFile文件
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -282,6 +370,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#明确原则"><span class="nav-number">1.</span> <span class="nav-text">明确原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原因浅析"><span class="nav-number">2.</span> <span class="nav-text">原因浅析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译过程不一样"><span class="nav-number">2.1.</span> <span class="nav-text">编译过程不一样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的创建不同"><span class="nav-number">2.2.</span> <span class="nav-text">对象的创建不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查机制不同"><span class="nav-number">2.3.</span> <span class="nav-text">检查机制不同</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
