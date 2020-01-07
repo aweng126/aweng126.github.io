@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>common-commands</title>
+    <url>/2020/01/07/common-commands/</url>
+    <content><![CDATA[<p>本篇文章用于记录平时常用的、可以大幅度提高效率的一些命令和快捷键，方便之后查看与使用，不定期更新。</p>
+<a id="more"></a>
+<h2 id="mac相关"><a href="#mac相关" class="headerlink" title="mac相关"></a>mac相关</h2><h3 id="mac命令行下打开图片"><a href="#mac命令行下打开图片" class="headerlink" title="mac命令行下打开图片"></a>mac命令行下打开图片</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">open a.jpg</span><br></pre></td></tr></table></figure>
+<p>打开文件夹</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">open foldname</span><br></pre></td></tr></table></figure>
+<p>打开当前文件夹</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">open .</span><br></pre></td></tr></table></figure>
+
+<h2 id="Chrome相关（important！！）"><a href="#Chrome相关（important！！）" class="headerlink" title="Chrome相关（important！！）"></a>Chrome相关（important！！）</h2><h3 id="新开一个标签页"><a href="#新开一个标签页" class="headerlink" title="新开一个标签页"></a>新开一个标签页</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">command + T</span><br></pre></td></tr></table></figure>
+<h3 id="新开一个搜索窗口"><a href="#新开一个搜索窗口" class="headerlink" title="新开一个搜索窗口"></a>新开一个搜索窗口</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">command + N //正常窗口</span><br><span class="line">command + shift + N //无痕搜索窗口</span><br></pre></td></tr></table></figure>
+<h3 id="切换标签页"><a href="#切换标签页" class="headerlink" title="切换标签页"></a>切换标签页</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ctrl + tab //下一个标签页</span><br><span class="line">ctrl + shift + tab //上一个标签页</span><br></pre></td></tr></table></figure>
+<h3 id="打开刚关掉的标签页"><a href="#打开刚关掉的标签页" class="headerlink" title="打开刚关掉的标签页"></a>打开刚关掉的标签页</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">command + shift + T</span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux相关"><a href="#Linux相关" class="headerlink" title="Linux相关"></a>Linux相关</h2><h3 id="查看电脑核数"><a href="#查看电脑核数" class="headerlink" title="查看电脑核数"></a>查看电脑核数</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat /proc/cpuinfo |grep &quot;processor&quot;| wc -l</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>实用技能</category>
+      </categories>
+      <tags>
+        <tag>快捷键</tag>
+        <tag>常用命令</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>为什么c++比java运行的速度快</title>
     <url>/2019/12/10/%E4%B8%BA%E4%BB%80%E4%B9%88c-%E6%AF%94java%E8%BF%90%E8%A1%8C%E7%9A%84%E9%80%9F%E5%BA%A6%E5%BF%AB/</url>
     <content><![CDATA[<p>最近和同学讨论算法题目的时候，突然讲到为什么java的速度比c++慢，当时一知半解，雾里看花。<br>于是回来之后查了一下资料，整理一下放在这里，方便以后查看。<br>暂时理解到这个程度，如果以后有新的理解再做补充。</p>
@@ -172,8 +197,8 @@
         <category>C++基础</category>
       </categories>
       <tags>
-        <tag>g++</tag>
         <tag>编译</tag>
+        <tag>g++</tag>
       </tags>
   </entry>
   <entry>
@@ -281,8 +306,8 @@
         <category>C++基础</category>
       </categories>
       <tags>
-        <tag>g++</tag>
         <tag>编译</tag>
+        <tag>g++</tag>
       </tags>
   </entry>
   <entry>
@@ -341,8 +366,8 @@
         <category>C++基础</category>
       </categories>
       <tags>
-        <tag>g++</tag>
         <tag>编译</tag>
+        <tag>g++</tag>
       </tags>
   </entry>
   <entry>
@@ -613,8 +638,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -675,8 +700,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -702,8 +727,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -749,8 +774,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
