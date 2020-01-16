@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-07T04:16:07.628Z</updated>
+  <updated>2020-01-16T08:21:23.001Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-二维数组中的查找</title>
+    <link href="http://yoursite.com/2020/01/16/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/"/>
+    <id>http://yoursite.com/2020/01/16/剑指offer-二维数组中的查找/</id>
+    <published>2020-01-16T07:58:41.000Z</published>
+    <updated>2020-01-16T08:21:23.001Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文属于剑指offer系列第一题。<br>本题目的关键点在于找到一个非常棒的问题入手点，然后这个题目就已经解决了一半。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>思路1: 双层for循环，肯定能解决，但是复杂度为O(n^2),而且没有充分利用行列有序这个条件。<br>思路2: 我们从右上角开始查找，往左下角找。<br>    如果当前位置的元素大于目标元素，那么肯定在下一行。<br>    如果当前位置的元素小于目标元素，肯定在本元素的左侧。<br>    如果当前位置的元素等于目标元素，那么返回即可。</p><h2 id="巧妙之处"><a href="#巧妙之处" class="headerlink" title="巧妙之处"></a>巧妙之处</h2><p>题目从右上角入手开始查找元素非常有效且巧妙。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool Find(int target, vector&lt;vector&lt;int&gt; &gt; array) &#123;</span><br><span class="line">       int i = 0;</span><br><span class="line">       int j = array[0].size()-1;</span><br><span class="line">       while(i &lt; array.size() &amp;&amp; j&gt;= 0)&#123;</span><br><span class="line">           if(array[i][j] == target)&#123;</span><br><span class="line">               return true;</span><br><span class="line">           &#125;else if(array[i][j] &lt; target)&#123;</span><br><span class="line">               i++;</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">               j--;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度是O(m+n)，空间复杂度O(m*n) m为行数，n为列数。<br>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文属于剑指offer系列第一题。&lt;br&gt;本题目的关键点在于找到一个非常棒的问题入手点，然后这个题目就已经解决了一半。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="array" scheme="http://yoursite.com/tags/array/"/>
+    
+  </entry>
   
   <entry>
     <title>common-commands</title>
@@ -512,31 +537,6 @@
       <category term="hard" scheme="http://yoursite.com/tags/hard/"/>
     
       <category term="Greedy" scheme="http://yoursite.com/tags/Greedy/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>create-my-leetcode-artical-template</title>
-    <link href="http://yoursite.com/2019/11/09/create-my-leetcode-artical-template/"/>
-    <id>http://yoursite.com/2019/11/09/create-my-leetcode-artical-template/</id>
-    <published>2019-11-09T04:46:16.000Z</published>
-    <updated>2019-11-12T01:55:53.993Z</updated>
-    
-    <content type="html"><![CDATA[<p>在我每次写leetcode解题文章的时候，经常需要搞排版信息，一次两次还好，但是次数多了就会比较烦。那么我们能不能自定义一个属于自己的leetcode文章模版呢？当然可以！于是就有了本篇文章。</p><a id="more"></a><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><h3 id="从创建文章说起"><a href="#从创建文章说起" class="headerlink" title="从创建文章说起"></a>从创建文章说起</h3><p>我们在使用如下命令创建文章的时候，</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new title</span><br></pre></td></tr></table></figure><p>实际上我们使用的是如下的命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post title</span><br></pre></td></tr></table></figure><p>上面的命令是这个命令的缩写形式而已，因为一般搭建都不太会创建草稿（draft）或者页面（page），大家都是创建文章，它太常用了，所以就被设置成了默认选项。</p><h3 id="真实的创建命令"><a href="#真实的创建命令" class="headerlink" title="真实的创建命令"></a>真实的创建命令</h3><p>那么真实使用的创建命令是什么呢？其实是下面这个。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure><p>根据<a href="https://hexo.io/zh-cn/docs/writing" target="_blank" rel="noopener">官方文档</a>显示，hexo默认的layout有三种，分别是post，draft，page，他们都有自己的默认样式，他们文件本身都在scaffolds目录下面。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  blog ls -l scaffolds </span><br><span class="line"></span><br><span class="line">-rw-r--r--  1 liqingwen  staff  33 10 18 21:52 draft.md</span><br><span class="line">-rw-r--r--  1 liqingwen  staff  44 10 18 21:52 page.md</span><br><span class="line">-rw-r--r--  1 liqingwen  staff  76 10 21 16:48 post.md</span><br></pre></td></tr></table></figure><p>在新建文章时，Hexo 会根据 scaffolds 文件夹内相对应的文件来建立文件，所以我们要想创建自己的模版，只要在这里面创建一个leetcode模板即可，然后以后就可以通过如下命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new leetcode leetcode-number-nanme</span><br></pre></td></tr></table></figure><p>来创建符合对应布局的文章啦。</p><h2 id="动手"><a href="#动手" class="headerlink" title="动手"></a>动手</h2><ol><li><p>先查看模版中的文件有哪些</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">➜  blog ls -l scaffolds </span><br><span class="line"></span><br><span class="line">-rw-r--r--  1 liqingwen  staff  33 10 18 21:52 draft.md</span><br><span class="line">-rw-r--r--  1 liqingwen  staff  44 10 18 21:52 page.md</span><br><span class="line">-rw-r--r--  1 liqingwen  staff  76 10 21 16:48 post.md</span><br></pre></td></tr></table></figure></li><li><p>查看我们常用的post模板中的内容，然后我们照着这个改写就可以啦。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">## 查看模版中内容</span><br><span class="line">➜  blog cat scaffolds/post.md </span><br><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags:</span><br><span class="line">- tag1</span><br><span class="line">categories:</span><br><span class="line">- cat1</span><br></pre></td></tr></table></figure></li><li><p>复制一份post，重命名为leetcode，然后将我们想要的东西都加进去，然后保存即可。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">➜  blog cd scaffolds </span><br><span class="line">➜  scaffolds cp post.md leetcode.md</span><br><span class="line">➜  scaffolds ls</span><br><span class="line">draft.md    leetcode.md page.md     post.md</span><br><span class="line"></span><br><span class="line"># 注意这里我使用的是sublime编辑器，然后在文档中添加的内容已经通过后面的cat输出了，大家可以直接赋值。</span><br><span class="line">➜  scaffolds subl leetcode.md </span><br><span class="line"></span><br><span class="line">➜  scaffolds ls</span><br><span class="line">draft.md    leetcode.md page.md     post.md</span><br><span class="line">➜  scaffolds cat leetcode.md </span><br><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags:</span><br><span class="line">- leetcode</span><br><span class="line">- hard,medium,easy</span><br><span class="line">- Greedy, DP, String </span><br><span class="line">categories:</span><br><span class="line">- 算法训练</span><br><span class="line">---</span><br><span class="line">摘要内容</span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">## 题目描述</span><br><span class="line">### sample1</span><br><span class="line">## 解题思路</span><br><span class="line">## 巧妙之处</span><br><span class="line">## 解题代码</span><br></pre></td></tr></table></figure></li><li><p>尝试使用leetcode模版</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  scaffolds cd ..</span><br><span class="line">➜  blog hexo new leetcode &quot;leetcode-406-QueueReconstructionbyHeight&quot;   </span><br><span class="line">INFO  Created: ~/workplace/blog/source/_posts/leetcode-406-QueueReconstructionbyHeight.md</span><br><span class="line">➜  blog subl  source/_posts/leetcode-406-QueueReconstructionbyHeight.md</span><br></pre></td></tr></table></figure><p>大功告成，于是就可以可以很开心的写文章啦。</p></li><li><p>2019-11-12更新</p><ol><li>为了更加的解释算法过程，特地添加了详细解释部分。</li><li>为了更好的体现算法的演进，特地添加了算法升级部分。<br>升级之后结果如下。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags:</span><br><span class="line">- leetcode</span><br><span class="line">- hard</span><br><span class="line">- medium</span><br><span class="line">- easy</span><br><span class="line">- Greedy;</span><br><span class="line">- DP</span><br><span class="line">- String </span><br><span class="line">categories:</span><br><span class="line">- 算法训练</span><br><span class="line">---</span><br><span class="line">摘要内容</span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">## 题目描述</span><br><span class="line">### Sample</span><br><span class="line">## 解题思路</span><br><span class="line">## 详细解释</span><br><span class="line">## 巧妙之处</span><br><span class="line">## 解题代码</span><br><span class="line">### 原始代码</span><br><span class="line">### 升级代码</span><br><span class="line">以上，本题结束！</span><br></pre></td></tr></table></figure></li></ol></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在我每次写leetcode解题文章的时候，经常需要搞排版信息，一次两次还好，但是次数多了就会比较烦。那么我们能不能自定义一个属于自己的leetcode文章模版呢？当然可以！于是就有了本篇文章。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="实用技能" scheme="http://yoursite.com/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E8%83%BD/"/>
-    
-    
-      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
-    
-      <category term="template" scheme="http://yoursite.com/tags/template/"/>
     
   </entry>
   
