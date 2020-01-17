@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-17T13:24:21.318Z</updated>
+  <updated>2020-01-17T13:55:37.946Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-从尾到头打印链表</title>
+    <link href="http://yoursite.com/2020/01/17/%E5%89%91%E6%8C%87offer-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/"/>
+    <id>http://yoursite.com/2020/01/17/剑指offer-从尾到头打印链表/</id>
+    <published>2020-01-17T13:34:03.000Z</published>
+    <updated>2020-01-17T13:55:37.946Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第五篇。<br>题目要求就是打印链表，属于很常见的问题，但是因为题目要求从尾到头打印链表，所以又生出了一些波折。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/d0267f7f55b3412ba93bd35cfa8e8035?tpId=13&tqId=11156&tPage=1&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一个链表，按链表从尾到头的顺序返回一个ArrayList.</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>从头到尾遍历这个链表，然后将得到的值插入用于保存结果的vector的初始位置。<br>这个方法很容易能够想到，但是性能其实不是很好，就是因为在vector开头插入元素的时候，需要将这个vector中的所有元素向后移动一位，所以复杂度就会比较高，更多详细的解释可以看之后的关于字符串替换的那个题目。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>从头到尾遍历这个链表，将遍历得到的值依次插入到用于保存结果的vector的后面，最后再反转整个vector。</p><h3 id="思路3"><a href="#思路3" class="headerlink" title="思路3"></a>思路3</h3><p>从头到尾遍历这个链表，将数据压入到对应的栈中，然后利用栈的先进后出的特性，将所有结果出栈，以后插入用于保存结果的vector后面即可。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line">*  struct ListNode &#123;</span><br><span class="line">*        int val;</span><br><span class="line">*        struct ListNode *next;</span><br><span class="line">*        ListNode(int x) :</span><br><span class="line">*              val(x), next(NULL) &#123;</span><br><span class="line">*        &#125;</span><br><span class="line">*  &#125;;</span><br><span class="line">*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; printListFromTailToHead(ListNode* head) &#123;</span><br><span class="line">        // 思路1: 遍历的时候前面插入结果</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        ListNode *p = head;</span><br><span class="line">        while(p)&#123;</span><br><span class="line">            res.insert(res.begin(),p-&gt;val);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n^2),空间复杂度为O(n)</p><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; printListFromTailToHead(ListNode* head) &#123;</span><br><span class="line">        // 思路2: 遍历的时候后插，然后返回reverse的结果。 4ms 480k</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        ListNode* p = head;</span><br><span class="line">        while(p)&#123;</span><br><span class="line">            res.push_back(p-&gt;val);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        reverse(res.begin(),res.end());</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h3 id="思路3代码"><a href="#思路3代码" class="headerlink" title="思路3代码"></a>思路3代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; printListFromTailToHead(ListNode* head) &#123;</span><br><span class="line">        // 思路3: 通过栈先进后出的特性来实现链表的从尾到头遍历 3ms 460k</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        ListNode* p = head;</span><br><span class="line">        stack&lt;int&gt; mstack;</span><br><span class="line">        while(p)&#123;</span><br><span class="line">            mstack.push(p-&gt;val);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        while(mstack.size() != 0)&#123;</span><br><span class="line">            res.push_back(mstack.top());</span><br><span class="line">            mstack.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第五篇。&lt;br&gt;题目要求就是打印链表，属于很常见的问题，但是因为题目要求从尾到头打印链表，所以又生出了一些波折。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="链表" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+      <category term="stack" scheme="http://yoursite.com/tags/stack/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-最小的K个数</title>
@@ -496,33 +523,6 @@
     <summary type="html">
     
       &lt;p&gt;射箭，问射穿所有气球最少射几箭。&lt;br&gt;抽象出来之后，其实也是区间类型的题目。只是这次的排序方式相比与之前发生了点变化。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="leetcode" scheme="http://yoursite.com/tags/leetcode/"/>
-    
-      <category term="medium" scheme="http://yoursite.com/tags/medium/"/>
-    
-      <category term="Greedy" scheme="http://yoursite.com/tags/Greedy/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-435-Non-overlapping-Intervals</title>
-    <link href="http://yoursite.com/2019/11/12/leetcode-435-Non-overlapping-Intervals/"/>
-    <id>http://yoursite.com/2019/11/12/leetcode-435-Non-overlapping-Intervals/</id>
-    <published>2019-11-12T08:28:49.000Z</published>
-    <updated>2019-11-12T08:34:11.698Z</updated>
-    
-    <content type="html"><![CDATA[<p>非重复区间的一个题目，思路比较清晰,感觉和406题有点异曲同工之妙。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.</p><h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1:"></a>Example 1:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2],[2,3],[3,4],[1,3]]</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure><p>Explanation: [1,3] can be removed and the rest of intervals are non-overlapping.</p><h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2:"></a>Example 2:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2],[1,2],[1,2]]</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure><p>Explanation: You need to remove two [1,2] to make the rest of intervals non-overlapping.</p><h3 id="Example-3"><a href="#Example-3" class="headerlink" title="Example 3:"></a>Example 3:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [[1,2],[2,3]]</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure><p>Explanation: You don’t need to remove any of the intervals since they’re already non-overlapping.</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>贪心算法</p><h2 id="巧妙之处"><a href="#巧妙之处" class="headerlink" title="巧妙之处"></a>巧妙之处</h2><p>要记得按照从小到大的顺序进行排序,然后看后一个区间的头是否在前一个区间内，如果没有，那么不用删，如果在，那么肯定要删一个。要么删除前面那个区间，要么删除后面那个区间。比如说[1,3]和[2,4],那么因为2在[1,3]内，所以这个时候肯定要删除[2,4],因为[2,4]在[1,3]更加靠后的位置。但是如果前面是[1,10],然后后面有[2,3]和[4,5]这种情况最好是删除第一个[1,10]，因为[1,10]包含的区间更加靠后。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int eraseOverlapIntervals(vector&lt;vector&lt;int&gt;&gt;&amp; intervals) &#123;</span><br><span class="line">        if(intervals.empty()) return 0;</span><br><span class="line">        sort(intervals.begin(), intervals.end());</span><br><span class="line">       </span><br><span class="line">        int res = 0;</span><br><span class="line">        vector&lt;int&gt; temp;</span><br><span class="line">        for(auto p : intervals)&#123;</span><br><span class="line">            if( temp.empty() || p[0] &gt;= temp[1])&#123;</span><br><span class="line">                temp = p; </span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                res++;</span><br><span class="line">                temp = p[1] &lt; temp[1]? p:temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;非重复区间的一个题目，思路比较清晰,感觉和406题有点异曲同工之妙。&lt;/p&gt;
     
     </summary>
     
