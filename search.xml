@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>剑指offer-整数中1出现的次数</title>
+    <url>/2020/01/17/%E5%89%91%E6%8C%87offer-%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/</url>
+    <content><![CDATA[<p>本文为剑指 offer 系列第三篇。<br>核心能力是基于数学知识来找数字存在的规律。<br>这个问题给我的重要启示是将问题普遍化与自动化，是我们作为一个计算机行业从业者应该要做的事，也是让我们所有人受益无穷的事。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/bd7f978302044eee894445e244c7eee6?tpId=13&tqId=11184&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>求出1到13的整数中1出现的次数,并算出100到1300的整数中1出现的次数？为此他特别数了一下1~13中包含1的数字有1、10、11、12、13因此共出现6次,但是对于后面问题他就没辙了。ACMer希望你们帮帮他,并把问题更加普遍化,可以很快的求出任意非负整数区间中1出现的次数（从1 到 n 中1出现的次数）。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1:"></a>思路1:</h3><p>将1-n的每个数通过取余数来计算每一位是否为1，然后找个计数器来进行统计</p>
+<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2:"></a>思路2:</h3><p>通过分析每个位置上1出现的规律来进行规律性的查找。下面以数字32456然后计算百位上1的个数来进行演示。</p>
+<ol>
+<li>首先将原来的数据分为2部分，a= 32456/100 = 324, b=32456%100 = 56. </li>
+<li>这里百位上为4，所以他有完整的33个100位1，也就是(a/10+1)个100，推广一下，我们发现其实任何大于等于2的数字都会有这个规律。</li>
+<li>如果这里百位上为0.即32056，则它有完整的32个100，也就是（a/10)个100。</li>
+<li>如果这里百位上位1，即32156，则他有完整的32个100，同时会有32100-32156中57个百位上的1.也就是(a/10)个100，然后加上(b+1)个1.<br>其他位可以同理得到计算结果。从而问题得到了解决。</li>
+</ol>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int NumberOf1Between1AndN_Solution(int n)</span><br><span class="line">    &#123;</span><br><span class="line">        // 方法1: 暴力求解。计算每一个数中每一位是不是1进行求和。</span><br><span class="line">        int res = 0;</span><br><span class="line">        for(int i = 1;  i &lt;= n; i++)&#123;</span><br><span class="line">           int temp = i;</span><br><span class="line">            while(temp)&#123;</span><br><span class="line">                if(temp%10 == 1)&#123;</span><br><span class="line">                    res++;</span><br><span class="line">                &#125;</span><br><span class="line">                temp = temp/10;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(nlgn),空间复杂度为O(1);</p>
+<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int NumberOf1Between1AndN_Solution(int n)</span><br><span class="line">    &#123;</span><br><span class="line">        int res = 0;</span><br><span class="line">        for(long i = 1; i&lt;= n; i*=10)&#123;</span><br><span class="line">            int a = n/i, b = n%i;</span><br><span class="line">            if(a%10 == 0)&#123;</span><br><span class="line">                res += (a/10)*i;</span><br><span class="line">            &#125;else if( a%10 == 1)&#123;</span><br><span class="line">                res += (a/10)*i + (b+1);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                res += (a/10+1)*i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(lgn),空间复杂度为O(1);<br>以上，本题结束！</p>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codinginterviews</tag>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>剑指offer-求1+2+……+n</title>
     <url>/2020/01/16/%E5%89%91%E6%8C%87offer-%E6%B1%821-2-%E2%80%A6%E2%80%A6-n/</url>
     <content><![CDATA[<p>本文为剑指offer系列第二篇。<br>个人感觉属于奇淫巧技，但是是真的很巧妙，有利于打破思维定势。</p>
