@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-18T14:35:47.111Z</updated>
+  <updated>2020-01-18T14:55:26.357Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-跳台阶</title>
+    <link href="http://yoursite.com/2020/01/18/%E5%89%91%E6%8C%87offer-%E8%B7%B3%E5%8F%B0%E9%98%B6/"/>
+    <id>http://yoursite.com/2020/01/18/剑指offer-跳台阶/</id>
+    <published>2020-01-18T14:45:04.000Z</published>
+    <updated>2020-01-18T14:55:26.357Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第十篇。<br>主要内容其实还是斐波那契数列，依旧是上一篇斐波那契的思路，再复习一遍。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=13&tqId=11161&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>第一级台阶： 1种跳法<br>第二级台阶： 2种跳法<br>第三级台阶： 3种跳法：要么从第一级跳2级跳上来，要么从第二级跳1级跳上来。<br>……<br>第n级台阶：f(n-2)+f(n-1): 要么从n-2级一次跳两级跳上来，那么从n-1级跳一级跳上来。<br>所以就是一个非常典型的斐波那契数列，最开始两项分别是1和2.</p><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>直接用递归</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>用数组保存</p><h3 id="思路3"><a href="#思路3" class="headerlink" title="思路3"></a>思路3</h3><p>保存两个关键数字</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloor(int num) &#123;</span><br><span class="line">        //方法1.递归解决</span><br><span class="line">         if(num == 1)&#123;</span><br><span class="line">           return 1;</span><br><span class="line">         &#125;else if( num == 2)&#123;</span><br><span class="line">            return 2;</span><br><span class="line">         &#125;else&#123;</span><br><span class="line">            return jumpFloor(num-1) + jumpFloor(num-2);</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloor(int num) &#123;</span><br><span class="line">        // 方法2: 数组保存</span><br><span class="line">         vector&lt;int&gt; a=&#123;0,1,2&#125;;</span><br><span class="line">         for(int i = 3; i&lt;=num; i++)&#123;</span><br><span class="line">             a.push_back(a[i-1]+a[i-2]);</span><br><span class="line">         &#125;</span><br><span class="line">         return a[num];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h3 id="思路3代码"><a href="#思路3代码" class="headerlink" title="思路3代码"></a>思路3代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloor(int num) &#123;</span><br><span class="line">        // 方法3:</span><br><span class="line">        int first = 1, second = 2;</span><br><span class="line">        if(num == 1) return 1;</span><br><span class="line">        if(num == 2) return 2;</span><br><span class="line">        for(int i = 2; i &lt; num; i++)&#123;</span><br><span class="line">            int temp = first + second;</span><br><span class="line">            first = second;</span><br><span class="line">            second = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        return second;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(1)<br>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第十篇。&lt;br&gt;主要内容其实还是斐波那契数列，依旧是上一篇斐波那契的思路，再复习一遍。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="斐波那契数列" scheme="http://yoursite.com/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-斐波那契数列</title>
@@ -506,31 +531,6 @@
       <category term="Houjie" scheme="http://yoursite.com/tags/Houjie/"/>
     
       <category term="Bilibili" scheme="http://yoursite.com/tags/Bilibili/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MouseAndPoison</title>
-    <link href="http://yoursite.com/2019/11/17/MouseAndPoison/"/>
-    <id>http://yoursite.com/2019/11/17/MouseAndPoison/</id>
-    <published>2019-11-17T14:26:49.000Z</published>
-    <updated>2019-11-17T14:30:54.356Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近有和同学在讨论用小老鼠来找出有毒的水瓶的问题，稍微总结一下。</p><a id="more"></a><h2 id="经典问题-16选1"><a href="#经典问题-16选1" class="headerlink" title="经典问题. 16选1"></a>经典问题. 16选1</h2><p>16瓶水其中有一瓶有毒，多少个小老鼠可以确定是哪瓶呢？</p><h3 id="1-二进制编码水瓶"><a href="#1-二进制编码水瓶" class="headerlink" title="1. 二进制编码水瓶"></a>1. 二进制编码水瓶</h3><p>对16瓶水进行二进制编码，比如第五瓶是1001，那么就给第一只和第四只小老师喝（第n只代表从低位到高位的序号），这样最终死亡的小老鼠就会拼凑出一个数字就是对应的有毒的那一瓶水。比如说第一只和第三只小老鼠死了，那么就是0101，所以也就是第五瓶水有毒。</p><h3 id="2-减半查找"><a href="#2-减半查找" class="headerlink" title="2. 减半查找"></a>2. 减半查找</h3><p>如果不考虑时间，我们可以一次一次小鼠进行测试，每次找出奇数位的小鼠，可以通过死亡与否确定是奇数还是偶数，每次都可以将等待判断的量降低为原来的一半。所以总共需要log2(n)向上取整只小鼠。</p><h3 id="3-上面两种方式等价。"><a href="#3-上面两种方式等价。" class="headerlink" title="3. 上面两种方式等价。"></a>3. 上面两种方式等价。</h3><p>其实上面两种方法等价，最高位是1去掉所有的一半，次高位是1去掉一半，最后就剩两个，然后再来一只小鼠就确定了。</p><h3 id="变体问题"><a href="#变体问题" class="headerlink" title="变体问题"></a>变体问题</h3><ol><li>如果10-17瓶水只有一瓶水有毒，同样可以按照1的方式进行计算。</li><li>如果16瓶水，其中有一瓶是有毒的，要找14瓶没毒的，实际上就可以变相的理解为8瓶水中找7瓶，从而只需要三只小老鼠就可以了。</li><li>如果允许有两轮，或者变相说明有一个小时时间，然后小鼠喝毒药半个小时就去世，那就可以理解成为需要一轮然后处理一半的水瓶就可以了。 </li></ol><p>如果以后还有再继续补充吧～</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近有和同学在讨论用小老鼠来找出有毒的水瓶的问题，稍微总结一下。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="思维风暴" scheme="http://yoursite.com/categories/%E6%80%9D%E7%BB%B4%E9%A3%8E%E6%9A%B4/"/>
-    
-    
-      <category term="mouse" scheme="http://yoursite.com/tags/mouse/"/>
-    
-      <category term="BrainStorm" scheme="http://yoursite.com/tags/BrainStorm/"/>
     
   </entry>
   
