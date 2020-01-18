@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-17T13:55:37.946Z</updated>
+  <updated>2020-01-18T13:31:04.278Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-重建二叉树</title>
+    <link href="http://yoursite.com/2020/01/18/%E5%89%91%E6%8C%87offer-%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <id>http://yoursite.com/2020/01/18/剑指offer-重建二叉树/</id>
+    <published>2020-01-18T13:13:32.000Z</published>
+    <updated>2020-01-18T13:31:04.278Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第六篇。<br>主要就是根据二叉树遍历的前序遍历和中序遍历重新构造出原始的二叉树。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/8a19cbe657394eeaac2f6ea9b0f6fcf6?tpId=13&tqId=11157&tPage=1&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>前序遍历的顺序是 根节点，左子树，右子树。<br>中序遍历的顺序是 左子树，根节点，右子树。<br>所以我们可以发现，前序遍历的第一个节点就是根节点，然后我们在中序遍历中找到这个根节点，那么这个根节点之前的就是左子树的中序，根节点之后的就是右子树的中序，然后可以根据左子树的个数，在前序遍历中将左子树和右子树进行分离，而分离的结果可以用来构建左子树和右子树。</p><p>下面以题目中的数据为例进行详细说明</p><ol><li>首先根据前序遍历，可以知道当前的根节点为1。</li><li>在中序遍历中寻找节点1， 然后1之前的节点[4,7,2]就是当前树的左子树的中序遍历，1之后的节点[5,3,8,6]就是当前树的右子树的中序遍历。</li><li>在前序遍历中根据左子树的节点个数找到对应的左子树的前序遍历[2,4,7],和对应的右子树的前序遍历【3，5，6，8】。</li><li>同样的操作可以继续针对左子树和右子树，从而把整个的二叉树构建出来。</li></ol><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for binary tree</span><br><span class="line"> * struct TreeNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     TreeNode *left;</span><br><span class="line"> *     TreeNode *right;</span><br><span class="line"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    TreeNode* reConstructBinaryTree(vector&lt;int&gt; pre,vector&lt;int&gt; vin) &#123;</span><br><span class="line">            return helper(pre,0,pre.size()-1,vin,0,vin.size()-1);</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode* helper(vector&lt;int&gt; pre,int pstart,int pend,vector&lt;int&gt; vin,int vstart,int vend)&#123;</span><br><span class="line">        if(vstart &gt; vend) return NULL;</span><br><span class="line">        int root = pre[pstart];</span><br><span class="line">        TreeNode* temp = new TreeNode(root);</span><br><span class="line">        </span><br><span class="line">        auto a = find(vin.begin(),vin.end(),root);</span><br><span class="line">        int index = distance(vin.begin(),a);</span><br><span class="line">        int lnum = index - vstart; //左子树</span><br><span class="line">        temp -&gt; left = helper(pre,pstart+1,pstart+lnum,vin,vstart,index-1);</span><br><span class="line">        temp -&gt; right = helper(pre,pstart+1+lnum,pend,vin,index+1,vend);</span><br><span class="line">        return temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)<br>类似的题目还有根据中序和后续进行重建二叉树，道理类似，只是根节点变成了后续遍历的最后一个节点。<br>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第六篇。&lt;br&gt;主要就是根据二叉树遍历的前序遍历和中序遍历重新构造出原始的二叉树。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="BinaryTree" scheme="http://yoursite.com/tags/BinaryTree/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-从尾到头打印链表</title>
@@ -506,33 +531,6 @@
       <category term="leetcode" scheme="http://yoursite.com/tags/leetcode/"/>
     
       <category term="hard" scheme="http://yoursite.com/tags/hard/"/>
-    
-      <category term="Greedy" scheme="http://yoursite.com/tags/Greedy/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>leetcode-452-MinimumNumberOfArrowsToBurstBalloons</title>
-    <link href="http://yoursite.com/2019/11/12/leetcode-452-MinimumNumberOfArrowsToBurstBalloons/"/>
-    <id>http://yoursite.com/2019/11/12/leetcode-452-MinimumNumberOfArrowsToBurstBalloons/</id>
-    <published>2019-11-12T10:24:17.000Z</published>
-    <updated>2019-11-12T10:25:17.317Z</updated>
-    
-    <content type="html"><![CDATA[<p>射箭，问射穿所有气球最少射几箭。<br>抽象出来之后，其实也是区间类型的题目。只是这次的排序方式相比与之前发生了点变化。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>There are a number of spherical balloons spread in two-dimensional space. For each balloon, provided input is the start and end coordinates of the horizontal diameter. Since it’s horizontal, y-coordinates don’t matter and hence the x-coordinates of start and end of the diameter suffice. Start is always smaller than end. There will be at most 104 balloons.</p><p>An arrow can be shot up exactly vertically from different points along the x-axis. A balloon with xstart and xend bursts by an arrow shot at x if xstart ≤ x ≤ xend. There is no limit to the number of arrows that can be shot. An arrow once shot keeps travelling up infinitely. The problem is to find the minimum number of arrows that must be shot to burst all balloons.</p><h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[[10,16], [2,8], [1,6], [7,12]]</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">2</span><br></pre></td></tr></table></figure><p>Explanation:<br>One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] and [1,6]) and another arrow at x = 11 (bursting the other two balloons).</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>贪心算法</p><h2 id="详细解释"><a href="#详细解释" class="headerlink" title="详细解释"></a>详细解释</h2><p>射气球，总的来看，其实第一支箭一定会射在第一个气球的范围之内，比如说[1,6]，而第二支箭一定是要射在第一个[1,6]覆盖不到的第一个气球的区间之内的。所以当我们按照他们的区间后端进行排序之后，就会很容易找到第一个不重合的气球，每次遇到一个与之前不重合的气球，就射一箭，从而可以实现最优解。</p><h2 id="巧妙之处"><a href="#巧妙之处" class="headerlink" title="巧妙之处"></a>巧妙之处</h2><ol><li>之前的排序其实都是按照有序对的第一个元素进行排序，然后本题目是按照第二个元素排序，就可以使得题目变得非常的简单有效。</li><li>复习之前的lambda表达式的用法。<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int findMinArrowShots(vector&lt;vector&lt;int&gt;&gt;&amp; points) &#123;</span><br><span class="line">        if(points.empty()) return 0;</span><br><span class="line">        sort(points.begin(), points.end(),[](vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">            return (a[1] &lt; b[1]);</span><br><span class="line">        &#125;);</span><br><span class="line">        int res = 1;</span><br><span class="line">        int end = points[0][1];</span><br><span class="line">        for(int i = 1; i &lt;  points.size(); i++)&#123;</span><br><span class="line">            if(points[i][0] &gt; end)&#123;</span><br><span class="line">                res++;</span><br><span class="line">                end = points[i][1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li></ol><p>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;射箭，问射穿所有气球最少射几箭。&lt;br&gt;抽象出来之后，其实也是区间类型的题目。只是这次的排序方式相比与之前发生了点变化。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="leetcode" scheme="http://yoursite.com/tags/leetcode/"/>
-    
-      <category term="medium" scheme="http://yoursite.com/tags/medium/"/>
     
       <category term="Greedy" scheme="http://yoursite.com/tags/Greedy/"/>
     
