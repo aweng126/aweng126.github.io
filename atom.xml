@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-19T14:23:01.801Z</updated>
+  <updated>2020-01-19T14:35:32.789Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-树的子结构</title>
+    <link href="http://yoursite.com/2020/01/19/%E5%89%91%E6%8C%87offer-%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/"/>
+    <id>http://yoursite.com/2020/01/19/剑指offer-树的子结构/</id>
+    <published>2020-01-19T14:24:58.000Z</published>
+    <updated>2020-01-19T14:35:32.789Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第十九篇。<br>主要知识点为树，主要是对树进行相关的遍历，对树的相似性进行判断。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/6e196c44c7004d15b1610b9afca8bd88?tpId=13&tqId=11170&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>依次遍历A的所有节点，然后来判断当前节点所在的部分是不是和B的结构一致就可以。可以直接使用递归。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool HasSubtree(TreeNode* root1, TreeNode* root2)&#123;</span><br><span class="line">        if(!root1 || !root2) return false;</span><br><span class="line">        return confirm(root1,root2) || HasSubtree(root1-&gt;left,root2) || HasSubtree(root1-&gt;right,root2);</span><br><span class="line">    &#125;</span><br><span class="line">    bool confirm(TreeNode* root1,TreeNode* root2)&#123;</span><br><span class="line">        if(!root2) return true;</span><br><span class="line">        if(!root1) return false;</span><br><span class="line">        if(root1-&gt;val == root2-&gt;val)&#123;</span><br><span class="line">            return confirm(root1-&gt;left,root2-&gt;left) &amp;&amp; confirm(root1-&gt;right,root2-&gt;right);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第十九篇。&lt;br&gt;主要知识点为树，主要是对树进行相关的遍历，对树的相似性进行判断。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="Tree" scheme="http://yoursite.com/tags/Tree/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-合并两个排序的链表</title>
@@ -496,31 +521,6 @@
       <category term="快捷键" scheme="http://yoursite.com/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
     
       <category term="常用命令" scheme="http://yoursite.com/tags/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>为什么c++比java运行的速度快</title>
-    <link href="http://yoursite.com/2019/12/10/%E4%B8%BA%E4%BB%80%E4%B9%88c-%E6%AF%94java%E8%BF%90%E8%A1%8C%E7%9A%84%E9%80%9F%E5%BA%A6%E5%BF%AB/"/>
-    <id>http://yoursite.com/2019/12/10/为什么c-比java运行的速度快/</id>
-    <published>2019-12-10T03:46:49.000Z</published>
-    <updated>2019-12-10T04:01:51.188Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近和同学讨论算法题目的时候，突然讲到为什么java的速度比c++慢，当时一知半解，雾里看花。<br>于是回来之后查了一下资料，整理一下放在这里，方便以后查看。<br>暂时理解到这个程度，如果以后有新的理解再做补充。</p><a id="more"></a><h2 id="明确原则"><a href="#明确原则" class="headerlink" title="明确原则"></a>明确原则</h2><p>首先，我们要明确一个放之世界皆准的原则:</p><blockquote><p>在资源一定的情况下，鱼与熊掌不可得兼。</p></blockquote><p>在程序运行方面，也就是说效率和便捷性往往不能同时满足。</p><p>c++ 和java的比较就是一个很典型的例子。java的抽象层级要比c++高一点，很多情况下java语言已经替我们做出了选择（可能是考虑了全局的程序性能之后得到的最优解），所以用起来就比较方便，但是这就有可能放弃了对于某些特定问题的更优的选择（可能他们仅仅在某几类问题上性能优秀，但是全局所有问题来看不是那么理想）也就在一定程度上损失了效率。</p><p>比如我们在使用java语言的时候可以直接通过obj.method()这种方式进行调用，它默认传递的都是引用。但是我们如果使用的是c++，那么就需要自己来确定我们的方法参数传的是指针还是引用，根据不同的选择在方法内部也有不同的使用方式。</p><h2 id="原因浅析"><a href="#原因浅析" class="headerlink" title="原因浅析"></a>原因浅析</h2><h3 id="编译过程不一样"><a href="#编译过程不一样" class="headerlink" title="编译过程不一样"></a>编译过程不一样</h3><p>在前面我们已经介绍过c++ 的编译过程，g++编译器可以直接将我们的源码编译成为机器可以执行的二进制代码（机器指令的集合），从而直接执行。</p><p>而对于java语言，java编译器会将java源码解析成字节码（独立于CPU架构，cpu不认识），然后字节码会被JVM加载然后再编译成当前cpu架构所对应的二进制代码（机器指令的集合）然后再执行。</p><p>简而言之，java在源码与机器指令之间又加了一层字节码的处理，这样可以保证在不同的机器上运行，但是相比于c++直接编译到机器指令来讲就会慢很多。</p><h3 id="对象的创建不同"><a href="#对象的创建不同" class="headerlink" title="对象的创建不同"></a>对象的创建不同</h3><p>在java中一切皆对象（这里忽略基本数据类型的情况），而对象的创建是通过new来实现的，也就是说对象本身都是保存在堆内存中的，而栈内存中仅仅保存了一个对象的引用。这样在获得对象的时候实际上可以认为是间接寻址，速度就会比较慢。</p><p>而在c++ 中，很多局部变量和对象的创建都是保存在栈中的，可以直接访问，所以效率就会很高。</p><h3 id="检查机制不同"><a href="#检查机制不同" class="headerlink" title="检查机制不同"></a>检查机制不同</h3><p>java虚拟机本身在运行时会对程序进行很多的检查，比如说检查数组越界，检查类型是否错误，检查是否空指针，检查对象是否需要回收(JVM)等等，比较充分的保证了java程序的安全性和稳定性，但是也浪费了检查的时间。</p><p>但是在c++程序中，这些检查都是需要程序员自己进行检查判断和处理的，如果程序员不写，那就硬着头皮执行，所以效率会很高，但是安全性和稳定性会有一定的损失。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol><li><a href="https://www.iteye.com/blog/leowzy-819206" target="_blank" rel="noopener">java运行速度比C++慢的原因</a></li><li><a href="https://www.zhihu.com/question/22050405" target="_blank" rel="noopener">知乎-为什么说 Java 比 C / C++ 慢？</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;最近和同学讨论算法题目的时候，突然讲到为什么java的速度比c++慢，当时一知半解，雾里看花。&lt;br&gt;于是回来之后查了一下资料，整理一下放在这里，方便以后查看。&lt;br&gt;暂时理解到这个程度，如果以后有新的理解再做补充。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="C++基础" scheme="http://yoursite.com/categories/C-%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
-    
-      <category term="Why" scheme="http://yoursite.com/tags/Why/"/>
     
   </entry>
   
