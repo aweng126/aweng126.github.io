@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-19T12:05:16.744Z</updated>
+  <updated>2020-01-19T12:13:26.601Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-数值的整数次方</title>
+    <link href="http://yoursite.com/2020/01/19/%E5%89%91%E6%8C%87offer-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/"/>
+    <id>http://yoursite.com/2020/01/19/剑指offer-数值的整数次方/</id>
+    <published>2020-01-19T12:06:40.000Z</published>
+    <updated>2020-01-19T12:13:26.601Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第十四篇。<br>细心一点，搞清楚正负逻辑，这个题目就是非常简单的送分题。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/1a834e5e3e1a4b7ba251417554e07c00?tpId=13&tqId=11165&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。<br>保证base和exponent不同时为0</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>直接使用库函数pow()来进行计算乘方操作。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>对exponent进行分情况讨论:大于0，小于0，等于0。<br>然后要注意最终结果的正负判断。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    double Power(double base, int exponent) &#123;</span><br><span class="line">       return pow(base,exponent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(1)</p><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    double Power(double base, int exponent) &#123;</span><br><span class="line">        double res = 1;</span><br><span class="line">        if(exponent == 0)&#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125;else if(exponent&gt;0)&#123;</span><br><span class="line">            while(exponent &gt;0)&#123;</span><br><span class="line">                res *= base;</span><br><span class="line">                exponent--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            while(exponent &lt;0)&#123;</span><br><span class="line">                res *= (1/base);</span><br><span class="line">                exponent++; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(base &lt; 0 &amp;&amp; exponent%2 == 1) res *= -1; </span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(1)<br>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第十四篇。&lt;br&gt;细心一点，搞清楚正负逻辑，这个题目就是非常简单的送分题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="送分题" scheme="http://yoursite.com/tags/%E9%80%81%E5%88%86%E9%A2%98/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-二进制中1的个数</title>
@@ -494,33 +519,6 @@
       <category term="编译" scheme="http://yoursite.com/tags/%E7%BC%96%E8%AF%91/"/>
     
       <category term="g++" scheme="http://yoursite.com/tags/g/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Make-MacOs-Support-NTFS</title>
-    <link href="http://yoursite.com/2019/12/01/Make-MacOs-Support-NTFS/"/>
-    <id>http://yoursite.com/2019/12/01/Make-MacOs-Support-NTFS/</id>
-    <published>2019-12-01T07:37:21.000Z</published>
-    <updated>2019-12-01T07:46:35.223Z</updated>
-    
-    <content type="html"><![CDATA[<p>我有一个2T的硬盘，文件格式是NTFS格式的，在MAC系统上一直能读不能写，让我很苦恼，这次从网上找了一个方法而且亲测有效，所以特地记录一下。</p><a id="more"></a><h2 id="什么是NTFS"><a href="#什么是NTFS" class="headerlink" title="什么是NTFS"></a>什么是<a href="https://zh.wikipedia.org/wiki/NTFS" target="_blank" rel="noopener">NTFS</a></h2><p>简单来讲，NTFS是微软开发的专用文件系统，Mac OS X内核能对NTFS进行有限的读操作。Linux和BSD提供自由及开放源代码的软件，可用于读写NTFS文件。</p><pre><code>NTFS（英语：New Technology File System），是Microsoft公司开发的专用文件系统，从Windows NT 3.1开始成为Windows NT家族的标准文件系统。[4]NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一系列改进，例如增强对元数据的支持，使用更高级的数据结构以提升性能、可靠性和磁盘空间利用率，并附带一系列增强功能，如访问控制列表（ACL）和文件系统日志等。——维基百科</code></pre><h2 id="解决措施"><a href="#解决措施" class="headerlink" title="解决措施"></a>解决措施</h2><h3 id="流程简介"><a href="#流程简介" class="headerlink" title="流程简介"></a>流程简介</h3><ol><li>挂载上你的NTFS硬盘，查看硬盘名称</li><li>编辑/etc/fstab文件，使其支持NTFS写入</li><li>将/Volumes中的NTFS磁盘快捷方式到Finder</li></ol><h3 id="详细流程"><a href="#详细流程" class="headerlink" title="详细流程"></a>详细流程</h3><ol><li><p>插上硬盘后，查看你的硬盘名称，这里假设名称是AngleDisk，牢记之（你的可不是这个呀！！）</p></li><li><p>打开Applications的Terminal, 你也可以直接spotlight输入terminal打开</p></li><li><p>在终端输入sudo nano /etc/fstab 敲击回车</p></li><li><p>现在你看到了一个编辑界面，输入LABEL=AngleDisk none ntfs rw,auto,nobrowse后，敲击回车，再Ctrl+X，再敲击Y，再敲击回车</p></li><li><p>此时，退出你的移动硬盘，再重新插入，你会发现磁盘没有显示再桌面或是Finder之前出现的地方，别慌</p></li><li><p>打开Finder，Command+Shift+G，输入框中输入/Volumes，回车，你就可以看到你的磁盘啦！是可以读写的哟，Enjoy</p></li><li><p>方便起见，你可以直接把磁盘拖到Finder侧边栏中，这样下次使用就不用进入到/Volumes目录打开了</p></li></ol><h2 id="原文地址"><a href="#原文地址" class="headerlink" title="原文地址"></a>原文地址</h2><p><a href="https://blog.csdn.net/u013247765/article/details/77932144" target="_blank" rel="noopener">无需第三方软件实现Mac支持ntfs读写的最简单操作</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;我有一个2T的硬盘，文件格式是NTFS格式的，在MAC系统上一直能读不能写，让我很苦恼，这次从网上找了一个方法而且亲测有效，所以特地记录一下。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="实用技能" scheme="http://yoursite.com/categories/%E5%AE%9E%E7%94%A8%E6%8A%80%E8%83%BD/"/>
-    
-    
-      <category term="MacOs" scheme="http://yoursite.com/tags/MacOs/"/>
-    
-      <category term="NTFS" scheme="http://yoursite.com/tags/NTFS/"/>
-    
-      <category term="转载" scheme="http://yoursite.com/tags/%E8%BD%AC%E8%BD%BD/"/>
     
   </entry>
   

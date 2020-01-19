@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>剑指offer-数值的整数次方</title>
+    <url>/2020/01/19/%E5%89%91%E6%8C%87offer-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/</url>
+    <content><![CDATA[<p>本文为剑指 offer 系列第十四篇。<br>细心一点，搞清楚正负逻辑，这个题目就是非常简单的送分题。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/1a834e5e3e1a4b7ba251417554e07c00?tpId=13&tqId=11165&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。<br>保证base和exponent不同时为0</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>直接使用库函数pow()来进行计算乘方操作。</p>
+<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>对exponent进行分情况讨论:大于0，小于0，等于0。<br>然后要注意最终结果的正负判断。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    double Power(double base, int exponent) &#123;</span><br><span class="line">       return pow(base,exponent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(1)</p>
+<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    double Power(double base, int exponent) &#123;</span><br><span class="line">        double res = 1;</span><br><span class="line">        if(exponent == 0)&#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125;else if(exponent&gt;0)&#123;</span><br><span class="line">            while(exponent &gt;0)&#123;</span><br><span class="line">                res *= base;</span><br><span class="line">                exponent--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            while(exponent &lt;0)&#123;</span><br><span class="line">                res *= (1/base);</span><br><span class="line">                exponent++; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(base &lt; 0 &amp;&amp; exponent%2 == 1) res *= -1; </span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(1)<br>以上，本题结束！</p>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codinginterviews</tag>
+        <tag>送分题</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>剑指offer-二进制中1的个数</title>
     <url>/2020/01/19/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/</url>
     <content><![CDATA[<p>本文为剑指 offer 系列第十三篇。<br>主要知识点为进制转化和位运算以及数据在计算机中的存储方式，解题方式比较巧妙。</p>
