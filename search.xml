@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>剑指offer-变态跳台阶</title>
+    <url>/2020/01/19/%E5%89%91%E6%8C%87offer-%E5%8F%98%E6%80%81%E8%B7%B3%E5%8F%B0%E9%98%B6/</url>
+    <content><![CDATA[<p>本文为剑指 offer 系列第十一篇。<br>主要知识点为找规律，可以作为上一篇跳台阶的升级版,依旧比较简单。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/22243d016f6b47f2a6928b4313c85387?tpId=13&tqId=11162&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>直接找规律。</p>
+<ol>
+<li>第一级台阶：1种方式。</li>
+<li>第二级台阶：2种方式。1+1 ：直接跳到2级或者从1级上跳上来。</li>
+<li>第三级台阶：4种方式。1+1+2 ：直接跳到3级或者从1级跳上来或者从2级跳上来。</li>
+<li>……</li>
+<li>第n级台阶：2^(n-1)种方式。 1+1+2+4+……+2^(n-2) = 2^(n-1)。直接跳到n级或者从前面的每一级跳到当前n级。    </li>
+</ol>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloorII(int number) &#123;</span><br><span class="line">        return pow(2,number-1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(1)</p>
+<p>以上，本题结束！</p>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codinginterviews</tag>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>剑指offer-跳台阶</title>
     <url>/2020/01/18/%E5%89%91%E6%8C%87offer-%E8%B7%B3%E5%8F%B0%E9%98%B6/</url>
     <content><![CDATA[<p>本文为剑指 offer 系列第十篇。<br>主要内容其实还是斐波那契数列，依旧是上一篇斐波那契的思路，再复习一遍。</p>

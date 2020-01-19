@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-18T14:55:26.357Z</updated>
+  <updated>2020-01-19T11:12:10.937Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-变态跳台阶</title>
+    <link href="http://yoursite.com/2020/01/19/%E5%89%91%E6%8C%87offer-%E5%8F%98%E6%80%81%E8%B7%B3%E5%8F%B0%E9%98%B6/"/>
+    <id>http://yoursite.com/2020/01/19/剑指offer-变态跳台阶/</id>
+    <published>2020-01-19T11:03:45.000Z</published>
+    <updated>2020-01-19T11:12:10.937Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第十一篇。<br>主要知识点为找规律，可以作为上一篇跳台阶的升级版,依旧比较简单。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/22243d016f6b47f2a6928b4313c85387?tpId=13&tqId=11162&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>直接找规律。</p><ol><li>第一级台阶：1种方式。</li><li>第二级台阶：2种方式。1+1 ：直接跳到2级或者从1级上跳上来。</li><li>第三级台阶：4种方式。1+1+2 ：直接跳到3级或者从1级跳上来或者从2级跳上来。</li><li>……</li><li>第n级台阶：2^(n-1)种方式。 1+1+2+4+……+2^(n-2) = 2^(n-1)。直接跳到n级或者从前面的每一级跳到当前n级。    </li></ol><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloorII(int number) &#123;</span><br><span class="line">        return pow(2,number-1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(1)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第十一篇。&lt;br&gt;主要知识点为找规律，可以作为上一篇跳台阶的升级版,依旧比较简单。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="数学" scheme="http://yoursite.com/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-跳台阶</title>
@@ -492,33 +517,6 @@
     <summary type="html">
     
       &lt;p&gt;在Bilibili跟着侯捷老师学C++系列第二篇，带指针的类mString类。&lt;br&gt;人生得遇良师，实属大幸，侯捷老师就属于这种老师，再夸一遍！！&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="C++基础" scheme="http://yoursite.com/categories/C-%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="C++" scheme="http://yoursite.com/tags/C/"/>
-    
-      <category term="Houjie" scheme="http://yoursite.com/tags/Houjie/"/>
-    
-      <category term="Bilibili" scheme="http://yoursite.com/tags/Bilibili/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Class-without-pointer-Complex-Houjie-Bilibili</title>
-    <link href="http://yoursite.com/2019/11/22/Class-without-pointer-Complex-Houjie-Bilibili/"/>
-    <id>http://yoursite.com/2019/11/22/Class-without-pointer-Complex-Houjie-Bilibili/</id>
-    <published>2019-11-22T14:15:18.000Z</published>
-    <updated>2019-11-22T14:53:29.139Z</updated>
-    
-    <content type="html"><![CDATA[<p>在Bilibili跟着侯捷老师学C++系列第一篇，不带指针的类Complex类。<br>人生得遇良师，实属大幸，侯捷老师就属于这种老师！！</p><a id="more"></a><p>因为C++的效率是最高的，所以对于C++自己一定要好好掌握，个人看法，你如果能学会C++，其他语言都将不在话下。然后刚好碰到一个非常好的教程，有一位非常棒的老师-侯捷老师，有一个好的平台-Bilibili，还有非常好的训练场地——leetcode，所以此时不学什么时候学呢？</p><h2 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h2><p><a href="https://www.bilibili.com/video/av19038490" target="_blank" rel="noopener">侯捷C++手把手教学(上),适合新手</a> </p><h2 id="代码文件"><a href="#代码文件" class="headerlink" title="代码文件"></a>代码文件</h2><h3 id="Complex-hpp"><a href="#Complex-hpp" class="headerlink" title="Complex.hpp"></a>Complex.hpp</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#ifndef Complex_hpp</span><br><span class="line">#define Complex_hpp</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">class Complex&#123;</span><br><span class="line">public:</span><br><span class="line">    Complex(double r = 0, double i = 0) : re(r), im(i)&#123;&#125;</span><br><span class="line">    Complex&amp; operator += (const Complex&amp;);</span><br><span class="line">    double real() const &#123;return re;&#125;</span><br><span class="line">    double imag() const &#123;return im;&#125;</span><br><span class="line">    </span><br><span class="line">private:</span><br><span class="line">    double re,im;</span><br><span class="line">    </span><br><span class="line">    friend Complex&amp; _doapl(Complex*, const Complex&amp;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#endif /* Complex_hpp */</span><br><span class="line"></span><br><span class="line">inline Complex&amp; Complex::operator += (const Complex&amp; c)&#123;</span><br><span class="line">    return _doapl(this,c);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline Complex&amp; _doapl(Complex* ths,const Complex&amp; c)&#123;</span><br><span class="line">    ths-&gt;im += c.im;</span><br><span class="line">    ths-&gt;re += c.re;</span><br><span class="line">    return *ths;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline double real(const Complex&amp; r)&#123;</span><br><span class="line">    return r.real();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline double imag(const Complex&amp; r)&#123;</span><br><span class="line">    return r.imag();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline Complex operator +(const Complex&amp; r1,const Complex r2)&#123;</span><br><span class="line">    return Complex(real(r1)+real(r2), imag(r1)+imag(r2));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline Complex operator + (const Complex&amp; r1, double d)&#123;</span><br><span class="line">    return Complex(real(r1)+d,imag(r1));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline Complex operator + (double d,const Complex&amp; r1)&#123;</span><br><span class="line">    return Complex(real(r1)+d, imag(r1));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">std::ostream&amp; operator &lt;&lt; (std::ostream&amp; os,const Complex&amp; c)&#123;</span><br><span class="line">    return os&lt;&lt;&quot;(&quot;&lt;&lt;real(c)&lt;&lt;&quot;,&quot;&lt;&lt;imag(c)&lt;&lt;&quot;)&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Complex-cpp"><a href="#Complex-cpp" class="headerlink" title="Complex.cpp"></a>Complex.cpp</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &quot;Complex.hpp&quot;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line">int main()&#123;</span><br><span class="line">    Complex c1(2,3);</span><br><span class="line">    Complex c2;</span><br><span class="line">//   测试输出</span><br><span class="line">    cout&lt;&lt;c1&lt;&lt;endl;</span><br><span class="line">//    测试连续输出</span><br><span class="line">    cout&lt;&lt;c1&lt;&lt;c1&lt;&lt;endl;</span><br><span class="line">//    测试 +=</span><br><span class="line">    c1 += c2;</span><br><span class="line">    cout&lt;&lt; c1&lt;&lt;endl;</span><br><span class="line">//    测试+运算</span><br><span class="line">    cout&lt;&lt; c1+2&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="result"><a href="#result" class="headerlink" title="result"></a>result</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(2,3)</span><br><span class="line">(2,3)(2,3)</span><br><span class="line">(2,3)</span><br><span class="line">(4,3)</span><br></pre></td></tr></table></figure><h2 id="细节剖析"><a href="#细节剖析" class="headerlink" title="细节剖析"></a>细节剖析</h2><ol><li>首先是要有一个防卫式声明。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#ifndef Complex_hpp</span><br><span class="line">#define Complex_hpp</span><br><span class="line"></span><br><span class="line">#endif /* Complex_hpp */</span><br></pre></td></tr></table></figure>它的作用在于当我们写的类被其他人通过导入头文件引用的时候不会重复引用。</li><li>类的数据不出意外都要写在private部分,也就是下面的部分。而方法一般都是写在public部分。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">private:</span><br><span class="line">    double re,im;</span><br></pre></td></tr></table></figure></li><li>函数的要不要加const关键字,如果没有更改类属性的值，都要加上。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">double real() const &#123;return re;&#125;</span><br></pre></td></tr></table></figure></li><li>函数参数要不要加const关键字，如果我们不想这个参数在方法中被修改，那么就加上。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">inline double real(const Complex&amp; r)&#123;</span><br><span class="line">    return r.real();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li>考虑是返回值是传值还是传引用。尽量都传引用，这样可以极大的提高效率。但是当返回的值是一个局部变量的时候，要记得通过值进行返回。</li><li>在重载操作符的时候，考虑返回值要考虑到会不会有多重使用，然后再考虑是要无返回还是返回一个引用值。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::ostream&amp; operator &lt;&lt; (std::ostream&amp; os,const Complex&amp; c)&#123;</span><br><span class="line">    return os&lt;&lt;&quot;(&quot;&lt;&lt;real(c)&lt;&lt;&quot;,&quot;&lt;&lt;imag(c)&lt;&lt;&quot;)&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li>当重载运算符的时候要声明其为全局函数。</li><li>构造函数可以通过initialization list来进行初始化。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Complex(double r = 0, double i = 0) : re(r), im(i)&#123;&#125;</span><br></pre></td></tr></table></figure></li><li>传递者无需知道接收者是以什么形式传递数据。传递者只需要传过去即可。但是如果以reference进行传递效率会高一点。</li><li>友元函数可以直接访问私有数据。</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在Bilibili跟着侯捷老师学C++系列第一篇，不带指针的类Complex类。&lt;br&gt;人生得遇良师，实属大幸，侯捷老师就属于这种老师！！&lt;/p&gt;
     
     </summary>
     
