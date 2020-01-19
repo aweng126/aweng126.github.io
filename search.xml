@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>剑指offer-链表中倒数第K个节点</title>
+    <url>/2020/01/19/%E5%89%91%E6%8C%87offer-%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACK%E4%B8%AA%E8%8A%82%E7%82%B9/</url>
+    <content><![CDATA[<p>本文为剑指 offer 系列第十六篇。<br>主要知识点为链表，就是在链表遍历的基础上进行查找操作，细心一点也没啥问题。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/529d3ae5a407492994ad2a246518148a?tpId=13&tqId=11167&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一个链表，输出该链表中倒数第k个结点。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>先将链表遍历一遍，计算总的结点的个数。<br>然后计算倒数第k个是正数第多少个，然后再遍历一遍，找到要输出的结点。</p>
+<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>通过双指针来解决问题。快的结点要比慢的结点提前k个，<br>当后面那个走到尾节点所指向的空结点的时候，慢的指针刚好指向要求输出的节点。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/*</span><br><span class="line">struct ListNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct ListNode *next;</span><br><span class="line">    ListNode(int x) :</span><br><span class="line">            val(x), next(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* FindKthToTail(ListNode* phead, unsigned int k) &#123;</span><br><span class="line">        //方法一，先跑一遍，计算总的个数。然后计算倒数第k个是正数第多少个，然后再遍历一遍。</span><br><span class="line">        if(!phead || k == 0) return NULL;</span><br><span class="line">        int count = 0;</span><br><span class="line">        ListNode* p = phead;</span><br><span class="line">        while(p)&#123;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        if(count &lt; k) return NULL;</span><br><span class="line">        p = phead;</span><br><span class="line">        for(int i = count-k; i&gt;0; i--)&#123;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)</p>
+<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* FindKthToTail(ListNode* phead, unsigned int k) &#123;</span><br><span class="line">        //方法二：快慢双指针。</span><br><span class="line">        if(!phead || k == 0) return NULL;</span><br><span class="line">        ListNode* fast, *slow;</span><br><span class="line">        fast = slow = phead;</span><br><span class="line">        for(int i = 0;i&lt;k;i++)&#123;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">            if(!fast &amp;&amp; i==k-1) return phead;</span><br><span class="line">            if(!fast) return NULL;</span><br><span class="line">        &#125;</span><br><span class="line">        while(fast)&#123;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codinginterviews</tag>
+        <tag>链表</tag>
+        <tag>双指针</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>剑指offer-调整数组顺序使奇数位于偶数前面</title>
     <url>/2020/01/19/%E5%89%91%E6%8C%87offer-%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2/</url>
     <content><![CDATA[<p>本文为剑指 offer 系列第十五篇。<br>就是调整数组中元素的顺序，使得奇数在前，偶数在后，题目比较简单，直接动手吧。</p>
@@ -1010,8 +1033,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -1072,8 +1095,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -1099,8 +1122,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -1146,8 +1169,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>

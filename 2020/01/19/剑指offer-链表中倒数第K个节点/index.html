@@ -51,17 +51,17 @@
   };
 </script>
 
-  <meta name="description" content="射箭，问射穿所有气球最少射几箭。抽象出来之后，其实也是区间类型的题目。只是这次的排序方式相比与之前发生了点变化。">
-<meta name="keywords" content="leetcode,Greedy,medium">
+  <meta name="description" content="本文为剑指 offer 系列第十六篇。主要知识点为链表，就是在链表遍历的基础上进行查找操作，细心一点也没啥问题。">
+<meta name="keywords" content="Codinginterviews,链表,双指针">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-452-MinimumNumberOfArrowsToBurstBalloons">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;12&#x2F;leetcode-452-MinimumNumberOfArrowsToBurstBalloons&#x2F;index.html">
+<meta property="og:title" content="剑指offer-链表中倒数第K个节点">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;19&#x2F;%E5%89%91%E6%8C%87offer-%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACK%E4%B8%AA%E8%8A%82%E7%82%B9&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="射箭，问射穿所有气球最少射几箭。抽象出来之后，其实也是区间类型的题目。只是这次的排序方式相比与之前发生了点变化。">
+<meta property="og:description" content="本文为剑指 offer 系列第十六篇。主要知识点为链表，就是在链表遍历的基础上进行查找操作，细心一点也没啥问题。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-12T10:25:17.317Z">
+<meta property="og:updated_time" content="2020-01-19T12:45:31.413Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/2019/11/12/leetcode-452-MinimumNumberOfArrowsToBurstBalloons/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/19/%E5%89%91%E6%8C%87offer-%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACK%E4%B8%AA%E8%8A%82%E7%82%B9/">
 
 
 <script id="page-configurations">
@@ -75,7 +75,7 @@
   };
 </script>
 
-  <title>leetcode-452-MinimumNumberOfArrowsToBurstBalloons | Kingwen's blog</title>
+  <title>剑指offer-链表中倒数第K个节点 | Kingwen's blog</title>
   
 
 
@@ -217,7 +217,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/leetcode-452-MinimumNumberOfArrowsToBurstBalloons/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/19/%E5%89%91%E6%8C%87offer-%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACK%E4%B8%AA%E8%8A%82%E7%82%B9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -230,7 +230,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode-452-MinimumNumberOfArrowsToBurstBalloons
+          剑指offer-链表中倒数第K个节点
         </h1>
 
         <div class="post-meta">
@@ -241,7 +241,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-12 18:24:17 / 修改时间：18:25:17" itemprop="dateCreated datePublished" datetime="2019-11-12T18:24:17+08:00">2019-11-12</time>
+              <time title="创建时间：2020-01-19 20:27:43 / 修改时间：20:45:31" itemprop="dateCreated datePublished" datetime="2020-01-19T20:27:43+08:00">2020-01-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,14 +268,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -287,22 +287,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>射箭，问射穿所有气球最少射几箭。<br>抽象出来之后，其实也是区间类型的题目。只是这次的排序方式相比与之前发生了点变化。</p>
+        <p>本文为剑指 offer 系列第十六篇。<br>主要知识点为链表，就是在链表遍历的基础上进行查找操作，细心一点也没啥问题。</p>
 <a id="more"></a>
 
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>There are a number of spherical balloons spread in two-dimensional space. For each balloon, provided input is the start and end coordinates of the horizontal diameter. Since it’s horizontal, y-coordinates don’t matter and hence the x-coordinates of start and end of the diameter suffice. Start is always smaller than end. There will be at most 104 balloons.</p>
-<p>An arrow can be shot up exactly vertically from different points along the x-axis. A balloon with xstart and xend bursts by an arrow shot at x if xstart ≤ x ≤ xend. There is no limit to the number of arrows that can be shot. An arrow once shot keeps travelling up infinitely. The problem is to find the minimum number of arrows that must be shot to burst all balloons.</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">[[10,16], [2,8], [1,6], [7,12]]</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
-<p>Explanation:<br>One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] and [1,6]) and another arrow at x = 11 (bursting the other two balloons).</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>贪心算法</p>
-<h2 id="详细解释"><a href="#详细解释" class="headerlink" title="详细解释"></a>详细解释</h2><p>射气球，总的来看，其实第一支箭一定会射在第一个气球的范围之内，比如说[1,6]，而第二支箭一定是要射在第一个[1,6]覆盖不到的第一个气球的区间之内的。所以当我们按照他们的区间后端进行排序之后，就会很容易找到第一个不重合的气球，每次遇到一个与之前不重合的气球，就射一箭，从而可以实现最优解。</p>
-<h2 id="巧妙之处"><a href="#巧妙之处" class="headerlink" title="巧妙之处"></a>巧妙之处</h2><ol>
-<li>之前的排序其实都是按照有序对的第一个元素进行排序，然后本题目是按照第二个元素排序，就可以使得题目变得非常的简单有效。</li>
-<li>复习之前的lambda表达式的用法。<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int findMinArrowShots(vector&lt;vector&lt;int&gt;&gt;&amp; points) &#123;</span><br><span class="line">        if(points.empty()) return 0;</span><br><span class="line">        sort(points.begin(), points.end(),[](vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">            return (a[1] &lt; b[1]);</span><br><span class="line">        &#125;);</span><br><span class="line">        int res = 1;</span><br><span class="line">        int end = points[0][1];</span><br><span class="line">        for(int i = 1; i &lt;  points.size(); i++)&#123;</span><br><span class="line">            if(points[i][0] &gt; end)&#123;</span><br><span class="line">                res++;</span><br><span class="line">                end = points[i][1];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p>以上，本题结束！</p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/529d3ae5a407492994ad2a246518148a?tpId=13&tqId=11167&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一个链表，输出该链表中倒数第k个结点。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>先将链表遍历一遍，计算总的结点的个数。<br>然后计算倒数第k个是正数第多少个，然后再遍历一遍，找到要输出的结点。</p>
+<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>通过双指针来解决问题。快的结点要比慢的结点提前k个，<br>当后面那个走到尾节点所指向的空结点的时候，慢的指针刚好指向要求输出的节点。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct ListNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct ListNode *next;</span><br><span class="line">    ListNode(int x) :</span><br><span class="line">            val(x), next(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* FindKthToTail(ListNode* phead, unsigned int k) &#123;</span><br><span class="line">        //方法一，先跑一遍，计算总的个数。然后计算倒数第k个是正数第多少个，然后再遍历一遍。</span><br><span class="line">        if(!phead || k == 0) return NULL;</span><br><span class="line">        int count = 0;</span><br><span class="line">        ListNode* p = phead;</span><br><span class="line">        while(p)&#123;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">        if(count &lt; k) return NULL;</span><br><span class="line">        p = phead;</span><br><span class="line">        for(int i = count-k; i&gt;0; i--)&#123;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)</p>
+<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* FindKthToTail(ListNode* phead, unsigned int k) &#123;</span><br><span class="line">        //方法二：快慢双指针。</span><br><span class="line">        if(!phead || k == 0) return NULL;</span><br><span class="line">        ListNode* fast, *slow;</span><br><span class="line">        fast = slow = phead;</span><br><span class="line">        for(int i = 0;i&lt;k;i++)&#123;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">            if(!fast &amp;&amp; i==k-1) return phead;</span><br><span class="line">            if(!fast) return NULL;</span><br><span class="line">        &#125;</span><br><span class="line">        while(fast)&#123;</span><br><span class="line">            fast = fast-&gt;next;</span><br><span class="line">            slow = slow-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>
 
     </div>
 
@@ -312,26 +306,23 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/leetcode/" rel="tag"># leetcode</a>
-              <a href="/tags/Greedy/" rel="tag"># Greedy</a>
-              <a href="/tags/medium/" rel="tag"># medium</a>
+              <a href="/tags/Codinginterviews/" rel="tag"># Codinginterviews</a>
+              <a href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag"># 链表</a>
+              <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag"># 双指针</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/12/leetcode-435-Non-overlapping-Intervals/" rel="next" title="leetcode-435-Non-overlapping-Intervals">
-                  <i class="fa fa-chevron-left"></i> leetcode-435-Non-overlapping-Intervals
+                <a href="/2020/01/19/%E5%89%91%E6%8C%87offer-%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2/" rel="next" title="剑指offer-调整数组顺序使奇数位于偶数前面">
+                  <i class="fa fa-chevron-left"></i> 剑指offer-调整数组顺序使奇数位于偶数前面
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/13/leetcode-765-CouplesHoldingHands/" rel="prev" title="leetcode-765-CouplesHoldingHands">
-                  leetcode-765-CouplesHoldingHands <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -370,7 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细解释"><span class="nav-number">4.</span> <span class="nav-text">详细解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#巧妙之处"><span class="nav-number">5.</span> <span class="nav-text">巧妙之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">6.</span> <span class="nav-text">解题代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路1"><span class="nav-number">2.1.</span> <span class="nav-text">思路1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路2"><span class="nav-number">2.2.</span> <span class="nav-text">思路2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">3.</span> <span class="nav-text">解题代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路1代码"><span class="nav-number">3.1.</span> <span class="nav-text">思路1代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路2代码"><span class="nav-number">3.2.</span> <span class="nav-text">思路2代码</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
