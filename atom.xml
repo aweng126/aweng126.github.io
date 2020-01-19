@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-19T12:45:31.413Z</updated>
+  <updated>2020-01-19T12:56:10.860Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-反转链表</title>
+    <link href="http://yoursite.com/2020/01/19/%E5%89%91%E6%8C%87offer-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/"/>
+    <id>http://yoursite.com/2020/01/19/剑指offer-反转链表/</id>
+    <published>2020-01-19T12:47:53.000Z</published>
+    <updated>2020-01-19T12:56:10.860Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第十七篇。<br>主要知识点为链表，还是在链表遍历的基础上做文章，比较简单。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/75e878df47f24fdc9dc3e400ec6058ca?tpId=13&tqId=11168&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一个链表，反转链表后，输出新链表的表头。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>新建一个结点head表示头结点。<br>当遍历原来的链表到结点A的时候，创建一个新的节点A’，值等于A结点的值，A’指向原来的head结点，而head结点指向A结点。<br>如此这般，将原来的链表遍历完，整个问题也就得到解决了。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct ListNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct ListNode *next;</span><br><span class="line">    ListNode(int x) :</span><br><span class="line">            val(x), next(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* ReverseList(ListNode* pHead) &#123;</span><br><span class="line">        ListNode *head = NULL;</span><br><span class="line">        ListNode* p = pHead;</span><br><span class="line">        while(p)&#123;</span><br><span class="line">            ListNode *temp = new ListNode(p-&gt;val);</span><br><span class="line">            temp-&gt;next = head;</span><br><span class="line">            head = temp;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第十七篇。&lt;br&gt;主要知识点为链表，还是在链表遍历的基础上做文章，比较简单。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="链表" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-链表中倒数第K个节点</title>
@@ -496,31 +521,6 @@
       <category term="编译" scheme="http://yoursite.com/tags/%E7%BC%96%E8%AF%91/"/>
     
       <category term="shell" scheme="http://yoursite.com/tags/shell/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>终探c++编译过程</title>
-    <link href="http://yoursite.com/2019/12/03/%E7%BB%88%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/"/>
-    <id>http://yoursite.com/2019/12/03/终探c-编译过程/</id>
-    <published>2019-12-03T15:11:35.000Z</published>
-    <updated>2019-12-03T15:33:47.130Z</updated>
-    
-    <content type="html"><![CDATA[<p>在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。<br>本篇文章探究c++编译过程的第三篇，属于本系列暂时的最后一篇，总结了本次对于整个编译过程的探究结果，同时解释了动态链接和静态链接以及g++和gcc的一些区别和联系。</p><a id="more"></a><p>其实c++编译过程很复杂，一本《编译原理》让无数从业人员感到自己能力有限，我们这里介绍的仅仅是最简单的，比较概括性的内容，如果想继续深入了解可以自行去看《编译原理》书籍。</p><h2 id="编译过程总结"><a href="#编译过程总结" class="headerlink" title="编译过程总结"></a>编译过程总结</h2><p><img src="http://q1tldblw4.bkt.clouddn.com/qiniu_kwimg20191203232929.png" alt=""><br>我们现在应用的g++编译器其实是一个比较成熟的工具，内部细节我们不做深入探讨。但是从总体上来讲，它将整个编译过程分成了如下的四个步骤：</p><h3 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h3><h4 id="g-执行编译"><a href="#g-执行编译" class="headerlink" title="g++执行编译"></a>g++执行编译</h4><p>从源代码文件变成预处理之后的源代码文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -E helloword.cpp helloword.ii</span><br></pre></td></tr></table></figure><h4 id="原理解释"><a href="#原理解释" class="headerlink" title="原理解释"></a>原理解释</h4><p>简单点说，就是将代码进行整合，包括宏定义，include等都替换进来，没用的东西都删掉，比如注释等。</p><p>详细点说<br>预处理相当于根据预处理指令组装新的C/C++程序。经过预处理，会产生一个没有宏定义，没有条件编译指令，没有特殊符号的输出文件，这个文件的含义同原本的文件无异，只是内容上有所不同。</p><ol><li>读取C/C++源程序，对其中的伪指令（以#开头的指令）进行处理<ol><li>将所有的“#define”删除，并且展开所有的宏定义</li><li>处理所有的条件编译指令，如：“#if”、“#ifdef”、“#elif”、“#else”、“endif”等。这些伪指令的引入使得程序员可以通过定义不同的宏来决定编译程序对哪些代码进行处理。预编译程序将根据有关的文件，将那些不必要的代码过滤掉。</li><li>处理“#include”预编译指令，将被包含的文件插入到该预编译指令的位置。</li></ol></li></ol><p>（注意：这个过程可能是递归进行的，也就是说被包含的文件可能还包含其他文件）<br>2. 删除所有的注释<br>3. 添加行号和文件名标识<br>以便于编译时编译器产生调试用的行号信息及用于编译时产生的编译错误或警告时能够显示行号<br>4. 保留所有的#pragma编译器指令</p><h3 id="编译优化"><a href="#编译优化" class="headerlink" title="编译优化"></a>编译优化</h3><h4 id="g-执行编译-1"><a href="#g-执行编译-1" class="headerlink" title="g++执行编译"></a>g++执行编译</h4><p>从源代码文件变成汇编代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -S helloword.cpp helloword.s</span><br></pre></td></tr></table></figure><h4 id="原理解释-1"><a href="#原理解释-1" class="headerlink" title="原理解释"></a>原理解释</h4><p>将预处理完的文件进行一系列词法分析、语法分析、语义分析及优化后，产生相应的汇编代码文件。</p><h3 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h3><h4 id="g-执行编译-2"><a href="#g-执行编译-2" class="headerlink" title="g++执行编译"></a>g++执行编译</h4><p>从源代码文件变成对象文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -c talk.cpp -o talk.o</span><br><span class="line">g++ -c talktest.cpp -o talktest.o</span><br></pre></td></tr></table></figure><h4 id="原理解释-2"><a href="#原理解释-2" class="headerlink" title="原理解释"></a>原理解释</h4><p><strong>将编译完的汇编代码文件翻译成机器指令，并生成可重定位目标程序的.o文件，该文件为二进制文件，字节编码是机器指令。</strong></p><p>汇编器是将汇编代码转变成机器可以执行的指令，每一个汇编语句几乎都对应一条机器指令。所以汇编器的汇编过程相对于编译器来讲比较简单，它没有复杂的语法，也没有语义，也不需要做指令优化，只是根据汇编指令和机器指令的对照表一一翻译即可</p><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><h4 id="gcc执行编译"><a href="#gcc执行编译" class="headerlink" title="gcc执行编译"></a>gcc执行编译</h4><p>从对象文件变成可执行文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ talk.o talktest.o -o talktest</span><br><span class="line">./talktest</span><br></pre></td></tr></table></figure><p>也可以从源代码文件变成可执行文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ helloword.cpp -o helloworld</span><br><span class="line">./helloworld</span><br></pre></td></tr></table></figure><h4 id="原理解释-3"><a href="#原理解释-3" class="headerlink" title="原理解释"></a>原理解释</h4><p>通过链接器将一个个目标文件（或许还会有库文件）链接在一起生成一个完整的可执行程序</p><h2 id="关于链接过程"><a href="#关于链接过程" class="headerlink" title="关于链接过程"></a>关于链接过程</h2><p>在编译器的第四步链接的时候，主要工作是将对象文件和标准库中的文件进行链接，打包成可执行文件，这个大家应该已经很清楚啦。那么怎么链接呢？</p><h3 id="静态链接"><a href="#静态链接" class="headerlink" title="静态链接"></a>静态链接</h3><p>静态链接是直接将所需要的库都直接嵌入到我们的主程序中，然后直接打包成可执行程序。</p><h3 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h3><p>在主程序中仅仅对这个库进行一次声明，等到程序执行到这个地方的时候，再去引用这个库。</p><h3 id="共同存在的必要性"><a href="#共同存在的必要性" class="headerlink" title="共同存在的必要性"></a>共同存在的必要性</h3><p>静态库有容易使用和理解，而且也达到了代码复用的目的，那为什么我们还要有动态库呢？</p><ol><li>静态库容易造成空间浪费。</li><li>静态库对程序的更新、部署和发布页会带来麻烦</li></ol><p>这两个缺点也就决定了动态库存在的必要性。</p><ol><li>动态库在程序编译时并不会被连接到目标代码中，而是在程序运行是才被载入。不同的应用程序如果调用相同的库，那么在内存里只需要有一份该共享库的实例，规避了空间浪费问题。</li><li>动态库在程序运行是才被载入，也解决了静态库对程序的更新、部署和发布页会带来麻烦。用户只需要更新动态库即可，增量更新。</li></ol><h2 id="Gcc和G-区别与联系"><a href="#Gcc和G-区别与联系" class="headerlink" title="Gcc和G++区别与联系"></a>Gcc和G++区别与联系</h2><p>gcc和g++都是<a href="https://en.wikipedia.org/wiki/GNU" target="_blank" rel="noopener">GNU组织</a>的编译器。<br>1、对于.c后缀的文件，gcc把它当做是C程序；g++ 当做是C++程序；<br>2、对于.cpp后缀的文件，gcc和g++ 都会当做c++程序。<br>3、编译阶段，g++ 会调用gcc；<br>4、连接阶段，通常会用g++ 来完成，这是因为gcc命令不能自动和c++程序使用的库连接</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol><li><a href="https://blog.csdn.net/wcc27857285/article/details/84945519" target="_blank" rel="noopener">C/C++ 程序编译过程详解</a></li><li><a href="https://blog.csdn.net/baidu_33604078/article/details/79091049" target="_blank" rel="noopener">程序编译的四个过程</a></li><li><a href="https://www.cnblogs.com/mickole/articles/3659112.html" target="_blank" rel="noopener">C/C++程序编译过程详解</a></li><li><a href="https://www.cnblogs.com/skynet/p/3372855.html" target="_blank" rel="noopener">C++静态库与动态库</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。&lt;br&gt;本篇文章探究c++编译过程的第三篇，属于本系列暂时的最后一篇，总结了本次对于整个编译过程的探究结果，同时解释了动态链接和静态链接以及g++和gcc的一些区别和联系。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="C++基础" scheme="http://yoursite.com/categories/C-%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="编译" scheme="http://yoursite.com/tags/%E7%BC%96%E8%AF%91/"/>
-    
-      <category term="g++" scheme="http://yoursite.com/tags/g/"/>
     
   </entry>
   
