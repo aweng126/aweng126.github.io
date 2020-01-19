@@ -51,17 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="最近有和同学在讨论用小老鼠来找出有毒的水瓶的问题，稍微总结一下。">
-<meta name="keywords" content="mouse,BrainStorm">
-<meta property="og:type" content="article">
-<meta property="og:title" content="MouseAndPoison">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;17&#x2F;MouseAndPoison&#x2F;index.html">
+  <meta name="description" content="热爱生活，享受生活。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kingwen&#39;s blog">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;%E4%BD%8D%E8%BF%90%E7%AE%97&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="最近有和同学在讨论用小老鼠来找出有毒的水瓶的问题，稍微总结一下。">
+<meta property="og:description" content="热爱生活，享受生活。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-17T14:30:54.356Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/2019/11/17/MouseAndPoison/">
+  <link rel="canonical" href="http://yoursite.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/">
 
 
 <script id="page-configurations">
@@ -69,13 +67,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: true,
+    isPost: false,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>MouseAndPoison | Kingwen's blog</title>
+  <title>标签: 位运算 | Kingwen's blog</title>
   
 
 
@@ -212,132 +210,50 @@
           <div class="content">
             
 
-  <div class="posts-expand">
-      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/17/MouseAndPoison/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="李庆文">
-      <meta itemprop="description" content="热爱生活，享受生活。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kingwen's blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          MouseAndPoison
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <h1 class="collection-header">位运算
+          <small>标签</small>
         </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-11-17 22:26:49 / 修改时间：22:30:54" itemprop="dateCreated datePublished" datetime="2019-11-17T22:26:49+08:00">2019-11-17</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%80%9D%E7%BB%B4%E9%A3%8E%E6%9A%B4/" itemprop="url" rel="index">
-                    <span itemprop="name">思维风暴</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>540</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+      </div>
 
       
-        <p>最近有和同学在讨论用小老鼠来找出有毒的水瓶的问题，稍微总结一下。</p>
-<a id="more"></a>
-
-<h2 id="经典问题-16选1"><a href="#经典问题-16选1" class="headerlink" title="经典问题. 16选1"></a>经典问题. 16选1</h2><p>16瓶水其中有一瓶有毒，多少个小老鼠可以确定是哪瓶呢？</p>
-<h3 id="1-二进制编码水瓶"><a href="#1-二进制编码水瓶" class="headerlink" title="1. 二进制编码水瓶"></a>1. 二进制编码水瓶</h3><p>对16瓶水进行二进制编码，比如第五瓶是1001，那么就给第一只和第四只小老师喝（第n只代表从低位到高位的序号），这样最终死亡的小老鼠就会拼凑出一个数字就是对应的有毒的那一瓶水。比如说第一只和第三只小老鼠死了，那么就是0101，所以也就是第五瓶水有毒。</p>
-<h3 id="2-减半查找"><a href="#2-减半查找" class="headerlink" title="2. 减半查找"></a>2. 减半查找</h3><p>如果不考虑时间，我们可以一次一次小鼠进行测试，每次找出奇数位的小鼠，可以通过死亡与否确定是奇数还是偶数，每次都可以将等待判断的量降低为原来的一半。所以总共需要log2(n)向上取整只小鼠。</p>
-<h3 id="3-上面两种方式等价。"><a href="#3-上面两种方式等价。" class="headerlink" title="3. 上面两种方式等价。"></a>3. 上面两种方式等价。</h3><p>其实上面两种方法等价，最高位是1去掉所有的一半，次高位是1去掉一半，最后就剩两个，然后再来一只小鼠就确定了。</p>
-<h3 id="变体问题"><a href="#变体问题" class="headerlink" title="变体问题"></a>变体问题</h3><ol>
-<li>如果10-17瓶水只有一瓶水有毒，同样可以按照1的方式进行计算。</li>
-<li>如果16瓶水，其中有一瓶是有毒的，要找14瓶没毒的，实际上就可以变相的理解为8瓶水中找7瓶，从而只需要三只小老鼠就可以了。</li>
-<li>如果允许有两轮，或者变相说明有一个小时时间，然后小鼠喝毒药半个小时就去世，那就可以理解成为需要一轮然后处理一半的水瓶就可以了。 </li>
-</ol>
-<p>如果以后还有再继续补充吧～</p>
-
+    <div class="collection-year">
+      <h1 class="collection-header">2020</h1>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/mouse/" rel="tag"># mouse</a>
-              <a href="/tags/BrainStorm/" rel="tag"># BrainStorm</a>
-          </div>
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2020-01-19T19:37:12+08:00"
+              content="2020-01-19">
+          01-19
+        </time>
+      </div>
 
-        
+      <h2 class="post-title">
+          <a class="post-title-link" href="/2020/01/19/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/" itemprop="url">
+            <span itemprop="name">剑指offer-二进制中1的个数</span>
+          </a>
+      </h2>
 
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/17/kickstart-2019-H-T1-HIndex/" rel="next" title="kickstart-2019-H-T1-HIndex">
-                  <i class="fa fa-chevron-left"></i> kickstart-2019-H-T1-HIndex
-                </a>
-            </div>
-
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/22/Class-without-pointer-Complex-Houjie-Bilibili/" rel="prev" title="Class-without-pointer-Complex-Houjie-Bilibili">
-                  Class-without-pointer-Complex-Houjie-Bilibili <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
-      </footer>
-    
+    </header>
   </article>
+
+    </div>
+  </div>
   
   
   
 
-  </div>
+  
+
 
 
           </div>
@@ -366,7 +282,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#经典问题-16选1"><span class="nav-number">1.</span> <span class="nav-text">经典问题. 16选1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-二进制编码水瓶"><span class="nav-number">1.1.</span> <span class="nav-text">1. 二进制编码水瓶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-减半查找"><span class="nav-number">1.2.</span> <span class="nav-text">2. 减半查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-上面两种方式等价。"><span class="nav-number">1.3.</span> <span class="nav-text">3. 上面两种方式等价。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变体问题"><span class="nav-number">1.4.</span> <span class="nav-text">变体问题</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
