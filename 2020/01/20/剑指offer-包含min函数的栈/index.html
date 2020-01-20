@@ -51,17 +51,17 @@
   };
 </script>
 
-  <meta name="description" content="本文为剑指 offer 系列第十八篇。主要知识点是链表，仍然是在遍历链表的基础上进行相关操作，非常经典。">
-<meta name="keywords" content="Codinginterviews,链表">
+  <meta name="description" content="本文为剑指 offer 系列第二十二篇。主要知识点为栈，要求给栈再pop和push操作之外在添加一个min操作来获得当前栈元素的最小值。">
+<meta name="keywords" content="Codinginterviews,Stack">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指offer-合并两个排序的链表">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;19&#x2F;%E5%89%91%E6%8C%87offer-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8&#x2F;index.html">
+<meta property="og:title" content="剑指offer-包含min函数的栈">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;%E5%89%91%E6%8C%87offer-%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="本文为剑指 offer 系列第十八篇。主要知识点是链表，仍然是在遍历链表的基础上进行相关操作，非常经典。">
+<meta property="og:description" content="本文为剑指 offer 系列第二十二篇。主要知识点为栈，要求给栈再pop和push操作之外在添加一个min操作来获得当前栈元素的最小值。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-19T14:23:01.801Z">
+<meta property="og:updated_time" content="2020-01-20T05:01:24.077Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/2020/01/19/%E5%89%91%E6%8C%87offer-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88/">
 
 
 <script id="page-configurations">
@@ -75,7 +75,7 @@
   };
 </script>
 
-  <title>剑指offer-合并两个排序的链表 | Kingwen's blog</title>
+  <title>剑指offer-包含min函数的栈 | Kingwen's blog</title>
   
 
 
@@ -217,7 +217,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/19/%E5%89%91%E6%8C%87offer-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -230,7 +230,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          剑指offer-合并两个排序的链表
+          剑指offer-包含min函数的栈
         </h1>
 
         <div class="post-meta">
@@ -241,7 +241,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-01-19 20:59:40 / 修改时间：22:23:01" itemprop="dateCreated datePublished" datetime="2020-01-19T20:59:40+08:00">2020-01-19</time>
+              <time title="创建时间：2020-01-20 12:09:31 / 修改时间：13:01:24" itemprop="dateCreated datePublished" datetime="2020-01-20T12:09:31+08:00">2020-01-20</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,14 +268,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -287,12 +287,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文为剑指 offer 系列第十八篇。<br>主要知识点是链表，仍然是在遍历链表的基础上进行相关操作，非常经典。</p>
+        <p>本文为剑指 offer 系列第二十二篇。<br>主要知识点为栈，要求给栈再pop和push操作之外在添加一个min操作来获得当前栈元素的最小值。</p>
 <a id="more"></a>
 
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/d8b6b4358f774294a89de2a6ac4d9337?tpId=13&tqId=11169&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>找两个指针分别指向两个有序链表的头结点，然后依次找最小值放到存放结果的链表之中即可。<br>要记得考虑一个链表遍历完而另一个链表没有遍历完的情况。</p>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct ListNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct ListNode *next;</span><br><span class="line">    ListNode(int x) :</span><br><span class="line">            val(x), next(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* Merge(ListNode* phead1, ListNode* phead2)</span><br><span class="line">    &#123;</span><br><span class="line">         if(!phead1 &amp;&amp; !phead2) return NULL;</span><br><span class="line">        if(!phead1) return phead2;</span><br><span class="line">        if(!phead2) return phead1;</span><br><span class="line">        ListNode *head = NULL, *tail = NULL;</span><br><span class="line">        ListNode *p1= phead1,*p2 = phead2;</span><br><span class="line">        while(p1 &amp;&amp; p2)&#123;</span><br><span class="line">            if(p1-&gt;val &lt;= p2-&gt;val)&#123;</span><br><span class="line">                ListNode* temp = new ListNode(p1-&gt;val);</span><br><span class="line">                if(!head)&#123;</span><br><span class="line">                    head = temp;</span><br><span class="line">                    tail = temp; </span><br><span class="line">                &#125;</span><br><span class="line">                tail-&gt;next = temp;</span><br><span class="line">                tail = tail-&gt;next;</span><br><span class="line">                p1= p1-&gt;next;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                ListNode* temp = new ListNode(p2-&gt;val);</span><br><span class="line">                  if(!head)&#123;</span><br><span class="line">                    head = temp;</span><br><span class="line">                    tail = temp; </span><br><span class="line">                &#125;</span><br><span class="line">                tail-&gt;next = temp;</span><br><span class="line">                tail = tail-&gt;next;</span><br><span class="line">                p2= p2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(!p1 &amp;&amp; !p2) return head;</span><br><span class="line">        while(p1)&#123;</span><br><span class="line">            ListNode* temp = new ListNode(p1-&gt;val);</span><br><span class="line">                if(!head)&#123;</span><br><span class="line">                    head = temp;</span><br><span class="line">                    tail = temp; </span><br><span class="line">                &#125;</span><br><span class="line">                tail-&gt;next = temp;</span><br><span class="line">                tail = tail-&gt;next;</span><br><span class="line">                p1= p1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        while(p2)&#123;</span><br><span class="line">            ListNode* temp = new ListNode(p2-&gt;val);</span><br><span class="line">                  if(!head)&#123;</span><br><span class="line">                    head = temp;</span><br><span class="line">                    tail = temp; </span><br><span class="line">                &#125;</span><br><span class="line">                tail-&gt;next = temp;</span><br><span class="line">                tail = tail-&gt;next;</span><br><span class="line">                p2= p2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/4c776177d2c04c2494f2555c9fcc1e49?tpId=13&tqId=11173&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>如果不考虑时间复杂度O(1)限制的话，我们可以加一个栈，然后加一个数组来存，每次找最小元素的话，可以利用stl的min_element来获的，在pop的时候记得将数组中的pop的元素也要删除掉。<br>但是这样复杂度会比较高。有一个查找和删除的操作。</p>
+<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>用一个栈A来正常保存元素，另一个栈B来保存当前元素个数下A栈中最小的元素，两个栈始终保持同样高度。</p>
+<ol>
+<li>进行pop操作的时候两个都pop。</li>
+<li>进行push操作的时候，A正常push，Bpush的时候要判断新加入的元素和之前B的栈顶元素谁大谁小，push进去那个小的元素。</li>
+<li>进行min操作的时候，返回B的栈顶元素即可。</li>
+</ol>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    stack&lt;int&gt; mstack;</span><br><span class="line">    vector&lt;int&gt; mvec;</span><br><span class="line">    void push(int value) &#123;</span><br><span class="line">        mstack.push(value);</span><br><span class="line">        mvec.push_back(value);</span><br><span class="line">    &#125;</span><br><span class="line">    void pop() &#123;</span><br><span class="line">      int a = mstack.top();</span><br><span class="line">      mstack.pop();</span><br><span class="line">      auto b = find(mvec.begin(),mvec.end(),a);</span><br><span class="line">      mvec.erase(b);</span><br><span class="line">    &#125;</span><br><span class="line">    int top() &#123;</span><br><span class="line">       return mstack.top();</span><br><span class="line">    &#125;</span><br><span class="line">    int min() &#123;</span><br><span class="line">        return *min_element(mvec.begin(),mvec.end()); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)</p>
+<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    //思路2 两个栈进行保存</span><br><span class="line">    stack&lt;int&gt; dstack;</span><br><span class="line">    stack&lt;int&gt; mstack;</span><br><span class="line">    void push(int value) &#123;</span><br><span class="line">        dstack.push(value);</span><br><span class="line">        if(mstack.empty() || mstack.top()&gt;value)&#123;</span><br><span class="line">            mstack.push(value);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            mstack.push(mstack.top());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void pop() &#123;</span><br><span class="line">        dstack.pop();</span><br><span class="line">        mstack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    int top() &#123;</span><br><span class="line">       return dstack.top();</span><br><span class="line">    &#125;</span><br><span class="line">    int min() &#123;</span><br><span class="line">        return mstack.top(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>
 
     </div>
@@ -304,24 +312,21 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Codinginterviews/" rel="tag"># Codinginterviews</a>
-              <a href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag"># 链表</a>
+              <a href="/tags/Stack/" rel="tag"># Stack</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2020/01/19/%E5%89%91%E6%8C%87offer-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" rel="next" title="剑指offer-反转链表">
-                  <i class="fa fa-chevron-left"></i> 剑指offer-反转链表
+                <a href="/2020/01/20/%E5%89%91%E6%8C%87offer-%E9%A1%BA%E6%8C%87%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/" rel="next" title="剑指offer-顺指针打印矩阵">
+                  <i class="fa fa-chevron-left"></i> 剑指offer-顺指针打印矩阵
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2020/01/19/%E5%89%91%E6%8C%87offer-%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/" rel="prev" title="剑指offer-树的子结构">
-                  剑指offer-树的子结构 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -360,7 +365,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">3.</span> <span class="nav-text">解题代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路1"><span class="nav-number">2.1.</span> <span class="nav-text">思路1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路2"><span class="nav-number">2.2.</span> <span class="nav-text">思路2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">3.</span> <span class="nav-text">解题代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路1代码"><span class="nav-number">3.1.</span> <span class="nav-text">思路1代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路2代码"><span class="nav-number">3.2.</span> <span class="nav-text">思路2代码</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
