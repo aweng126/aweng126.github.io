@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-20T03:48:13.837Z</updated>
+  <updated>2020-01-20T04:04:57.907Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-顺指针打印矩阵</title>
+    <link href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E9%A1%BA%E6%8C%87%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/"/>
+    <id>http://yoursite.com/2020/01/20/剑指offer-顺指针打印矩阵/</id>
+    <published>2020-01-20T03:51:53.000Z</published>
+    <updated>2020-01-20T04:04:57.907Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第二十一篇。<br>给定一个矩阵，顺时针将数据打印出来，没有特殊的难点，主要就是为了考察耐心和细心程度。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/9b4c81a02cd34f76be2659fa0d54342a?tpId=13&tqId=11172&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一个矩阵，按照从外向里以顺时针的顺序依次打印出每一个数字，例如，如果输入如下4 X 4矩阵：<br> 1  2  3  4<br> 5  6  7  8<br> 9  10 11 12<br> 13 14 15 16 </p><p> 则依次打印出数字1,2,3,4,8,12,16,15,14,13,9,5,6,7,11,10.</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>建立好上下左右的边界，然后按照顺时针的顺序依次遍历即可。<br>需要注意只有一行或者一列的情况，不要重复遍历。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; printMatrix(vector&lt;vector&lt;int&gt; &gt; matrix) &#123;</span><br><span class="line">        int rows = matrix.size(); </span><br><span class="line">        int cols = matrix[0].size();</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        if(rows == 0 || cols == 0) return res;</span><br><span class="line">        int left = 0, right = cols-1, up = 0, bottom = rows-1;</span><br><span class="line">        while(left &lt;= right &amp;&amp; up &lt;= bottom)&#123;</span><br><span class="line">            // 上面一行</span><br><span class="line">            for(int i = left; i &lt;= right; i++)&#123;</span><br><span class="line">                res.push_back(matrix[up][i]);</span><br><span class="line">            &#125;</span><br><span class="line">            // 右侧一列</span><br><span class="line">            for(int i = up+1; i &lt;= bottom; i++)&#123;</span><br><span class="line">                res.push_back(matrix[i][right]);</span><br><span class="line">            &#125;</span><br><span class="line">            // 下面一行</span><br><span class="line">            if(up != bottom)&#123;</span><br><span class="line">                for(int i = right-1; i &gt;= left; i--)&#123;</span><br><span class="line">                res.push_back(matrix[bottom][i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            // 左侧一列</span><br><span class="line">            if(left != right)&#123;</span><br><span class="line">                for(int i = bottom-1; i &gt; up; i--)&#123;</span><br><span class="line">                res.push_back(matrix[i][left]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            left++; right--; up++; bottom--;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n^2),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第二十一篇。&lt;br&gt;给定一个矩阵，顺时针将数据打印出来，没有特殊的难点，主要就是为了考察耐心和细心程度。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="matrix" scheme="http://yoursite.com/tags/matrix/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-二叉树的镜像</title>
@@ -496,31 +521,6 @@
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
       <category term="智力题" scheme="http://yoursite.com/tags/%E6%99%BA%E5%8A%9B%E9%A2%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-二维数组中的查找</title>
-    <link href="http://yoursite.com/2020/01/16/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/"/>
-    <id>http://yoursite.com/2020/01/16/剑指offer-二维数组中的查找/</id>
-    <published>2020-01-16T07:58:41.000Z</published>
-    <updated>2020-01-16T08:21:23.001Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文属于剑指offer系列第一题。<br>本题目的关键点在于找到一个非常棒的问题入手点，然后这个题目就已经解决了一半。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>思路1: 双层for循环，肯定能解决，但是复杂度为O(n^2),而且没有充分利用行列有序这个条件。<br>思路2: 我们从右上角开始查找，往左下角找。<br>    如果当前位置的元素大于目标元素，那么肯定在下一行。<br>    如果当前位置的元素小于目标元素，肯定在本元素的左侧。<br>    如果当前位置的元素等于目标元素，那么返回即可。</p><h2 id="巧妙之处"><a href="#巧妙之处" class="headerlink" title="巧妙之处"></a>巧妙之处</h2><p>题目从右上角入手开始查找元素非常有效且巧妙。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool Find(int target, vector&lt;vector&lt;int&gt; &gt; array) &#123;</span><br><span class="line">       int i = 0;</span><br><span class="line">       int j = array[0].size()-1;</span><br><span class="line">       while(i &lt; array.size() &amp;&amp; j&gt;= 0)&#123;</span><br><span class="line">           if(array[i][j] == target)&#123;</span><br><span class="line">               return true;</span><br><span class="line">           &#125;else if(array[i][j] &lt; target)&#123;</span><br><span class="line">               i++;</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">               j--;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度是O(m+n)，空间复杂度O(m*n) m为行数，n为列数。<br>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文属于剑指offer系列第一题。&lt;br&gt;本题目的关键点在于找到一个非常棒的问题入手点，然后这个题目就已经解决了一半。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="array" scheme="http://yoursite.com/tags/array/"/>
     
   </entry>
   
