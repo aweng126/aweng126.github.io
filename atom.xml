@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-20T11:10:54.635Z</updated>
+  <updated>2020-01-20T14:05:42.488Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-二叉树中和为某一值的路径</title>
+    <link href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84/"/>
+    <id>http://yoursite.com/2020/01/20/剑指offer-二叉树中和为某一值的路径/</id>
+    <published>2020-01-20T13:27:59.000Z</published>
+    <updated>2020-01-20T14:05:42.488Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第二十六篇。<br>主要知识点为二叉树，在二叉树的遍历的基础上去判断是否有存在路径之和等于定值。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/b736e784e3e34731af99065031301bca?tpId=13&tqId=11177&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一颗二叉树的跟节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数组靠前)</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><ol><li>从最简单的情况开始考虑，如果树只有一个根结点，那么我们只要判断这个节点的值是不是只要等于目标值target即可。</li><li>再复杂一点，如果有三个节点，根节点和左右子节点。那么我们我们在其实就相当于在子节点中判断值是不是等于目标值减去根节点的值即可。其实等价于简化到了第一种情况——单个节点。</li><li>如果层数继续加深，最后的判断其实还是等价于在最后一层判断节点的值是否等于目标值减去整个路径上所有的节点的值。</li><li>思想类似于前序遍历，只是本来的打印变成了节点条件的判断放到了最后的叶子结点一层，然后每一层向下一层遍历的时候需要更改期待值。<br>既然是前序遍历就可以用递归和非递归两种方式来解决这个问题。</li></ol><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="代码1-用栈-递归来实现"><a href="#代码1-用栈-递归来实现" class="headerlink" title="代码1:用栈+递归来实现"></a>代码1:用栈+递归来实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; res;</span><br><span class="line">    vector&lt;int&gt; temp;</span><br><span class="line">    vector&lt;vector&lt;int&gt; &gt; FindPath(TreeNode* root,int expectNumber) &#123;</span><br><span class="line">        // 方法1: 用前序遍历的stack来实现</span><br><span class="line">        if(root==NULL)</span><br><span class="line">            return res;</span><br><span class="line">        temp.push_back(root-&gt;val);</span><br><span class="line">        if((expectNumber-root-&gt;val)==0 &amp;&amp; root-&gt;left==NULL &amp;&amp; root-&gt;right==NULL)</span><br><span class="line">            &#123;</span><br><span class="line">            res.push_back(temp);</span><br><span class="line">        &#125;</span><br><span class="line">        FindPath(root-&gt;left,expectNumber-root-&gt;val);</span><br><span class="line">        FindPath(root-&gt;right,expectNumber-root-&gt;val);</span><br><span class="line">        if(tmp.size()!=0)&#123;</span><br><span class="line">            temp.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h3 id="代码2-完全用递归来实现"><a href="#代码2-完全用递归来实现" class="headerlink" title="代码2:完全用递归来实现"></a>代码2:完全用递归来实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; res;</span><br><span class="line">    vector&lt;vector&lt;int&gt; &gt; FindPath(TreeNode* root,int expectNumber) &#123;</span><br><span class="line">        // 方法2: 用递归来实现</span><br><span class="line">        if(root == NULL)&#123;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;int&gt; temp;</span><br><span class="line">        helper(root,expectNumber,temp);</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    void helper(TreeNode* root,int expectNumber,vector&lt;int&gt; temp)&#123;</span><br><span class="line">        temp.push_back(root-&gt;val);</span><br><span class="line">        if(((root-&gt;val - expectNumber) == 0) &amp;&amp; root-&gt;left == NULL &amp;&amp; root-&gt;right == NULL)&#123;</span><br><span class="line">            res.push_back(temp);</span><br><span class="line">        &#125;</span><br><span class="line">        if(root-&gt;left) helper(root-&gt;left,expectNumber-root-&gt;val,temp);</span><br><span class="line">        if(root-&gt;right) helper(root-&gt;right,expectNumber-root-&gt;val,temp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第二十六篇。&lt;br&gt;主要知识点为二叉树，在二叉树的遍历的基础上去判断是否有存在路径之和等于定值。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="BinaryTree" scheme="http://yoursite.com/tags/BinaryTree/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-二叉搜索树的后序遍历序列</title>
@@ -62,9 +87,9 @@
     
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
-      <category term="Tree" scheme="http://yoursite.com/tags/Tree/"/>
-    
       <category term="BinaryTree" scheme="http://yoursite.com/tags/BinaryTree/"/>
+    
+      <category term="Tree" scheme="http://yoursite.com/tags/Tree/"/>
     
       <category term="Queue" scheme="http://yoursite.com/tags/Queue/"/>
     
@@ -496,31 +521,6 @@
       <category term="Queue" scheme="http://yoursite.com/tags/Queue/"/>
     
       <category term="Stack" scheme="http://yoursite.com/tags/Stack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-重建二叉树</title>
-    <link href="http://yoursite.com/2020/01/18/%E5%89%91%E6%8C%87offer-%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    <id>http://yoursite.com/2020/01/18/剑指offer-重建二叉树/</id>
-    <published>2020-01-18T13:13:32.000Z</published>
-    <updated>2020-01-18T13:31:04.278Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第六篇。<br>主要就是根据二叉树遍历的前序遍历和中序遍历重新构造出原始的二叉树。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/8a19cbe657394eeaac2f6ea9b0f6fcf6?tpId=13&tqId=11157&tPage=1&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>前序遍历的顺序是 根节点，左子树，右子树。<br>中序遍历的顺序是 左子树，根节点，右子树。<br>所以我们可以发现，前序遍历的第一个节点就是根节点，然后我们在中序遍历中找到这个根节点，那么这个根节点之前的就是左子树的中序，根节点之后的就是右子树的中序，然后可以根据左子树的个数，在前序遍历中将左子树和右子树进行分离，而分离的结果可以用来构建左子树和右子树。</p><p>下面以题目中的数据为例进行详细说明</p><ol><li>首先根据前序遍历，可以知道当前的根节点为1。</li><li>在中序遍历中寻找节点1， 然后1之前的节点[4,7,2]就是当前树的左子树的中序遍历，1之后的节点[5,3,8,6]就是当前树的右子树的中序遍历。</li><li>在前序遍历中根据左子树的节点个数找到对应的左子树的前序遍历[2,4,7],和对应的右子树的前序遍历【3，5，6，8】。</li><li>同样的操作可以继续针对左子树和右子树，从而把整个的二叉树构建出来。</li></ol><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition for binary tree</span><br><span class="line"> * struct TreeNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     TreeNode *left;</span><br><span class="line"> *     TreeNode *right;</span><br><span class="line"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    TreeNode* reConstructBinaryTree(vector&lt;int&gt; pre,vector&lt;int&gt; vin) &#123;</span><br><span class="line">            return helper(pre,0,pre.size()-1,vin,0,vin.size()-1);</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode* helper(vector&lt;int&gt; pre,int pstart,int pend,vector&lt;int&gt; vin,int vstart,int vend)&#123;</span><br><span class="line">        if(vstart &gt; vend) return NULL;</span><br><span class="line">        int root = pre[pstart];</span><br><span class="line">        TreeNode* temp = new TreeNode(root);</span><br><span class="line">        </span><br><span class="line">        auto a = find(vin.begin(),vin.end(),root);</span><br><span class="line">        int index = distance(vin.begin(),a);</span><br><span class="line">        int lnum = index - vstart; //左子树</span><br><span class="line">        temp -&gt; left = helper(pre,pstart+1,pstart+lnum,vin,vstart,index-1);</span><br><span class="line">        temp -&gt; right = helper(pre,pstart+1+lnum,pend,vin,index+1,vend);</span><br><span class="line">        return temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)<br>类似的题目还有根据中序和后续进行重建二叉树，道理类似，只是根节点变成了后续遍历的最后一个节点。<br>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第六篇。&lt;br&gt;主要就是根据二叉树遍历的前序遍历和中序遍历重新构造出原始的二叉树。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="BinaryTree" scheme="http://yoursite.com/tags/BinaryTree/"/>
     
   </entry>
   
