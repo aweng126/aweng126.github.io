@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-20T05:01:24.077Z</updated>
+  <updated>2020-01-20T10:42:55.075Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-栈的压入弹出序列</title>
+    <link href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/"/>
+    <id>http://yoursite.com/2020/01/20/剑指offer-栈的压入弹出序列/</id>
+    <published>2020-01-20T05:03:44.000Z</published>
+    <updated>2020-01-20T10:42:55.075Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第二十三篇。<br>主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&tqId=11174&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>因为需要判断的出栈顺序已经确定了，所以我们只要按照压栈顺序来判断一下如此压栈能不能产生对应的出栈顺序即可。<br>考虑到可能中间出栈的情况，所以我们在每压入一个元素之后要进行相应的判断，如果栈顶元素和出栈数组中标记的元素是对应的，那么当前元素出栈，待判断的元素后移一位，如果不对应，则继续压栈。<br>直到所有元素压栈完成，可能的出栈操作结束。<br>这个时候看栈内是否还剩元素，如果不剩元素，那么就是依据出栈数组中的数据已经完成出栈，则出栈顺序成立。否则就是不成立。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool IsPopOrder(vector&lt;int&gt; pushV,vector&lt;int&gt; popV) &#123;</span><br><span class="line">        stack&lt;int&gt; mstack;</span><br><span class="line">        int j = 0;</span><br><span class="line">        for(int i = 0;i&lt;pushV.size();i++)&#123;</span><br><span class="line">            mstack.push(pushV[i]);</span><br><span class="line">            while(!mstack.empty() &amp;&amp; mstack.top() == popV[j])&#123;</span><br><span class="line">                mstack.pop();</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return mstack.empty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第二十三篇。&lt;br&gt;主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="Stack" scheme="http://yoursite.com/tags/Stack/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-包含min函数的栈</title>
@@ -496,31 +521,6 @@
       <category term="最小堆" scheme="http://yoursite.com/tags/%E6%9C%80%E5%B0%8F%E5%A0%86/"/>
     
       <category term="排序" scheme="http://yoursite.com/tags/%E6%8E%92%E5%BA%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-整数中1出现的次数</title>
-    <link href="http://yoursite.com/2020/01/17/%E5%89%91%E6%8C%87offer-%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/"/>
-    <id>http://yoursite.com/2020/01/17/剑指offer-整数中1出现的次数/</id>
-    <published>2020-01-17T12:41:54.000Z</published>
-    <updated>2020-01-17T13:10:38.128Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第三篇。<br>核心能力是基于数学知识来找数字存在的规律。<br>这个问题给我的重要启示是将问题普遍化与自动化，是我们作为一个计算机行业从业者应该要做的事，也是让我们所有人受益无穷的事。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/bd7f978302044eee894445e244c7eee6?tpId=13&tqId=11184&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>求出1到13的整数中1出现的次数,并算出100到1300的整数中1出现的次数？为此他特别数了一下1~13中包含1的数字有1、10、11、12、13因此共出现6次,但是对于后面问题他就没辙了。ACMer希望你们帮帮他,并把问题更加普遍化,可以很快的求出任意非负整数区间中1出现的次数（从1 到 n 中1出现的次数）。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1:"></a>思路1:</h3><p>将1-n的每个数通过取余数来计算每一位是否为1，然后找个计数器来进行统计</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2:"></a>思路2:</h3><p>通过分析每个位置上1出现的规律来进行规律性的查找。下面以数字32456然后计算百位上1的个数来进行演示。</p><ol><li>首先将原来的数据分为2部分，a= 32456/100 = 324, b=32456%100 = 56. </li><li>这里百位上为4，所以他有完整的33个100位1，也就是(a/10+1)个100，推广一下，我们发现其实任何大于等于2的数字都会有这个规律。</li><li>如果这里百位上为0.即32056，则它有完整的32个100，也就是（a/10)个100。</li><li>如果这里百位上位1，即32156，则他有完整的32个100，同时会有32100-32156中57个百位上的1.也就是(a/10)个100，然后加上(b+1)个1.<br>其他位可以同理得到计算结果。从而问题得到了解决。</li></ol><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int NumberOf1Between1AndN_Solution(int n)</span><br><span class="line">    &#123;</span><br><span class="line">        // 方法1: 暴力求解。计算每一个数中每一位是不是1进行求和。</span><br><span class="line">        int res = 0;</span><br><span class="line">        for(int i = 1;  i &lt;= n; i++)&#123;</span><br><span class="line">           int temp = i;</span><br><span class="line">            while(temp)&#123;</span><br><span class="line">                if(temp%10 == 1)&#123;</span><br><span class="line">                    res++;</span><br><span class="line">                &#125;</span><br><span class="line">                temp = temp/10;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(nlgn),空间复杂度为O(1);</p><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int NumberOf1Between1AndN_Solution(int n)</span><br><span class="line">    &#123;</span><br><span class="line">        int res = 0;</span><br><span class="line">        for(long i = 1; i&lt;= n; i*=10)&#123;</span><br><span class="line">            int a = n/i, b = n%i;</span><br><span class="line">            if(a%10 == 0)&#123;</span><br><span class="line">                res += (a/10)*i;</span><br><span class="line">            &#125;else if( a%10 == 1)&#123;</span><br><span class="line">                res += (a/10)*i + (b+1);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                res += (a/10+1)*i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(lgn),空间复杂度为O(1);<br>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第三篇。&lt;br&gt;核心能力是基于数学知识来找数字存在的规律。&lt;br&gt;这个问题给我的重要启示是将问题普遍化与自动化，是我们作为一个计算机行业从业者应该要做的事，也是让我们所有人受益无穷的事。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="数学" scheme="http://yoursite.com/tags/%E6%95%B0%E5%AD%A6/"/>
     
   </entry>
   

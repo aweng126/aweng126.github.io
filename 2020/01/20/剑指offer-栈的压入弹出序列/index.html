@@ -51,15 +51,17 @@
   };
 </script>
 
-  <meta name="description" content="热爱生活，享受生活。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Kingwen&#39;s blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;categories&#x2F;%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83&#x2F;page&#x2F;4&#x2F;index.html">
+  <meta name="description" content="本文为剑指 offer 系列第二十三篇。主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。">
+<meta name="keywords" content="Codinginterviews,Stack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指offer-栈的压入弹出序列">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;%E5%89%91%E6%8C%87offer-%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="热爱生活，享受生活。">
+<meta property="og:description" content="本文为剑指 offer 系列第二十三篇。主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-20T10:42:55.075Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/page/4/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/">
 
 
 <script id="page-configurations">
@@ -67,13 +69,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>分类: 算法训练 | Kingwen's blog</title>
+  <title>剑指offer-栈的压入弹出序列 | Kingwen's blog</title>
   
 
 
@@ -210,133 +212,124 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">算法训练
-          <small>分类</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          剑指offer-栈的压入弹出序列
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-20 13:03:44 / 修改时间：18:42:55" itemprop="dateCreated datePublished" datetime="2020-01-20T13:03:44+08:00">2020-01-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/" itemprop="url" rel="index">
+                    <span itemprop="name">算法训练</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>810</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
+        <p>本文为剑指 offer 系列第二十三篇。<br>主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。</p>
+<a id="more"></a>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-09T16:14:19+08:00"
-              content="2019-11-09">
-          11-09
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/09/leetcode-330-PatchingArray/" itemprop="url">
-            <span itemprop="name">leetcode-330-PatchingArray</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-08T23:14:27+08:00"
-              content="2019-11-08">
-          11-08
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/08/leetcode-67-AddBinary/" itemprop="url">
-            <span itemprop="name">leetcode-67-AddBinary</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-24T14:26:49+08:00"
-              content="2019-10-24">
-          10-24
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/24/leetcode-72-EditDistance/" itemprop="url">
-            <span itemprop="name">leetcode-72-EditDistance</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-22T21:29:55+08:00"
-              content="2019-10-22">
-          10-22
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/22/kickstart-2019-G-T2-TheEquation/" itemprop="url">
-            <span itemprop="name">kickstart-2019-G-T2-TheEquation</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-10-22T17:38:01+08:00"
-              content="2019-10-22">
-          10-22
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/10/22/kickstart-2019-G-T1-BookReading/" itemprop="url">
-            <span itemprop="name">kickstart-2019-G-T1-BookReading</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&tqId=11174&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>因为需要判断的出栈顺序已经确定了，所以我们只要按照压栈顺序来判断一下如此压栈能不能产生对应的出栈顺序即可。<br>考虑到可能中间出栈的情况，所以我们在每压入一个元素之后要进行相应的判断，如果栈顶元素和出栈数组中标记的元素是对应的，那么当前元素出栈，待判断的元素后移一位，如果不对应，则继续压栈。<br>直到所有元素压栈完成，可能的出栈操作结束。<br>这个时候看栈内是否还剩元素，如果不剩元素，那么就是依据出栈数组中的数据已经完成出栈，则出栈顺序成立。否则就是不成立。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool IsPopOrder(vector&lt;int&gt; pushV,vector&lt;int&gt; popV) &#123;</span><br><span class="line">        stack&lt;int&gt; mstack;</span><br><span class="line">        int j = 0;</span><br><span class="line">        for(int i = 0;i&lt;pushV.size();i++)&#123;</span><br><span class="line">            mstack.push(pushV[i]);</span><br><span class="line">            while(!mstack.empty() &amp;&amp; mstack.top() == popV[j])&#123;</span><br><span class="line">                mstack.pop();</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return mstack.empty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)</p>
+<p>以上，本题结束！</p>
 
     </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Codinginterviews/" rel="tag"># Codinginterviews</a>
+              <a href="/tags/Stack/" rel="tag"># Stack</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/01/20/%E5%89%91%E6%8C%87offer-%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88/" rel="next" title="剑指offer-包含min函数的栈">
+                  <i class="fa fa-chevron-left"></i> 剑指offer-包含min函数的栈
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/">1</a><span class="space">&hellip;</span><a class="page-number" href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/page/3/">3</a><span class="page-number current">4</span>
-  </nav>
-
 
 
           </div>
@@ -365,6 +358,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">3.</span> <span class="nav-text">解题代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
