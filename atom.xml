@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-20T10:42:55.075Z</updated>
+  <updated>2020-01-20T10:51:09.197Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-从上往下打印二叉树</title>
+    <link href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E4%BB%8E%E4%B8%8A%E5%BE%80%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <id>http://yoursite.com/2020/01/20/剑指offer-从上往下打印二叉树/</id>
+    <published>2020-01-20T10:45:05.000Z</published>
+    <updated>2020-01-20T10:51:09.197Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第二十四篇。<br>主要知识点就是树的层序遍历，比较经典，也比较简单。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/7fe2212963db4790b57431d9ed259701?tpId=13&tqId=11175&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>从上往下打印出二叉树的每个节点，同层节点从左至右打印。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>其实就是层序遍历，通过队列保存某一层的数据，然后依次的读取这一层数据，在遍历过程中，如果节点的左右子树不为空的话，继续加入到队列中，直到队列为空。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; PrintFromTopToBottom(TreeNode* root) &#123;</span><br><span class="line">        if(!root) return &#123;&#125;;</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q&#123;&#123;root&#125;&#125;;</span><br><span class="line">        while(!q.empty())&#123;</span><br><span class="line">                auto a = q.front(); q.pop();</span><br><span class="line">                res.push_back(a-&gt;val);</span><br><span class="line">                if(a-&gt;left) q.push(a-&gt;left);</span><br><span class="line">                if(a-&gt;right) q.push(a-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第二十四篇。&lt;br&gt;主要知识点就是树的层序遍历，比较经典，也比较简单。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="Tree" scheme="http://yoursite.com/tags/Tree/"/>
+    
+      <category term="BinaryTree" scheme="http://yoursite.com/tags/BinaryTree/"/>
+    
+      <category term="Queue" scheme="http://yoursite.com/tags/Queue/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-栈的压入弹出序列</title>
@@ -439,9 +468,9 @@
     
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
-      <category term="Stack" scheme="http://yoursite.com/tags/Stack/"/>
-    
       <category term="Queue" scheme="http://yoursite.com/tags/Queue/"/>
+    
+      <category term="Stack" scheme="http://yoursite.com/tags/Stack/"/>
     
   </entry>
   
@@ -494,33 +523,6 @@
       <category term="链表" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8/"/>
     
       <category term="stack" scheme="http://yoursite.com/tags/stack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-最小的K个数</title>
-    <link href="http://yoursite.com/2020/01/17/%E5%89%91%E6%8C%87offer-%E6%9C%80%E5%B0%8F%E7%9A%84K%E4%B8%AA%E6%95%B0/"/>
-    <id>http://yoursite.com/2020/01/17/剑指offer-最小的K个数/</id>
-    <published>2020-01-17T13:18:27.000Z</published>
-    <updated>2020-01-17T13:24:21.318Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第四篇。<br>本题比较常见，而且思路也非常清晰，一个是排序，一个用最小堆。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/6a296eb82cf844ca8539b57c23e6e9bf?tpId=13&tqId=11182&tPage=2&rp=2&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入n个整数，找出其中最小的K个数。例如输入4,5,1,6,2,7,3,8这8个数字，则最小的4个数字是1,2,3,4,。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>直接从小到大将所有所有数字进行排序，然后取前K个即可。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>把所有的数据进行处理构造最小堆，然后取出前K个返回即可。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; GetLeastNumbers_Solution(vector&lt;int&gt; input, int k) &#123;</span><br><span class="line">        if(k&gt;input.size()) return &#123;&#125;;</span><br><span class="line">        sort(input.begin(),input.end());</span><br><span class="line">        return vector&lt;int&gt;(input.begin(),input.begin()+k);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(nlogn),空间复杂度为O(n)</p><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; GetLeastNumbers_Solution(vector&lt;int&gt; input, int k) &#123;</span><br><span class="line">        if(k&gt;input.size()) return &#123;&#125;;</span><br><span class="line">        priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt; &gt; q;</span><br><span class="line">        for(auto a:input)&#123;</span><br><span class="line">            q.push(a);</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        while(k&gt;0)&#123;</span><br><span class="line">           res.push_back(q.top());</span><br><span class="line">           q.pop();</span><br><span class="line">           k--;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第四篇。&lt;br&gt;本题比较常见，而且思路也非常清晰，一个是排序，一个用最小堆。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="最小堆" scheme="http://yoursite.com/tags/%E6%9C%80%E5%B0%8F%E5%A0%86/"/>
-    
-      <category term="排序" scheme="http://yoursite.com/tags/%E6%8E%92%E5%BA%8F/"/>
     
   </entry>
   
