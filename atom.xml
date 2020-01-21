@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-20T14:15:35.337Z</updated>
+  <updated>2020-01-21T08:21:55.053Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-字符串的排列</title>
+    <link href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/"/>
+    <id>http://yoursite.com/2020/01/20/剑指offer-字符串的排列/</id>
+    <published>2020-01-20T14:25:43.000Z</published>
+    <updated>2020-01-21T08:21:55.053Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第二十八篇。<br>主要知识点为字符串，给定n个字符，给出所有的可能的排列，非常经典。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/fe6b651b66ae47d7acce78ffdd9a96c7?tpId=13&tqId=11180&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一个字符串,按字典序打印出该字符串中字符的所有排列。例如输入字符串abc,则打印出由字符a,b,c所能排列出来的所有字符串abc,acb,bac,bca,cab和cba。<br>输入格式：输入一个字符串,长度不超过9(可能有字符重复),字符只包括大小写字母。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>可以直接使用stl中的next_permutation操作来依次的获得下一个排序的结果。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>基于前缀的排列生成。每次在排完前面的之后，对后面所有的元素进行全排列。<br>以题目中的a,b,c为例进行说明。第一位有三种情况，</p><ol><li>情况1:第一位是a,将a作为前缀，那么后面需要对b和c进行全排列<ol><li>情况1.1: 第二位是b,则此时就构成了ab，将ab作为前缀，然后对c进行全排列<ol><li>情况1.1.1: 第三位是c,所以此时和前缀拼接构成abc.作为输出结果。</li></ol></li><li>情况1.2: 第二位是c,则此时就构成了ac, 将ac作为前缀，然后对b进行全排列<ol><li>情况1.1.2: 第三位是b,所以此时和前缀拼接构成acb.作为输出结果。</li></ol></li></ol></li><li>情况2:第一位是b,将b作为前缀，那么后面需要对a和c进行全排列<ol><li>情况2.1: 第二位是a,则此时就构成了ba，将ba作为前缀，然后对c进行全排列<ol><li>情况2.1.1: 第三位是c,所以此时和前缀进行拼接构成bac.作为输出结果。</li></ol></li><li>情况2.2: 第二位是c,则此时就构成了bc,将bc作为前缀，然后对a进行全排列<ol><li>情况2.1.2: 第三位是b,所以此时和前缀进行拼接构成bca.作为输出结果。</li></ol></li></ol></li><li>情况3:第一位是c,将c作为前缀，那么后面需要对a和b进行全排列<ol><li>情况3.1: 第二位是b,则此时就构成了cb，将cb作为前缀，然后对a进行全排列<ol><li>情况3.1.1: 第三位是a,所以此时和前缀进行拼接构成cba.作为输出结果。</li></ol></li><li>情况3.2: 第二位是a,则此时就构成了ca, 此时将ca作为前缀，然后对b进行全排列<ol><li>情况3.1.2: 第三位是b,所以此时和前缀进行拼接构成cab.作为输出结果。<br>综上所述，最终结果有六个{abc,acb,bac,bca,cba,cab}<br>但是考虑到一个情况是如果有重复字符，比如两个a,<br>那么按照上面的基于前缀的答案就变成了{aa,aa},而我们想要的答案是{aa},<br>所以我们最后可以通过set来进行去重。</li></ol></li></ol></li></ol><h3 id="思路3"><a href="#思路3" class="headerlink" title="思路3"></a>思路3</h3><p>基于交换的全排列生成，可以避免有重复元素.<br><img src="https://img-blog.csdn.net/20160426160344631" alt=""><br>上面这个图也很经典，<br>第一列到第二列的变化是abc中的索引为0的字符和字符串的每个字符进行替换之后的样子。<br>第二列到第三列的变化是在第一列的基础上索引为1的字符和它以及它之后每个字符替换之后的样子。<br>第三列是在第二列的基础上索引为2的字符和它以及它之后每个字符进行替换之后的样子。<br>从而实现了字符的全排列。<br>为什么说这个方法可以避免重复元素呢。<br>以bb来举例。 如果按照前缀进行排列且未经过set处理，必然结果是{bb,bb}。<br>而基于交换的方法的话，从0号索引开始和与前面字符不重复的每一位进行替换。所以索引0和索引0替换，得到{b,b},0和1进行替换的时候，发现之前已经存在b了，所以就不再替换。1和1替换的时候，发现之前也存在b了，所以也不再进行替换，所以最后结果仅仅只有{bb}，从而避免了重复。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; Permutation(string str) &#123;</span><br><span class="line">        // 方法1： 直接使用stl中的next_permutation方法</span><br><span class="line">        vector&lt;string&gt; res;</span><br><span class="line">        if(str.size() == 0) return res;</span><br><span class="line">        do&#123;</span><br><span class="line">            res.push_back(str);</span><br><span class="line">        &#125;while(next_permutation(str.begin(),str.end()));</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; res;</span><br><span class="line">    vector&lt;string&gt; Permutation(string str) &#123;</span><br><span class="line">        //方法2： 基于前缀的排列生成。每次在排完前面的之后，对后面所有的元素进行全排列</span><br><span class="line">        if(str.size() == 0) return res;</span><br><span class="line">        helper2(&quot;&quot;,str);</span><br><span class="line">        //去除重复元素 如 aa 前面的res会生成 aa 和 aa， 而我们的结果只要返回&#123;aa&#125;即可</span><br><span class="line">        set&lt;string&gt; s(res.begin(),res.end());</span><br><span class="line">        res = vector&lt;string&gt;(s.begin(),s.end());</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    // 方法2的辅助函数。</span><br><span class="line">    void helper2(string prefix, string str)&#123;</span><br><span class="line">        if(str.size() == 0)&#123;</span><br><span class="line">            res.push_back(prefix);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            for(int i = 0;i &lt; str.size(); i++)&#123;</span><br><span class="line">                helper2(prefix+str[i],str.substr(0,i)+str.substr(i+1,str.size()));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h3 id="思路3代码"><a href="#思路3代码" class="headerlink" title="思路3代码"></a>思路3代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; res;</span><br><span class="line">    vector&lt;string&gt; Permutation(string str) &#123;</span><br><span class="line">        </span><br><span class="line">        //方法3: 基于交换的全排列生成，可以避免有重复元素</span><br><span class="line">        if(str.size() == 0) return res;</span><br><span class="line">        helper3(str,0);</span><br><span class="line">        sort(res.begin(),res.end());</span><br><span class="line">        return res;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 方法3的辅助函数</span><br><span class="line">    void helper3(string str,int begin)&#123;</span><br><span class="line">        if(begin == str.size())&#123;</span><br><span class="line">            res.push_back(str);</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = begin; i&lt; str.size(); i++)&#123;</span><br><span class="line">           if(!HasDuplicate(str,begin,i))&#123;</span><br><span class="line">                swap(str[begin],str[i]);</span><br><span class="line">                helper3(str,begin+1);</span><br><span class="line">                swap(str[begin],str[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    bool HasDuplicate(string str,int begin,int end)&#123;</span><br><span class="line">        for(int i = begin;i &lt; end; i++)&#123;</span><br><span class="line">            if(str[i] == str[end]) return true;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>1.<a href="https://blog.csdn.net/gatieme/article/details/51251158" target="_blank" rel="noopener">剑指Offer–028-字符串的排列</a><br>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第二十八篇。&lt;br&gt;主要知识点为字符串，给定n个字符，给出所有的可能的排列，非常经典。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="Math" scheme="http://yoursite.com/tags/Math/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-复杂链表的复制</title>
@@ -112,9 +137,9 @@
     
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
-      <category term="Tree" scheme="http://yoursite.com/tags/Tree/"/>
-    
       <category term="BinaryTree" scheme="http://yoursite.com/tags/BinaryTree/"/>
+    
+      <category term="Tree" scheme="http://yoursite.com/tags/Tree/"/>
     
       <category term="Queue" scheme="http://yoursite.com/tags/Queue/"/>
     
@@ -494,31 +519,6 @@
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
       <category term="斐波那契数列" scheme="http://yoursite.com/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-旋转数组的最小数字</title>
-    <link href="http://yoursite.com/2020/01/18/%E5%89%91%E6%8C%87offer-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/"/>
-    <id>http://yoursite.com/2020/01/18/剑指offer-旋转数组的最小数字/</id>
-    <published>2020-01-18T13:58:32.000Z</published>
-    <updated>2020-01-18T14:19:29.626Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第八篇。<br>其实就是找有序数组的最小元素，只是这个有序数组进行了一次旋转而已。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/9f3231a991af4f55b95579b44b7a01ba?tpId=13&tqId=11159&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。<br>输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。<br>例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。<br>NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>直接使用stl中的min_element方法。一行代码就可以搞定。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>思路2是可以使用类似于二分的方法进行查找，我们在看这个数字经过旋转之后的变化，其实如果一旦二分，我们会发现那个最小元素其实会存在于某个区间内，而这个区间并不满足左边的元素要小于右边的元素。而另一个区间是满足的，因为本身的数组就是非递减排序的，所以只会有一个区间是出现降序排列。这样我们只要找到导致降序的点即可。<br>还有一个要注意的点，就是这个里面可能会有重复数据，所以可能出现中间元素和尾元素相等的情况，这个时候其实不能确定那个降序点在什么地方，所以这个时候就尾节点区间减少一个即可。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minNumberInRotateArray(vector&lt;int&gt; rotateArray) &#123;</span><br><span class="line">        return *min_element(rotateArray.begin(),rotateArray.end());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minNumberInRotateArray(vector&lt;int&gt; rotateArray) &#123;</span><br><span class="line">        if(rotateArray.size() == 0) return 0;</span><br><span class="line">        if(rotateArray.size() == 1) return rotateArray[0];</span><br><span class="line">        int l = 0,r = rotateArray.size()-1;</span><br><span class="line">        while(l&lt;r)&#123;</span><br><span class="line">            int mid = l + (r-l)/2;</span><br><span class="line">            if(rotateArray[mid]&lt;rotateArray[r])&#123;</span><br><span class="line">                r = mid;</span><br><span class="line">            &#125;else if(rotateArray[mid]&gt;rotateArray[r])&#123;</span><br><span class="line">                l = mid+1;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                r--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return rotateArray[l];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度好的情况为O(logn),不好的情况为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第八篇。&lt;br&gt;其实就是找有序数组的最小元素，只是这个有序数组进行了一次旋转而已。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="Array" scheme="http://yoursite.com/tags/Array/"/>
     
   </entry>
   
