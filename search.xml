@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>剑指offer-数组中出现次数超过一半的数字</title>
+    <url>/2020/01/21/%E5%89%91%E6%8C%87offer-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<p>本文为剑指 offer 系列第二十九篇。<br>主要知识点为数组，找出数组中出现次数超过一半的数字，两种方式解决这个问题。map计数和两军对决。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/e8a1b01a2df14cb2b228b30ee6a92163?tpId=13&tqId=11181&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>找个map来存储每个字符出现的次数，然后遍历一遍map找到次数大于一半的数字即可。</p>
+<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>可以想象成战场厮杀，要找的数字为红方，其他为蓝方，红蓝双方士兵实力相等，一换一。由于要找的数字出现次数超过一半，所以厮杀结束之后剩下的必然是我们要找的数字。<br>回到本题目中来，我们按照数组顺序来依次上场，保存当前场上的序号和次数，若下一个字符和当前场上字符一致，则出现次数+1，若不一致，则-1，若次数减为0,则场上的人由下一次人来替换，出现次数变为1.等到所有的数据都遍历结束，则剩下的就是可能是结果的数据，然后计算该数据在整个数组中出现的次数，判断是否符合出现次数超过一般的条件，若符合，返回target，否则返回0。<br>以a = {1,2,3,2,2,2,5,4,2}为例。</p>
+<ol>
+<li>索引为0时。保存target = 1,time = 1;</li>
+<li>索引为1时，由于a[1]!= target, 所以原来target出现的次数要减1，保存target = 1, time = 0;</li>
+<li>索引为2时，由于time = 0,所以更新target = 3,time = 1; </li>
+<li>索引为3时，a[3] = 2与target不一致，所以更新target = 3,time = 0;</li>
+<li>索引为4时，target = 2,time = 1;</li>
+<li>索引为5时，target = 2,time = 2;</li>
+<li>索引为6时，target = 2,time = 1;</li>
+<li>索引为7时，target = 2,time = 0;</li>
+<li>索引为8时，target = 2,time = 1;</li>
+</ol>
+<p>所以2是一个可能的解，然后在数组中计算target 2出现次数为5，超过数组长度的一半，所以返回target2.</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int MoreThanHalfNum_Solution(vector&lt;int&gt; numbers) &#123;</span><br><span class="line">        unordered_map&lt;int,int&gt; mmap;</span><br><span class="line">        for(auto a:numbers)&#123;</span><br><span class="line">            mmap[a]++;</span><br><span class="line">        &#125;</span><br><span class="line">        int temp = numbers.size()/2;</span><br><span class="line">        for(auto a:mmap)&#123;</span><br><span class="line">            if(a.second&gt; temp) return a.first;</span><br><span class="line">        &#125;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)</p>
+<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int MoreThanHalfNum_Solution(vector&lt;int&gt; numbers) &#123;</span><br><span class="line">        // 方法2: 两军对决</span><br><span class="line">        int target = 0,time = 0;</span><br><span class="line">        for(int i = 0; i &lt; numbers.size(); i++)&#123;</span><br><span class="line">            if(time == 0)&#123;</span><br><span class="line">                target = numbers[i];</span><br><span class="line">                time = 1;</span><br><span class="line">            &#125;else if(target != numbers[i])&#123;</span><br><span class="line">                time--;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                time++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        time = count(numbers.begin(),numbers.end(),target);</span><br><span class="line">        return time&gt;numbers.size()/2?target:0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(1)<br>以上，本题结束！</p>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codinginterviews</tag>
+        <tag>Array</tag>
+        <tag>Map</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>剑指offer-字符串的排列</title>
     <url>/2020/01/20/%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/</url>
     <content><![CDATA[<p>本文为剑指 offer 系列第二十八篇。<br>主要知识点为字符串，给定n个字符，给出所有的可能的排列，非常经典。</p>
@@ -143,8 +178,8 @@
       </categories>
       <tags>
         <tag>Codinginterviews</tag>
-        <tag>BinaryTree</tag>
         <tag>Tree</tag>
+        <tag>BinaryTree</tag>
         <tag>Queue</tag>
       </tags>
   </entry>
@@ -542,8 +577,8 @@
       </categories>
       <tags>
         <tag>Codinginterviews</tag>
-        <tag>Stack</tag>
         <tag>Queue</tag>
+        <tag>Stack</tag>
       </tags>
   </entry>
   <entry>
@@ -891,8 +926,8 @@
         <category>C++基础</category>
       </categories>
       <tags>
-        <tag>g++</tag>
         <tag>编译</tag>
+        <tag>g++</tag>
       </tags>
   </entry>
   <entry>
@@ -1000,8 +1035,8 @@
         <category>C++基础</category>
       </categories>
       <tags>
-        <tag>g++</tag>
         <tag>编译</tag>
+        <tag>g++</tag>
       </tags>
   </entry>
   <entry>
@@ -1060,8 +1095,8 @@
         <category>C++基础</category>
       </categories>
       <tags>
-        <tag>g++</tag>
         <tag>编译</tag>
+        <tag>g++</tag>
       </tags>
   </entry>
   <entry>
@@ -1332,8 +1367,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -1394,8 +1429,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -1421,8 +1456,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -1468,8 +1503,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>

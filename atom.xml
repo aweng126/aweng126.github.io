@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-21T08:21:55.053Z</updated>
+  <updated>2020-01-21T08:55:25.737Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-数组中出现次数超过一半的数字</title>
+    <link href="http://yoursite.com/2020/01/21/%E5%89%91%E6%8C%87offer-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97/"/>
+    <id>http://yoursite.com/2020/01/21/剑指offer-数组中出现次数超过一半的数字/</id>
+    <published>2020-01-21T08:24:14.000Z</published>
+    <updated>2020-01-21T08:55:25.737Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第二十九篇。<br>主要知识点为数组，找出数组中出现次数超过一半的数字，两种方式解决这个问题。map计数和两军对决。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/e8a1b01a2df14cb2b228b30ee6a92163?tpId=13&tqId=11181&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>找个map来存储每个字符出现的次数，然后遍历一遍map找到次数大于一半的数字即可。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>可以想象成战场厮杀，要找的数字为红方，其他为蓝方，红蓝双方士兵实力相等，一换一。由于要找的数字出现次数超过一半，所以厮杀结束之后剩下的必然是我们要找的数字。<br>回到本题目中来，我们按照数组顺序来依次上场，保存当前场上的序号和次数，若下一个字符和当前场上字符一致，则出现次数+1，若不一致，则-1，若次数减为0,则场上的人由下一次人来替换，出现次数变为1.等到所有的数据都遍历结束，则剩下的就是可能是结果的数据，然后计算该数据在整个数组中出现的次数，判断是否符合出现次数超过一般的条件，若符合，返回target，否则返回0。<br>以a = {1,2,3,2,2,2,5,4,2}为例。</p><ol><li>索引为0时。保存target = 1,time = 1;</li><li>索引为1时，由于a[1]!= target, 所以原来target出现的次数要减1，保存target = 1, time = 0;</li><li>索引为2时，由于time = 0,所以更新target = 3,time = 1; </li><li>索引为3时，a[3] = 2与target不一致，所以更新target = 3,time = 0;</li><li>索引为4时，target = 2,time = 1;</li><li>索引为5时，target = 2,time = 2;</li><li>索引为6时，target = 2,time = 1;</li><li>索引为7时，target = 2,time = 0;</li><li>索引为8时，target = 2,time = 1;</li></ol><p>所以2是一个可能的解，然后在数组中计算target 2出现次数为5，超过数组长度的一半，所以返回target2.</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int MoreThanHalfNum_Solution(vector&lt;int&gt; numbers) &#123;</span><br><span class="line">        unordered_map&lt;int,int&gt; mmap;</span><br><span class="line">        for(auto a:numbers)&#123;</span><br><span class="line">            mmap[a]++;</span><br><span class="line">        &#125;</span><br><span class="line">        int temp = numbers.size()/2;</span><br><span class="line">        for(auto a:mmap)&#123;</span><br><span class="line">            if(a.second&gt; temp) return a.first;</span><br><span class="line">        &#125;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int MoreThanHalfNum_Solution(vector&lt;int&gt; numbers) &#123;</span><br><span class="line">        // 方法2: 两军对决</span><br><span class="line">        int target = 0,time = 0;</span><br><span class="line">        for(int i = 0; i &lt; numbers.size(); i++)&#123;</span><br><span class="line">            if(time == 0)&#123;</span><br><span class="line">                target = numbers[i];</span><br><span class="line">                time = 1;</span><br><span class="line">            &#125;else if(target != numbers[i])&#123;</span><br><span class="line">                time--;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                time++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        time = count(numbers.begin(),numbers.end(),target);</span><br><span class="line">        return time&gt;numbers.size()/2?target:0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(1)<br>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第二十九篇。&lt;br&gt;主要知识点为数组，找出数组中出现次数超过一半的数字，两种方式解决这个问题。map计数和两军对决。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="Array" scheme="http://yoursite.com/tags/Array/"/>
+    
+      <category term="Map" scheme="http://yoursite.com/tags/Map/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-字符串的排列</title>
@@ -137,9 +164,9 @@
     
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
-      <category term="BinaryTree" scheme="http://yoursite.com/tags/BinaryTree/"/>
-    
       <category term="Tree" scheme="http://yoursite.com/tags/Tree/"/>
+    
+      <category term="BinaryTree" scheme="http://yoursite.com/tags/BinaryTree/"/>
     
       <category term="Queue" scheme="http://yoursite.com/tags/Queue/"/>
     
@@ -484,31 +511,6 @@
     <summary type="html">
     
       &lt;p&gt;本文为剑指 offer 系列第十篇。&lt;br&gt;主要内容其实还是斐波那契数列，依旧是上一篇斐波那契的思路，再复习一遍。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="斐波那契数列" scheme="http://yoursite.com/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-斐波那契数列</title>
-    <link href="http://yoursite.com/2020/01/18/%E5%89%91%E6%8C%87offer-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/"/>
-    <id>http://yoursite.com/2020/01/18/剑指offer-斐波那契数列/</id>
-    <published>2020-01-18T14:27:29.000Z</published>
-    <updated>2020-01-18T14:35:47.111Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第九篇。<br>主要知识点就是斐波那契数列，非常常见，非常经典。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/c6c7742f5ba7442aada113136ddea0c3?tpId=13&tqId=11160&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。 n&lt;=39</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>直接通过斐波那契的概念来进行计算，递归调用。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>我们知道递归调用的时候，很多部分都是重复计算的，所以我们可以建立一个数组进行保存。</p><h3 id="思路3"><a href="#思路3" class="headerlink" title="思路3"></a>思路3</h3><p>仔细想想，每次计算的时候，对我们真正有用的数据其实只有两个，所以我们只要能够保存好两个必要的数据即可依次的计算后面的数据，直到算出我们想要的数据。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Fibonacci(int n) &#123;</span><br><span class="line">        //方法1: 递归</span><br><span class="line">        if(n == 0)return 0;</span><br><span class="line">        if(n == 1) return 1;</span><br><span class="line">        return Fibonacci(n-1)+Fibonacci(n-2);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Fibonacci(int n) &#123;</span><br><span class="line">        // 方法2: 数据保存在一个数组中</span><br><span class="line">        vector&lt;int&gt; a=&#123;0,1&#125;;</span><br><span class="line">        for(int i = 2;i&lt;=39;i++)&#123;</span><br><span class="line">            a.push_back(a[i-1]+a[i-2]);</span><br><span class="line">        &#125;</span><br><span class="line">        return a[n];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h3 id="思路3代码"><a href="#思路3代码" class="headerlink" title="思路3代码"></a>思路3代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Fibonacci(int n) &#123;</span><br><span class="line">        // 方法3. 通过2个常量来进行数据的保存。</span><br><span class="line">        int first = 0,second = 1;</span><br><span class="line">        if(n == 0) return first;</span><br><span class="line">        if(n == 1) return second;</span><br><span class="line">        for(int i = 1; i&lt;n; i++)&#123;</span><br><span class="line">            int temp = first + second;</span><br><span class="line">            first = second;</span><br><span class="line">            second = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        return second;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(1)</p><p>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第九篇。&lt;br&gt;主要知识点就是斐波那契数列，非常常见，非常经典。&lt;/p&gt;
     
     </summary>
     
