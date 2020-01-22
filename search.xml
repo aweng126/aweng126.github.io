@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>剑指offer-两个链表的第一个公共结点</title>
+    <url>/2020/01/22/%E5%89%91%E6%8C%87offer-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E7%BB%93%E7%82%B9/</url>
+    <content><![CDATA[<p>本文为剑指 offer 系列第三十四篇。<br>主要知识点为链表，找两个链表的第一个公共结点,用个set,非常简单。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/6ab1d9a29e88450685099d45c9e31e46?tpId=13&tqId=11189&tPage=2&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入两个链表，找出它们的第一个公共结点。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>遍历一个链表，然后将所有节点存到set中，然后依次遍历另一个链表，在set中查看是否有这个节点，如果有，就返回这个节点。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/*</span><br><span class="line">struct ListNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct ListNode *next;</span><br><span class="line">    ListNode(int x) :</span><br><span class="line">            val(x), next(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* FindFirstCommonNode( ListNode* pHead1, ListNode* pHead2) &#123;</span><br><span class="line">        set&lt;ListNode*&gt; mset;</span><br><span class="line">        ListNode* p = pHead1;</span><br><span class="line">        while(p)&#123;</span><br><span class="line">            mset.insert(p);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* q = pHead2;</span><br><span class="line">        while(q)&#123;</span><br><span class="line">            if(mset.count(q)) return q;</span><br><span class="line">            q = q-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return NULL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)</p>
+<p>以上，本题结束！</p>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codinginterviews</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>剑指offer-第一个只出现一次的字符</title>
     <url>/2020/01/22/%E5%89%91%E6%8C%87offer-%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6/</url>
     <content><![CDATA[<p>本文为剑指 offer 系列第三十三篇。<br>主要知识点为字符串，找个map来存一下出现次数，很简单。</p>

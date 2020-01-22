@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-22T13:11:09.590Z</updated>
+  <updated>2020-01-22T13:25:10.791Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>剑指offer-两个链表的第一个公共结点</title>
+    <link href="http://yoursite.com/2020/01/22/%E5%89%91%E6%8C%87offer-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E7%BB%93%E7%82%B9/"/>
+    <id>http://yoursite.com/2020/01/22/剑指offer-两个链表的第一个公共结点/</id>
+    <published>2020-01-22T13:20:32.000Z</published>
+    <updated>2020-01-22T13:25:10.791Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第三十四篇。<br>主要知识点为链表，找两个链表的第一个公共结点,用个set,非常简单。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/6ab1d9a29e88450685099d45c9e31e46?tpId=13&tqId=11189&tPage=2&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入两个链表，找出它们的第一个公共结点。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>遍历一个链表，然后将所有节点存到set中，然后依次遍历另一个链表，在set中查看是否有这个节点，如果有，就返回这个节点。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct ListNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct ListNode *next;</span><br><span class="line">    ListNode(int x) :</span><br><span class="line">            val(x), next(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* FindFirstCommonNode( ListNode* pHead1, ListNode* pHead2) &#123;</span><br><span class="line">        set&lt;ListNode*&gt; mset;</span><br><span class="line">        ListNode* p = pHead1;</span><br><span class="line">        while(p)&#123;</span><br><span class="line">            mset.insert(p);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode* q = pHead2;</span><br><span class="line">        while(q)&#123;</span><br><span class="line">            if(mset.count(q)) return q;</span><br><span class="line">            q = q-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return NULL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第三十四篇。&lt;br&gt;主要知识点为链表，找两个链表的第一个公共结点,用个set,非常简单。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="链表" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>剑指offer-第一个只出现一次的字符</title>
     <link href="http://yoursite.com/2020/01/22/%E5%89%91%E6%8C%87offer-%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6/"/>
     <id>http://yoursite.com/2020/01/22/剑指offer-第一个只出现一次的字符/</id>
     <published>2020-01-22T13:00:37.000Z</published>
-    <updated>2020-01-22T13:11:09.590Z</updated>
+    <updated>2020-01-22T13:11:21.476Z</updated>
     
     <content type="html"><![CDATA[<p>本文为剑指 offer 系列第三十三篇。<br>主要知识点为字符串，找个map来存一下出现次数，很简单。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/1c82e8cf713b4bbeb2a5b31cf5b0417c?tpId=13&tqId=11187&tPage=2&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>在一个字符串(0&lt;=字符串长度&lt;=10000，全部由字母组成)中找到第一个只出现一次的字符,并返回它的位置, 如果没有则返回 -1（需要区分大小写）.</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>构造一个map,对于字符串中的每个字符匹配一个对应的出现次数。然后遍历整个map,返回第一个出现次数为1的字符。<br>或者再从头到尾遍历字符串，查找map中对应字符出现的次数，返回第一个出现次数为1的字符。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int FirstNotRepeatingChar(string str) &#123;</span><br><span class="line">        if(str.size() == 0) return -1;</span><br><span class="line">        unordered_map&lt;char,int&gt; mmap;</span><br><span class="line">        for(int i = 0;i&lt;str.size();i++)&#123;</span><br><span class="line">            if(mmap.count(str[i]))&#123;</span><br><span class="line">               mmap[str[i]] += 10000;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">               mmap[str[i]] = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int res = INT_MAX;</span><br><span class="line">        for(auto a:mmap)&#123;</span><br><span class="line">            res = res&gt;a.second?a.second:res;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>]]></content>
     
@@ -498,31 +523,6 @@
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
       <category term="Array" scheme="http://yoursite.com/tags/Array/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-数值的整数次方</title>
-    <link href="http://yoursite.com/2020/01/19/%E5%89%91%E6%8C%87offer-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/"/>
-    <id>http://yoursite.com/2020/01/19/剑指offer-数值的整数次方/</id>
-    <published>2020-01-19T12:06:40.000Z</published>
-    <updated>2020-01-19T12:13:26.601Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第十四篇。<br>细心一点，搞清楚正负逻辑，这个题目就是非常简单的送分题。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/1a834e5e3e1a4b7ba251417554e07c00?tpId=13&tqId=11165&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。<br>保证base和exponent不同时为0</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>直接使用库函数pow()来进行计算乘方操作。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>对exponent进行分情况讨论:大于0，小于0，等于0。<br>然后要注意最终结果的正负判断。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    double Power(double base, int exponent) &#123;</span><br><span class="line">       return pow(base,exponent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(1)</p><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    double Power(double base, int exponent) &#123;</span><br><span class="line">        double res = 1;</span><br><span class="line">        if(exponent == 0)&#123;</span><br><span class="line">            return 1;</span><br><span class="line">        &#125;else if(exponent&gt;0)&#123;</span><br><span class="line">            while(exponent &gt;0)&#123;</span><br><span class="line">                res *= base;</span><br><span class="line">                exponent--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            while(exponent &lt;0)&#123;</span><br><span class="line">                res *= (1/base);</span><br><span class="line">                exponent++; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(base &lt; 0 &amp;&amp; exponent%2 == 1) res *= -1; </span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(1)<br>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第十四篇。&lt;br&gt;细心一点，搞清楚正负逻辑，这个题目就是非常简单的送分题。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="送分题" scheme="http://yoursite.com/tags/%E9%80%81%E5%88%86%E9%A2%98/"/>
     
   </entry>
   
