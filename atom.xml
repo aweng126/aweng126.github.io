@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-23T14:27:32.904Z</updated>
+  <updated>2020-01-23T14:35:29.613Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-平衡二叉树</title>
+    <link href="http://yoursite.com/2020/01/23/%E5%89%91%E6%8C%87offer-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <id>http://yoursite.com/2020/01/23/剑指offer-平衡二叉树/</id>
+    <published>2020-01-23T14:28:36.000Z</published>
+    <updated>2020-01-23T14:35:29.613Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第三十八篇。<br>主要知识点为平衡二叉树,也就是判断一棵树的左右子树的高度差是否大于1。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/8b3b95850edb4115918ecebdf1b4d222?tpId=13&tqId=11192&tPage=2&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一棵二叉树，判断该二叉树是否是平衡二叉树。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>我们上一篇写过一个方法用来求一棵树的深度，<br>那么本题目就可以利用上面的那个方法来进行计算左右子树的深度，然后判断其高度差是否大于1。<br>如果大于1，则返回false,否则继续判断其子树是否为平衡二叉树。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Depth(TreeNode* root)&#123;</span><br><span class="line">        if(!root) return 0;</span><br><span class="line">        else return max(Depth(root-&gt;left),Depth(root-&gt;right))+1;</span><br><span class="line">    &#125;</span><br><span class="line">    bool IsBalanced_Solution(TreeNode* root) &#123;</span><br><span class="line">        if(!root) return true;</span><br><span class="line">        if(abs(Depth(root-&gt;left)-Depth(root-&gt;right))&gt;1)&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;else &#123;</span><br><span class="line">            return IsBalanced_Solution(root-&gt;left)&amp;&amp;IsBalanced_Solution(root-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n^2),空间复杂度为O(n^2)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第三十八篇。&lt;br&gt;主要知识点为平衡二叉树,也就是判断一棵树的左右子树的高度差是否大于1。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="AVLTree" scheme="http://yoursite.com/tags/AVLTree/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-二叉树的深度</title>
@@ -498,31 +523,6 @@
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
       <category term="Tree" scheme="http://yoursite.com/tags/Tree/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-合并两个排序的链表</title>
-    <link href="http://yoursite.com/2020/01/19/%E5%89%91%E6%8C%87offer-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/"/>
-    <id>http://yoursite.com/2020/01/19/剑指offer-合并两个排序的链表/</id>
-    <published>2020-01-19T12:59:40.000Z</published>
-    <updated>2020-01-19T14:23:01.801Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第十八篇。<br>主要知识点是链表，仍然是在遍历链表的基础上进行相关操作，非常经典。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/d8b6b4358f774294a89de2a6ac4d9337?tpId=13&tqId=11169&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>找两个指针分别指向两个有序链表的头结点，然后依次找最小值放到存放结果的链表之中即可。<br>要记得考虑一个链表遍历完而另一个链表没有遍历完的情况。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct ListNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct ListNode *next;</span><br><span class="line">    ListNode(int x) :</span><br><span class="line">            val(x), next(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* Merge(ListNode* phead1, ListNode* phead2)</span><br><span class="line">    &#123;</span><br><span class="line">         if(!phead1 &amp;&amp; !phead2) return NULL;</span><br><span class="line">        if(!phead1) return phead2;</span><br><span class="line">        if(!phead2) return phead1;</span><br><span class="line">        ListNode *head = NULL, *tail = NULL;</span><br><span class="line">        ListNode *p1= phead1,*p2 = phead2;</span><br><span class="line">        while(p1 &amp;&amp; p2)&#123;</span><br><span class="line">            if(p1-&gt;val &lt;= p2-&gt;val)&#123;</span><br><span class="line">                ListNode* temp = new ListNode(p1-&gt;val);</span><br><span class="line">                if(!head)&#123;</span><br><span class="line">                    head = temp;</span><br><span class="line">                    tail = temp; </span><br><span class="line">                &#125;</span><br><span class="line">                tail-&gt;next = temp;</span><br><span class="line">                tail = tail-&gt;next;</span><br><span class="line">                p1= p1-&gt;next;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                ListNode* temp = new ListNode(p2-&gt;val);</span><br><span class="line">                  if(!head)&#123;</span><br><span class="line">                    head = temp;</span><br><span class="line">                    tail = temp; </span><br><span class="line">                &#125;</span><br><span class="line">                tail-&gt;next = temp;</span><br><span class="line">                tail = tail-&gt;next;</span><br><span class="line">                p2= p2-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if(!p1 &amp;&amp; !p2) return head;</span><br><span class="line">        while(p1)&#123;</span><br><span class="line">            ListNode* temp = new ListNode(p1-&gt;val);</span><br><span class="line">                if(!head)&#123;</span><br><span class="line">                    head = temp;</span><br><span class="line">                    tail = temp; </span><br><span class="line">                &#125;</span><br><span class="line">                tail-&gt;next = temp;</span><br><span class="line">                tail = tail-&gt;next;</span><br><span class="line">                p1= p1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        while(p2)&#123;</span><br><span class="line">            ListNode* temp = new ListNode(p2-&gt;val);</span><br><span class="line">                  if(!head)&#123;</span><br><span class="line">                    head = temp;</span><br><span class="line">                    tail = temp; </span><br><span class="line">                &#125;</span><br><span class="line">                tail-&gt;next = temp;</span><br><span class="line">                tail = tail-&gt;next;</span><br><span class="line">                p2= p2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第十八篇。&lt;br&gt;主要知识点是链表，仍然是在遍历链表的基础上进行相关操作，非常经典。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="链表" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
