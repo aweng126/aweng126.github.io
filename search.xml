@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>剑指offer-数字在排序数组中出现的次数</title>
+    <url>/2020/01/23/%E5%89%91%E6%8C%87offer-%E6%95%B0%E5%AD%97%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/</url>
+    <content><![CDATA[<p>本文为剑指 offer 系列第三十六篇。<br>主要知识点为二分查找,但是可以偷懒用stl来解决掉。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/70610bf967994b22bb1c26f9ae901fa2?tpId=13&tqId=11190&tPage=2&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>统计一个数字在排序数组中出现的次数。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>直接使用stl的count方法</p>
+<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>先使用stl的find方法找到第一个值，然后向后遍历计数</p>
+<h3 id="思路3"><a href="#思路3" class="headerlink" title="思路3"></a>思路3</h3><p>利用二分查找，先找到第一个大于这个val的索引，然后找到小于这个val的最大的索引，做差然后减去1就是这个值出现的次数。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int GetNumberOfK(vector&lt;int&gt; data ,int k) &#123;</span><br><span class="line">        // 方法1 使用stl的count</span><br><span class="line">        return count(data.begin(),data.end(),k);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(logn),空间复杂度为O(1)</p>
+<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int GetNumberOfK(vector&lt;int&gt; data ,int k) &#123;</span><br><span class="line"></span><br><span class="line">        //方法2  使用stl的find</span><br><span class="line">        auto a = find(data.begin(),data.end(),k);</span><br><span class="line">        if(a == data.end())&#123;</span><br><span class="line">         return 0;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">          int res = 0;</span><br><span class="line">           while(*a == k)&#123;</span><br><span class="line">               res++; a++;</span><br><span class="line">           &#125;</span><br><span class="line">           return res; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(logn),空间复杂度为O(1)</p>
+<h3 id="思路3代码"><a href="#思路3代码" class="headerlink" title="思路3代码"></a>思路3代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// 暂时还没有写好，等我写好再来补充。</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(1)<br>以上，本题结束！</p>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codinginterviews</tag>
+        <tag>二分查找</tag>
+        <tag>STL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>剑指offer-数组中的逆序对</title>
     <url>/2020/01/23/%E5%89%91%E6%8C%87offer-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%80%86%E5%BA%8F%E5%AF%B9/</url>
     <content><![CDATA[<p>本文为剑指 offer 系列第三十五篇。<br>在数组中寻找逆序对是归并排序的一个非常典型的应用。</p>
@@ -32,7 +58,7 @@
       </categories>
       <tags>
         <tag>Codinginterviews</tag>
-        <tag>数学</tag>
+        <tag>归并排序</tag>
       </tags>
   </entry>
   <entry>
@@ -318,8 +344,8 @@
       </categories>
       <tags>
         <tag>Codinginterviews</tag>
-        <tag>Tree</tag>
         <tag>BinaryTree</tag>
+        <tag>Tree</tag>
         <tag>Queue</tag>
       </tags>
   </entry>
@@ -1507,8 +1533,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -1569,8 +1595,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -1596,8 +1622,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -1643,8 +1669,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
