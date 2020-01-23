@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-23T14:21:28.244Z</updated>
+  <updated>2020-01-23T14:27:32.904Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-二叉树的深度</title>
+    <link href="http://yoursite.com/2020/01/23/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/"/>
+    <id>http://yoursite.com/2020/01/23/剑指offer-二叉树的深度/</id>
+    <published>2020-01-23T14:22:58.000Z</published>
+    <updated>2020-01-23T14:27:32.904Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第三十七篇。<br>主要知识点为二叉树，可以用递归或层序遍历两种方式来解决这个问题。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/435fb86331474282a3499955f0a41e8b?tpId=13&tqId=11191&tPage=2&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一棵二叉树，求该树的深度。从根结点到叶结点依次经过的结点（含根、叶结点）形成树的一条路径，最长路径的长度为树的深度。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>由于树结构的特殊性，天然的可以利用递归来解决这一类的问题。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>可以使用层序遍历来解决这个问题。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int TreeDepth(TreeNode* pRoot)</span><br><span class="line">    &#123;</span><br><span class="line">        // 方法一 ：递归求解</span><br><span class="line">        if(!pRoot) &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">         return max(TreeDepth(pRoot-&gt;left),TreeDepth(pRoot-&gt;right))+1;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int TreeDepth(TreeNode* pRoot)</span><br><span class="line">    &#123;</span><br><span class="line">        // 方法二： 队列层序遍历</span><br><span class="line">        if(!pRoot) return 0;</span><br><span class="line">        queue&lt;TreeNode*&gt; q&#123;&#123;pRoot&#125;&#125;;</span><br><span class="line">        int dep = 0;</span><br><span class="line">        while(!q.empty())&#123;</span><br><span class="line">            for(int i = q.size();i&gt;0;i--)&#123;</span><br><span class="line">                TreeNode* a = q.front(); q.pop();</span><br><span class="line">                if(a-&gt;left) q.push(a-&gt;left);</span><br><span class="line">                if(a-&gt;right) q.push(a-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            dep++;</span><br><span class="line">        &#125;</span><br><span class="line">        return dep;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第三十七篇。&lt;br&gt;主要知识点为二叉树，可以用递归或层序遍历两种方式来解决这个问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="BinaryTree" scheme="http://yoursite.com/tags/BinaryTree/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-数字在排序数组中出现的次数</title>
@@ -488,31 +513,6 @@
     <summary type="html">
     
       &lt;p&gt;本文为剑指 offer 系列第十八篇。&lt;br&gt;主要知识点是链表，仍然是在遍历链表的基础上进行相关操作，非常经典。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="链表" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-反转链表</title>
-    <link href="http://yoursite.com/2020/01/19/%E5%89%91%E6%8C%87offer-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/"/>
-    <id>http://yoursite.com/2020/01/19/剑指offer-反转链表/</id>
-    <published>2020-01-19T12:47:53.000Z</published>
-    <updated>2020-01-19T12:56:10.860Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第十七篇。<br>主要知识点为链表，还是在链表遍历的基础上做文章，比较简单。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/75e878df47f24fdc9dc3e400ec6058ca?tpId=13&tqId=11168&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一个链表，反转链表后，输出新链表的表头。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>新建一个结点head表示头结点。<br>当遍历原来的链表到结点A的时候，创建一个新的节点A’，值等于A结点的值，A’指向原来的head结点，而head结点指向A结点。<br>如此这般，将原来的链表遍历完，整个问题也就得到解决了。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct ListNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct ListNode *next;</span><br><span class="line">    ListNode(int x) :</span><br><span class="line">            val(x), next(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* ReverseList(ListNode* pHead) &#123;</span><br><span class="line">        ListNode *head = NULL;</span><br><span class="line">        ListNode* p = pHead;</span><br><span class="line">        while(p)&#123;</span><br><span class="line">            ListNode *temp = new ListNode(p-&gt;val);</span><br><span class="line">            temp-&gt;next = head;</span><br><span class="line">            head = temp;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第十七篇。&lt;br&gt;主要知识点为链表，还是在链表遍历的基础上做文章，比较简单。&lt;/p&gt;
     
     </summary>
     
