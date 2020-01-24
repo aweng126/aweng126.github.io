@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-24T02:13:09.044Z</updated>
+  <updated>2020-01-24T02:25:57.409Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-反转单词序列</title>
+    <link href="http://yoursite.com/2020/01/24/%E5%89%91%E6%8C%87offer-%E5%8F%8D%E8%BD%AC%E5%8D%95%E8%AF%8D%E5%BA%8F%E5%88%97/"/>
+    <id>http://yoursite.com/2020/01/24/剑指offer-反转单词序列/</id>
+    <published>2020-01-24T02:18:09.000Z</published>
+    <updated>2020-01-24T02:25:57.409Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第四十三篇。<br>主要知识点依旧是字符串,注意观察题目规律，细心一点就行，也比较简单。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="">题目描述</a></h2><p>牛客最近来了一个新员工Fish，每天早晨总是会拿着一本英文杂志，写些句子在本子上。同事Cat对Fish写的内容颇感兴趣，有一天他向Fish借来翻看，但却读不懂它的意思。例如，“student. a am I”。后来才意识到，这家伙原来把句子单词的顺序翻转了，正确的句子应该是“I am a student.”。Cat对一一的翻转这些单词顺序可不在行，你能帮助他么</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>观察题目我们就可以发现，其实每个单词内部的字母都是正序的，然后每个单词都是用空格隔开的，然后单词的顺序是逆序的，所以我们很自然的就可以想到每次按照顺序读取一个单词，然后单词之间按照逆序进行拼接即可。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    string ReverseSentence(string str) &#123;</span><br><span class="line">        string res = &quot;&quot;;</span><br><span class="line">        string temp = &quot;&quot;;</span><br><span class="line">        for(char a:str)&#123;</span><br><span class="line">            if(a != &apos; &apos;)&#123;</span><br><span class="line">                temp.push_back(a);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                res = temp+&quot; &quot;+res;</span><br><span class="line">                temp = &quot;&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res = temp+&quot; &quot;+res;</span><br><span class="line">        return res.substr(0,res.size()-1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第四十三篇。&lt;br&gt;主要知识点依旧是字符串,注意观察题目规律，细心一点就行，也比较简单。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="String" scheme="http://yoursite.com/tags/String/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-左旋转字符串</title>
@@ -498,31 +523,6 @@
       <category term="Tree" scheme="http://yoursite.com/tags/Tree/"/>
     
       <category term="Queue" scheme="http://yoursite.com/tags/Queue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-栈的压入弹出序列</title>
-    <link href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/"/>
-    <id>http://yoursite.com/2020/01/20/剑指offer-栈的压入弹出序列/</id>
-    <published>2020-01-20T05:03:44.000Z</published>
-    <updated>2020-01-20T10:42:55.075Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第二十三篇。<br>主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&tqId=11174&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>因为需要判断的出栈顺序已经确定了，所以我们只要按照压栈顺序来判断一下如此压栈能不能产生对应的出栈顺序即可。<br>考虑到可能中间出栈的情况，所以我们在每压入一个元素之后要进行相应的判断，如果栈顶元素和出栈数组中标记的元素是对应的，那么当前元素出栈，待判断的元素后移一位，如果不对应，则继续压栈。<br>直到所有元素压栈完成，可能的出栈操作结束。<br>这个时候看栈内是否还剩元素，如果不剩元素，那么就是依据出栈数组中的数据已经完成出栈，则出栈顺序成立。否则就是不成立。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool IsPopOrder(vector&lt;int&gt; pushV,vector&lt;int&gt; popV) &#123;</span><br><span class="line">        stack&lt;int&gt; mstack;</span><br><span class="line">        int j = 0;</span><br><span class="line">        for(int i = 0;i&lt;pushV.size();i++)&#123;</span><br><span class="line">            mstack.push(pushV[i]);</span><br><span class="line">            while(!mstack.empty() &amp;&amp; mstack.top() == popV[j])&#123;</span><br><span class="line">                mstack.pop();</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return mstack.empty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第二十三篇。&lt;br&gt;主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="Stack" scheme="http://yoursite.com/tags/Stack/"/>
     
   </entry>
   

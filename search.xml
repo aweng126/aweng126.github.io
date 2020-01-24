@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>剑指offer-反转单词序列</title>
+    <url>/2020/01/24/%E5%89%91%E6%8C%87offer-%E5%8F%8D%E8%BD%AC%E5%8D%95%E8%AF%8D%E5%BA%8F%E5%88%97/</url>
+    <content><![CDATA[<p>本文为剑指 offer 系列第四十三篇。<br>主要知识点依旧是字符串,注意观察题目规律，细心一点就行，也比较简单。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="">题目描述</a></h2><p>牛客最近来了一个新员工Fish，每天早晨总是会拿着一本英文杂志，写些句子在本子上。同事Cat对Fish写的内容颇感兴趣，有一天他向Fish借来翻看，但却读不懂它的意思。例如，“student. a am I”。后来才意识到，这家伙原来把句子单词的顺序翻转了，正确的句子应该是“I am a student.”。Cat对一一的翻转这些单词顺序可不在行，你能帮助他么</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>观察题目我们就可以发现，其实每个单词内部的字母都是正序的，然后每个单词都是用空格隔开的，然后单词的顺序是逆序的，所以我们很自然的就可以想到每次按照顺序读取一个单词，然后单词之间按照逆序进行拼接即可。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    string ReverseSentence(string str) &#123;</span><br><span class="line">        string res = &quot;&quot;;</span><br><span class="line">        string temp = &quot;&quot;;</span><br><span class="line">        for(char a:str)&#123;</span><br><span class="line">            if(a != &apos; &apos;)&#123;</span><br><span class="line">                temp.push_back(a);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                res = temp+&quot; &quot;+res;</span><br><span class="line">                temp = &quot;&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res = temp+&quot; &quot;+res;</span><br><span class="line">        return res.substr(0,res.size()-1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)</p>
+<p>以上，本题结束！</p>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codinginterviews</tag>
+        <tag>String</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>剑指offer-左旋转字符串</title>
     <url>/2020/01/24/%E5%89%91%E6%8C%87offer-%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
     <content><![CDATA[<p>本文为剑指 offer 系列第四十二篇。<br>主要知识点为字符串，非常简单，都没啥值得说的。</p>
@@ -1699,8 +1719,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>hard</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -1858,8 +1878,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>hard</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
