@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-24T01:35:40.147Z</updated>
+  <updated>2020-01-24T02:13:09.044Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-左旋转字符串</title>
+    <link href="http://yoursite.com/2020/01/24/%E5%89%91%E6%8C%87offer-%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    <id>http://yoursite.com/2020/01/24/剑指offer-左旋转字符串/</id>
+    <published>2020-01-24T01:36:49.000Z</published>
+    <updated>2020-01-24T02:13:09.044Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第四十二篇。<br>主要知识点为字符串，非常简单，都没啥值得说的。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/12d959b108cb42b1ab72cef4d36af5ec?tpId=13&tqId=11196&tPage=3&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>汇编语言中有一种移位指令叫做循环左移（ROL），现在有个简单的任务，就是用字符串模拟这个指令的运算结果。对于一个给定的字符序列S，请你把其循环左移K位后的序列输出。例如，字符序列S=”abcXYZdef”,要求输出循环左移3位后的结果，即“XYZdefabc”。是不是很简单？OK，搞定它！</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>这里其实有三种情况需要考虑，</p><ol><li>K等于字符串的长度： 这个时候可以直接返回原来的字符串。</li><li>K小于字符串的长度： 这个时候相当于对于原来的字符串进行截取，一段是前面K位，一段是剩下的。然后左右置换重新拼接即可。</li><li>K大于字符串的长度： 这个时候实际上相当于已经左移一圈了，继续左移实际上最后效果相当于左移<br>K = K % len.<br>然后该情况就变成了第二种情况。 </li></ol><p>本题目给的测试用例不是很好，或者说题目意思说的不明确，当循环左移到头之后怎么办呢？是直接返回，还是按照循环左移这个名字来真的循环呢？两种理解都可以过所有样例,感觉题目出的非常不好。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    string LeftRotateString(string str, int n) &#123;</span><br><span class="line">        int slen = str.size();</span><br><span class="line">        if(slen == 0) return str;</span><br><span class="line">        //if(slen &lt; n) return str; // 如果左移位数超过字符串长度，直接返回，也可以过测试用例。</span><br><span class="line">        int realn = n%slen;</span><br><span class="line">        string head = str.substr(0,realn);</span><br><span class="line">        string tail = str.substr(realn);</span><br><span class="line">        return tail+head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第四十二篇。&lt;br&gt;主要知识点为字符串，非常简单，都没啥值得说的。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="String" scheme="http://yoursite.com/tags/String/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-和为S的两个数字</title>
@@ -488,31 +513,6 @@
     <summary type="html">
     
       &lt;p&gt;本文为剑指 offer 系列第二十三篇。&lt;br&gt;主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="Stack" scheme="http://yoursite.com/tags/Stack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-包含min函数的栈</title>
-    <link href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88/"/>
-    <id>http://yoursite.com/2020/01/20/剑指offer-包含min函数的栈/</id>
-    <published>2020-01-20T04:09:31.000Z</published>
-    <updated>2020-01-20T05:01:24.077Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第二十二篇。<br>主要知识点为栈，要求给栈再pop和push操作之外在添加一个min操作来获得当前栈元素的最小值。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/4c776177d2c04c2494f2555c9fcc1e49?tpId=13&tqId=11173&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>如果不考虑时间复杂度O(1)限制的话，我们可以加一个栈，然后加一个数组来存，每次找最小元素的话，可以利用stl的min_element来获的，在pop的时候记得将数组中的pop的元素也要删除掉。<br>但是这样复杂度会比较高。有一个查找和删除的操作。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>用一个栈A来正常保存元素，另一个栈B来保存当前元素个数下A栈中最小的元素，两个栈始终保持同样高度。</p><ol><li>进行pop操作的时候两个都pop。</li><li>进行push操作的时候，A正常push，Bpush的时候要判断新加入的元素和之前B的栈顶元素谁大谁小，push进去那个小的元素。</li><li>进行min操作的时候，返回B的栈顶元素即可。</li></ol><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    stack&lt;int&gt; mstack;</span><br><span class="line">    vector&lt;int&gt; mvec;</span><br><span class="line">    void push(int value) &#123;</span><br><span class="line">        mstack.push(value);</span><br><span class="line">        mvec.push_back(value);</span><br><span class="line">    &#125;</span><br><span class="line">    void pop() &#123;</span><br><span class="line">      int a = mstack.top();</span><br><span class="line">      mstack.pop();</span><br><span class="line">      auto b = find(mvec.begin(),mvec.end(),a);</span><br><span class="line">      mvec.erase(b);</span><br><span class="line">    &#125;</span><br><span class="line">    int top() &#123;</span><br><span class="line">       return mstack.top();</span><br><span class="line">    &#125;</span><br><span class="line">    int min() &#123;</span><br><span class="line">        return *min_element(mvec.begin(),mvec.end()); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    //思路2 两个栈进行保存</span><br><span class="line">    stack&lt;int&gt; dstack;</span><br><span class="line">    stack&lt;int&gt; mstack;</span><br><span class="line">    void push(int value) &#123;</span><br><span class="line">        dstack.push(value);</span><br><span class="line">        if(mstack.empty() || mstack.top()&gt;value)&#123;</span><br><span class="line">            mstack.push(value);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            mstack.push(mstack.top());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void pop() &#123;</span><br><span class="line">        dstack.pop();</span><br><span class="line">        mstack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    int top() &#123;</span><br><span class="line">       return dstack.top();</span><br><span class="line">    &#125;</span><br><span class="line">    int min() &#123;</span><br><span class="line">        return mstack.top(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第二十二篇。&lt;br&gt;主要知识点为栈，要求给栈再pop和push操作之外在添加一个min操作来获得当前栈元素的最小值。&lt;/p&gt;
     
     </summary>
     
