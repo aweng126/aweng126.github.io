@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-26T06:05:32.779Z</updated>
+  <updated>2020-01-26T06:23:36.824Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-表示数值的字符串</title>
+    <link href="http://yoursite.com/2020/01/26/%E5%89%91%E6%8C%87offer-%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    <id>http://yoursite.com/2020/01/26/剑指offer-表示数值的字符串/</id>
+    <published>2020-01-26T06:11:42.000Z</published>
+    <updated>2020-01-26T06:23:36.824Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第五十篇。<br>主要知识点为字符串，重点在于细心，认真的去判断成为数值的条件，然后再去做题就比较快。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/6f8c901d091949a5837e24bb82a731f2?tpId=13&tqId=11206&tPage=3&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。例如，字符串”+100”,”5e2”,”-123”,”3.1416”和”-1E-16”都表示数值。 但是”12e”,”1a3.14”,”1.2.3”,”+-5”和”12e+4.3”都不是。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>这个题目主要要考虑以下的问题</p><ol><li>小数点，正负号，指数标志可能会出现多次的问题。解决方式是设置一个标志，用来记录它们之前是否已经出现。</li><li>直接以小数点或者指数标志或者正负号结尾：解决方式在每个条件结束的时候进行一次是否到结尾的判断</li><li>string以‘\0’为标志结束。可以用来结束循环。</li><li>非法字符的问题。 对于前面没有处理的其他的非法情况都直接返回false</li></ol><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool isNumeric(char* string)</span><br><span class="line">    &#123;</span><br><span class="line">        if(string == NULL)&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        // 应对仅仅只有+或者-的情况</span><br><span class="line">        if(*string == &apos;+&apos; || *string == &apos;-&apos;)&#123;</span><br><span class="line">            string++;</span><br><span class="line">        &#125;</span><br><span class="line">        if(*string == &apos;\0&apos;)&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        //标记小数点、整数部分、指数部分是否存在，</span><br><span class="line">        bool point = false, numint = false, nume = false;</span><br><span class="line">        while(*string != &apos;\0&apos;)&#123;</span><br><span class="line">            //处理小数</span><br><span class="line">            if(*string == &apos;.&apos;)&#123;</span><br><span class="line">                if( point || nume) &#123;</span><br><span class="line">                    return false;</span><br><span class="line">                &#125;</span><br><span class="line">                string++;</span><br><span class="line">                point = true;</span><br><span class="line">                if(*string == &apos;\0&apos;)&#123;</span><br><span class="line">                    return false;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            //处理科学计数法</span><br><span class="line">            else if(*string == &apos;E&apos; || *string == &apos;e&apos;)&#123;</span><br><span class="line">                if(numint == false || nume)&#123;</span><br><span class="line">                     return false;</span><br><span class="line">                &#125;</span><br><span class="line">                string++; </span><br><span class="line">                nume = true;</span><br><span class="line">                if(*string == &apos;+&apos; || *string == &apos;-&apos;)&#123;</span><br><span class="line">                    string++;</span><br><span class="line">                &#125;</span><br><span class="line">                if(*string == &apos;\0&apos;)&#123;</span><br><span class="line">                    return false;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            //处理正常数据</span><br><span class="line">            else if(*string &gt;= &apos;0&apos; &amp;&amp; *string &lt;= &apos;9&apos;)&#123;</span><br><span class="line">                numint = true;</span><br><span class="line">                string++;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                return false;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(1)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第五十篇。&lt;br&gt;主要知识点为字符串，重点在于细心，认真的去判断成为数值的条件，然后再去做题就比较快。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="String" scheme="http://yoursite.com/tags/String/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-正则表达式匹配</title>
@@ -494,31 +519,6 @@
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
       <category term="String" scheme="http://yoursite.com/tags/String/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-连续子数组的最大和</title>
-    <link href="http://yoursite.com/2020/01/21/%E5%89%91%E6%8C%87offer-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/"/>
-    <id>http://yoursite.com/2020/01/21/剑指offer-连续子数组的最大和/</id>
-    <published>2020-01-21T08:59:43.000Z</published>
-    <updated>2020-01-21T09:16:41.045Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第三十篇。<br>主要知识点为动态规划，可以说这个题目是最常见的一个动态规划的题目了。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/459bd355da1549fa8a49e350bf3df484?tpId=13&tqId=11183&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>HZ偶尔会拿些专业问题来忽悠那些非计算机专业的同学。今天测试组开完会后,他又发话了:在古老的一维模式识别中,常常需要计算连续子向量的最大和,当向量全为正数的时候,问题很好解决。但是,如果向量中包含负数,是否应该包含某个负数,并期望旁边的正数会弥补它呢？例如:{6,-3,-2,7,-15,1,2,2},连续子向量的最大和为8(从第0个开始,到第3个为止)。给一个数组，返回它的最大连续子序列的和，你会不会被他忽悠住？(子向量的长度至少是1)</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>动态规划<br>dp[i]数组表示从索引0到索引i之间的数组范围的最大连续子序列的和。<br>dp[0] = array[0]<br>dp[i] = max{array[i]+dp[i-1],array[i]}<br>res = max{dp[i]}</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int FindGreatestSumOfSubArray(vector&lt;int&gt; array) &#123;</span><br><span class="line">        vector&lt;int&gt; dp(array.size(),0);</span><br><span class="line">        dp[0] = array[0];</span><br><span class="line">        for(int i = 1;i&lt;array.size();i++)&#123;</span><br><span class="line">            dp[i] = max(dp[i-1]+array[i],array[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return *max_element(dp.begin(),dp.end());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第三十篇。&lt;br&gt;主要知识点为动态规划，可以说这个题目是最常见的一个动态规划的题目了。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="DP" scheme="http://yoursite.com/tags/DP/"/>
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
   </entry>
   
