@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-25T13:00:04.249Z</updated>
+  <updated>2020-01-26T03:20:27.806Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-把字符串转化成整数</title>
+    <link href="http://yoursite.com/2020/01/26/%E5%89%91%E6%8C%87offer-%E6%8A%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E5%8C%96%E6%88%90%E6%95%B4%E6%95%B0/"/>
+    <id>http://yoursite.com/2020/01/26/剑指offer-把字符串转化成整数/</id>
+    <published>2020-01-26T03:12:36.000Z</published>
+    <updated>2020-01-26T03:20:27.806Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第四十六篇。<br>主要知识点为字符串的判断和边界条件的判定，细心一点就没有问题。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/1277c681251b4372bdef344468e4f26e?tpId=13&tqId=11202&tPage=3&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>将一个字符串转换成一个整数，要求不能使用字符串转换整数的库函数。 数值为0或者字符串不是一个合法的数值则返回0<br>输入描述:<br>输入一个字符串,包括数字字母符号,可以为空<br>输出描述:<br>如果是合法的数值表达则返回该数字，否则返回0</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>本题目需要考虑的边界有以下几个：</p><ol><li>正负号的判定</li><li>数字中间可能有非法字符</li><li>数字结果可能会超出INT类型的范围。<br>考虑好以上几个边界本题目就可以得到解决。</li></ol><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int StrToInt(string str) &#123;</span><br><span class="line">       if(str.size() == 0) return 0;</span><br><span class="line">       int flag  = 0; //默认正数</span><br><span class="line">       if(str[0] == &apos;+&apos;)&#123;</span><br><span class="line">           flag = 1;</span><br><span class="line">       &#125;else if(str[0] == &apos;-&apos;)&#123;</span><br><span class="line">           flag = 2;</span><br><span class="line">       &#125;</span><br><span class="line">       int start = flag&gt;0?1:0;</span><br><span class="line">       long res = 0;</span><br><span class="line">       while(start &lt; str.size())&#123;</span><br><span class="line">           if(str[start]&gt;&apos;0&apos; &amp;&amp; str[start] &lt;&apos;9&apos;)&#123;</span><br><span class="line">               res = res*10 + (str[start]-&apos;0&apos;);</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">               return 0;</span><br><span class="line">           &#125;</span><br><span class="line">           start++;</span><br><span class="line">       &#125;</span><br><span class="line">       res = (flag == 2)?(-res):res;</span><br><span class="line">       //判断是否出现溢出</span><br><span class="line">       if(res &gt;INT_MAX || res &lt; INT_MIN)&#123;</span><br><span class="line">           return 0;</span><br><span class="line">       &#125;</span><br><span class="line">       return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(1)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第四十六篇。&lt;br&gt;主要知识点为字符串的判断和边界条件的判定，细心一点就没有问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="String" scheme="http://yoursite.com/tags/String/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指offer-不用加减乘除做加法</title>
+    <link href="http://yoursite.com/2020/01/25/%E5%89%91%E6%8C%87offer-%E4%B8%8D%E7%94%A8%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E5%81%9A%E5%8A%A0%E6%B3%95/"/>
+    <id>http://yoursite.com/2020/01/25/剑指offer-不用加减乘除做加法/</id>
+    <published>2020-01-25T13:02:14.000Z</published>
+    <updated>2020-01-26T03:10:43.389Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第四十五篇。<br>主要知识点为位运算，思路非常神奇，可以打破我们的思维定势。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="">题目描述</a></h2><p>写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>当我们计算两个数字之和的时候，实际上一方面我们计算两个数当前位的加法运算，另一方面是计算当前位的进位运算，本题目我们采用同样的思路来对二进制进行计算，当前位的计算用位的异或操作，具体操作为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1^1 = 0; 1^0 = 1; 0^1 = 1; 0^0 = 0;</span><br></pre></td></tr></table></figure><p>而进位运算通过位的与运算来进行计算，具体操作为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&amp;1 = 1; 1&amp;0 = 0; 0&amp;1 = 0; 0&amp;0 = 0;</span><br></pre></td></tr></table></figure><p>下面我们举例来进行说明：<br>比如2+4变成二进制为010和100，<br>这样直接通过位的异或计算当前位就是110，而进位计算010&amp;100 = 0，<br>所以最终计算结果的二进制就是110，也就是6；</p><p>比如2+6，它们的二进制分别为010和110，<br>计算当前位为010^110= 100,计算进位010&amp;110=010。<br>由于是进的位，所以在进行下一步计算的时候，进位结果要左移一位之后再来和之前的计算结果进行计算，<br>所以当前位运算结果变为100^100 = 000,进位结果变为100&amp;100 = 100，<br>进位结果继续左移1位得到1000，和原来当前位数字000进行异或计算得到0000^1000=1000，而进位0000&amp;1000 = 0，运算结束。<br>所以最后结果就是1000也就是8。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Add(int num1, int num2)</span><br><span class="line">    &#123;</span><br><span class="line">        //return num1+num2;</span><br><span class="line">        int temp = 0;</span><br><span class="line">        while(num2 != 0)&#123;</span><br><span class="line">            temp = num1^num2;</span><br><span class="line">            num2 = (num1&amp;num2)&lt;&lt;1;</span><br><span class="line">            num1 = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        return num1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(1)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第四十五篇。&lt;br&gt;主要知识点为位运算，思路非常神奇，可以打破我们的思维定势。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="位运算" scheme="http://yoursite.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-扑克牌顺子</title>
@@ -469,56 +519,6 @@
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
       <category term="LinkedList" scheme="http://yoursite.com/tags/LinkedList/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-二叉树中和为某一值的路径</title>
-    <link href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84/"/>
-    <id>http://yoursite.com/2020/01/20/剑指offer-二叉树中和为某一值的路径/</id>
-    <published>2020-01-20T13:27:59.000Z</published>
-    <updated>2020-01-20T14:05:42.488Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第二十六篇。<br>主要知识点为二叉树，在二叉树的遍历的基础上去判断是否有存在路径之和等于定值。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/b736e784e3e34731af99065031301bca?tpId=13&tqId=11177&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一颗二叉树的跟节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数组靠前)</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><ol><li>从最简单的情况开始考虑，如果树只有一个根结点，那么我们只要判断这个节点的值是不是只要等于目标值target即可。</li><li>再复杂一点，如果有三个节点，根节点和左右子节点。那么我们我们在其实就相当于在子节点中判断值是不是等于目标值减去根节点的值即可。其实等价于简化到了第一种情况——单个节点。</li><li>如果层数继续加深，最后的判断其实还是等价于在最后一层判断节点的值是否等于目标值减去整个路径上所有的节点的值。</li><li>思想类似于前序遍历，只是本来的打印变成了节点条件的判断放到了最后的叶子结点一层，然后每一层向下一层遍历的时候需要更改期待值。<br>既然是前序遍历就可以用递归和非递归两种方式来解决这个问题。</li></ol><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="代码1-用栈-递归来实现"><a href="#代码1-用栈-递归来实现" class="headerlink" title="代码1:用栈+递归来实现"></a>代码1:用栈+递归来实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; res;</span><br><span class="line">    vector&lt;int&gt; temp;</span><br><span class="line">    vector&lt;vector&lt;int&gt; &gt; FindPath(TreeNode* root,int expectNumber) &#123;</span><br><span class="line">        // 方法1: 用前序遍历的stack来实现</span><br><span class="line">        if(root==NULL)</span><br><span class="line">            return res;</span><br><span class="line">        temp.push_back(root-&gt;val);</span><br><span class="line">        if((expectNumber-root-&gt;val)==0 &amp;&amp; root-&gt;left==NULL &amp;&amp; root-&gt;right==NULL)</span><br><span class="line">            &#123;</span><br><span class="line">            res.push_back(temp);</span><br><span class="line">        &#125;</span><br><span class="line">        FindPath(root-&gt;left,expectNumber-root-&gt;val);</span><br><span class="line">        FindPath(root-&gt;right,expectNumber-root-&gt;val);</span><br><span class="line">        if(tmp.size()!=0)&#123;</span><br><span class="line">            temp.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h3 id="代码2-完全用递归来实现"><a href="#代码2-完全用递归来实现" class="headerlink" title="代码2:完全用递归来实现"></a>代码2:完全用递归来实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; res;</span><br><span class="line">    vector&lt;vector&lt;int&gt; &gt; FindPath(TreeNode* root,int expectNumber) &#123;</span><br><span class="line">        // 方法2: 用递归来实现</span><br><span class="line">        if(root == NULL)&#123;</span><br><span class="line">            return res;</span><br><span class="line">        &#125;</span><br><span class="line">        vector&lt;int&gt; temp;</span><br><span class="line">        helper(root,expectNumber,temp);</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    void helper(TreeNode* root,int expectNumber,vector&lt;int&gt; temp)&#123;</span><br><span class="line">        temp.push_back(root-&gt;val);</span><br><span class="line">        if(((root-&gt;val - expectNumber) == 0) &amp;&amp; root-&gt;left == NULL &amp;&amp; root-&gt;right == NULL)&#123;</span><br><span class="line">            res.push_back(temp);</span><br><span class="line">        &#125;</span><br><span class="line">        if(root-&gt;left) helper(root-&gt;left,expectNumber-root-&gt;val,temp);</span><br><span class="line">        if(root-&gt;right) helper(root-&gt;right,expectNumber-root-&gt;val,temp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第二十六篇。&lt;br&gt;主要知识点为二叉树，在二叉树的遍历的基础上去判断是否有存在路径之和等于定值。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="BinaryTree" scheme="http://yoursite.com/tags/BinaryTree/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-二叉搜索树的后序遍历序列</title>
-    <link href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97/"/>
-    <id>http://yoursite.com/2020/01/20/剑指offer-二叉搜索树的后序遍历序列/</id>
-    <published>2020-01-20T10:53:05.000Z</published>
-    <updated>2020-01-20T11:10:54.635Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第二十五篇。<br>主要知识点为二叉搜索树，判断一个序列是否为二叉搜索树的后序遍历序列。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/a861533d45854474ac791d90e447bafd?tpId=13&tqId=11176&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>二叉搜索树的性质就是根节点的值要大于左子树所有节点的值，要小于右子树的所有节点的值，左右子树又同样都是二叉搜索树。<br>后序遍历的顺序是左子树，右子树，然后根节点。<br>从而我们就可以得出结论，对于一个二叉搜索树的后序遍历来说，一定包含三部分（当然可能存在左右子树为空的情况）。首先最后一个节点是根节点，根节点前面的数据分为两部分，一部分都会比根节点小，这些是原来二叉搜索树的左子树，一部分都会比根节点要大，这就是原来二叉搜索树的右子树。我们在判断的时候可以设定本子树在序列中的左右边界，然后从右边界开始往前找，找到第一个比根节点小的索引，那么这个索引之前到左边界之间的节点的值都应该比根节点的值要小，否则就不会满足二叉搜索树的条件，返回false即可。<br>然后左右子树的序列又可以以同样的方式来进行判断是否为二叉搜索树。<br>又可以用一个完美的递归来解决这个问题。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool VerifySquenceOfBST(vector&lt;int&gt; seq) &#123;</span><br><span class="line">        if(seq.size() == 0) return false;</span><br><span class="line">        return helper(seq,0,seq.size()-1);</span><br><span class="line">    &#125;</span><br><span class="line">    bool helper(vector&lt;int&gt;&amp; a, int l, int r)&#123;</span><br><span class="line">        if(l&gt;=r) return true;</span><br><span class="line">        int i  = r;</span><br><span class="line">        while(i&gt;l &amp;&amp; a[i-1] &gt; a[r]) i--;</span><br><span class="line">        for(int j = i-1; j&gt;=l;j--) if(a[j] &gt; a[r]) return false;</span><br><span class="line">        return helper(a,l,i-1) &amp;&amp;helper(a,i, r-1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第二十五篇。&lt;br&gt;主要知识点为二叉搜索树，判断一个序列是否为二叉搜索树的后序遍历序列。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="BinarySearchTree" scheme="http://yoursite.com/tags/BinarySearchTree/"/>
     
   </entry>
   
