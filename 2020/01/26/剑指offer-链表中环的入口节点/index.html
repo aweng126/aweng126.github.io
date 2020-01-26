@@ -51,15 +51,17 @@
   };
 </script>
 
-  <meta name="description" content="热爱生活，享受生活。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Kingwen&#39;s blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;hexo&#x2F;index.html">
+  <meta name="description" content="本文为剑指 offer 系列第五十二篇。主要知识点为链表的遍历，同样的使用一个set就可以解决问题。">
+<meta name="keywords" content="Codinginterviews,链表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指offer-链表中环的入口节点">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;26&#x2F;%E5%89%91%E6%8C%87offer-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="热爱生活，享受生活。">
+<meta property="og:description" content="本文为剑指 offer 系列第五十二篇。主要知识点为链表的遍历，同样的使用一个set就可以解决问题。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-26T09:11:24.060Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/tags/hexo/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/26/%E5%89%91%E6%8C%87offer-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/">
 
 
 <script id="page-configurations">
@@ -67,13 +69,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>标签: hexo | Kingwen's blog</title>
+  <title>剑指offer-链表中环的入口节点 | Kingwen's blog</title>
   
 
 
@@ -210,50 +212,124 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">hexo
-          <small>标签</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/26/%E5%89%91%E6%8C%87offer-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          剑指offer-链表中环的入口节点
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-26 14:32:54 / 修改时间：17:11:24" itemprop="dateCreated datePublished" datetime="2020-01-26T14:32:54+08:00">2020-01-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/" itemprop="url" rel="index">
+                    <span itemprop="name">算法训练</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>543</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
+        <p>本文为剑指 offer 系列第五十二篇。<br>主要知识点为链表的遍历，同样的使用一个set就可以解决问题。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/253d2c59ec3e4bc68da16833f79a38e4?tpId=13&tqId=11208&tPage=3&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>给一个链表，若其中包含环，请找出该链表的环的入口结点，否则，输出null。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>思路非常清晰，从头开始遍历，遍历的时候先判断当前节点是否在set中，如果已经在，那么这个节点肯定就是那个入口节点。如果不在，继续向后遍历。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct ListNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct ListNode *next;</span><br><span class="line">    ListNode(int x) :</span><br><span class="line">        val(x), next(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* EntryNodeOfLoop(ListNode* head)</span><br><span class="line">    &#123;</span><br><span class="line">        set&lt;ListNode*&gt; mset;</span><br><span class="line">        ListNode* p = head;</span><br><span class="line">        while(p)&#123;</span><br><span class="line">            if(mset.count(p)) return p;</span><br><span class="line">            mset.insert(p);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return NULL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)</p>
+<p>以上，本题结束！</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    
+    
+    
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-09T12:46:16+08:00"
-              content="2019-11-09">
-          11-09
-        </time>
-      </div>
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Codinginterviews/" rel="tag"># Codinginterviews</a>
+              <a href="/tags/%E9%93%BE%E8%A1%A8/" rel="tag"># 链表</a>
+          </div>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/11/09/create-my-leetcode-artical-template/" itemprop="url">
-            <span itemprop="name">create-my-leetcode-artical-template</span>
-          </a>
-      </h2>
+        
 
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/01/26/%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E6%B5%81%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%B8%8D%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%97%E7%AC%A6/" rel="next" title="剑指offer-字符流中第一个不重复的字符">
+                  <i class="fa fa-chevron-left"></i> 剑指offer-字符流中第一个不重复的字符
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-    </div>
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -282,6 +358,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">3.</span> <span class="nav-text">解题代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

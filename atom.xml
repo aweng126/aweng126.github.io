@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-26T06:31:29.225Z</updated>
+  <updated>2020-01-26T09:11:24.060Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-链表中环的入口节点</title>
+    <link href="http://yoursite.com/2020/01/26/%E5%89%91%E6%8C%87offer-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/"/>
+    <id>http://yoursite.com/2020/01/26/剑指offer-链表中环的入口节点/</id>
+    <published>2020-01-26T06:32:54.000Z</published>
+    <updated>2020-01-26T09:11:24.060Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第五十二篇。<br>主要知识点为链表的遍历，同样的使用一个set就可以解决问题。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/253d2c59ec3e4bc68da16833f79a38e4?tpId=13&tqId=11208&tPage=3&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>给一个链表，若其中包含环，请找出该链表的环的入口结点，否则，输出null。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>思路非常清晰，从头开始遍历，遍历的时候先判断当前节点是否在set中，如果已经在，那么这个节点肯定就是那个入口节点。如果不在，继续向后遍历。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct ListNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct ListNode *next;</span><br><span class="line">    ListNode(int x) :</span><br><span class="line">        val(x), next(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* EntryNodeOfLoop(ListNode* head)</span><br><span class="line">    &#123;</span><br><span class="line">        set&lt;ListNode*&gt; mset;</span><br><span class="line">        ListNode* p = head;</span><br><span class="line">        while(p)&#123;</span><br><span class="line">            if(mset.count(p)) return p;</span><br><span class="line">            mset.insert(p);</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        return NULL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第五十二篇。&lt;br&gt;主要知识点为链表的遍历，同样的使用一个set就可以解决问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="链表" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-字符流中第一个不重复的字符</title>
@@ -494,31 +519,6 @@
       <category term="String" scheme="http://yoursite.com/tags/String/"/>
     
       <category term="Map" scheme="http://yoursite.com/tags/Map/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-丑数</title>
-    <link href="http://yoursite.com/2020/01/22/%E5%89%91%E6%8C%87offer-%E4%B8%91%E6%95%B0/"/>
-    <id>http://yoursite.com/2020/01/22/剑指offer-丑数/</id>
-    <published>2020-01-22T12:19:24.000Z</published>
-    <updated>2020-01-22T12:55:14.610Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第三十二篇。<br>主要知识点为枚举。两种解题方法：一种是暴力枚举，一种是比较优美的枚举。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/6aa9e04fc3794f68acf8778237ba065b?tpId=13&tqId=11186&tPage=2&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>把只包含质因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含质因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>从1开始计数，依次的判断每个数字是不是丑数，给丑数建立一个计数器，如果计数器为N,则返回这个结果。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>因为丑数的质因子只有2.3.5三个数字，那么我们依次的去找他们之间乘积的最小值即可（可能每次每个数字乘的次数不一样，但是依旧是找最小的）。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int GetUglyNumber_Solution(int index) &#123;</span><br><span class="line">        int count = 1;</span><br><span class="line">        int temp = 1;</span><br><span class="line">        while(count &lt; index)&#123;</span><br><span class="line">            if(isUglyNumber(++temp))&#123;</span><br><span class="line">                count++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return temp;</span><br><span class="line">    &#125;</span><br><span class="line">    bool isUglyNumber(int num)&#123;</span><br><span class="line">        while(num%5 == 0)&#123;</span><br><span class="line">            num /= 5;</span><br><span class="line">        &#125;</span><br><span class="line">        while(num%3 == 0)&#123;</span><br><span class="line">            num /= 3;</span><br><span class="line">        &#125;</span><br><span class="line">        while(num%2 == 0)&#123;</span><br><span class="line">            num /= 2;</span><br><span class="line">        &#125;</span><br><span class="line">        return num == 1?true:false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(nlgn),空间复杂度为O(1)，非常意料之内的在牛客上超时了。</p><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int GetUglyNumber_Solution(int index) &#123;</span><br><span class="line">        vector&lt;int&gt; res =&#123;1&#125;;</span><br><span class="line">        int p2 = 0,p3 = 0,p5 = 0;</span><br><span class="line">        int  temp  = 0;</span><br><span class="line">        for(int i = 1;i&lt;index;i++)&#123;</span><br><span class="line">            temp = min(res[p2]*2,min(res[p5]*5,res[p3]*3));</span><br><span class="line">            res.push_back(temp);</span><br><span class="line">            if(temp == res[p2]*2) p2++;</span><br><span class="line">            if(temp == res[p3]*3) p3++;</span><br><span class="line">            if(temp == res[p5]*5) p5++;</span><br><span class="line">        &#125;</span><br><span class="line">        return res[index-1];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h2 id="思路1测试代码"><a href="#思路1测试代码" class="headerlink" title="思路1测试代码"></a>思路1测试代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">/*test.cpp*/</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">bool isUglyNumber(int num)&#123;</span><br><span class="line">    while(num%5 == 0)&#123;</span><br><span class="line">        num /= 5;</span><br><span class="line">    &#125;</span><br><span class="line">    while(num%3 == 0)&#123;</span><br><span class="line">        num /= 3;</span><br><span class="line">    &#125;</span><br><span class="line">    while(num%2 == 0)&#123;</span><br><span class="line">        num /= 2;</span><br><span class="line">    &#125;</span><br><span class="line">    return num == 1?true:false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int GetUglyNumber_Solution(int index) &#123;</span><br><span class="line">    int count = 1;</span><br><span class="line">    int temp = 1;</span><br><span class="line">    while(count &lt; index)&#123;</span><br><span class="line">        if(isUglyNumber(++temp))&#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    cout&lt;&lt; GetUglyNumber_Solution(1400)&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>调用的时候</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ test.cpp -o test</span><br><span class="line">./test</span><br></pre></td></tr></table></figure><p>结果是516560652.答案正确。<br>除了运算的慢点，所需要的时间长点，其他没啥毛病。<br>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第三十二篇。&lt;br&gt;主要知识点为枚举。两种解题方法：一种是暴力枚举，一种是比较优美的枚举。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="枚举" scheme="http://yoursite.com/tags/%E6%9E%9A%E4%B8%BE/"/>
     
   </entry>
   
