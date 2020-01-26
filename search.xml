@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>剑指offer-构建乘积数组</title>
+    <url>/2020/01/26/%E5%89%91%E6%8C%87offer-%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[<p>本文为剑指 offer 系列第四十八篇。<br>主要知识点为数组，但是可以通过类似于矩阵的方式来进行性能的提升。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/94a4d381a68b47b7a8bed86f2975db46?tpId=13&tqId=11204&tPage=3&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>给定一个数组A[0,1,…,n-1],请构建一个数组B[0,1,…,n-1],其中B中的元素B[i]=A[0]<em>A[1]</em>…<em>A[i-1]*A[i+1]</em>…*A[n-1]。不能使用除法。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>暴力求解，双层循环，对每个结果进行单独的计算即可。</p>
+<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>其实我们在计算的时候可以发现很多计算是重复的，举例来说<br>1, 2, 3, 4, 5<br>计算第一个数字的时候是2*3*4*5,<br>计算第二个数字的时候是1*3*4*5,<br>计算第三个数字的时候是1*2*4*5,<br>计算第四个数字的时候是1*2*3*5,<br>计算第五个数字的时候是1*2*3*4。<br>这样就可以发现很多运算是重复的，比如第一行的3<em>4</em>5和第二行的3<em>4</em>5，<br>如何去掉重复的计算呢？就是我们接下来要考虑的问题。<br>同样以1, 2, 3, 4, 5为例来进行说明，我们可以发现同一行的计算可以分成左右两个部分。<br>计算第一个数字的时候是(1)*(2*3*4*5),<br>计算第二个数字的时候是(1*1)*(3*4*5),<br>计算第三个数字的时候是(1*2*1)*(4*5),<br>计算第四个数字的时候是(1*2*3*1)*(5),<br>计算第五个数字的时候是(1*2*3*4*1)()。<br>左面括号中下一行的数字是上一行的数字再乘上一个数字，<br>右面括号中上一行的数字是下一行的数组再乘上一个数字。<br>而最终的结果就是左边的括号乘上右面的括号。<br>非常优秀的思路。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; multiply(const vector&lt;int&gt;&amp; A) &#123;</span><br><span class="line">        //  方法1: 双层遍历 O(n^2)</span><br><span class="line">        vector&lt;int&gt; res ;</span><br><span class="line">        int temp = 1;</span><br><span class="line">        for(int i  = 0;i&lt; A.size();i++)&#123;</span><br><span class="line">            for(int j = 0; j&lt; A.size(); j++)&#123;</span><br><span class="line">                if(i != j)&#123;</span><br><span class="line">                   temp = A[j] *temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            res.push_back(temp);</span><br><span class="line">            temp = 1;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n^2),空间复杂度为O(n)</p>
+<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; multiply(const vector&lt;int&gt;&amp; A) &#123;</span><br><span class="line">        //  方法2: 巧妙运用一下前一次和后一次的关系</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        vector&lt;int&gt; left = &#123;1&#125;;</span><br><span class="line">        vector&lt;int&gt; right = &#123;1&#125;;</span><br><span class="line">        for(int i = 1; i &lt;= A.size()-1; i++)&#123;</span><br><span class="line">            left.push_back(left.back()* A[i-1]);</span><br><span class="line">        &#125;</span><br><span class="line">        for( int i = A.size()-2; i&gt;=0;i--)&#123;</span><br><span class="line">            right.insert(right.begin(),right.front()*A[i+1]);</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 0; i&lt;A.size();i++)&#123;</span><br><span class="line">            res.push_back(left[i] * right[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codinginterviews</tag>
+        <tag>Math</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>剑指offer-数组中重复的数字</title>
     <url>/2020/01/26/%E5%89%91%E6%8C%87offer-%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/</url>
     <content><![CDATA[<p>本文为剑指 offer 系列第四十七篇。<br>主要知识点为数组，找数组中重复的数字，类似于之前找出现一次或者两次的数字。</p>

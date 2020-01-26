@@ -51,17 +51,17 @@
   };
 </script>
 
-  <meta name="description" content="这道题目不是很难，但是思路也很好玩.通过这道题，我们还可以顺便掌握c++11中刚刚引入的lambda表达式，非常棒！">
-<meta name="keywords" content="leetcode,medium,Greedy">
+  <meta name="description" content="本文为剑指 offer 系列第四十八篇。主要知识点为数组，但是可以通过类似于矩阵的方式来进行性能的提升。">
+<meta name="keywords" content="Codinginterviews,Math">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-406-QueueReconstructionbyHeight">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;leetcode-406-QueueReconstructionbyHeight&#x2F;index.html">
+<meta property="og:title" content="剑指offer-构建乘积数组">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;26&#x2F;%E5%89%91%E6%8C%87offer-%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="这道题目不是很难，但是思路也很好玩.通过这道题，我们还可以顺便掌握c++11中刚刚引入的lambda表达式，非常棒！">
+<meta property="og:description" content="本文为剑指 offer 系列第四十八篇。主要知识点为数组，但是可以通过类似于矩阵的方式来进行性能的提升。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-11T11:14:08.929Z">
+<meta property="og:updated_time" content="2020-01-26T03:57:30.390Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/2019/11/11/leetcode-406-QueueReconstructionbyHeight/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/26/%E5%89%91%E6%8C%87offer-%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/">
 
 
 <script id="page-configurations">
@@ -75,7 +75,7 @@
   };
 </script>
 
-  <title>leetcode-406-QueueReconstructionbyHeight | Kingwen's blog</title>
+  <title>剑指offer-构建乘积数组 | Kingwen's blog</title>
   
 
 
@@ -217,7 +217,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/11/leetcode-406-QueueReconstructionbyHeight/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/26/%E5%89%91%E6%8C%87offer-%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -230,7 +230,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode-406-QueueReconstructionbyHeight
+          剑指offer-构建乘积数组
         </h1>
 
         <div class="post-meta">
@@ -241,7 +241,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-11 19:04:35 / 修改时间：19:14:08" itemprop="dateCreated datePublished" datetime="2019-11-11T19:04:35+08:00">2019-11-11</time>
+              <time title="创建时间：2020-01-26 11:37:35 / 修改时间：11:57:30" itemprop="dateCreated datePublished" datetime="2020-01-26T11:37:35+08:00">2020-01-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,14 +268,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.9k</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -287,40 +287,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>这道题目不是很难，但是思路也很好玩.<br>通过这道题，我们还可以顺便掌握c++11中刚刚引入的lambda表达式，非常棒！</p>
+        <p>本文为剑指 offer 系列第四十八篇。<br>主要知识点为数组，但是可以通过类似于矩阵的方式来进行性能的提升。</p>
 <a id="more"></a>
 
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>Suppose you have a random list of people standing in a queue. Each person is described by a pair of integers (h, k), where h is the height of the person and k is the number of people in front of this person who have a height greater than or equal to h. Write an algorithm to reconstruct the queue.</p>
-<p>Note:<br>The number of people is less than 1,100.</p>
-<h3 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h3><p>Input:<br>[[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]</p>
-<p>Output:<br>[[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>贪心算法。</p>
-<h2 id="详细解释"><a href="#详细解释" class="headerlink" title="详细解释"></a>详细解释</h2><p>最开始先排序，按照如下规则进行排序</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如果第一个元素不等，那么大的在前。</span><br><span class="line">如果第一个元素相等，那么第二个元素小的在前。</span><br></pre></td></tr></table></figure>
-<p>所以变化如下。</p>
-<ol>
-<li>初始状态：[[7,0], [4,4], [7,1], [5,0], [6,1], [5,2]]</li>
-<li>排序之后：[[7,0], [7,1], [6,1], [5,0], [5,2], [4,4]]</li>
-</ol>
-<p>接下来从第二个元素开始插入，按照如下规则进行排序。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">将两个数构成的数组插入到数组中第二个数的位置。</span><br><span class="line">如将[6,1]插入到1号位置，将[5,2]插入到2号位置，注意这个地方要从前往后一次的进行插入。</span><br></pre></td></tr></table></figure>
-<p>插入之后的变化依次如下,这里可以从第二个元素开始进行判断</p>
-<ol start="3">
-<li>插入[7,1]元素：[[7,0], [7,1], [6,1], [5,0], [5,2], [4,4]]</li>
-<li>插入[6,1]元素：[[7,0], [6,1], [7,1], [5,0], [5,2], [4,4]]</li>
-<li>插入[5,0]元素：[[5,0], [7,0], [6,1], [7,1], [5,2], [4,4]]</li>
-<li>插入[5,2]元素：[[5,0], [7,0], [5,2], [6,1], [7,1], [4,4]]</li>
-<li>插入[4,4]元素：[[5,0], [7,0], [5,2], [6,1], [4,4]，[7,1]]<h2 id="巧妙之处"><a href="#巧妙之处" class="headerlink" title="巧妙之处"></a>巧妙之处</h2></li>
-<li>要学会使用lambda表达式，也就是如下的代码。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort(people.begin(), people.end(),[](vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">                 return ((a[0] &gt; b[0]) ||(a[0] == b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
-如果不使用lambda表达式那么就需要写成如下模样。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static bool cmp(vector&lt;int&gt;&amp; a, vector&lt;int&gt; b)&#123;</span><br><span class="line">    return ((a[0] &gt; b[0]) ||(a[0] == b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">&#125;</span><br><span class="line"># 然后调用的时候如下</span><br><span class="line">sort(people.begin(),people.end(),cmp);</span><br></pre></td></tr></table></figure></li>
-<li>发现排序之后整个vector可以插入的位置刚刚好是vector中第二个元素的位置。</li>
-</ol>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="原始代码"><a href="#原始代码" class="headerlink" title="原始代码"></a>原始代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;</span><br><span class="line">        sort(people.begin(), people.end(),</span><br><span class="line">             [](vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">                 return ((a[0] &gt; b[0]) ||(a[0] == b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">             &#125;</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">        for(int i = 1; i &lt; people.size(); i++ )&#123;</span><br><span class="line">            auto p = people[i]; </span><br><span class="line">            if(p[1] != i)&#123;</span><br><span class="line">                people.erase(people.begin()+i);</span><br><span class="line">                people.insert(people.begin() + p[1],p);   </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return people;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="升级代码"><a href="#升级代码" class="headerlink" title="升级代码"></a>升级代码</h3><p>上面的那种方法速度比较满，原因在于是在原数组上进行插入同时还要进行删除操作，而如果我们直接新建一个vector来保存结果，那么就只需要插入就可以了，然后速度会有很大的提升。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    static bool cmp(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">        return (a[0] &gt; b[0] ||(a[0]==b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;</span><br><span class="line">        sort(people.begin(), people.end(),cmp);</span><br><span class="line">        </span><br><span class="line">        vector&lt; vector&lt;int&gt; &gt; ans;</span><br><span class="line">        for(int i = 0; i &lt; people.size(); i++ )&#123;</span><br><span class="line">            auto p = people[i]; </span><br><span class="line">            ans.insert(ans.begin()+p[1],p);</span><br><span class="line">        &#125;</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="再次升级代码"><a href="#再次升级代码" class="headerlink" title="再次升级代码"></a>再次升级代码</h3><p>为了代码好看，可以再次升级代码，使用增强的for循环。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    static bool cmp(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">        return (a[0] &gt; b[0] ||(a[0]==b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;</span><br><span class="line">        sort(people.begin(), people.end(),cmp);</span><br><span class="line">        </span><br><span class="line">        vector&lt; vector&lt;int&gt; &gt; ans;</span><br><span class="line">        for(auto p:people)&#123;</span><br><span class="line">            ans.insert(ans.begin()+p[1],p);</span><br><span class="line">        &#125;</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>以上，本题结束。</p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/94a4d381a68b47b7a8bed86f2975db46?tpId=13&tqId=11204&tPage=3&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>给定一个数组A[0,1,…,n-1],请构建一个数组B[0,1,…,n-1],其中B中的元素B[i]=A[0]<em>A[1]</em>…<em>A[i-1]*A[i+1]</em>…*A[n-1]。不能使用除法。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>暴力求解，双层循环，对每个结果进行单独的计算即可。</p>
+<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>其实我们在计算的时候可以发现很多计算是重复的，举例来说<br>1, 2, 3, 4, 5<br>计算第一个数字的时候是2*3*4*5,<br>计算第二个数字的时候是1*3*4*5,<br>计算第三个数字的时候是1*2*4*5,<br>计算第四个数字的时候是1*2*3*5,<br>计算第五个数字的时候是1*2*3*4。<br>这样就可以发现很多运算是重复的，比如第一行的3<em>4</em>5和第二行的3<em>4</em>5，<br>如何去掉重复的计算呢？就是我们接下来要考虑的问题。<br>同样以1, 2, 3, 4, 5为例来进行说明，我们可以发现同一行的计算可以分成左右两个部分。<br>计算第一个数字的时候是(1)*(2*3*4*5),<br>计算第二个数字的时候是(1*1)*(3*4*5),<br>计算第三个数字的时候是(1*2*1)*(4*5),<br>计算第四个数字的时候是(1*2*3*1)*(5),<br>计算第五个数字的时候是(1*2*3*4*1)()。<br>左面括号中下一行的数字是上一行的数字再乘上一个数字，<br>右面括号中上一行的数字是下一行的数组再乘上一个数字。<br>而最终的结果就是左边的括号乘上右面的括号。<br>非常优秀的思路。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; multiply(const vector&lt;int&gt;&amp; A) &#123;</span><br><span class="line">        //  方法1: 双层遍历 O(n^2)</span><br><span class="line">        vector&lt;int&gt; res ;</span><br><span class="line">        int temp = 1;</span><br><span class="line">        for(int i  = 0;i&lt; A.size();i++)&#123;</span><br><span class="line">            for(int j = 0; j&lt; A.size(); j++)&#123;</span><br><span class="line">                if(i != j)&#123;</span><br><span class="line">                   temp = A[j] *temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            res.push_back(temp);</span><br><span class="line">            temp = 1;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n^2),空间复杂度为O(n)</p>
+<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; multiply(const vector&lt;int&gt;&amp; A) &#123;</span><br><span class="line">        //  方法2: 巧妙运用一下前一次和后一次的关系</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        vector&lt;int&gt; left = &#123;1&#125;;</span><br><span class="line">        vector&lt;int&gt; right = &#123;1&#125;;</span><br><span class="line">        for(int i = 1; i &lt;= A.size()-1; i++)&#123;</span><br><span class="line">            left.push_back(left.back()* A[i-1]);</span><br><span class="line">        &#125;</span><br><span class="line">        for( int i = A.size()-2; i&gt;=0;i--)&#123;</span><br><span class="line">            right.insert(right.begin(),right.front()*A[i+1]);</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 0; i&lt;A.size();i++)&#123;</span><br><span class="line">            res.push_back(left[i] * right[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>
 
     </div>
 
@@ -330,26 +306,22 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/leetcode/" rel="tag"># leetcode</a>
-              <a href="/tags/medium/" rel="tag"># medium</a>
-              <a href="/tags/Greedy/" rel="tag"># Greedy</a>
+              <a href="/tags/Codinginterviews/" rel="tag"># Codinginterviews</a>
+              <a href="/tags/Math/" rel="tag"># Math</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/11/how-to-save-pdf-images/" rel="next" title="how-to-save-pdf-images">
-                  <i class="fa fa-chevron-left"></i> how-to-save-pdf-images
+                <a href="/2020/01/26/%E5%89%91%E6%8C%87offer-%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/" rel="next" title="剑指offer-数组中重复的数字">
+                  <i class="fa fa-chevron-left"></i> 剑指offer-数组中重复的数字
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/12/leetcode-435-Non-overlapping-Intervals/" rel="prev" title="leetcode-435-Non-overlapping-Intervals">
-                  leetcode-435-Non-overlapping-Intervals <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -388,7 +360,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sample"><span class="nav-number">1.1.</span> <span class="nav-text">sample</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细解释"><span class="nav-number">3.</span> <span class="nav-text">详细解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#巧妙之处"><span class="nav-number">4.</span> <span class="nav-text">巧妙之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">5.</span> <span class="nav-text">解题代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原始代码"><span class="nav-number">5.1.</span> <span class="nav-text">原始代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级代码"><span class="nav-number">5.2.</span> <span class="nav-text">升级代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#再次升级代码"><span class="nav-number">5.3.</span> <span class="nav-text">再次升级代码</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路1"><span class="nav-number">2.1.</span> <span class="nav-text">思路1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路2"><span class="nav-number">2.2.</span> <span class="nav-text">思路2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">3.</span> <span class="nav-text">解题代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路1代码"><span class="nav-number">3.1.</span> <span class="nav-text">思路1代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思路2代码"><span class="nav-number">3.2.</span> <span class="nav-text">思路2代码</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
