@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-26T03:57:30.390Z</updated>
+  <updated>2020-01-26T06:05:32.779Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-正则表达式匹配</title>
+    <link href="http://yoursite.com/2020/01/26/%E5%89%91%E6%8C%87offer-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/"/>
+    <id>http://yoursite.com/2020/01/26/剑指offer-正则表达式匹配/</id>
+    <published>2020-01-26T05:50:50.000Z</published>
+    <updated>2020-01-26T06:05:32.779Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第四十九篇。<br>这个题目比较难，甚至我觉得是整个剑指offer里面最难的一道题目了，<br>也是参考了网上的答案加上自己的理解来解决这道题目，no more talk, show you code!</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/45327ae22b7b413ea21df13ee7d6429c?tpId=13&tqId=11205&tPage=3&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>请实现一个函数用来匹配包括’.’和’<em>‘的正则表达式。模式中的字符’.’表示任意一个字符，而’</em>‘表示它前面的字符可以出现任意次（包含0次）。 在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串”aaa”与模式”a.a”和”ab<em>ac</em>a”匹配，但是与”aa.a”和”ab*a”均不匹配</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>本题目其实关注的点比较多，下面一个一个来说</p><ol><li>匹配串或者模式串为空的情况</li><li>字符串是以’\0’为标志结束的</li><li><strong>.</strong>的处理，可以表示任何一个字符,要注意此时匹配串是不是已经到了结尾</li><li><em>号的处理，由于</em>可以表示它前面的字符出现0次，1次，甚至多次，所以这个时候就会让模式串和匹配串进行不同的后续的比较。</li></ol><p>代码里面的注释写的非常清楚了，所以直接看代码吧。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool match(char* str, char* pattern)</span><br><span class="line">    &#123;</span><br><span class="line">        // 两者任意一个为空，则返回空。</span><br><span class="line">        if(str == NULL || pattern == NULL)&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return matchCore(str, pattern);</span><br><span class="line">     &#125;</span><br><span class="line">    //本部分以str = aaa 为例进行说明。</span><br><span class="line">    bool matchCore(char* str, char* pattern)&#123;</span><br><span class="line">        // 字符串和模式串都运行到了结尾，则匹配完成。返回true</span><br><span class="line">        if(*str == &apos;\0&apos; &amp;&amp; *pattern == &apos;\0&apos;)&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        // 字符串没有到结尾，模式串到结尾了，则返回false</span><br><span class="line">        // 模式串没有到结尾，字符串到结尾了，则根据后续判断进行，需要对&apos;*&apos;做处理</span><br><span class="line">        if((*str != &apos;\0&apos; &amp;&amp; *pattern == &apos;\0&apos;))&#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        // 如果模式串的下一个字符是&apos;*&apos;，</span><br><span class="line">        if(*(pattern + 1) == &apos;*&apos;)&#123;</span><br><span class="line">            // 如果字符串和模式串相等，或者模式串是&apos;.&apos;，并且字符串没有到结尾，则继续匹配</span><br><span class="line">            if(*str == *pattern || (*pattern == &apos;.&apos; &amp;&amp; *str != &apos;\0&apos;))&#123;</span><br><span class="line">                // 可能存在三种情况。</span><br><span class="line">                // 1. *匹配前面字符0次， 如pattern = a*aaa</span><br><span class="line">                // 2. *匹配前面字符1次， 如pattern = a*aa</span><br><span class="line">                // 3. *匹配前面字符不止一次，如pattern = a*</span><br><span class="line">                return    // *匹配0次</span><br><span class="line">                    matchCore(str, pattern + 2)|| </span><br><span class="line">                          // *匹配1次</span><br><span class="line">                    matchCore(str + 1, pattern + 2) ||</span><br><span class="line">                          // *匹配不止1次</span><br><span class="line">                    matchCore(str + 1, pattern);</span><br><span class="line">            &#125;</span><br><span class="line">            // 如果字符串和模式串不相等，则跳过当前模式串的字符和&apos;*&apos;，进入新一轮的匹配</span><br><span class="line">            else&#123;</span><br><span class="line">                // 比如pattern = b*aaa</span><br><span class="line">                return matchCore(str, pattern + 2);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        // 如果字符串和模式串相等，或者模式串是&apos;.&apos;，并且字符串没有到结尾，则继续匹配</span><br><span class="line">        if(*str == *pattern || (*pattern == &apos;.&apos; &amp;&amp; *str != &apos;\0&apos;))&#123;</span><br><span class="line">            return matchCore(str + 1, pattern + 1);</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第四十九篇。&lt;br&gt;这个题目比较难，甚至我觉得是整个剑指offer里面最难的一道题目了，&lt;br&gt;也是参考了网上的答案加上自己的理解来解决这道题目，no more talk, show you code!&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="hard" scheme="http://yoursite.com/tags/hard/"/>
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="正则表达" scheme="http://yoursite.com/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-构建乘积数组</title>
@@ -492,33 +519,6 @@
       <category term="DP" scheme="http://yoursite.com/tags/DP/"/>
     
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-数组中出现次数超过一半的数字</title>
-    <link href="http://yoursite.com/2020/01/21/%E5%89%91%E6%8C%87offer-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97/"/>
-    <id>http://yoursite.com/2020/01/21/剑指offer-数组中出现次数超过一半的数字/</id>
-    <published>2020-01-21T08:24:14.000Z</published>
-    <updated>2020-01-21T08:55:25.737Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第二十九篇。<br>主要知识点为数组，找出数组中出现次数超过一半的数字，两种方式解决这个问题。map计数和两军对决。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/e8a1b01a2df14cb2b228b30ee6a92163?tpId=13&tqId=11181&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>找个map来存储每个字符出现的次数，然后遍历一遍map找到次数大于一半的数字即可。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>可以想象成战场厮杀，要找的数字为红方，其他为蓝方，红蓝双方士兵实力相等，一换一。由于要找的数字出现次数超过一半，所以厮杀结束之后剩下的必然是我们要找的数字。<br>回到本题目中来，我们按照数组顺序来依次上场，保存当前场上的序号和次数，若下一个字符和当前场上字符一致，则出现次数+1，若不一致，则-1，若次数减为0,则场上的人由下一次人来替换，出现次数变为1.等到所有的数据都遍历结束，则剩下的就是可能是结果的数据，然后计算该数据在整个数组中出现的次数，判断是否符合出现次数超过一般的条件，若符合，返回target，否则返回0。<br>以a = {1,2,3,2,2,2,5,4,2}为例。</p><ol><li>索引为0时。保存target = 1,time = 1;</li><li>索引为1时，由于a[1]!= target, 所以原来target出现的次数要减1，保存target = 1, time = 0;</li><li>索引为2时，由于time = 0,所以更新target = 3,time = 1; </li><li>索引为3时，a[3] = 2与target不一致，所以更新target = 3,time = 0;</li><li>索引为4时，target = 2,time = 1;</li><li>索引为5时，target = 2,time = 2;</li><li>索引为6时，target = 2,time = 1;</li><li>索引为7时，target = 2,time = 0;</li><li>索引为8时，target = 2,time = 1;</li></ol><p>所以2是一个可能的解，然后在数组中计算target 2出现次数为5，超过数组长度的一半，所以返回target2.</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int MoreThanHalfNum_Solution(vector&lt;int&gt; numbers) &#123;</span><br><span class="line">        unordered_map&lt;int,int&gt; mmap;</span><br><span class="line">        for(auto a:numbers)&#123;</span><br><span class="line">            mmap[a]++;</span><br><span class="line">        &#125;</span><br><span class="line">        int temp = numbers.size()/2;</span><br><span class="line">        for(auto a:mmap)&#123;</span><br><span class="line">            if(a.second&gt; temp) return a.first;</span><br><span class="line">        &#125;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int MoreThanHalfNum_Solution(vector&lt;int&gt; numbers) &#123;</span><br><span class="line">        // 方法2: 两军对决</span><br><span class="line">        int target = 0,time = 0;</span><br><span class="line">        for(int i = 0; i &lt; numbers.size(); i++)&#123;</span><br><span class="line">            if(time == 0)&#123;</span><br><span class="line">                target = numbers[i];</span><br><span class="line">                time = 1;</span><br><span class="line">            &#125;else if(target != numbers[i])&#123;</span><br><span class="line">                time--;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                time++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        time = count(numbers.begin(),numbers.end(),target);</span><br><span class="line">        return time&gt;numbers.size()/2?target:0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(1)<br>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第二十九篇。&lt;br&gt;主要知识点为数组，找出数组中出现次数超过一半的数字，两种方式解决这个问题。map计数和两军对决。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="Array" scheme="http://yoursite.com/tags/Array/"/>
-    
-      <category term="Map" scheme="http://yoursite.com/tags/Map/"/>
     
   </entry>
   
