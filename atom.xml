@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-26T06:23:36.824Z</updated>
+  <updated>2020-01-26T06:31:29.225Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-字符流中第一个不重复的字符</title>
+    <link href="http://yoursite.com/2020/01/26/%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E6%B5%81%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%B8%8D%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%97%E7%AC%A6/"/>
+    <id>http://yoursite.com/2020/01/26/剑指offer-字符流中第一个不重复的字符/</id>
+    <published>2020-01-26T06:26:41.000Z</published>
+    <updated>2020-01-26T06:31:29.225Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第五十一篇。<br>主要知识点为字符串中每个字符的出现次数，同样的题目其实已经出现很多次了，相信大家都已经可以做到手到擒来了。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/00de97733b8e4f97a3fb5c680ee10720?tpId=13&tqId=11207&tPage=3&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>请实现一个函数用来找出字符流中第一个只出现一次的字符。例如，当从字符流中只读出前两个字符”go”时，第一个只出现一次的字符是”g”。当从该字符流中读出前六个字符“google”时，第一个只出现一次的字符是”l”。<br>输出描述:<br>如果当前字符流没有存在出现一次的字符，返回#字符。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>对于插入的每个字符都进行一次保存，然后对于每个字符出现的次数都可以通过map来保存出现次数，最后遍历一遍map找到第一个出现次数为1的字符就可以了。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    string s = &quot;&quot;;</span><br><span class="line">    map&lt;char,int&gt; mmap;</span><br><span class="line">  //Insert one char from stringstream</span><br><span class="line">    void Insert(char ch)</span><br><span class="line">    &#123;</span><br><span class="line">       s += ch;</span><br><span class="line">       if(mmap[ch])&#123;</span><br><span class="line">           mmap[ch]++;</span><br><span class="line">       &#125;else&#123;</span><br><span class="line">           mmap[ch] = 1;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  //return the first appearence once char in current stringstream</span><br><span class="line">    char FirstAppearingOnce()</span><br><span class="line">    &#123;</span><br><span class="line">        for(char a:s)&#123;</span><br><span class="line">            if(mmap[a] == 1)</span><br><span class="line">               return a;</span><br><span class="line">        &#125;</span><br><span class="line">        return &apos;#&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第五十一篇。&lt;br&gt;主要知识点为字符串中每个字符的出现次数，同样的题目其实已经出现很多次了，相信大家都已经可以做到手到擒来了。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="String" scheme="http://yoursite.com/tags/String/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-表示数值的字符串</title>
@@ -494,31 +519,6 @@
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
       <category term="枚举" scheme="http://yoursite.com/tags/%E6%9E%9A%E4%B8%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-把数组排成最小的数</title>
-    <link href="http://yoursite.com/2020/01/22/%E5%89%91%E6%8C%87offer-%E6%8A%8A%E6%95%B0%E7%BB%84%E6%8E%92%E6%88%90%E6%9C%80%E5%B0%8F%E7%9A%84%E6%95%B0/"/>
-    <id>http://yoursite.com/2020/01/22/剑指offer-把数组排成最小的数/</id>
-    <published>2020-01-22T12:07:11.000Z</published>
-    <updated>2020-01-22T12:18:26.031Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第三十一篇。<br>本题目解题思路非常的好，将数组的排列问题变成了字符串的比较问题。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/8fecd3f8ba334add803bf2a06af1b993?tpId=13&tqId=11185&tPage=2&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>主要思路就是将所有的数字进行排序，排序的依据就是两个数字拼接后的字符串的字典序。<br>从而使得最后将数组所有元素进行拼接之后得到的结果就是最小的数字。<br>非常巧妙。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    static bool cmp(int a, int b)&#123;</span><br><span class="line">        string A = to_string(a)+to_string(b);</span><br><span class="line">        string B = to_string(b)+to_string(a);</span><br><span class="line">        return A&lt;B;</span><br><span class="line">    &#125;</span><br><span class="line">    string PrintMinNumber(vector&lt;int&gt; numbers) &#123;</span><br><span class="line">        string res = &quot;&quot;;</span><br><span class="line">        sort(numbers.begin(),numbers.end(),cmp);</span><br><span class="line">        for(int a:numbers)&#123;</span><br><span class="line">            res += to_string(a);</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(nlgn),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第三十一篇。&lt;br&gt;本题目解题思路非常的好，将数组的排列问题变成了字符串的比较问题。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="String" scheme="http://yoursite.com/tags/String/"/>
     
   </entry>
   
