@@ -51,15 +51,17 @@
   };
 </script>
 
-  <meta name="description" content="热爱生活，享受生活。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Kingwen&#39;s blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97&#x2F;index.html">
+  <meta name="description" content="本文为剑指 offer 系列第六十三篇。主要知识点为二维数组的遍历和元素的处理，这个题目和前面的那个矩阵中的路径题目是类似的。">
+<meta name="keywords" content="Codinginterviews,Array">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指offer-机器人的运动范围">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;27&#x2F;%E5%89%91%E6%8C%87offer-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="热爱生活，享受生活。">
+<meta property="og:description" content="本文为剑指 offer 系列第六十三篇。主要知识点为二维数组的遍历和元素的处理，这个题目和前面的那个矩阵中的路径题目是类似的。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-27T05:49:12.498Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/27/%E5%89%91%E6%8C%87offer-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/">
 
 
 <script id="page-configurations">
@@ -67,13 +69,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>标签: 斐波那契数列 | Kingwen's blog</title>
+  <title>剑指offer-机器人的运动范围 | Kingwen's blog</title>
   
 
 
@@ -210,90 +212,123 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h1 class="collection-header">斐波那契数列
-          <small>标签</small>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/27/%E5%89%91%E6%8C%87offer-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          剑指offer-机器人的运动范围
         </h1>
-      </div>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-27 13:34:33 / 修改时间：13:49:12" itemprop="dateCreated datePublished" datetime="2020-01-27T13:34:33+08:00">2020-01-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/" itemprop="url" rel="index">
+                    <span itemprop="name">算法训练</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
-    </div>
+        <p>本文为剑指 offer 系列第六十三篇。<br>主要知识点为二维数组的遍历和元素的处理，这个题目和前面的那个矩阵中的路径题目是类似的。</p>
+<a id="more"></a>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-01-19T19:14:39+08:00"
-              content="2020-01-19">
-          01-19
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/01/19/%E5%89%91%E6%8C%87offer-%E7%9F%A9%E5%BD%A2%E8%A6%86%E7%9B%96/" itemprop="url">
-            <span itemprop="name">剑指offer-矩形覆盖</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-01-18T22:45:04+08:00"
-              content="2020-01-18">
-          01-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/01/18/%E5%89%91%E6%8C%87offer-%E8%B7%B3%E5%8F%B0%E9%98%B6/" itemprop="url">
-            <span itemprop="name">剑指offer-跳台阶</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-01-18T22:27:29+08:00"
-              content="2020-01-18">
-          01-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/01/18/%E5%89%91%E6%8C%87offer-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/" itemprop="url">
-            <span itemprop="name">剑指offer-斐波那契数列</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8?tpId=13&tqId=11219&tPage=4&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>地上有一个m行和n列的方格。一个机器人从坐标0,0的格子开始移动，每一次只能向左，右，上，下四个方向移动一格，但是不能进入行坐标和列坐标的数位之和大于k的格子。 例如，当k为18时，机器人能够进入方格（35,37），因为3+5+3+7 = 18。但是，它不能进入方格（35,38），因为3+5+3+8 = 19。请问该机器人能够达到多少个格子？</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>本题目和矩阵中寻找路径是类似的，<br>我们可以将这个题目要处理的数据范围抽象成为rows*cols的一个矩阵（或者第一象限），然后从一个结点开始出发，判断其四周的数据是不是合法的，类似于深度优先搜索对每个结点进行遍历。<br>同样的为了保证访问的数据不会重复，需要通过一个数组来保存每个数据之前是否已经被处理过。<br>这种处理方式比较经典，要多加锻炼。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int movingCount(int threshold, int rows, int cols)</span><br><span class="line">    &#123;</span><br><span class="line">        if(threshold &lt;= 0 || rows &lt;=0 || cols &lt;= 0)&#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        bool *flags = new bool[rows*cols];</span><br><span class="line">        for(int i = 0; i &lt; rows * cols; i++)&#123;</span><br><span class="line">             flags[i] = false;</span><br><span class="line">        &#125;</span><br><span class="line">        return helper(threshold,rows,cols,0,0,flags);</span><br><span class="line">    &#125;</span><br><span class="line">    int helper(int threshold,int rows,int cols,int i,int j,bool *flags)&#123;</span><br><span class="line">        int res = 0;</span><br><span class="line">        if(checkToGo(threshold,rows,cols,i,j,flags))&#123;</span><br><span class="line">            flags[i*cols+j] = true;</span><br><span class="line">            res = 1+helper(threshold,rows,cols,i+1,j,flags)</span><br><span class="line">                +helper(threshold,rows,cols,i-1,j,flags)</span><br><span class="line">                +helper(threshold,rows,cols,i,j+1,flags)</span><br><span class="line">                +helper(threshold,rows,cols,i,j-1,flags);</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    bool checkToGo(int threshold,int rows,int cols,int i,int j,bool *flags)&#123;</span><br><span class="line">        if(i&gt;=0 &amp;&amp; i&lt;rows &amp;&amp; j&gt;=0 &amp;&amp; j&lt;cols &amp;&amp; checkThreshold(threshold,i,j) &amp;&amp; flags[i*cols+j] == false)&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    bool checkThreshold(int threshold,int i,int j)&#123;</span><br><span class="line">        int temp = 0;</span><br><span class="line">        while(i)&#123;</span><br><span class="line">            temp += i%10;</span><br><span class="line">            i = i/10;</span><br><span class="line">        &#125;</span><br><span class="line">        while(j)&#123;</span><br><span class="line">            temp += j%10;</span><br><span class="line">            j = j/10;</span><br><span class="line">        &#125;</span><br><span class="line">        return temp&lt;=threshold;</span><br><span class="line">    &#125;</span><br><span class="line">    private:</span><br><span class="line">        </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(cols*rows*lg(max(rows,cols)),空间复杂度为O(cols*rows)<br>以上，本题结束！</p>
 
     </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Codinginterviews/" rel="tag"># Codinginterviews</a>
+              <a href="/tags/Array/" rel="tag"># Array</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/01/27/%E5%89%91%E6%8C%87offer-%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/" rel="next" title="剑指offer-矩阵中的路径">
+                  <i class="fa fa-chevron-left"></i> 剑指offer-矩阵中的路径
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -322,6 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">3.</span> <span class="nav-text">解题代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

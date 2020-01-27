@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-27T05:24:58.138Z</updated>
+  <updated>2020-01-27T05:49:12.498Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剑指offer-机器人的运动范围</title>
+    <link href="http://yoursite.com/2020/01/27/%E5%89%91%E6%8C%87offer-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/"/>
+    <id>http://yoursite.com/2020/01/27/剑指offer-机器人的运动范围/</id>
+    <published>2020-01-27T05:34:33.000Z</published>
+    <updated>2020-01-27T05:49:12.498Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第六十三篇。<br>主要知识点为二维数组的遍历和元素的处理，这个题目和前面的那个矩阵中的路径题目是类似的。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8?tpId=13&tqId=11219&tPage=4&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>地上有一个m行和n列的方格。一个机器人从坐标0,0的格子开始移动，每一次只能向左，右，上，下四个方向移动一格，但是不能进入行坐标和列坐标的数位之和大于k的格子。 例如，当k为18时，机器人能够进入方格（35,37），因为3+5+3+7 = 18。但是，它不能进入方格（35,38），因为3+5+3+8 = 19。请问该机器人能够达到多少个格子？</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>本题目和矩阵中寻找路径是类似的，<br>我们可以将这个题目要处理的数据范围抽象成为rows*cols的一个矩阵（或者第一象限），然后从一个结点开始出发，判断其四周的数据是不是合法的，类似于深度优先搜索对每个结点进行遍历。<br>同样的为了保证访问的数据不会重复，需要通过一个数组来保存每个数据之前是否已经被处理过。<br>这种处理方式比较经典，要多加锻炼。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int movingCount(int threshold, int rows, int cols)</span><br><span class="line">    &#123;</span><br><span class="line">        if(threshold &lt;= 0 || rows &lt;=0 || cols &lt;= 0)&#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        bool *flags = new bool[rows*cols];</span><br><span class="line">        for(int i = 0; i &lt; rows * cols; i++)&#123;</span><br><span class="line">             flags[i] = false;</span><br><span class="line">        &#125;</span><br><span class="line">        return helper(threshold,rows,cols,0,0,flags);</span><br><span class="line">    &#125;</span><br><span class="line">    int helper(int threshold,int rows,int cols,int i,int j,bool *flags)&#123;</span><br><span class="line">        int res = 0;</span><br><span class="line">        if(checkToGo(threshold,rows,cols,i,j,flags))&#123;</span><br><span class="line">            flags[i*cols+j] = true;</span><br><span class="line">            res = 1+helper(threshold,rows,cols,i+1,j,flags)</span><br><span class="line">                +helper(threshold,rows,cols,i-1,j,flags)</span><br><span class="line">                +helper(threshold,rows,cols,i,j+1,flags)</span><br><span class="line">                +helper(threshold,rows,cols,i,j-1,flags);</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    bool checkToGo(int threshold,int rows,int cols,int i,int j,bool *flags)&#123;</span><br><span class="line">        if(i&gt;=0 &amp;&amp; i&lt;rows &amp;&amp; j&gt;=0 &amp;&amp; j&lt;cols &amp;&amp; checkThreshold(threshold,i,j) &amp;&amp; flags[i*cols+j] == false)&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    bool checkThreshold(int threshold,int i,int j)&#123;</span><br><span class="line">        int temp = 0;</span><br><span class="line">        while(i)&#123;</span><br><span class="line">            temp += i%10;</span><br><span class="line">            i = i/10;</span><br><span class="line">        &#125;</span><br><span class="line">        while(j)&#123;</span><br><span class="line">            temp += j%10;</span><br><span class="line">            j = j/10;</span><br><span class="line">        &#125;</span><br><span class="line">        return temp&lt;=threshold;</span><br><span class="line">    &#125;</span><br><span class="line">    private:</span><br><span class="line">        </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(cols*rows*lg(max(rows,cols)),空间复杂度为O(cols*rows)<br>以上，本题结束！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为剑指 offer 系列第六十三篇。&lt;br&gt;主要知识点为二维数组的遍历和元素的处理，这个题目和前面的那个矩阵中的路径题目是类似的。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
+    
+    
+      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
+    
+      <category term="Array" scheme="http://yoursite.com/tags/Array/"/>
+    
+  </entry>
   
   <entry>
     <title>剑指offer-矩阵中的路径</title>
@@ -490,31 +515,6 @@
       <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
     
       <category term="Array" scheme="http://yoursite.com/tags/Array/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-反转单词序列</title>
-    <link href="http://yoursite.com/2020/01/24/%E5%89%91%E6%8C%87offer-%E5%8F%8D%E8%BD%AC%E5%8D%95%E8%AF%8D%E5%BA%8F%E5%88%97/"/>
-    <id>http://yoursite.com/2020/01/24/剑指offer-反转单词序列/</id>
-    <published>2020-01-24T02:18:09.000Z</published>
-    <updated>2020-01-24T02:25:57.409Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第四十三篇。<br>主要知识点依旧是字符串,注意观察题目规律，细心一点就行，也比较简单。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="">题目描述</a></h2><p>牛客最近来了一个新员工Fish，每天早晨总是会拿着一本英文杂志，写些句子在本子上。同事Cat对Fish写的内容颇感兴趣，有一天他向Fish借来翻看，但却读不懂它的意思。例如，“student. a am I”。后来才意识到，这家伙原来把句子单词的顺序翻转了，正确的句子应该是“I am a student.”。Cat对一一的翻转这些单词顺序可不在行，你能帮助他么</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>观察题目我们就可以发现，其实每个单词内部的字母都是正序的，然后每个单词都是用空格隔开的，然后单词的顺序是逆序的，所以我们很自然的就可以想到每次按照顺序读取一个单词，然后单词之间按照逆序进行拼接即可。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    string ReverseSentence(string str) &#123;</span><br><span class="line">        string res = &quot;&quot;;</span><br><span class="line">        string temp = &quot;&quot;;</span><br><span class="line">        for(char a:str)&#123;</span><br><span class="line">            if(a != &apos; &apos;)&#123;</span><br><span class="line">                temp.push_back(a);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                res = temp+&quot; &quot;+res;</span><br><span class="line">                temp = &quot;&quot;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res = temp+&quot; &quot;+res;</span><br><span class="line">        return res.substr(0,res.size()-1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><p>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第四十三篇。&lt;br&gt;主要知识点依旧是字符串,注意观察题目规律，细心一点就行，也比较简单。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-      <category term="String" scheme="http://yoursite.com/tags/String/"/>
     
   </entry>
   
