@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>剑指offer-滑动窗口的最大值</title>
+    <url>/2020/01/27/%E5%89%91%E6%8C%87offer-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/</url>
+    <content><![CDATA[<p>本文为剑指 offer 系列第六十一篇。<br>主要知识点为数组，题目看起来很炫酷，但是实际上就是一个给定区间的遍历找最大值而已。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/1624bc35a45c42c0bc17d17fa0cba788?tpId=13&tqId=11217&tPage=4&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>给定一个数组和滑动窗口的大小，找出所有滑动窗口里数值的最大值。例如，如果输入数组{2,3,4,2,6,2,5,1}及滑动窗口的大小3，那么一共存在6个滑动窗口，他们的最大值分别为{4,4,6,6,6,5}； 针对数组{2,3,4,2,6,2,5,1}的滑动窗口有以下6个： {[2,3,4],2,6,2,5,1}， {2,[3,4,2],6,2,5,1}， {2,3,[4,2,6],2,5,1}， {2,3,4,[2,6,2],5,1}， {2,3,4,2,[6,2,5],1}， {2,3,4,2,6,[2,5,1]}。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>直接使用stl的max_element方法来获得对应区间的最大值。</p>
+<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>朴素算法，自己实现类似于max_element的方法。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; maxInWindows(const vector&lt;int&gt;&amp; num, unsigned int size)</span><br><span class="line">    &#123;</span><br><span class="line">       // 方法1: 直接使用stl中的max_element函数得到对应的窗口</span><br><span class="line">       if(num.size() == 0 || size &lt;=0 ||size&gt;num.size() ) return&#123;&#125;;</span><br><span class="line">       vector&lt;int&gt; res;</span><br><span class="line">       for(int i = 0; i&lt;=num.size()-size; i++)&#123;</span><br><span class="line">            int cur = *max_element(num.begin()+i,num.begin()+i+size);</span><br><span class="line">            res.push_back(cur);</span><br><span class="line">        &#125;</span><br><span class="line">       return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)</p>
+<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; maxInWindows(const vector&lt;int&gt;&amp; num, unsigned int size)</span><br><span class="line">    &#123;</span><br><span class="line">       // 方法2:朴素的方法依次向后比较窗口大小个元素</span><br><span class="line">       if(num.size() == 0 || size &lt;=0 ||size&gt;num.size() ) return&#123;&#125;;</span><br><span class="line">       vector&lt;int&gt; res;</span><br><span class="line">       for(int i = 0; i &lt;= num.size()-size; i++)&#123;</span><br><span class="line">           int temp = num[i];</span><br><span class="line">           for(int j = i+1; j&lt;i+size; j++)&#123;</span><br><span class="line">               if(num[j]&gt;temp)&#123;</span><br><span class="line">                   temp = num[j];</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           res.push_back(temp);</span><br><span class="line">       &#125;</span><br><span class="line">       return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codinginterviews</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>剑指offer-数据流中的中位数</title>
     <url>/2020/01/27/%E5%89%91%E6%8C%87offer-%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/</url>
     <content><![CDATA[<p>本文为剑指 offer 系列第六十篇。<br>主要知识点为数组，依旧是数组遍历然后分析找中位数，比较简单。</p>
@@ -2076,8 +2098,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2138,8 +2160,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2165,8 +2187,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2212,8 +2234,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
