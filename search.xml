@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>剑指offer-矩阵中的路径</title>
+    <url>/2020/01/27/%E5%89%91%E6%8C%87offer-%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/</url>
+    <content><![CDATA[<p>本文为剑指 offer 系列第六十二篇。<br>主要知识点为数组，在矩阵中查找对应的字符串序列，类似于走迷宫或者找包围区间的题目。</p>
+<a id="more"></a>
+
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/c61c6999eecb4b8f88a98f66b273a3cc?tpId=13&tqId=11218&tPage=4&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一个格子开始，每一步可以在矩阵中向左，向右，向上，向下移动一个格子。如果一条路径经过了矩阵中的某一个格子，则该路径不能再进入该格子。 例如 a b c e s f c s a d e e 矩阵中包含一条字符串”bcced”的路径，但是矩阵中不包含”abcb”路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入该格子。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>遍历矩阵中的每个结点作为起始结点，然后从这个点开始向四周遍历，寻找字符串的下一个字符，如果字符串匹配到最后的结束标志’\0’,那就返回true,反之就返回false.<br>需要注意的一点是之前访问过的就不能访问了，所以需要找一个数组或者矩阵来标志这个节点之前是否已经访问过。</p>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool hasPath(char* matrix, int rows, int cols, char* str)</span><br><span class="line">    &#123;</span><br><span class="line">        if(rows&lt;=0 || cols&lt;=0 || !str || !matrix) return false;</span><br><span class="line">        vector&lt;bool&gt; flags(rows*cols,0);</span><br><span class="line">        for(int i = 0; i &lt; rows; i++)&#123;</span><br><span class="line">            for(int j = 0; j &lt; cols; j++)&#123;</span><br><span class="line">                if(helper(matrix,rows,cols,i,j,str,flags)) return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    bool helper(char* matrix,int rows,int cols,int i,int j,char* str,vector&lt;bool&gt; flags)&#123;</span><br><span class="line">        if(*str == &apos;\0&apos;) return true;</span><br><span class="line">        if(i &gt;= 0 &amp;&amp; j &gt;= 0 &amp;&amp; i &lt; rows &amp;&amp; j &lt; cols &amp;&amp; matrix[i*cols+j] == *str &amp;&amp; flags[i*cols+j] == false)&#123;</span><br><span class="line">            flags[i*cols+j] = true;</span><br><span class="line">            bool find = false;</span><br><span class="line">            find = helper(matrix,rows,cols,i,j+1,str+1,flags)</span><br><span class="line">                ||helper(matrix,rows,cols,i,j-1,str+1,flags)</span><br><span class="line">                ||helper(matrix,rows,cols,i+1,j,str+1,flags)</span><br><span class="line">                ||helper(matrix,rows,cols,i-1,j,str+1,flags);</span><br><span class="line">            if(find == false)&#123;</span><br><span class="line">                flags[i*cols+j] = false;</span><br><span class="line">            &#125;</span><br><span class="line">            return find;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(rows*cols*logn),空间复杂度为O(rows*cols)<br>以上，本题结束！</p>
+]]></content>
+      <categories>
+        <category>算法训练</category>
+      </categories>
+      <tags>
+        <tag>Codinginterviews</tag>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>剑指offer-滑动窗口的最大值</title>
     <url>/2020/01/27/%E5%89%91%E6%8C%87offer-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/</url>
     <content><![CDATA[<p>本文为剑指 offer 系列第六十一篇。<br>主要知识点为数组，题目看起来很炫酷，但是实际上就是一个给定区间的遍历找最大值而已。</p>
