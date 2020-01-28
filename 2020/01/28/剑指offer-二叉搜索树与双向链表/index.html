@@ -51,17 +51,17 @@
   };
 </script>
 
-  <meta name="description" content="情侣换座位手牵手的题目。思想有点像打气球那个题目：处理好当下的问题，慢慢往后遍历，以后的问题也会变得很顺利，回头还会发现这其实就是最好的方法。">
-<meta name="keywords" content="leetcode,hard,Greedy">
+  <meta name="description" content="本文为剑指 offer 系列第六十六篇。主要知识点为二叉搜索树还有双向链表，这个题目个人感觉比较难，但是题目非常好。值得我们认真且细致的去理解两者之间的关系，并将这个问题做出来。">
+<meta name="keywords" content="Codinginterviews,BinarySearchTree">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode-765-CouplesHoldingHands">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;13&#x2F;leetcode-765-CouplesHoldingHands&#x2F;index.html">
+<meta property="og:title" content="剑指offer-二叉搜索树与双向链表">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;28&#x2F;%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="情侣换座位手牵手的题目。思想有点像打气球那个题目：处理好当下的问题，慢慢往后遍历，以后的问题也会变得很顺利，回头还会发现这其实就是最好的方法。">
+<meta property="og:description" content="本文为剑指 offer 系列第六十六篇。主要知识点为二叉搜索树还有双向链表，这个题目个人感觉比较难，但是题目非常好。值得我们认真且细致的去理解两者之间的关系，并将这个问题做出来。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-13T07:31:13.665Z">
+<meta property="og:updated_time" content="2020-01-28T10:59:45.763Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/2019/11/13/leetcode-765-CouplesHoldingHands/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/28/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/">
 
 
 <script id="page-configurations">
@@ -75,7 +75,7 @@
   };
 </script>
 
-  <title>leetcode-765-CouplesHoldingHands | Kingwen's blog</title>
+  <title>剑指offer-二叉搜索树与双向链表 | Kingwen's blog</title>
   
 
 
@@ -217,7 +217,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/13/leetcode-765-CouplesHoldingHands/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/28/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpeg">
@@ -230,7 +230,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          leetcode-765-CouplesHoldingHands
+          剑指offer-二叉搜索树与双向链表
         </h1>
 
         <div class="post-meta">
@@ -241,7 +241,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-13 15:26:44 / 修改时间：15:31:13" itemprop="dateCreated datePublished" datetime="2019-11-13T15:26:44+08:00">2019-11-13</time>
+              <time title="创建时间：2020-01-28 11:55:29 / 修改时间：18:59:45" itemprop="dateCreated datePublished" datetime="2020-01-28T11:55:29+08:00">2020-01-28</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,14 +268,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -287,26 +287,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>情侣换座位手牵手的题目。<br>思想有点像打气球那个题目：处理好当下的问题，慢慢往后遍历，以后的问题也会变得很顺利，回头还会发现这其实就是最好的方法。</p>
+        <p>本文为剑指 offer 系列第六十六篇。<br>主要知识点为二叉搜索树还有双向链表，这个题目个人感觉比较难，但是题目非常好。<br>值得我们认真且细致的去理解两者之间的关系，并将这个问题做出来。</p>
 <a id="more"></a>
 
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>N couples sit in 2N seats arranged in a row and want to hold hands. We want to know the minimum number of swaps so that every couple is sitting side by side. A swap consists of choosing any two people, then they stand up and switch seats.</p>
-<p>The people and seats are represented by an integer from 0 to 2N-1, the couples are numbered in order, the first couple being (0, 1), the second couple being (2, 3), and so on with the last couple being (2N-2, 2N-1).</p>
-<p>The couples’ initial seating is given by row[i] being the value of the person who is initially sitting in the i-th seat.</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1"></a>Example 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: row = [0, 2, 1, 3]</span><br><span class="line">Output: 1</span><br></pre></td></tr></table></figure>
-<p>Explanation: We only need to swap the second (row[1]) and third (row[2]) person.</p>
-<h3 id="Example-2"><a href="#Example-2" class="headerlink" title="Example 2"></a>Example 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: row = [3, 2, 0, 1]</span><br><span class="line">Output: 0</span><br></pre></td></tr></table></figure>
-<p>Explanation: All couples are already seated side by side.</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>贪心算法。</p>
-<h2 id="详细解释"><a href="#详细解释" class="headerlink" title="详细解释"></a>详细解释</h2><p>如果我们仔细看就会发现，其实我们在判断的时候只要确定了两个数中的一个，那么另外一个数是多少其实就是已经确定好了的，然后我们将这个数本身所在的位置替换掉就可以了。比如说下面的例子，第一个元素是5，那么第二个元素必然是6，我们只要找到6，然后将6本身所在的位置的数字替换成第二个元素本身的元素4就可以了。<br>以题目中的某个用例来进行说明</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">初始数组：[5,6,4,0,2,1,9,3,8,7,10,11]</span><br><span class="line">i= 0: 5 4   6   0   2   1   9   3   8   7   10  11  </span><br><span class="line">i= 2: 5 4   6   7   2   1   9   3   8   0   10  11  </span><br><span class="line">i= 4: 5 4   6   7   2   3   9   1   8   0   10  11  </span><br><span class="line">i= 6: 5 4   6   7   2   3   9   8   1   0   10  11  </span><br><span class="line">i= 8: 5 4   6   7   2   3   9   8   1   0   10  11  </span><br><span class="line">i=10: 5 4   6   7   2   3   9   8   1   0   10  11</span><br></pre></td></tr></table></figure>
-<h2 id="巧妙之处"><a href="#巧妙之处" class="headerlink" title="巧妙之处"></a>巧妙之处</h2><ol>
-<li>大道至简，大智若愚。从头开始，每次都做好当前元素的判断，那么后面的元素都会依次的处理好。</li>
-<li>对于当前位置要进行奇偶判断，因为不确定配偶的左右情况，所以要自行判断。</li>
-<li>要会使用stl中的各种比较巧妙的方法，比如本题目中用到的find和distance。</li>
-</ol>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minSwapsCouples(vector&lt;int&gt;&amp; row) &#123;</span><br><span class="line">        if(row.size() &lt;=  2) return 0;</span><br><span class="line">        int res = 0;</span><br><span class="line">        for(int i = 0; i &lt; row.size(); i += 2)&#123;</span><br><span class="line">            if(row[i]%2 == 0)&#123;</span><br><span class="line">                if(row[i+1] == row[i]+1)&#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    res++;</span><br><span class="line">                    auto a = find(row.begin(),row.end(),row[i]+1);</span><br><span class="line">                    int index = distance(row.begin(),a);</span><br><span class="line">                    row[index] = row[i+1];</span><br><span class="line">                    row[i+1] = row[i]+1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                if(row[i+1] == row[i]-1)&#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    res++;</span><br><span class="line">                    auto a = find(row.begin(),row.end(),row[i]-1);</span><br><span class="line">                    int index = distance(row.begin(),a);</span><br><span class="line">                    row[index] = row[i+1];</span><br><span class="line">                    row[i+1] = row[i]-1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>以上，本题结束！</p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/947f6eb80d944a84850b0538bf0ec3a5?tpId=13&tqId=11179&tPage=2&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。</p>
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><ul>
+<li>首先我们要明晰二叉搜索树和双向链表各自的特点。</li>
+<li>然后在处理的时候可以将这个二叉搜索树分为三部分，左子树，根节点，右子树。我们的目标实际上就是将左子树转化成的双向链表链接上根节点再链接到右子树转化成的双向链表，所以自然就会想到用递归来实现。</li>
+<li>最后就是细节的处理，要注意在链接左子树和根节点的时候，是将左子树的最大的节点和根节点链接起来，其实就是右下角的节点，<br>在链接根节点和右子树的时候，是将根节点和右子树中最小的节点进行链接，其实也就是最左下角的节点。</li>
+</ul>
+<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    TreeNode* Convert(TreeNode* pRootOfTree)&#123;</span><br><span class="line">         if(pRootOfTree==NULL)</span><br><span class="line">            return NULL;</span><br><span class="line">        if(pRootOfTree-&gt;left==NULL&amp;&amp;pRootOfTree-&gt;right==NULL)</span><br><span class="line">            return pRootOfTree;//如果是叶子结点则直接返回当前节点</span><br><span class="line">        TreeNode* left = Convert(pRootOfTree-&gt;left);//找到左子树最左端节点</span><br><span class="line">        TreeNode* curr = left;</span><br><span class="line">        </span><br><span class="line">        //找到左子树最右侧节点</span><br><span class="line">        while(curr!=NULL&amp;&amp;curr-&gt;right!=NULL)</span><br><span class="line">            curr=curr-&gt;right;</span><br><span class="line">        //连接根节点和左子树</span><br><span class="line">        if(curr!=NULL)&#123;</span><br><span class="line">            curr-&gt;right=pRootOfTree;</span><br><span class="line">            pRootOfTree-&gt;left = curr;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        //找到右子树最左端节点</span><br><span class="line">        TreeNode* right = Convert(pRootOfTree-&gt;right);</span><br><span class="line">        //连接根节点和右子树</span><br><span class="line">        if(right!=NULL)&#123;</span><br><span class="line">            pRootOfTree-&gt;right = right;</span><br><span class="line">            right-&gt;left = pRootOfTree;</span><br><span class="line">        &#125;</span><br><span class="line">        return left!=NULL?left:pRootOfTree;//返回最左边节点的位置</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>
 
     </div>
 
@@ -316,26 +307,22 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/leetcode/" rel="tag"># leetcode</a>
-              <a href="/tags/hard/" rel="tag"># hard</a>
-              <a href="/tags/Greedy/" rel="tag"># Greedy</a>
+              <a href="/tags/Codinginterviews/" rel="tag"># Codinginterviews</a>
+              <a href="/tags/BinarySearchTree/" rel="tag"># BinarySearchTree</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/2019/11/12/leetcode-452-MinimumNumberOfArrowsToBurstBalloons/" rel="next" title="leetcode-452-MinimumNumberOfArrowsToBurstBalloons">
-                  <i class="fa fa-chevron-left"></i> leetcode-452-MinimumNumberOfArrowsToBurstBalloons
+                <a href="/2020/01/28/%E5%89%91%E6%8C%87offer-%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/" rel="next" title="剑指offer-替换空格">
+                  <i class="fa fa-chevron-left"></i> 剑指offer-替换空格
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/2019/11/13/leetcode-861-ScoreAfterFlippingMatrix/" rel="prev" title="leetcode-861-ScoreAfterFlippingMatrix">
-                  leetcode-861-ScoreAfterFlippingMatrix <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -374,7 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">2.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-1"><span class="nav-number">2.1.</span> <span class="nav-text">Example 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-2"><span class="nav-number">2.2.</span> <span class="nav-text">Example 2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">3.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细解释"><span class="nav-number">4.</span> <span class="nav-text">详细解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#巧妙之处"><span class="nav-number">5.</span> <span class="nav-text">巧妙之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">6.</span> <span class="nav-text">解题代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目描述"><span class="nav-number">1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题思路"><span class="nav-number">2.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解题代码"><span class="nav-number">3.</span> <span class="nav-text">解题代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
