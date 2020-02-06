@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>array的简单使用</title>
+    <url>/2020/02/06/array%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>本文为c++容器系列第五篇.<br>主要测试了array相关的方法，主要作为代码备份方便之后遗忘时查询。</p>
+<a id="more"></a>
+<p>array是c++11新加入的，是对c类型的树组进行了进一步的封装。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;array&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void printArray(string s,const T&amp; marr)&#123;</span><br><span class="line">    cout&lt;&lt;s&lt;&lt;&apos;\t&apos;;</span><br><span class="line">    for(auto a:marr)&#123;</span><br><span class="line">        cout&lt;&lt;a&lt;&lt;&apos;\t&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    //声明</span><br><span class="line">    array&lt;int,3&gt; marr = &#123;3,2,4&#125;;</span><br><span class="line">    array&lt;int,2&gt; marr1&#123;1,2&#125;;</span><br><span class="line">    printArray(&quot;marr&quot;,marr);</span><br><span class="line">    printArray(&quot;marr1 &quot;,marr1);</span><br><span class="line">    </span><br><span class="line">    // access 相关</span><br><span class="line">    cout&lt;&lt;&quot;marr[0]: &quot;&lt;&lt;marr[0]&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;marr.at(0): &quot;&lt;&lt;marr.at(0)&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;marr.data(): &quot;&lt;&lt;*marr.data()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;marr.front(): &quot;&lt;&lt;marr.front()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;marr.back(): &quot;&lt;&lt;marr.back()&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    //capacity 相关</span><br><span class="line">    cout&lt;&lt;&quot;marr.size(): &quot;&lt;&lt;marr.size()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;marr.empty(): &quot;&lt;&lt;marr.empty()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;marr.max_size(): &quot;&lt;&lt;marr.max_size()&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    //Operations</span><br><span class="line">    printArray(&quot;before sort&quot;, marr);</span><br><span class="line">    sort(marr.begin(),marr.end());</span><br><span class="line">    printArray(&quot;after sort&quot;, marr);</span><br><span class="line">    </span><br><span class="line">    marr.fill(5);</span><br><span class="line">    printArray(&quot;marr.fill(5)&quot;, marr);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 运行结果</span><br><span class="line"> marr    3    2    4</span><br><span class="line"> marr1     1    2</span><br><span class="line"> marr[0]: 3</span><br><span class="line"> marr.at(0): 3</span><br><span class="line"> marr.data(): 3</span><br><span class="line"> marr.front(): 3</span><br><span class="line"> marr.back(): 4</span><br><span class="line"> marr.size(): 3</span><br><span class="line"> marr.empty(): 0</span><br><span class="line"> marr.max_size(): 3</span><br><span class="line"> before sort    3    2    4</span><br><span class="line"> after sort    2    3    4</span><br><span class="line"> marr.fill(5)    5    5    5</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C++基础</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>STL</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>forward_list的简单使用</title>
     <url>/2020/02/06/forward-list%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<p>本文为c++容器系列第四篇.<br>主要测试了forward_list相关的方法，主要作为代码备份方便之后遗忘时查询。</p>
@@ -172,8 +188,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Array</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
@@ -213,8 +229,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Array</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
@@ -232,8 +248,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Array</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
@@ -534,8 +550,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Array</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
@@ -604,8 +620,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Array</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
@@ -670,8 +686,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Array</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
@@ -715,8 +731,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Array</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
@@ -957,8 +973,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Array</tag>
+        <tag>Codinginterviews</tag>
         <tag>Map</tag>
       </tags>
   </entry>
@@ -1304,8 +1320,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Array</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
@@ -1483,8 +1499,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Array</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
