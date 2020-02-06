@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>list的简单使用</title>
+    <url>/2020/02/06/list%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>本文为c++容器系列第三篇.<br>主要测试了list相关的方法，主要作为代码备份方便之后遗忘时查询。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;list&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void printList(string s,const T&amp; mlist)&#123;</span><br><span class="line">    cout&lt;&lt;s&lt;&lt;&apos;\t&apos;;</span><br><span class="line">    for(auto a:mlist)&#123;</span><br><span class="line">        cout&lt;&lt;a&lt;&lt;&apos;\t&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    //常见的list的声明方式</span><br><span class="line">    list&lt;int&gt; mlist&#123;1,2,3,4&#125;;</span><br><span class="line">    // 发现不能通过 list&lt;int&gt; mlist1(mlist.begin(),mlist.end()-2);这种方式声明，但是可以通过下面这种方式进行声明。此处存疑</span><br><span class="line">    list&lt;int&gt; mlist1(mlist.begin(),--mlist.end());</span><br><span class="line">    </span><br><span class="line">    list&lt;int&gt; mlist2(mlist);</span><br><span class="line">    list&lt;int&gt; mlist3(5,1);</span><br><span class="line">    list&lt;int&gt; mlist4 = &#123;1,2,3,4,5&#125;;</span><br><span class="line">    </span><br><span class="line">    printList(&quot;mlist&quot;, mlist);</span><br><span class="line">    printList(&quot;mlist1&quot;, mlist1);</span><br><span class="line">    printList(&quot;mlist2&quot;, mlist2);</span><br><span class="line">    printList(&quot;mlist3&quot;, mlist3);</span><br><span class="line">    printList(&quot;mlist4&quot;, mlist4);</span><br><span class="line">    </span><br><span class="line">    //front 和back 获得第一个元素和最后一个元素</span><br><span class="line">    cout&lt;&lt;&quot;mlist front: &quot;&lt;&lt;mlist.front()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;mlist back: &quot;&lt;&lt;mlist.back()&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    //遍历通过iterator</span><br><span class="line">    cout&lt;&lt;&quot;print all elements by iterator: &quot;;</span><br><span class="line">    list&lt;int&gt;::iterator a  = mlist.begin();</span><br><span class="line">    for(;a!=mlist.end();a++)&#123;</span><br><span class="line">        cout&lt;&lt;*a&lt;&lt;&apos;\t&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    // capacity相关</span><br><span class="line">    cout&lt;&lt;&quot;mlist empty &quot;&lt;&lt;mlist.empty()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;mlist size() &quot;&lt;&lt;mlist.size()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;mlist max_size &quot;&lt;&lt;mlist.max_size()&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    // Modifiers相关</span><br><span class="line">    //插入操作</span><br><span class="line">    mlist.insert(mlist.begin(), 10);</span><br><span class="line">    // 同样不能通过类似于 mlist.insert(mlist.begin()+2, 10);来插入元素</span><br><span class="line">    mlist.emplace(mlist.begin(), 9);</span><br><span class="line">    printList(&quot;insert begin(): &quot;, mlist);</span><br><span class="line">    </span><br><span class="line">    //插入到头部</span><br><span class="line">    mlist.push_front(10);</span><br><span class="line">    printList(&quot;push_front 10: &quot;, mlist);</span><br><span class="line">    mlist.emplace_front(9);</span><br><span class="line">    printList(&quot;emplace_front 9: &quot;, mlist);</span><br><span class="line">    </span><br><span class="line">    //去除头元素</span><br><span class="line">    mlist.pop_front();</span><br><span class="line">    printList(&quot;pop_front : &quot;, mlist);</span><br><span class="line">    </span><br><span class="line">    // 插入到尾部</span><br><span class="line">    mlist.push_back(10);</span><br><span class="line">    printList(&quot;push_back 10: &quot;, mlist);</span><br><span class="line">    mlist.emplace_back(11);</span><br><span class="line">    printList(&quot;emplace_back 11&quot;, mlist);</span><br><span class="line">    // 删除尾部元素</span><br><span class="line">    mlist.pop_back();</span><br><span class="line">    printList(&quot;pop back&quot;, mlist);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    auto a4 = find(mlist.begin(),mlist.end(),4);</span><br><span class="line">    mlist.erase(a4);</span><br><span class="line">    printList(&quot;after erase a4&quot;, mlist);</span><br><span class="line">    </span><br><span class="line">    mlist.erase(mlist.begin());</span><br><span class="line">    printList(&quot;after earse begin()&quot;, mlist);</span><br><span class="line">    </span><br><span class="line">    // 排序:默认从小到大</span><br><span class="line">    mlist.sort();</span><br><span class="line">    printList(&quot;after sort&quot;, mlist);</span><br><span class="line">    //当然可以改成从大到小</span><br><span class="line">    mlist.sort(greater&lt;int&gt;());</span><br><span class="line">    printList(&quot;after sort big -&gt; small &quot;, mlist);</span><br><span class="line">    </span><br><span class="line">    //顺序反转</span><br><span class="line">    mlist.reverse();</span><br><span class="line">    printList(&quot;after reverse &quot;, mlist);</span><br><span class="line">    </span><br><span class="line">    //去除重复节点</span><br><span class="line">    mlist.unique();</span><br><span class="line">    printList(&quot;after unique&quot;, mlist);</span><br><span class="line">    </span><br><span class="line">    //删除list中值为10的节点</span><br><span class="line">    mlist.remove(10);</span><br><span class="line">    printList(&quot;after remove 10:&quot;, mlist);</span><br><span class="line">    </span><br><span class="line">    // 删除list中值大于等于3的节点,这里使用了lamda表达式</span><br><span class="line">    mlist.remove_if([](int n)&#123;return n&gt;=3;&#125;);</span><br><span class="line">    printList(&quot;after remove &gt;=3 :&quot;, mlist);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    cout&lt;&lt;&quot;before clear the size of list is &quot;&lt;&lt; mlist.size()&lt;&lt;endl;</span><br><span class="line">    mlist.clear();</span><br><span class="line">    cout&lt;&lt;&quot;after clear the size of list is &quot;&lt;&lt; mlist.size()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">/* 运行结果</span><br><span class="line"> mlist    1    2    3    4</span><br><span class="line"> mlist1    1    2    3</span><br><span class="line"> mlist2    1    2    3    4</span><br><span class="line"> mlist3    1    1    1    1    1</span><br><span class="line"> mlist4    1    2    3    4    5</span><br><span class="line"> mlist front: 1</span><br><span class="line"> mlist back: 4</span><br><span class="line"> print all elements by iterator: 1    2    3    4</span><br><span class="line"> mlist empty 0</span><br><span class="line"> mlist size() 4</span><br><span class="line"> mlist max_size 768614336404564650</span><br><span class="line"> insert begin():     9    10    1    2    3    4</span><br><span class="line"> push_front 10:     10    9    10    1    2    3    4</span><br><span class="line"> emplace_front 9:     9    10    9    10    1    2    3    4</span><br><span class="line"> pop_front :     10    9    10    1    2    3    4</span><br><span class="line"> push_back 10:     10    9    10    1    2    3    4    10</span><br><span class="line"> emplace_back 11    10    9    10    1    2    3    4    10    11</span><br><span class="line"> pop back    10    9    10    1    2    3    4    10</span><br><span class="line"> after erase a4    10    9    10    1    2    3    10</span><br><span class="line"> after earse begin()    9    10    1    2    3    10</span><br><span class="line"> after sort    1    2    3    9    10    10</span><br><span class="line"> after sort big -&gt; small     10    10    9    3    2    1</span><br><span class="line"> after reverse     1    2    3    9    10    10</span><br><span class="line"> after unique    1    2    3    9    10</span><br><span class="line"> after remove 10:    1    2    3    9</span><br><span class="line"> after remove &gt;=3 :    1    2</span><br><span class="line"> before clear the size of list is 2</span><br><span class="line"> after clear the size of list is 0</span><br><span class="line"> Program ended with exit code: 0</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C++基础</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>STL</tag>
+        <tag>List</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>deque的简单使用</title>
     <url>/2020/02/06/deque%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<p>本文为c++容器系列第二篇.<br>主要测试了Deque相关的方法，主要作为代码备份方便之后遗忘时查询。</p>
+    <content><![CDATA[<p>本文为c++容器系列第二篇.<br>主要测试了deque相关的方法，主要作为代码备份方便之后遗忘时查询。</p>
 <a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;deque&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template &lt;class T&gt;</span><br><span class="line">void printContainer(const char * msg,const T&amp; s)&#123;</span><br><span class="line">    cout&lt;&lt;msg&lt;&lt;&apos;\t&apos;;</span><br><span class="line">    copy(s.begin(),s.end(),ostream_iterator&lt;int&gt;(cout, &quot; &quot;));</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    //三种声明方式</span><br><span class="line">    deque&lt;int&gt; s=&#123;1,2,3,4&#125;;</span><br><span class="line">    deque&lt;int&gt; s1&#123;1,2,3,4&#125;;</span><br><span class="line">    deque&lt;int&gt; s2(s.begin(),s.end()-1);</span><br><span class="line"></span><br><span class="line">    printContainer(&quot;deque s&quot;,s);</span><br><span class="line">    printContainer(&quot;deque s1&quot;,s1);</span><br><span class="line">    printContainer(&quot;deque s2 &quot;,s2);</span><br><span class="line">    </span><br><span class="line">    //两种获取对应位置元素的方式</span><br><span class="line">    cout&lt;&lt;&quot;s[0] &quot;&lt;&lt;s[0]&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;a.at[0] &quot;&lt;&lt;s.at(0)&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    //打印出全部的元素</span><br><span class="line">    cout&lt;&lt;&quot;print all elements &quot;&lt;&lt;endl;</span><br><span class="line">    for(auto i:s)&#123;</span><br><span class="line">        cout&lt;&lt;i&lt;&lt;&apos;\t&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;&quot;\n&quot;;</span><br><span class="line">    </span><br><span class="line">    cout&lt;&lt;&quot;print all elements by iteror&quot;&lt;&lt;endl;</span><br><span class="line">    auto siter = s.begin();</span><br><span class="line">    while(siter!=s.end())&#123;</span><br><span class="line">        cout&lt;&lt;*siter&lt;&lt;&apos;\t&apos;;</span><br><span class="line">        siter++;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;&quot;s.front() &quot;&lt;&lt;s.front()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;s.back() &quot;&lt;&lt;s.back()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;&quot;s.begin() &quot;&lt;&lt;*s.begin()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;s.end()-s.begin() &quot;&lt;&lt;s.end()-s.begin()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;&quot;s.empty() &quot;&lt;&lt;s.empty()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;s.size() &quot;&lt;&lt;s.size()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;s.max_size() &quot;&lt;&lt;s.max_size()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    //s.clear();</span><br><span class="line">    //cout&lt;&lt;&quot;after clear s.empty() &quot;&lt;&lt;s.empty()&lt;&lt;endl;  // 1</span><br><span class="line"></span><br><span class="line">    s.push_front(5);</span><br><span class="line">    printContainer(&quot;after push front 5: &quot;,s);</span><br><span class="line">    s.pop_front();</span><br><span class="line">    printContainer(&quot;after pop front: &quot;,s);</span><br><span class="line"></span><br><span class="line">    s.push_back(5);</span><br><span class="line">    printContainer(&quot;after push back5: &quot;,s);</span><br><span class="line">    s.pop_back();</span><br><span class="line">    printContainer(&quot;after pop back: &quot;,s);</span><br><span class="line"></span><br><span class="line">    s.emplace(s.begin()+2,5);</span><br><span class="line">    printContainer(&quot;emplace begin+2 &quot;,s);</span><br><span class="line"></span><br><span class="line">    s.emplace_back(6);</span><br><span class="line">    printContainer(&quot;emplace back&quot;,s);</span><br><span class="line"></span><br><span class="line">    s.erase(s.begin()+2);</span><br><span class="line">    printContainer(&quot;erase begin+2&quot;,s);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //用列表容器1的内容给s赋值，将s输出</span><br><span class="line">    reverse(s.begin(),s.end());</span><br><span class="line">    printContainer(&quot;deque l by assign:&quot;,s);</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">/* 运行结果</span><br><span class="line"> deque s    1 2 3 4</span><br><span class="line"> deque s1    1 2 3 4</span><br><span class="line"> deque s2     1 2 3</span><br><span class="line"> s[0] 1</span><br><span class="line"> a.at[0] 1</span><br><span class="line"> print all elements</span><br><span class="line"> 1    2    3    4</span><br><span class="line"> print all elements by iteror</span><br><span class="line"> 1    2    3    4</span><br><span class="line"> s.front() 1</span><br><span class="line"> s.back() 4</span><br><span class="line"> s.begin() 1</span><br><span class="line"> s.end()-s.begin() 4</span><br><span class="line"> s.empty() 0</span><br><span class="line"> s.size() 4</span><br><span class="line"> s.max_size() 4611686018427387903</span><br><span class="line"> after push front 5:     5 1 2 3 4</span><br><span class="line"> after pop front:     1 2 3 4</span><br><span class="line"> after push back5:     1 2 3 4 5</span><br><span class="line"> after pop back:     1 2 3 4</span><br><span class="line"> emplace begin+2     1 2 5 3 4</span><br><span class="line"> emplace back    1 2 5 3 4 6</span><br><span class="line"> erase begin+2    1 2 3 4 6</span><br><span class="line"> deque l by assign:    6 4 3 2 1</span><br><span class="line"> Program ended with exit code: 0</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
@@ -752,9 +767,9 @@
         <category>算法训练</category>
       </categories>
       <tags>
+        <tag>STL</tag>
         <tag>Codinginterviews</tag>
         <tag>二分查找</tag>
-        <tag>STL</tag>
       </tags>
   </entry>
   <entry>
@@ -2266,8 +2281,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2299,8 +2314,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>hard</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -2328,8 +2343,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2355,8 +2370,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2402,8 +2417,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2458,8 +2473,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>hard</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
