@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Kingwen's blog" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="本文为c++容器系列第七篇.主要测试了multimap相关的方法，主要作为代码备份方便之后遗忘时查询。map,multimap,unordered_map,unordered_multimap仅仅有稍许差别，方法和multimap基本类似，所以不再另行写文章啦。">
+<meta name="keywords" content="C++,STL,Map">
+<meta property="og:type" content="article">
+<meta property="og:title" content="multimap的简单使用">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;multimap%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8&#x2F;index.html">
+<meta property="og:site_name" content="Kingwen&#39;s blog">
+<meta property="og:description" content="本文为c++容器系列第七篇.主要测试了multimap相关的方法，主要作为代码备份方便之后遗忘时查询。map,multimap,unordered_map,unordered_multimap仅仅有稍许差别，方法和multimap基本类似，所以不再另行写文章啦。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-07T10:15:58.751Z">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="http://yoursite.com/2020/02/07/multimap%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>multimap的简单使用 | Kingwen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kingwen's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">没有输出的输入是不完整的</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources" rel="section"><i class="fa fa-fw fa-folder"></i>资源</a>
+
+  </li>
+        <li class="menu-item menu-item-talk">
+
+    <a href="/talk" rel="section"><i class="fa fa-fw fa-envelope"></i>呓语</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/07/multimap%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          multimap的简单使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-07 18:01:18 / 修改时间：18:15:58" itemprop="dateCreated datePublished" datetime="2020-02-07T18:01:18+08:00">2020-02-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">C++基础</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文为c++容器系列第七篇.<br>主要测试了multimap相关的方法，主要作为代码备份方便之后遗忘时查询。<br>map,multimap,unordered_map,unordered_multimap仅仅有稍许差别，方法和multimap基本类似，所以不再另行写文章啦。</p>
+<a id="more"></a>
+
+<h2 id="写在最前面"><a href="#写在最前面" class="headerlink" title="写在最前面"></a>写在最前面</h2><ol>
+<li>map和multimap的差别仅仅在于multimap插入的key值可以相同，其他操作都类似。所有不再单独另写文章啦。</li>
+<li>unordered_map的使用方法和map几乎完全一致。记得引入头文件然后声明的时候声明就好啦。所以也不再单独再重新写一篇文章啦。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 引入头文件</span><br><span class="line">#include &lt;unordered_map&gt;</span><br><span class="line">// 使用的时候如同下面这种方式声明即可。</span><br><span class="line">unordered_map&lt;int,int&gt; mmap;</span><br></pre></td></tr></table></figure>
+同样的需要记住的是，带有unordered前缀的容器都是没有upper_bound和lower_bound的。</li>
+</ol>
+<h2 id="multimap的测试代码"><a href="#multimap的测试代码" class="headerlink" title="multimap的测试代码"></a>multimap的测试代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;map&gt;</span><br><span class="line">#include &lt;typeinfo&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template&lt;class K&gt;</span><br><span class="line">void print(const string s,const K&amp; mmap)&#123;</span><br><span class="line">    cout&lt;&lt;s&lt;&lt;endl;</span><br><span class="line">    for(auto&amp; a:mmap)&#123;</span><br><span class="line">        cout&lt;&lt;&quot;&#123;&quot;&lt;&lt;a.first&lt;&lt;&quot;,&quot;&lt;&lt;a.second&lt;&lt;&quot;&#125; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    multimap&lt;int,char&gt; dict &#123;</span><br><span class="line">        &#123;1,&apos;A&apos;&#125;,</span><br><span class="line">        &#123;2,&apos;B&apos;&#125;,</span><br><span class="line">        &#123;2,&apos;C&apos;&#125;,</span><br><span class="line">        &#123;3,&apos;D&apos;&#125;,</span><br><span class="line">        &#123;3,&apos;E&apos;&#125;,</span><br><span class="line">        &#123;2,&apos;F&apos;&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    //通过empty()来判断multimap是否为空</span><br><span class="line">    cout&lt;&lt;&quot;dict.empty() &quot;&lt;&lt;dict.empty()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    //通过size()来判断元素个数</span><br><span class="line">    cout&lt;&lt;&quot;dict.size() &quot;&lt;&lt;dict.size()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    print(&quot;插入前 size = &quot;+to_string(dict.size()),dict);</span><br><span class="line">    // 通过insert插入元素</span><br><span class="line">    dict.insert(&#123;4,&apos;G&apos;&#125;);</span><br><span class="line">    dict.insert(pair&lt;int, char&gt;(4,&apos;F&apos;));</span><br><span class="line">    dict.insert(make_pair(4, &apos;H&apos;));</span><br><span class="line">    dict.insert(&#123;&#123;5,&apos;I&apos;&#125;,&#123;5,&apos;J&apos;&#125;&#125;);</span><br><span class="line">    print(&quot;插入后 size = &quot;+to_string(dict.size()),dict);</span><br><span class="line"></span><br><span class="line">    // 通过erase来删除特定key的元素,参数可以是key，也可以是一个iterator</span><br><span class="line">    dict.erase(1);</span><br><span class="line">    print(&quot;删除key=1后 size = &quot;+to_string(dict.size()),dict);</span><br><span class="line"></span><br><span class="line">    // 返回类型是pair&lt;iterator,iterator&gt;,仅仅返回符合条件的pair</span><br><span class="line">    auto range = dict.equal_range(2);</span><br><span class="line">    //cout&lt;&lt;typeid(range).name()&lt;&lt;endl; //pair类型</span><br><span class="line">    cout&lt;&lt;&quot;equal_range(2) &quot;&lt;&lt;endl;</span><br><span class="line">    for(auto i = range.first;i!=range.second;++i)&#123;</span><br><span class="line">        cout&lt;&lt;&quot;i.first\t&quot;&lt;&lt;i-&gt;first&lt;&lt;&quot;\ti.second\t&quot;&lt;&lt;i-&gt;second&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // lower_bound</span><br><span class="line">    auto lower = dict.lower_bound(2);</span><br><span class="line">    cout&lt;&lt;&quot;lower_bound(2) &quot;&lt;&lt;(lower-&gt;first)&lt;&lt;&quot; &quot;&lt;&lt;lower-&gt;second&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    // upper_bound</span><br><span class="line">    auto upper = dict.upper_bound(2);</span><br><span class="line">    cout&lt;&lt;&quot;upper_bound(2) &quot;&lt;&lt;(upper-&gt;first)&lt;&lt;&quot; &quot;&lt;&lt;upper-&gt;second&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    // equal_range返回的两个pair实际上就是用lower_bound和upper_bound来实现的</span><br><span class="line">    cout&lt;&lt;&quot;lower_bound == range.first &quot;&lt;&lt; (lower == range.first)&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;upper_bound == range.second &quot;&lt;&lt; (upper == range.second)&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    //通过count来判断key等于给定的值一共有多少个pair</span><br><span class="line">    cout&lt;&lt;&quot;count(2) &quot;&lt;&lt;dict.count(2)&lt;&lt;endl;</span><br><span class="line">    //这个数量可以通过range的两个iterator来实现查找</span><br><span class="line">    cout&lt;&lt;&quot;distance(range.first,range.second) &quot;&lt;&lt;distance(range.first,range.second)&lt;&lt;endl;</span><br><span class="line">    //或者使用lower_bound和upper_bound来实现</span><br><span class="line">    cout&lt;&lt;&quot;distance(lower,upper)&quot;&lt;&lt;distance(lower, upper)&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    //通过find来判断是否存在key,返回一个iterator,如果有多个key符合条件，不一定会返回哪一个。</span><br><span class="line">    auto find2 = dict.find(2);</span><br><span class="line">    cout&lt;&lt;&quot;find2 &quot;&lt;&lt;find2-&gt;first&lt;&lt;&quot; &quot;&lt;&lt;find2-&gt;second&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    //如果通过find来查找的时候没有找到对应的key,那么就会返回dict.end()这个iterator</span><br><span class="line">    auto find10 = dict.find(10);</span><br><span class="line">    cout&lt;&lt;&quot;find10==dict.end &quot;&lt;&lt;(find10==dict.end())&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    auto a = dict.begin();</span><br><span class="line">    cout&lt;&lt;&quot;dict.begin().type &quot;&lt;&lt;typeid(a).name()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    //关于各类iterator</span><br><span class="line">    cout&lt;&lt;&quot;正向遍历dict.begin()-&gt;dict.end()&quot;&lt;&lt;endl;</span><br><span class="line">    for(auto a = dict.begin(); a!=dict.end(); a++)&#123;</span><br><span class="line">       // a-&gt;second = &apos;M&apos;; 这里修改就没有问题</span><br><span class="line">        cout&lt;&lt;&quot;&#123;&quot;&lt;&lt;a-&gt;first&lt;&lt;&quot;,&quot;&lt;&lt;a-&gt;second&lt;&lt;&quot;&#125; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;&quot;正向遍历，dict.cbegin()-&gt;dict.cend()&quot;&lt;&lt;endl;</span><br><span class="line">    for(auto a = dict.cbegin(); a!=dict.cend(); a++)&#123;</span><br><span class="line">       // a -&gt; second = &apos;N&apos;; 这里修改就有问题，原因是返回的const_iterator是不允许修改的。</span><br><span class="line">        cout&lt;&lt;&quot;&#123;&quot;&lt;&lt;a-&gt;first&lt;&lt;&quot;,&quot;&lt;&lt;a-&gt;second&lt;&lt;&quot;&#125; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;&quot;反向遍历，dict.rbegin()-&gt;dict.rend()&quot;&lt;&lt;endl;</span><br><span class="line">    for(auto a = dict.rbegin(); a!=dict.rend(); a++)&#123;</span><br><span class="line">        cout&lt;&lt;&quot;&#123;&quot;&lt;&lt;a-&gt;first&lt;&lt;&quot;,&quot;&lt;&lt;a-&gt;second&lt;&lt;&quot;&#125; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;&quot;反向遍历，dict.rbegin()-&gt;dict.rend()&quot;&lt;&lt;endl;</span><br><span class="line">    for(auto a = dict.rbegin(); a!=dict.rend(); a++)&#123;</span><br><span class="line">        cout&lt;&lt;&quot;&#123;&quot;&lt;&lt;a-&gt;first&lt;&lt;&quot;,&quot;&lt;&lt;a-&gt;second&lt;&lt;&quot;&#125; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;&quot;反向遍历，dict.crbegin()-&gt;dict.crend()&quot;&lt;&lt;endl;</span><br><span class="line">       for(auto a = dict.crbegin(); a!=dict.crend(); a++)&#123;</span><br><span class="line">           cout&lt;&lt;&quot;&#123;&quot;&lt;&lt;a-&gt;first&lt;&lt;&quot;,&quot;&lt;&lt;a-&gt;second&lt;&lt;&quot;&#125; &quot;;</span><br><span class="line">       &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 运行结果</span><br><span class="line"> dict.empty() 0</span><br><span class="line"> dict.size() 6</span><br><span class="line"> 插入前 size = 6</span><br><span class="line"> &#123;1,A&#125; &#123;2,B&#125; &#123;2,C&#125; &#123;2,F&#125; &#123;3,D&#125; &#123;3,E&#125;</span><br><span class="line"> 插入后 size = 11</span><br><span class="line"> &#123;1,A&#125; &#123;2,B&#125; &#123;2,C&#125; &#123;2,F&#125; &#123;3,D&#125; &#123;3,E&#125; &#123;4,G&#125; &#123;4,F&#125; &#123;4,H&#125; &#123;5,I&#125; &#123;5,J&#125;</span><br><span class="line"> 删除key=1后 size = 10</span><br><span class="line"> &#123;2,B&#125; &#123;2,C&#125; &#123;2,F&#125; &#123;3,D&#125; &#123;3,E&#125; &#123;4,G&#125; &#123;4,F&#125; &#123;4,H&#125; &#123;5,I&#125; &#123;5,J&#125;</span><br><span class="line"> equal_range(2)</span><br><span class="line"> i.first    2    i.second    B</span><br><span class="line"> i.first    2    i.second    C</span><br><span class="line"> i.first    2    i.second    F</span><br><span class="line"> lower_bound(2) 2 B</span><br><span class="line"> upper_bound(2) 3 D</span><br><span class="line"> lower_bound == range.first 1</span><br><span class="line"> upper_bound == range.second 1</span><br><span class="line"> count(2) 3</span><br><span class="line"> distance(range.first,range.second) 3</span><br><span class="line"> distance(lower,upper)3</span><br><span class="line"> find2 2 B</span><br><span class="line"> find10==dict.end 1</span><br><span class="line"> dict.begin().type NSt3__114__map_iteratorINS_15__tree_iteratorINS_12__value_typeIicEEPNS_11__tree_nodeIS3_PvEElEEEE</span><br><span class="line"> 正向遍历dict.begin()-&gt;dict.end()</span><br><span class="line"> &#123;2,B&#125; &#123;2,C&#125; &#123;2,F&#125; &#123;3,D&#125; &#123;3,E&#125; &#123;4,G&#125; &#123;4,F&#125; &#123;4,H&#125; &#123;5,I&#125; &#123;5,J&#125; 正向遍历，dict.cbegin()-&gt;dict.cend()</span><br><span class="line"> &#123;2,B&#125; &#123;2,C&#125; &#123;2,F&#125; &#123;3,D&#125; &#123;3,E&#125; &#123;4,G&#125; &#123;4,F&#125; &#123;4,H&#125; &#123;5,I&#125; &#123;5,J&#125;</span><br><span class="line"> 反向遍历，dict.rbegin()-&gt;dict.rend()</span><br><span class="line"> &#123;5,J&#125; &#123;5,I&#125; &#123;4,H&#125; &#123;4,F&#125; &#123;4,G&#125; &#123;3,E&#125; &#123;3,D&#125; &#123;2,F&#125; &#123;2,C&#125; &#123;2,B&#125;</span><br><span class="line"> 反向遍历，dict.rbegin()-&gt;dict.rend()</span><br><span class="line"> &#123;5,J&#125; &#123;5,I&#125; &#123;4,H&#125; &#123;4,F&#125; &#123;4,G&#125; &#123;3,E&#125; &#123;3,D&#125; &#123;2,F&#125; &#123;2,C&#125; &#123;2,B&#125;</span><br><span class="line"> 反向遍历，dict.crbegin()-&gt;dict.crend()</span><br><span class="line"> &#123;5,J&#125; &#123;5,I&#125; &#123;4,H&#125; &#123;4,F&#125; &#123;4,G&#125; &#123;3,E&#125; &#123;3,D&#125; &#123;2,F&#125; &#123;2,C&#125; &#123;2,B&#125;</span><br><span class="line"> Program ended with exit code: 0</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/STL/" rel="tag"># STL</a>
+              <a href="/tags/Map/" rel="tag"># Map</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/02/07/set%E7%9A%84%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95/" rel="next" title="set的简单用法">
+                  <i class="fa fa-chevron-left"></i> set的简单用法
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最前面"><span class="nav-number">1.</span> <span class="nav-text">写在最前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multimap的测试代码"><span class="nav-number">2.</span> <span class="nav-text">multimap的测试代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="李庆文"
+    src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">李庆文</p>
+  <div class="site-description" itemprop="description">热爱生活，享受生活。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">101</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">69</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/aweng126" title="GitHub &rarr; https://github.com/aweng126" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kingwensli@gmail.com" title="E-Mail &rarr; mailto:kingwensli@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李庆文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">154k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:51</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        本站访客共计<span id="busuanzi_value_site_uv"></span>人
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
