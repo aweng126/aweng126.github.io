@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>queue的简单使用</title>
+    <url>/2020/02/08/queue%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>本文为c++容器系列第八篇.<br>主要测试了queue相关的方法，主要作为代码备份方便之后遗忘时查询。</p>
+<a id="more"></a>
+<p>准确来讲，queue并不是容器，而是在容器的基础上进行了一定封装的adapter.符合先进先出(FIFO)的特性。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    // 声明</span><br><span class="line">    queue&lt;int&gt; q ;</span><br><span class="line">    queue&lt;int&gt; q1(&#123;1,2,3,4&#125;);</span><br><span class="line">    queue&lt;int&gt; q2(q1);</span><br><span class="line">    </span><br><span class="line">    cout&lt;&lt;&quot;q2: &quot;;</span><br><span class="line">    while(q2.size() != 0)&#123;</span><br><span class="line">         cout&lt;&lt;q2.front()&lt;&lt;&apos;\t&apos;;</span><br><span class="line">         q2.pop();</span><br><span class="line">     &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    // 其他操作。 如果队列为空，那么调用front和back的时候就会报错，</span><br><span class="line">    // 所以给我们的警示就是在通过front和back方法获取队列元素的时候，需要提前确定内部是存在对应的元素的。</span><br><span class="line">    //cout&lt;&lt;&quot;q.front():&quot;&lt;&lt;q.front()&lt;&lt;endl;</span><br><span class="line">    //cout&lt;&lt;&quot;q.back():&quot;&lt;&lt;q.back()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;q.empty():&quot;&lt;&lt;q.empty()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;q.size():&quot;&lt;&lt;q.size()&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    q.push(1);</span><br><span class="line">    q.emplace(2);</span><br><span class="line">    </span><br><span class="line">    cout&lt;&lt;&quot;after push q.front():&quot;&lt;&lt;q.front()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;after push q.back():&quot;&lt;&lt;q.back()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;after push q.empty():&quot;&lt;&lt;q.empty()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;after push q.size():&quot;&lt;&lt;q.size()&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    q.pop();</span><br><span class="line">    cout&lt;&lt;&quot;after pop(): &quot;;</span><br><span class="line">    while(q.size() != 0)&#123;</span><br><span class="line">        cout&lt;&lt;q.front()&lt;&lt;&apos;\t&apos;;</span><br><span class="line">        q.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 运行结果</span><br><span class="line"> q2: 1    2    3    4</span><br><span class="line"> q.empty():1</span><br><span class="line"> q.size():0</span><br><span class="line"> after push q.front():1</span><br><span class="line"> after push q.back():2</span><br><span class="line"> after push q.empty():0</span><br><span class="line"> after push q.size():2</span><br><span class="line"> after pop(): 2    Program ended with exit code: 0</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C++基础</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>STL</tag>
+        <tag>Queue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>multimap的简单使用</title>
     <url>/2020/02/07/multimap%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<p>本文为c++容器系列第七篇.<br>主要测试了multimap相关的方法，主要作为代码备份方便之后遗忘时查询。<br>map,multimap,unordered_map,unordered_multimap仅仅有稍许差别，方法和multimap基本类似，所以不再另行写文章啦。</p>
@@ -1161,10 +1177,10 @@
         <category>算法训练</category>
       </categories>
       <tags>
+        <tag>Queue</tag>
         <tag>Codinginterviews</tag>
         <tag>BinaryTree</tag>
         <tag>Tree</tag>
-        <tag>Queue</tag>
       </tags>
   </entry>
   <entry>
@@ -1562,8 +1578,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Queue</tag>
+        <tag>Codinginterviews</tag>
         <tag>Stack</tag>
       </tags>
   </entry>
@@ -1912,8 +1928,8 @@
         <category>C++基础</category>
       </categories>
       <tags>
-        <tag>g++</tag>
         <tag>编译</tag>
+        <tag>g++</tag>
       </tags>
   </entry>
   <entry>
@@ -2021,8 +2037,8 @@
         <category>C++基础</category>
       </categories>
       <tags>
-        <tag>g++</tag>
         <tag>编译</tag>
+        <tag>g++</tag>
       </tags>
   </entry>
   <entry>
@@ -2081,8 +2097,8 @@
         <category>C++基础</category>
       </categories>
       <tags>
-        <tag>g++</tag>
         <tag>编译</tag>
+        <tag>g++</tag>
       </tags>
   </entry>
   <entry>
@@ -2353,8 +2369,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2415,8 +2431,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2442,8 +2458,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2489,8 +2505,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
