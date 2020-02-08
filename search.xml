@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>stack的简单使用</title>
+    <url>/2020/02/08/stack%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>本文为c++容器系列第九篇.<br>主要测试了stack相关的方法，主要作为代码备份方便之后遗忘时查询。</p>
+<a id="more"></a>
+
+<p>严格来讲，stack其实也不算是容器，它是在容器的基础上进行疯转从而具备后进先出(LIFO)特性的adapter。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stack&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()&#123;</span><br><span class="line">    // 声明</span><br><span class="line">    stack&lt;int&gt; s;</span><br><span class="line">    stack&lt;int&gt; s1(&#123;1,2,3&#125;);</span><br><span class="line">    stack&lt;int&gt; s2(s1);</span><br><span class="line">    </span><br><span class="line">    cout&lt;&lt;&quot;s2= &quot;;</span><br><span class="line">     while(!s2.empty())&#123;</span><br><span class="line">         cout&lt;&lt;s2.top()&lt;&lt;&apos;\t&apos;;</span><br><span class="line">         s2.pop();</span><br><span class="line">     &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    //操作</span><br><span class="line">    cout&lt;&lt;&quot;s.empty(): &quot;&lt;&lt;s.empty()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;s.size(): &quot;&lt;&lt;s.size()&lt;&lt;endl;</span><br><span class="line">    // 这里也需要注意一下，必须在确认stack中元素个数不为0的情况下，</span><br><span class="line">    // 才可以使用s.top()来获取栈顶元素，否则就会报错。</span><br><span class="line">    //cout&lt;&lt;&quot;s.top():&quot;&lt;&lt;s.top()&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    s.push(1);</span><br><span class="line">    s.emplace(2);</span><br><span class="line">    cout&lt;&lt;&quot;after push2 s.size(): &quot;&lt;&lt;s.size()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;after push2 s.empty(): &quot;&lt;&lt;s.empty()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;after push2 top element is\t&quot;&lt;&lt;s.top()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    s.pop();</span><br><span class="line">    cout&lt;&lt;&quot;after pop(),s.size():&quot;&lt;&lt;s.size()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;after pop(),s.top():&quot;&lt;&lt;s.top()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    s.push(3);</span><br><span class="line">    s.push(4);</span><br><span class="line">    s.push(5);</span><br><span class="line">    // 遍历</span><br><span class="line">    cout&lt;&lt;&quot;after push 345,s= &quot;;</span><br><span class="line">    while(!s.empty())&#123;</span><br><span class="line">        cout&lt;&lt;s.top()&lt;&lt;&apos;\t&apos;;</span><br><span class="line">        s.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">/* 运行结果</span><br><span class="line"> s2= 3    2    1</span><br><span class="line"> s.empty(): 1</span><br><span class="line"> s.size(): 0</span><br><span class="line"> after push2 s.size(): 2</span><br><span class="line"> after push2 s.empty(): 0</span><br><span class="line"> after push2 top element is    2</span><br><span class="line"> after pop(),s.size():1</span><br><span class="line"> after pop(),s.top():1</span><br><span class="line"> after push 345,s= 5    4    3    1</span><br><span class="line"> Program ended with exit code: 0</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>C++基础</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>STL</tag>
+        <tag>Stack</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>queue的简单使用</title>
     <url>/2020/02/08/queue%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<p>本文为c++容器系列第八篇.<br>主要测试了queue相关的方法，主要作为代码备份方便之后遗忘时查询。</p>
@@ -2369,8 +2386,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -2431,8 +2448,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -2458,8 +2475,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -2505,8 +2522,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
