@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>python-域名抽取</title>
+    <url>/2020/04/04/python-%E5%9F%9F%E5%90%8D%E6%8A%BD%E5%8F%96/</url>
+    <content><![CDATA[<p>在看scrapy-cluster源码的时候发现了一个非常实用的包-tldextract，<br>可以非常方便的抽取出一个url的域名作为redis的key的一部分，感觉很神奇。所以记录一下。</p>
+<a id="more"></a>
+<p>对于一个网址而言，比如 www.kingwen.cn，可以分为三部分。www, kingwen, cn。分别称为二级域名，域名，后缀。tldextract(top-level domain)这个包就可以帮我们非常快的解决这个问题。</p>
+<h2 id="安装tldextract包"><a href="#安装tldextract包" class="headerlink" title="安装tldextract包"></a>安装tldextract包</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip3 install tldextract</span><br></pre></td></tr></table></figure>
+<h2 id="使用tldextract包"><a href="#使用tldextract包" class="headerlink" title="使用tldextract包"></a>使用tldextract包</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import tldextract</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    url = &apos;www.kingwen.cn&apos;</span><br><span class="line">    res = tldextract.extract(url)</span><br><span class="line">    print(res.subdomain, res.domain, res.suffix) # www kingwen cn</span><br><span class="line">    print(res.registered_domain) # kingwen.cn</span><br><span class="line">    url1 = &apos;localhost:8080/hello&apos;</span><br><span class="line">    res = tldextract.extract(url1)</span><br><span class="line">    print(res.subdomain, res.domain, res.suffix) # &apos;&apos;  localhost  &apos;&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="源码实现"><a href="#源码实现" class="headerlink" title="源码实现"></a>源码实现</h2><p>主要分为三部分。</p>
+<ul>
+<li>首先是进行切割，将输入的url进行划分，利用# ？ @  : 等特殊符号进行不断的划分，最后将主体的域名部分提取出来。</li>
+<li>其次将前一部分的主体域名通过&#39;.&#39;进行划分，形成对应的list。然后按照从位置i匹配到末尾元素的原则找到符合suffix字典（预先定义好的7336条）的第一个位置i.然后返回i。</li>
+<li>最后 list[i:]就是suffix. list[:i-1]就是subdomain. list[i]就是domain.从而问题得到解决。</li>
+</ul>
+<p>尽管比较简单，但是比较实用，所以就记录一下。<br>在以后用到的时候可以省去很多烦恼。</p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>domain</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Bug-Scrapy-Filtered_offsite_request</title>
     <url>/2020/03/31/bug-Filtered-offsite-request-Scrapy/</url>
     <content><![CDATA[<p>在写爬虫的时候遇见了一个bug,报错信息为 Filtered offsite request domain[‘mydomain’],<br>从网上找到了答案并成功解决了问题，特别记录一下。</p>
