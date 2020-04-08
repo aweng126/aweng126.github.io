@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Bug-scrapy-数据错位</title>
+    <url>/2020/04/08/Bug-scrapy-%E6%95%B0%E6%8D%AE%E9%94%99%E4%BD%8D/</url>
+    <content><![CDATA[<p>在用scrapy进行数据爬取的时候，发现通过meta传递的数据不匹配，最后发现是深拷贝和浅拷贝的问题。</p>
+<a id="more"></a>
+<h2 id="Bug详情"><a href="#Bug详情" class="headerlink" title="Bug详情"></a>Bug详情</h2><p>yield Request中传递的meta是浅拷贝，所以当我们有多条请求等待处理的时候，前面请求传递的meta会被后面请求传递的meta修改（他们指向同一个对象），所以就会造成前后不匹配。<br>解决方式就是将其浅拷贝变成深拷贝。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import copy</span><br><span class="line">···</span><br><span class="line">def parse(self, response):</span><br><span class="line">     yield Request(url=new_url, meta=&#123;&apos;item&apos;: copy.deepcopy(item)&#125;, callback=self.another_parse)</span><br></pre></td></tr></table></figure>
+<p>同理，如果下载的时候下载item的时候也报错的话，也要记得将item的传递变成深拷贝即可。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 原来是yield item ,变成如下的样子即可。</span><br><span class="line">yield copy.deepcopy(item)</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>1.<a href="https://www.jianshu.com/p/42f22085f4c5" target="_blank" rel="noopener">scrapy里面item传递数据后数据不正确的问题</a></p>
+]]></content>
+      <categories>
+        <category>爬虫</category>
+      </categories>
+      <tags>
+        <tag>scrapy</tag>
+        <tag>bug</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python-域名抽取</title>
     <url>/2020/04/04/python-%E5%9F%9F%E5%90%8D%E6%8A%BD%E5%8F%96/</url>
     <content><![CDATA[<p>在看scrapy-cluster源码的时候发现了一个非常实用的包-tldextract，<br>可以非常方便的抽取出一个url的域名作为redis的key的一部分，感觉很神奇。所以记录一下。</p>
@@ -49,8 +69,8 @@
         <category>爬虫</category>
       </categories>
       <tags>
-        <tag>bug</tag>
         <tag>scrapy</tag>
+        <tag>bug</tag>
       </tags>
   </entry>
   <entry>
@@ -1289,8 +1309,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Stack</tag>
         <tag>Codinginterviews</tag>
+        <tag>Stack</tag>
       </tags>
   </entry>
   <entry>
@@ -1316,8 +1336,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Stack</tag>
         <tag>Codinginterviews</tag>
+        <tag>Stack</tag>
       </tags>
   </entry>
   <entry>
@@ -1669,8 +1689,8 @@
       </categories>
       <tags>
         <tag>Queue</tag>
-        <tag>Stack</tag>
         <tag>Codinginterviews</tag>
+        <tag>Stack</tag>
       </tags>
   </entry>
   <entry>

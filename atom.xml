@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-04-04T14:56:02.129Z</updated>
+  <updated>2020-04-08T03:15:10.660Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Bug-scrapy-数据错位</title>
+    <link href="http://yoursite.com/2020/04/08/Bug-scrapy-%E6%95%B0%E6%8D%AE%E9%94%99%E4%BD%8D/"/>
+    <id>http://yoursite.com/2020/04/08/Bug-scrapy-数据错位/</id>
+    <published>2020-04-08T02:34:43.000Z</published>
+    <updated>2020-04-08T03:15:10.660Z</updated>
+    
+    <content type="html"><![CDATA[<p>在用scrapy进行数据爬取的时候，发现通过meta传递的数据不匹配，最后发现是深拷贝和浅拷贝的问题。</p><a id="more"></a><h2 id="Bug详情"><a href="#Bug详情" class="headerlink" title="Bug详情"></a>Bug详情</h2><p>yield Request中传递的meta是浅拷贝，所以当我们有多条请求等待处理的时候，前面请求传递的meta会被后面请求传递的meta修改（他们指向同一个对象），所以就会造成前后不匹配。<br>解决方式就是将其浅拷贝变成深拷贝。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import copy</span><br><span class="line">···</span><br><span class="line">def parse(self, response):</span><br><span class="line">     yield Request(url=new_url, meta=&#123;&apos;item&apos;: copy.deepcopy(item)&#125;, callback=self.another_parse)</span><br></pre></td></tr></table></figure><p>同理，如果下载的时候下载item的时候也报错的话，也要记得将item的传递变成深拷贝即可。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 原来是yield item ,变成如下的样子即可。</span><br><span class="line">yield copy.deepcopy(item)</span><br></pre></td></tr></table></figure><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>1.<a href="https://www.jianshu.com/p/42f22085f4c5" target="_blank" rel="noopener">scrapy里面item传递数据后数据不正确的问题</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在用scrapy进行数据爬取的时候，发现通过meta传递的数据不匹配，最后发现是深拷贝和浅拷贝的问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="爬虫" scheme="http://yoursite.com/categories/%E7%88%AC%E8%99%AB/"/>
+    
+    
+      <category term="scrapy" scheme="http://yoursite.com/tags/scrapy/"/>
+    
+      <category term="bug" scheme="http://yoursite.com/tags/bug/"/>
+    
+  </entry>
   
   <entry>
     <title>python-域名抽取</title>
@@ -60,9 +85,9 @@
       <category term="爬虫" scheme="http://yoursite.com/categories/%E7%88%AC%E8%99%AB/"/>
     
     
-      <category term="bug" scheme="http://yoursite.com/tags/bug/"/>
-    
       <category term="scrapy" scheme="http://yoursite.com/tags/scrapy/"/>
+    
+      <category term="bug" scheme="http://yoursite.com/tags/bug/"/>
     
   </entry>
   
@@ -500,31 +525,6 @@
     <summary type="html">
     
       &lt;p&gt;本文为剑指 offer 系列第六十一篇。&lt;br&gt;主要知识点为数组，题目看起来很炫酷，但是实际上就是一个给定区间的遍历找最大值而已。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="算法训练" scheme="http://yoursite.com/categories/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%83/"/>
-    
-    
-      <category term="Array" scheme="http://yoursite.com/tags/Array/"/>
-    
-      <category term="Codinginterviews" scheme="http://yoursite.com/tags/Codinginterviews/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指offer-数据流中的中位数</title>
-    <link href="http://yoursite.com/2020/01/27/%E5%89%91%E6%8C%87offer-%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/"/>
-    <id>http://yoursite.com/2020/01/27/剑指offer-数据流中的中位数/</id>
-    <published>2020-01-27T02:44:08.000Z</published>
-    <updated>2020-02-29T03:21:44.026Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为剑指 offer 系列第六十篇。<br>主要知识点为数组，依旧是数组遍历然后分析找中位数，比较简单。</p><a id="more"></a><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="">题目描述</a></h2><p>如何得到一个数据流中的中位数？如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。我们使用Insert()方法读取数据流，使用GetMedian()方法获取当前读取数据的中位数。</p><h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>找一个数组，用来存储所有插入的数据，并保持数组内的数据有序（可以用插入排序的方式）。<br>在获得中间数的时候，可以通过奇偶直接从数组中获取处理并返回。</p><h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>在进行插入的时候可以直接使用stl的upper_bound获得对应的插入位置。</p><h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void Insert(int num)</span><br><span class="line">    &#123;</span><br><span class="line">        mvec.push_back(num);</span><br><span class="line">        len++;</span><br><span class="line">        //sort(mvec.begin(),mvec.end());</span><br><span class="line">        int i = len;</span><br><span class="line">        for( ; i &gt;= 1; i--)&#123;</span><br><span class="line">            if(num&lt;=mvec[i])&#123;</span><br><span class="line">                mvec[i] = mvec[i-1];</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        mvec[i] = num;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    double GetMedian()</span><br><span class="line">    &#123; </span><br><span class="line">        int mindex = (len-1)/2;</span><br><span class="line">        if(len%2 == 0)&#123;</span><br><span class="line">            return ((mvec[mindex]+(double)mvec[mindex+1])/2);  </span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return (double)mvec[mindex];</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    vector&lt;int&gt; mvec;</span><br><span class="line">    int len = 0;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>时间复杂度为O(n),空间复杂度为O(n)</p><h2 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class MedianFinder &#123;</span><br><span class="line">public:</span><br><span class="line">    /** initialize your data structure here. */</span><br><span class="line">    MedianFinder() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    void addNum(int num) &#123;</span><br><span class="line">        auto a = upper_bound(mvec.begin(),mvec.end(),num);</span><br><span class="line">        mvec.insert(a, num);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    double findMedian() &#123;</span><br><span class="line">        int mid = mvec.size()/2;</span><br><span class="line">        if(mvec.size()%2 == 0)&#123;</span><br><span class="line">            return (double)(mvec[mid]+mvec[mid-1])/2;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return (double)mvec[mid];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">private:</span><br><span class="line">    vector&lt;int&gt; mvec;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * Your MedianFinder object will be instantiated and called as such:</span><br><span class="line"> * MedianFinder* obj = new MedianFinder();</span><br><span class="line"> * obj-&gt;addNum(num);</span><br><span class="line"> * double param_2 = obj-&gt;findMedian();</span><br><span class="line"> */</span><br></pre></td></tr></table></figure><p>PS:思路2代码是在leetcode网站剑指offer模块<a href="https://leetcode-cn.com/problems/shu-ju-liu-zhong-de-zhong-wei-shu-lcof/" target="_blank" rel="noopener">面试题41. 数据流中的中位数</a>实现的.</p><p>以上，本题结束！</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为剑指 offer 系列第六十篇。&lt;br&gt;主要知识点为数组，依旧是数组遍历然后分析找中位数，比较简单。&lt;/p&gt;
     
     </summary>
     
