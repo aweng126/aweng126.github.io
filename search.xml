@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>scrapy-断点调试</title>
+    <url>/2020/04/08/scrapy-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95/</url>
+    <content><![CDATA[<p>因为平时我们在写代码的时候都会依靠于debug来进行调试，<br>那么一般通过命令行启动的scrapy项目要如何进行dubug呢？</p>
+<a id="more"></a>
+<p>用pycharm来解决这个问题的方式也比较简单。</p>
+<ol>
+<li>正常加断点</li>
+<li>要编写一个run.py文件来模拟命令行启动,文件和spiders目录同级，内容如下。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">from scrapy import cmdline</span><br><span class="line"></span><br><span class="line">name = &apos;spidername&apos;</span><br><span class="line">cmd = &apos;scrapy crawl &#123;0&#125;&apos;.format(name)</span><br><span class="line">cmdline.execute(cmd.split())</span><br></pre></td></tr></table></figure></li>
+<li>点击右上角的debug来执行即可。</li>
+</ol>
+<p>再说一下debug的三个选项</p>
+<ol>
+<li>step into : 单步执行，遇到子函数就进入子函数。</li>
+<li>step over: 单步执行，遇到子函数不进入，而是完成子函数之后返回到当前位置，等同于处理一条命令。</li>
+<li>step out: 单步执行，但是已经进入到子函数了，下面的部分不再单步执行而是返回到调用子函数的位置。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>爬虫</category>
+      </categories>
+      <tags>
+        <tag>scrapy</tag>
+        <tag>debug</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Bug-scrapy-数据错位</title>
     <url>/2020/04/08/Bug-scrapy-%E6%95%B0%E6%8D%AE%E9%94%99%E4%BD%8D/</url>
     <content><![CDATA[<p>在用scrapy进行数据爬取的时候，发现通过meta传递的数据不匹配，最后发现是深拷贝和浅拷贝的问题。</p>
@@ -1309,8 +1335,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Stack</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
@@ -1336,8 +1362,8 @@
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Stack</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
@@ -1689,8 +1715,8 @@
       </categories>
       <tags>
         <tag>Queue</tag>
-        <tag>Codinginterviews</tag>
         <tag>Stack</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
