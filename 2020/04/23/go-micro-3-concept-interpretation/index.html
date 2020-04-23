@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Kingwen's blog" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="在搭建环境的时候其实我就有很多疑问了，怎么有这么多概念？微服务、RPC, gRPC, protoc等等，它们都是啥？本篇文章来进行比较详细的解释。">
+<meta name="keywords" content="go-micro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【微服务Go-micro第三篇】相关概念解释">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;23&#x2F;go-micro-3-concept-interpretation&#x2F;index.html">
+<meta property="og:site_name" content="Kingwen&#39;s blog">
+<meta property="og:description" content="在搭建环境的时候其实我就有很多疑问了，怎么有这么多概念？微服务、RPC, gRPC, protoc等等，它们都是啥？本篇文章来进行比较详细的解释。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.topgoer.com&#x2F;static&#x2F;wei&#x2F;6&#x2F;1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.topgoer.com&#x2F;static&#x2F;wei&#x2F;6&#x2F;1.png">
+<meta property="og:updated_time" content="2020-04-23T11:06:52.405Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;www.topgoer.com&#x2F;static&#x2F;wei&#x2F;6&#x2F;1.png">
+  <link rel="canonical" href="http://yoursite.com/2020/04/23/go-micro-3-concept-interpretation/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>【微服务Go-micro第三篇】相关概念解释 | Kingwen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kingwen's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">没有输出的输入是不完整的</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources" rel="section"><i class="fa fa-fw fa-folder"></i>资源</a>
+
+  </li>
+        <li class="menu-item menu-item-talk">
+
+    <a href="/talk" rel="section"><i class="fa fa-fw fa-envelope"></i>呓语</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/23/go-micro-3-concept-interpretation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【微服务Go-micro第三篇】相关概念解释
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-23 18:51:33 / 修改时间：19:06:52" itemprop="dateCreated datePublished" datetime="2020-04-23T18:51:33+08:00">2020-04-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">微服务</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在搭建环境的时候其实我就有很多疑问了，怎么有这么多概念？<br>微服务、RPC, gRPC, protoc等等，它们都是啥？本篇文章来进行比较详细的解释。</p>
+<a id="more"></a>
+<h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h2><p>使用一套小服务来开发单个应用的方式，每个服务运行在独立的进程里，一般采用轻量级的通讯机制互联，并且它们可以通过自动化的方式部署。</p>
+<h2 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a>RPC</h2><ol>
+<li>远程过程调用（Remote Procedure Call，RPC）是一个计算机通信协议</li>
+<li>该协议允许运行于一台计算机的程序调用另一台计算机的子程序，而程序员无需额外地为这个交互作用编程</li>
+<li>如果涉及的软件采用面向对象编程，那么远程过程调用亦可称作远程调用或远程方法调用</li>
+</ol>
+<h2 id="gRPC"><a href="#gRPC" class="headerlink" title="gRPC"></a>gRPC</h2><ol>
+<li>gRPC由google开发，是一款语言中立、平台中立、开源的远程过程调用系统</li>
+<li>gRPC客户端和服务端可以在多种环境中运行和交互，例如用java写一个服务端，可以用go语言写客户端调用</li>
+</ol>
+<h2 id="protobuff"><a href="#protobuff" class="headerlink" title="protobuff"></a>protobuff</h2><ol>
+<li>gRPC可以实现微服务，将大的项目拆分为多个小且独立的业务模块，也就是服务，各服务间使用高效的protobuf协议进行RPC调用，gRPC默认使用protocol  buffer，这是google开源的一套成熟的结构数据序列化机制（当然也可以使用其他数据格式如JSON）</li>
+<li>可以用proto files创建gRPC服务，用message类型来定义方法参数和返回类型</li>
+</ol>
+<h2 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h2><p>结合这里和我们上一篇的文章，我们可以得到以下结论</p>
+<ol>
+<li><p>我们是使用了proto file(user.proto)来定义对应的方法和返回类型，其中message结构来定义接收参数和返回参数的名称以及类型。 service结构来定义对应的远程调用的方法和接受的对应的参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">service user&#123;</span><br><span class="line">        rpc RegisterUser(RegisterUserReq) returns (RegisterUserRsp)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message RegisterUserReq&#123;</span><br><span class="line">        string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message RegisterUserRsp&#123;</span><br><span class="line">        string status = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>protoc命令会按照proto文件中声明的message的格式构造传输对象。gRPC的服务器端和客户端都遵守protocal buffer协议，在客户端会序列化请求对象，在服务端反序列化请求对象，服务器端处理完成之后，序列化响应对象，客户端再反序列化响应对象。所以共同遵守protocal buff 协议让客户端和服务器端可以方便地进行通信，即使最后客户端和服务器端是用不同的语言来实现的也没有关系。</p>
+</li>
+</ol>
+<h2 id="protobuf语法"><a href="#protobuf语法" class="headerlink" title="protobuf语法"></a>protobuf语法</h2><h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><ol>
+<li>以.proto结尾</li>
+<li>Message命名采用驼峰命名方式，字段命名采用小写字母加下划线分隔方式</li>
+<li>结构定义可以包含：message、service、enum</li>
+<li>可以通过required表示这个参数是必须的，optional表示这个参数是可选的。通过default表示这个参数的默认值<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;; // </span><br><span class="line"></span><br><span class="line">message SearchRequest &#123;</span><br><span class="line">  required string query = 1;</span><br><span class="line">  optional int32 page_number = 2;</span><br><span class="line">  optional int32 result_per_page = 3 [default = 10];</span><br><span class="line">  enum Corpus &#123;</span><br><span class="line">    UNIVERSAL = 0;</span><br><span class="line">    WEB = 1;</span><br><span class="line">    IMAGES = 2;</span><br><span class="line">    LOCAL = 3;</span><br><span class="line">    NEWS = 4;</span><br><span class="line">    PRODUCTS = 5;</span><br><span class="line">    VIDEO = 6;</span><br><span class="line">  &#125;</span><br><span class="line">  optional Corpus corpus = 4 [default = UNIVERSAL];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">service SearchService &#123;</span><br><span class="line">        rpc Search (SearchRequest) returns (SearchResponse) &#123;&#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+更多使用方式可以参见下面的两个链接。</li>
+</ol>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ol>
+<li><a href="https://colobu.com/2015/01/07/Protobuf-language-guide/" target="_blank" rel="noopener">[译]Protobuf 语法指南</a></li>
+<li><a href="http://www.topgoer.com/%E5%BE%AE%E6%9C%8D%E5%8A%A1/Protobuf%E8%AF%AD%E6%B3%95.html" target="_blank" rel="noopener">1. Protobuf语法</a></li>
+</ol>
+<h2 id="Go-micro"><a href="#Go-micro" class="headerlink" title="Go-micro"></a>Go-micro</h2><h3 id="什么是go-micro"><a href="#什么是go-micro" class="headerlink" title="什么是go-micro"></a>什么是go-micro</h3><p>go-micro是一个框架，提供了分布式开发所需要的核心需求，包括RPC和基于事件驱动的通信。设计理念是可插拔。</p>
+<h3 id="Go-micro特点"><a href="#Go-micro特点" class="headerlink" title="Go-micro特点"></a>Go-micro特点</h3><ol>
+<li>服务发现：自动服务注册和命名解析。服务发现是微服务开发中的核心，当服务A要与服务B协作时，它得知道服务B在哪里。目前默认的服务发现机制是组播multicast DNS (mdns，组播)，是一种零配置网络。</li>
+<li>负载均衡：在服务发现的基础上构建客户端的负载均衡。当我们查找一个服务发现它有多个节点时，我们需要一种机制来决定最终路由到哪一个节点。默认使用random hashed load balancing来提供服务的负载均衡。如果出现问题，那么go-micro会尝试使用其他节点。</li>
+<li>消息编码：基于内容类型动态编码消息，客户端和服务器端将会使用基于内容类型的编解码器来对Go语言的类型进行无缝隙的编解码。客户端可以编码并发送各种类型额消息，客户端和服务器端默认能够处理这些消息，默认包含 protobuf and json。</li>
+<li>请求/相应：RPC通信是基于双向信息流的请求和相应。go-micro提供一种同步的抽象。一个发送给服务的请求会被自动的解析、负载均衡、拨号、转成字节流。默认传输是通过gRPC。</li>
+<li>异步信息：发布订阅机制在异步通信和事件驱动架构中非常重要，事件通知在微服务开发中占有重要地位。默认的消息传递系统是http事件消息代理。</li>
+<li>可插拔： Go Micro为每个分布式系统抽象出接口。因此，Go Micro的接口都是可插拔的，允许其在运行时不可知的情况下仍可支持。所以只要实现接口，可以在内部使用任何的技术。更多插件请参考：github.com/micro/go-plugins</li>
+</ol>
+<h3 id="go-micro通信流程"><a href="#go-micro通信流程" class="headerlink" title="go-micro通信流程"></a>go-micro通信流程</h3><ol>
+<li>Server监听客户端的调用，对Brocker推送过来的信息进行处理。并且Server端需要向Register注册自己的存在或消亡，这样Client才能知道自己的状态</li>
+<li>Register服务的注册的发现，Client端从Register中得到Server的信息，然后每次调用都根据算法选择一个的Server进行通信，当然通信是要经过编码/解码，选择传输协议等一系列过程的</li>
+<li>如果有需要通知所有的Server端可以使用Brocker进行信息的推送，Brocker 信息队列进行信息的接收和发布</li>
+</ol>
+<h3 id="go-micro接口"><a href="#go-micro接口" class="headerlink" title="go-micro接口"></a>go-micro接口</h3><p>go-micro之所以可以高度订制和他的框架结构是分不开的，go-micro由8个关键的interface组成，每一个interface都可以根据自己的需求重新实现，这8个主要的inteface也构成了go-micro的框架结构<br><img src="http://www.topgoer.com/static/wei/6/1.png" alt=""></p>
+<h3 id="go-micro-接口详解"><a href="#go-micro-接口详解" class="headerlink" title="go-micro 接口详解"></a>go-micro 接口详解</h3><h4 id="Transort通信接口"><a href="#Transort通信接口" class="headerlink" title="Transort通信接口"></a>Transort通信接口</h4><p>通信相关接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">type Socket interface &#123;</span><br><span class="line">   Recv(*Message) error</span><br><span class="line">   Send(*Message) error</span><br><span class="line">   Close() error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Client interface &#123;</span><br><span class="line">   Socket</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Listener interface &#123;</span><br><span class="line">   Addr() string</span><br><span class="line">   Close() error</span><br><span class="line">   Accept(func(Socket)) error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Transport interface &#123;</span><br><span class="line">   Dial(addr string, opts ...DialOption) (Client, error)</span><br><span class="line">   Listen(addr string, opts ...ListenOption) (Listener, error)</span><br><span class="line">   String() string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Codec编码接口"><a href="#Codec编码接口" class="headerlink" title="Codec编码接口"></a>Codec编码接口</h4><p>编解码，底层也是protobuf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">type Codec interface &#123;</span><br><span class="line">   ReadHeader(*Message, MessageType) error</span><br><span class="line">   ReadBody(interface&#123;&#125;) error</span><br><span class="line">   Write(*Message, interface&#123;&#125;) error</span><br><span class="line">   Close() error</span><br><span class="line">   String() string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1.1.3. Registry注册接口<br>服务注册发现的实现：etcd、consul、mdns、kube-DNS、zk</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">type Registry interface &#123;</span><br><span class="line">   Register(*Service, ...RegisterOption) error</span><br><span class="line">   Deregister(*Service) error</span><br><span class="line">   GetService(string) ([]*Service, error)</span><br><span class="line">   ListServices() ([]*Service, error)</span><br><span class="line">   Watch(...WatchOption) (Watcher, error)</span><br><span class="line">   String() string</span><br><span class="line">   Options() Options</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Selector负载均衡"><a href="#Selector负载均衡" class="headerlink" title="Selector负载均衡"></a>Selector负载均衡</h4><p>根据不同算法请求主机列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">type Selector interface &#123;</span><br><span class="line">   Init(opts ...Option) error</span><br><span class="line">   Options() Options</span><br><span class="line">   // Select returns a function which should return the next node</span><br><span class="line">   Select(service string, opts ...SelectOption) (Next, error)</span><br><span class="line">   // Mark sets the success/error against a node</span><br><span class="line">   Mark(service string, node *registry.Node, err error)</span><br><span class="line">   // Reset returns state back to zero for a service</span><br><span class="line">   Reset(service string)</span><br><span class="line">   // Close renders the selector unusable</span><br><span class="line">   Close() error</span><br><span class="line">   // Name of the selector</span><br><span class="line">   String() string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Broker发布订阅接口"><a href="#Broker发布订阅接口" class="headerlink" title="Broker发布订阅接口"></a>Broker发布订阅接口</h4><p>pull push watch</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">type Broker interface &#123;</span><br><span class="line">   Options() Options</span><br><span class="line">   Address() string</span><br><span class="line">   Connect() error</span><br><span class="line">   Disconnect() error</span><br><span class="line">   Init(...Option) error</span><br><span class="line">   Publish(string, *Message, ...PublishOption) error</span><br><span class="line">   Subscribe(string, Handler, ...SubscribeOption) (Subscriber, error)</span><br><span class="line">   String() string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Client客户端接口"><a href="#Client客户端接口" class="headerlink" title="Client客户端接口"></a>Client客户端接口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">type Client interface &#123;</span><br><span class="line">   Init(...Option) error</span><br><span class="line">   Options() Options</span><br><span class="line">   NewMessage(topic string, msg interface&#123;&#125;, opts ...MessageOption) Message</span><br><span class="line">   NewRequest(service, method string, req interface&#123;&#125;, reqOpts ...RequestOption) Request</span><br><span class="line">   Call(ctx context.Context, req Request, rsp interface&#123;&#125;, opts ...CallOption) error</span><br><span class="line">   Stream(ctx context.Context, req Request, opts ...CallOption) (Stream, error)</span><br><span class="line">   Publish(ctx context.Context, msg Message, opts ...PublishOption) error</span><br><span class="line">   String() string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Server服务端接口"><a href="#Server服务端接口" class="headerlink" title="Server服务端接口"></a>Server服务端接口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">type Server interface &#123;</span><br><span class="line">   Options() Options</span><br><span class="line">   Init(...Option) error</span><br><span class="line">   Handle(Handler) error</span><br><span class="line">   NewHandler(interface&#123;&#125;, ...HandlerOption) Handler</span><br><span class="line">   NewSubscriber(string, interface&#123;&#125;, ...SubscriberOption) Subscriber</span><br><span class="line">   Subscribe(Subscriber) error</span><br><span class="line">   Register() error</span><br><span class="line">   Deregister() error</span><br><span class="line">   Start() error</span><br><span class="line">   Stop() error</span><br><span class="line">   String() string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Serveice接口"><a href="#Serveice接口" class="headerlink" title="Serveice接口"></a>Serveice接口</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">type Service interface &#123;</span><br><span class="line">   Init(...Option)</span><br><span class="line">   Options() Options</span><br><span class="line">   Client() client.Client</span><br><span class="line">   Server() server.Server</span><br><span class="line">   Run() error</span><br><span class="line">   String() string</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.topgoer.com/%E5%BE%AE%E6%9C%8D%E5%8A%A1/GoMicro%E6%8E%A5%E5%8F%A3%E8%AF%A6%E8%A7%A3.html" target="_blank" rel="noopener">Go Micro接口详解</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>看了上面那么多概念，我们可以稍微做一下梳理和总结。</p>
+<ol>
+<li>我们对业务需求进行梳理划分，分解一个一个的单一职责的任务，我们分别通过一个<strong>微服务</strong>来实现对应的任务。</li>
+<li><strong>go-micro</strong>是一个可以用来实现微服务的框架，设计理念是可插拔，什么意思呢，就是组件可以随时替换，有多种实现方式。go-micro的整理设计逻辑如下图所示。<br><img src="http://www.topgoer.com/static/wei/6/1.png" alt=""></li>
+<li>微服务在实现过程中是有一定的技术要求的。</li>
+</ol>
+<ul>
+<li>服务注册与发现：用户想调用一个服务，必须首先找到这个服务，所以对于一个服务而言，就必须在开启时要进行注册，go-micro让Registry来负责这个任务，而Registry有多种实现方式，可以参见下表，而我们搭建环境的时候就用的<strong>etcd</strong>。</li>
+<li>要进行负载均衡。用户在找同一个服务的时候可能会有多个节点实现这个服务，所以需要根据相应的<a href="https://blog.csdn.net/lihao21/article/details/54695471" target="_blank" rel="noopener">负载均衡机制</a>进行节点选择。这部分就由Selector来负责。</li>
+<li>要进行消息编解码，不同的service在调用的时候是需要传递数据的，数据在编码和解码上要有统一的规则，从而进行序列化和反序列化。编解码支持json和<strong>protobuff</strong>。这部分的编解码工作由Codec来负责。我们在用go-micro编写微服务时，我们会按照protobuf的语法来编写<strong>proto file</strong>，然后通过protoc,protoc-gen-go,protoc-gen-mico来生成对应的消息对象以及相应服务的API.</li>
+<li>要进行通信：这部分由transort来负责。</li>
+<li>Broker主要对异步信息进行处理</li>
+</ul>
+<p>4.这几部分具体有哪些实现呢？可以看<a href="https://github.com/micro/go-plugins" target="_blank" rel="noopener">go-plugins</a>这个库中的插件的集合。</p>
+<table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Broker</td>
+<td>PubSub messaging; NATS, NSQ, RabbitMQ, Kafka</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>RPC Clients; gRPC, HTTP</td>
+</tr>
+<tr>
+<td>Codec</td>
+<td>Message Encoding; BSON, Mercury</td>
+</tr>
+<tr>
+<td>Micro</td>
+<td>Micro Toolkit Plugins</td>
+</tr>
+<tr>
+<td>Registry</td>
+<td>Service Discovery; Etcd, Gossip, NATS</td>
+</tr>
+<tr>
+<td>Selector</td>
+<td>Load balancing; Label, Cache, Static</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>RPC Servers; gRPC, HTTP</td>
+</tr>
+<tr>
+<td>Transport</td>
+<td>Bidirectional Streaming; NATS, RabbitMQ</td>
+</tr>
+<tr>
+<td>Wrapper</td>
+<td>Middleware; Circuit Breakers, Rate Limiting, Tracing, Monitoring</td>
+</tr>
+</tbody></table>
+<ol start="5">
+<li>对我们而言如何使用go-micro呢？</li>
+</ol>
+<ul>
+<li>根据服务需求来写好proto file</li>
+<li>根据proto file 生成对应的传输对象以及服务端和客户端的api</li>
+<li>编写服务器端和客户端代码</li>
+<li>执行服务器端和客户端代码</li>
+</ul>
+<p>注意：在执行的时候可以指定最下面一层的各个组件，具体指定方式可以通过命令行指定或者设置环境变量或者直接在文件中写死等方式，更加详细的内容可以查看<a href="https://github.com/micro/go-plugins/blob/master/README.md" target="_blank" rel="noopener">Go-Plugins-README</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/go-micro/" rel="tag"># go-micro</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/04/22/%E3%80%90%E5%BE%AE%E6%9C%8D%E5%8A%A1Go-micro%E7%AC%AC%E4%BA%8C%E7%AF%87%E3%80%91protoc%E5%88%B0%E5%BA%95%E5%B9%B2%E4%BA%86%E5%95%A5/" rel="next" title="【微服务Go-micro第二篇】protoc到底干了啥">
+                  <i class="fa fa-chevron-left"></i> 【微服务Go-micro第二篇】protoc到底干了啥
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#微服务"><span class="nav-number">1.</span> <span class="nav-text">微服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC"><span class="nav-number">2.</span> <span class="nav-text">RPC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gRPC"><span class="nav-number">3.</span> <span class="nav-text">gRPC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protobuff"><span class="nav-number">4.</span> <span class="nav-text">protobuff</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人理解"><span class="nav-number">5.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protobuf语法"><span class="nav-number">6.</span> <span class="nav-text">protobuf语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单介绍"><span class="nav-number">6.1.</span> <span class="nav-text">简单介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考链接"><span class="nav-number">6.2.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go-micro"><span class="nav-number">7.</span> <span class="nav-text">Go-micro</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是go-micro"><span class="nav-number">7.1.</span> <span class="nav-text">什么是go-micro</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-micro特点"><span class="nav-number">7.2.</span> <span class="nav-text">Go-micro特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#go-micro通信流程"><span class="nav-number">7.3.</span> <span class="nav-text">go-micro通信流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#go-micro接口"><span class="nav-number">7.4.</span> <span class="nav-text">go-micro接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#go-micro-接口详解"><span class="nav-number">7.5.</span> <span class="nav-text">go-micro 接口详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Transort通信接口"><span class="nav-number">7.5.1.</span> <span class="nav-text">Transort通信接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Codec编码接口"><span class="nav-number">7.5.2.</span> <span class="nav-text">Codec编码接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Selector负载均衡"><span class="nav-number">7.5.3.</span> <span class="nav-text">Selector负载均衡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Broker发布订阅接口"><span class="nav-number">7.5.4.</span> <span class="nav-text">Broker发布订阅接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Client客户端接口"><span class="nav-number">7.5.5.</span> <span class="nav-text">Client客户端接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Server服务端接口"><span class="nav-number">7.5.6.</span> <span class="nav-text">Server服务端接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Serveice接口"><span class="nav-number">7.5.7.</span> <span class="nav-text">Serveice接口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="李庆文"
+    src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">李庆文</p>
+  <div class="site-description" itemprop="description">热爱生活，享受生活。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">79</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/aweng126" title="GitHub &rarr; https://github.com/aweng126" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kingwensli@gmail.com" title="E-Mail &rarr; mailto:kingwensli@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李庆文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">186k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:26</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        本站访客共计<span id="busuanzi_value_site_uv"></span>人
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
