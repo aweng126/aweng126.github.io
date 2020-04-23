@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>go-get碰到timeout怎么办</title>
+    <url>/2020/04/23/go-micro-bug-io-timeout/</url>
+    <content><![CDATA[<p>go get 下载资源的时候下载缓慢甚至遇到timeout,可以通过设置代理的方式来解决。</p>
+<a id="more"></a>
+<p>通过如下命令可以查看go对应的各类变量</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">go env</span><br></pre></td></tr></table></figure>
+<p>我们重点要看.GO111MODULE这两个选项。</p>
+<ol>
+<li>GOPROXY: 代表是使用代理。</li>
+<li>GO111MODULE: 表示是否使用module.在Go1.11版本之后就非常推荐使用go module 来管理依赖了。所以非常推荐使用。</li>
+</ol>
+<h2 id="Linux-或者-Mac环境下"><a href="#Linux-或者-Mac环境下" class="headerlink" title="Linux 或者 Mac环境下"></a>Linux 或者 Mac环境下</h2><p>直接修改环境变量就可以啦。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br><span class="line">export GO111MODULE=on</span><br><span class="line">export GOPROXY=https://goproxy.io </span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<p>通过go env再查看一下，上面的路径是否生效。若已经生效，则重新 go get 下载资源即可。</p>
+<h2 id="GO-Land-开发"><a href="#GO-Land-开发" class="headerlink" title="GO Land 开发"></a>GO Land 开发</h2><p>GO111MODULE=ON还是要通过上面的方式进行设定。 </p>
+<p>如果是使用goland,还可以依次的点击如下选项设置proxy。<br>GOLAND-&gt;Preferences-&gt;Go-&gt;Go modules(vgo)-&gt;选中Enable Go module integration.<br>同时设置proxy的值为 <a href="https://goproxy.io" target="_blank" rel="noopener">https://goproxy.io</a> 或者 <a href="https://goproxy.cn,direct" target="_blank" rel="noopener">https://goproxy.cn,direct</a><br>点击apply就行。</p>
+<p>通过go env再查看一下，上面的路径是否生效。若已经生效，则重新 go get 下载资源即可。</p>
+]]></content>
+      <categories>
+        <category>Bugs</category>
+      </categories>
+      <tags>
+        <tag>go-micro</tag>
+        <tag>timout</tag>
+        <tag>proxy</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【微服务Go-micro第三篇】相关概念解释</title>
     <url>/2020/04/23/go-micro-3-concept-interpretation/</url>
     <content><![CDATA[<p>在搭建环境的时候其实我就有很多疑问了，怎么有这么多概念？<br>微服务、RPC, gRPC, protoc等等，它们都是啥？本篇文章来进行比较详细的解释。</p>
@@ -145,7 +173,7 @@
   </entry>
   <entry>
     <title>【微服务Go-micro第二篇】protoc到底干了啥</title>
-    <url>/2020/04/22/%E3%80%90%E5%BE%AE%E6%9C%8D%E5%8A%A1Go-micro%E7%AC%AC%E4%BA%8C%E7%AF%87%E3%80%91protoc%E5%88%B0%E5%BA%95%E5%B9%B2%E4%BA%86%E5%95%A5/</url>
+    <url>/2020/04/22/go-micro-2-protoc-task/</url>
     <content><![CDATA[<p>本篇文章主要介绍上一篇文章中利用protoc命令生成proto文件对应的另外两个文件的过程，<br>并简单介绍在实际业务中如何使用这两个文件。</p>
 <a id="more"></a>
 
@@ -181,7 +209,7 @@ server端api主要要创建一个服务，然后针对于这个服务提供handl
   </entry>
   <entry>
     <title>【微服务Go-micro第一篇】环境配置</title>
-    <url>/2020/04/22/%E3%80%90%E5%BE%AE%E6%9C%8D%E5%8A%A1Go-micro%E7%AC%AC%E4%B8%80%E7%AF%87%E3%80%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
+    <url>/2020/04/22/go-micro-1-build-environment/</url>
     <content><![CDATA[<p>go-micro 是一个基于Go语言的分布式框架，可以用来对外提供微服务。<br>本篇文章介绍如何在linux系统下进行环境配置，并写好自己的第一个helloworld程序。</p>
 <a id="more"></a>
 
@@ -2742,8 +2770,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -2804,8 +2832,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -2831,8 +2859,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -2878,8 +2906,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>

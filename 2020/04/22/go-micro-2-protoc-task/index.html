@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Kingwen's blog" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="本篇文章主要介绍上一篇文章中利用protoc命令生成proto文件对应的另外两个文件的过程，并简单介绍在实际业务中如何使用这两个文件。">
+<meta name="keywords" content="go-micro,protoc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【微服务Go-micro第二篇】protoc到底干了啥">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;22&#x2F;go-micro-2-protoc-task&#x2F;index.html">
+<meta property="og:site_name" content="Kingwen&#39;s blog">
+<meta property="og:description" content="本篇文章主要介绍上一篇文章中利用protoc命令生成proto文件对应的另外两个文件的过程，并简单介绍在实际业务中如何使用这两个文件。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-22T13:49:59.214Z">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="http://yoursite.com/2020/04/22/go-micro-2-protoc-task/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>【微服务Go-micro第二篇】protoc到底干了啥 | Kingwen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kingwen's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">没有输出的输入是不完整的</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources" rel="section"><i class="fa fa-fw fa-folder"></i>资源</a>
+
+  </li>
+        <li class="menu-item menu-item-talk">
+
+    <a href="/talk" rel="section"><i class="fa fa-fw fa-envelope"></i>呓语</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/22/go-micro-2-protoc-task/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【微服务Go-micro第二篇】protoc到底干了啥
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-22 21:41:41 / 修改时间：21:49:59" itemprop="dateCreated datePublished" datetime="2020-04-22T21:41:41+08:00">2020-04-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">微服务</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>15 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇文章主要介绍上一篇文章中利用protoc命令生成proto文件对应的另外两个文件的过程，<br>并简单介绍在实际业务中如何使用这两个文件。</p>
+<a id="more"></a>
+
+<h1 id="先说结论"><a href="#先说结论" class="headerlink" title="先说结论"></a>先说结论</h1><p>上一节我们通过下面的命令使得 user.proto</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc --proto_path=. --micro_out=. --go_out=. proto/greeter.proto</span><br></pre></td></tr></table></figure>
+<p>生成了如下两个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user.pb.go  user.pb.micro.go</span><br></pre></td></tr></table></figure>
+<p>我们现在可以解释为什么会出现这种情况啦。</p>
+<ol>
+<li><a href="https://github.com/protocolbuffers/protobuf" target="_blank" rel="noopener">protoc</a>是一个代码生成的工具，它其实可以生成多种语言对应的文件,包括但是不限于c++,java,js,python,c#,当然也包括Go。</li>
+<li>可以根据命令的参数格式发现–go_out实际上就是将生成的go语言的文件放到当前目录。然后–micro_out就是将生成的微服务的文件放到当前目录，所以就生成了上面的两个文件。</li>
+<li>具体是怎么生成的呢？先说生成的go文件，这个文件我看了一下其实主要就是对于proto文件中的message进行编写。因为这个message将会是之后服务器和客户端进行通信的对象结构，所以有一些通用的方法，比如结构体定义，string方法等，在后面微服务的时候可以调用它。再说生成的micro文件，这个文件会针对于service中rpc的定义进行展开。会提供客户端和服务器端对应的api。</li>
+<li>先说服务器端api的调用和对应api的使用。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">type UserHandler interface &#123;</span><br><span class="line">        RegisterUser(context.Context, *RegisterUserReq, *RegisterUserRsp) error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func RegisterUserHandler(s server.Server, hdlr UserHandler, opts ...server.HandlerOption) error &#123;</span><br><span class="line">        type user interface &#123;</span><br><span class="line">                RegisterUser(ctx context.Context, in *RegisterUserReq, out *RegisterUserRsp) error</span><br><span class="line">        &#125;</span><br><span class="line">        type User struct &#123;</span><br><span class="line">                user</span><br><span class="line">        &#125;</span><br><span class="line">        h := &amp;userHandler&#123;hdlr&#125;</span><br><span class="line">        return s.Handle(s.NewHandler(&amp;User&#123;h&#125;, opts...))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type userHandler struct &#123;</span><br><span class="line">        UserHandler</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (h *userHandler) RegisterUser(ctx context.Context, in *RegisterUserReq, out *RegisterUserRsp) error &#123;</span><br><span class="line">        return h.UserHandler.RegisterUser(ctx, in, out)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+server端api主要要创建一个服务，然后针对于这个服务提供handler方法，对应的handler要实现接口RegisterUser中的方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">type User struct&#123;&#125;</span><br><span class="line"></span><br><span class="line">func(user *User)  RegisterUser(ctx context.Context, req  *proto.RegisterUserReq,  rsp *proto.RegisterUserRsp) (error)&#123;</span><br><span class="line">        rsp.Status =&quot;ok&quot;+req.Name</span><br><span class="line">        return nil</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//创建服务</span><br><span class="line">service := micro.NewService(</span><br><span class="line">                micro.Name(&quot;user&quot;),</span><br><span class="line">        )</span><br><span class="line">proto.RegisterUserHandler(service.Server(), new(User))</span><br></pre></td></tr></table></figure>
+更详细的代码可以查看后面的main.go</li>
+<li>再说客户端的api和对应api的使用<br>生成的客户端的api如下所示<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">type UserService interface &#123;</span><br><span class="line">        RegisterUser(ctx context.Context, in *RegisterUserReq, opts ...client.CallOption) (*RegisterUserRsp, error)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type userService struct &#123;</span><br><span class="line">        c    client.Client</span><br><span class="line">        name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewUserService(name string, c client.Client) UserService&#123;```&#125;</span><br><span class="line"></span><br><span class="line">func (c *userService) RegisterUser(ctx context.Context, in *RegisterUserReq, opts ...client.CallOption) (*RegisterUserRsp, error) &#123;···&#125;</span><br></pre></td></tr></table></figure>
+所以在我们使用的时候，要首先通过NewUserService得到对应的service,然后调用RegisterUser方法来得到请求结果。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">userService := proto.NewUserService(&quot;user&quot;, service.Client())</span><br><span class="line"></span><br><span class="line">// Call the userregister</span><br><span class="line">rsp, err := userService.RegisterUser(context.TODO(), &amp;proto.RegisterUserReq&#123;Name: &quot;John&quot;&#125;)</span><br></pre></td></tr></table></figure>
+更加详细的代码可以参见后面client.go中的代码。</li>
+</ol>
+<h1 id="具体代码"><a href="#具体代码" class="headerlink" title="具体代码"></a>具体代码</h1><h2 id="1-user-proto"><a href="#1-user-proto" class="headerlink" title="1.  user.proto"></a>1.  user.proto</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">service user&#123;</span><br><span class="line">        rpc RegisterUser(RegisterUserReq) returns (RegisterUserRsp)&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message RegisterUserReq&#123;</span><br><span class="line">        string name = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message RegisterUserRsp&#123;</span><br><span class="line">        string status = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-user-pb-go"><a href="#2-user-pb-go" class="headerlink" title="2. user.pb.go"></a>2. user.pb.go</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br></pre></td><td class="code"><pre><span class="line">// Code generated by protoc-gen-go. DO NOT EDIT.</span><br><span class="line">// versions:</span><br><span class="line">//      protoc-gen-go v1.21.0</span><br><span class="line">//      protoc        v3.11.4</span><br><span class="line">// source: proto/user.proto</span><br><span class="line"></span><br><span class="line">package user</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">        proto &quot;github.com/golang/protobuf/proto&quot;</span><br><span class="line">        protoreflect &quot;google.golang.org/protobuf/reflect/protoreflect&quot;</span><br><span class="line">        protoimpl &quot;google.golang.org/protobuf/runtime/protoimpl&quot;</span><br><span class="line">        reflect &quot;reflect&quot;</span><br><span class="line">        sync &quot;sync&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">const (</span><br><span class="line">        // Verify that this generated code is sufficiently up-to-date.</span><br><span class="line">        _ = protoimpl.EnforceVersion(20 - protoimpl.MinVersion)</span><br><span class="line">        // Verify that runtime/protoimpl is sufficiently up-to-date.</span><br><span class="line">        _ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">// This is a compile-time assertion that a sufficiently up-to-date version</span><br><span class="line">// of the legacy proto package is being used.</span><br><span class="line">const _ = proto.ProtoPackageIsVersion4</span><br><span class="line"></span><br><span class="line">type RegisterUserReq struct &#123;</span><br><span class="line">        state         protoimpl.MessageState</span><br><span class="line">        sizeCache     protoimpl.SizeCache</span><br><span class="line">        unknownFields protoimpl.UnknownFields</span><br><span class="line"></span><br><span class="line">        Name string `protobuf:&quot;bytes,1,opt,name=name,proto3&quot; json:&quot;name,omitempty&quot;`</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (x *RegisterUserReq) Reset() &#123;</span><br><span class="line">        *x = RegisterUserReq&#123;&#125;</span><br><span class="line">        if protoimpl.UnsafeEnabled &#123;</span><br><span class="line">                mi := &amp;file_proto_user_proto_msgTypes[0]</span><br><span class="line">                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))</span><br><span class="line">                ms.StoreMessageInfo(mi)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (x *RegisterUserReq) String() string &#123;</span><br><span class="line">        return protoimpl.X.MessageStringOf(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (*RegisterUserReq) ProtoMessage() &#123;&#125;</span><br><span class="line"></span><br><span class="line">func (x *RegisterUserReq) ProtoReflect() protoreflect.Message &#123;</span><br><span class="line">        mi := &amp;file_proto_user_proto_msgTypes[0]</span><br><span class="line">        if protoimpl.UnsafeEnabled &amp;&amp; x != nil &#123;</span><br><span class="line">                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))</span><br><span class="line">                if ms.LoadMessageInfo() == nil &#123;</span><br><span class="line">                        ms.StoreMessageInfo(mi)</span><br><span class="line">                &#125;</span><br><span class="line">                return ms</span><br><span class="line">        &#125;</span><br><span class="line">        return mi.MessageOf(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Deprecated: Use RegisterUserReq.ProtoReflect.Descriptor instead.</span><br><span class="line">func (*RegisterUserReq) Descriptor() ([]byte, []int) &#123;</span><br><span class="line">        return file_proto_user_proto_rawDescGZIP(), []int&#123;0&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (x *RegisterUserReq) GetName() string &#123;</span><br><span class="line">        if x != nil &#123;</span><br><span class="line">                return x.Name</span><br><span class="line">        &#125;</span><br><span class="line">        return &quot;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type RegisterUserRsp struct &#123;</span><br><span class="line">        state         protoimpl.MessageState</span><br><span class="line">        sizeCache     protoimpl.SizeCache</span><br><span class="line">        unknownFields protoimpl.UnknownFields</span><br><span class="line"></span><br><span class="line">        Status string `protobuf:&quot;bytes,1,opt,name=status,proto3&quot; json:&quot;status,omitempty&quot;`</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (x *RegisterUserRsp) Reset() &#123;</span><br><span class="line">        *x = RegisterUserRsp&#123;&#125;</span><br><span class="line">        if protoimpl.UnsafeEnabled &#123;</span><br><span class="line">                mi := &amp;file_proto_user_proto_msgTypes[1]</span><br><span class="line">                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))</span><br><span class="line">                ms.StoreMessageInfo(mi)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (x *RegisterUserRsp) String() string &#123;</span><br><span class="line">        return protoimpl.X.MessageStringOf(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (*RegisterUserRsp) ProtoMessage() &#123;&#125;</span><br><span class="line"></span><br><span class="line">func (x *RegisterUserRsp) ProtoReflect() protoreflect.Message &#123;</span><br><span class="line">        mi := &amp;file_proto_user_proto_msgTypes[1]</span><br><span class="line">        if protoimpl.UnsafeEnabled &amp;&amp; x != nil &#123;</span><br><span class="line">                ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))</span><br><span class="line">                if ms.LoadMessageInfo() == nil &#123;</span><br><span class="line">                        ms.StoreMessageInfo(mi)</span><br><span class="line">                &#125;</span><br><span class="line">                return ms</span><br><span class="line">        &#125;</span><br><span class="line">        return mi.MessageOf(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Deprecated: Use RegisterUserRsp.ProtoReflect.Descriptor instead.</span><br><span class="line">func (*RegisterUserRsp) Descriptor() ([]byte, []int) &#123;</span><br><span class="line">        return file_proto_user_proto_rawDescGZIP(), []int&#123;1&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (x *RegisterUserRsp) GetStatus() string &#123;</span><br><span class="line">        if x != nil &#123;</span><br><span class="line">                return x.Status</span><br><span class="line">        &#125;</span><br><span class="line">        return &quot;&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var File_proto_user_proto protoreflect.FileDescriptor</span><br><span class="line"></span><br><span class="line">var file_proto_user_proto_rawDesc = []byte&#123;</span><br><span class="line">        0x0a, 0x10, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f,</span><br><span class="line">        0x74, 0x6f, 0x22, 0x25, 0x0a, 0x0f, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73,</span><br><span class="line">        0x65, 0x72, 0x52, 0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20,</span><br><span class="line">        0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x29, 0x0a, 0x0f, 0x52, 0x65, 0x67,</span><br><span class="line">        0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x52, 0x73, 0x70, 0x12, 0x16, 0x0a, 0x06,</span><br><span class="line">        0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x74,</span><br><span class="line">         0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x52, 0x73, 0x70, 0x12, 0x16, 0x0a, 0x06,</span><br><span class="line">        0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x74,</span><br><span class="line">        0x61, 0x74, 0x75, 0x73, 0x32, 0x3c, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x12, 0x34, 0x0a, 0x0c,</span><br><span class="line">        0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x12, 0x10, 0x2e, 0x52,</span><br><span class="line">        0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x10,</span><br><span class="line">        0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x52, 0x73, 0x70,</span><br><span class="line">        0x22, 0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var (</span><br><span class="line">        file_proto_user_proto_rawDescOnce sync.Once</span><br><span class="line">        file_proto_user_proto_rawDescData = file_proto_user_proto_rawDesc</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func file_proto_user_proto_rawDescGZIP() []byte &#123;</span><br><span class="line">        file_proto_user_proto_rawDescOnce.Do(func() &#123;</span><br><span class="line">                file_proto_user_proto_rawDescData = protoimpl.X.CompressGZIP(file_proto_user_proto_rawDescData)</span><br><span class="line">        &#125;)</span><br><span class="line">        return file_proto_user_proto_rawDescData</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var file_proto_user_proto_msgTypes = make([]protoimpl.MessageInfo, 2)</span><br><span class="line">var file_proto_user_proto_goTypes = []interface&#123;&#125;&#123;</span><br><span class="line">        (*RegisterUserReq)(nil), // 0: RegisterUserReq</span><br><span class="line">        (*RegisterUserRsp)(nil), // 1: RegisterUserRsp</span><br><span class="line">&#125;</span><br><span class="line">var file_proto_user_proto_depIdxs = []int32&#123;</span><br><span class="line">        0, // 0: user.RegisterUser:input_type -&gt; RegisterUserReq</span><br><span class="line">        1, // 1: user.RegisterUser:output_type -&gt; RegisterUserRsp</span><br><span class="line">        1, // [1:2] is the sub-list for method output_type</span><br><span class="line">        0, // [0:1] is the sub-list for method input_type</span><br><span class="line">        0, // [0:0] is the sub-list for extension type_name</span><br><span class="line">        0, // [0:0] is the sub-list for extension extendee</span><br><span class="line">        0, // [0:0] is the sub-list for field type_name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func init() &#123; file_proto_user_proto_init() &#125;</span><br><span class="line">func file_proto_user_proto_init() &#123;</span><br><span class="line">        if File_proto_user_proto != nil &#123;</span><br><span class="line">                return</span><br><span class="line">        &#125;</span><br><span class="line">        if !protoimpl.UnsafeEnabled &#123;</span><br><span class="line">                file_proto_user_proto_msgTypes[0].Exporter = func(v interface&#123;&#125;, i int) interface&#123;&#125; &#123;</span><br><span class="line">                        switch v := v.(*RegisterUserReq); i &#123;</span><br><span class="line">                        case 0:</span><br><span class="line">                                return &amp;v.state</span><br><span class="line">                        case 1:</span><br><span class="line">                                return &amp;v.sizeCache</span><br><span class="line">                        case 2:</span><br><span class="line">                                return &amp;v.unknownFields</span><br><span class="line">                        default:</span><br><span class="line">                                return nil</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                file_proto_user_proto_msgTypes[1].Exporter = func(v interface&#123;&#125;, i int) interface&#123;&#125; &#123;</span><br><span class="line">                        switch v := v.(*RegisterUserRsp); i &#123;</span><br><span class="line">                        case 0:</span><br><span class="line">                                return &amp;v.state</span><br><span class="line">                        case 1:</span><br><span class="line">                                return &amp;v.sizeCache</span><br><span class="line">                        case 2:</span><br><span class="line">                                return &amp;v.unknownFields</span><br><span class="line">                        default:</span><br><span class="line">                                return nil</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                                       &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        type x struct&#123;&#125;</span><br><span class="line">        out := protoimpl.TypeBuilder&#123;</span><br><span class="line">                File: protoimpl.DescBuilder&#123;</span><br><span class="line">                        GoPackagePath: reflect.TypeOf(x&#123;&#125;).PkgPath(),</span><br><span class="line">                        RawDescriptor: file_proto_user_proto_rawDesc,</span><br><span class="line">                        NumEnums:      0,</span><br><span class="line">                        NumMessages:   2,</span><br><span class="line">                        NumExtensions: 0,</span><br><span class="line">                        NumServices:   1,</span><br><span class="line">                &#125;,</span><br><span class="line">                GoTypes:           file_proto_user_proto_goTypes,</span><br><span class="line">                DependencyIndexes: file_proto_user_proto_depIdxs,</span><br><span class="line">                MessageInfos:      file_proto_user_proto_msgTypes,</span><br><span class="line">        &#125;.Build()</span><br><span class="line">        File_proto_user_proto = out.File</span><br><span class="line">        file_proto_user_proto_rawDesc = nil</span><br><span class="line">        file_proto_user_proto_goTypes = nil</span><br><span class="line">        file_proto_user_proto_depIdxs = nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-user-pb-micro-go"><a href="#3-user-pb-micro-go" class="headerlink" title="3. user.pb.micro.go"></a>3. user.pb.micro.go</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">// Code generated by protoc-gen-micro. DO NOT EDIT.</span><br><span class="line">// source: proto/user.proto</span><br><span class="line"></span><br><span class="line">package user</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">        fmt &quot;fmt&quot;</span><br><span class="line">        proto &quot;github.com/golang/protobuf/proto&quot;</span><br><span class="line">        math &quot;math&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">        context &quot;context&quot;</span><br><span class="line">        api &quot;github.com/micro/go-micro/v2/api&quot;</span><br><span class="line">        client &quot;github.com/micro/go-micro/v2/client&quot;</span><br><span class="line">        server &quot;github.com/micro/go-micro/v2/server&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">// Reference imports to suppress errors if they are not otherwise used.</span><br><span class="line">var _ = proto.Marshal</span><br><span class="line">var _ = fmt.Errorf</span><br><span class="line">var _ = math.Inf</span><br><span class="line"></span><br><span class="line">// This is a compile-time assertion to ensure that this generated file</span><br><span class="line">// is compatible with the proto package it is being compiled against.</span><br><span class="line">// A compilation error at this line likely means your copy of the</span><br><span class="line">// proto package needs to be updated.</span><br><span class="line">const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package</span><br><span class="line"></span><br><span class="line">// Reference imports to suppress errors if they are not otherwise used.</span><br><span class="line">var _ api.Endpoint</span><br><span class="line">var _ context.Context</span><br><span class="line">var _ client.Option</span><br><span class="line">var _ server.Option</span><br><span class="line"></span><br><span class="line">// Api Endpoints for User service</span><br><span class="line"></span><br><span class="line">func NewUserEndpoints() []*api.Endpoint &#123;</span><br><span class="line">        return []*api.Endpoint&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Client API for User service</span><br><span class="line"></span><br><span class="line">type UserService interface &#123;</span><br><span class="line">        RegisterUser(ctx context.Context, in *RegisterUserReq, opts ...client.CallOption) (*RegisterUserRsp, error)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type userService struct &#123;</span><br><span class="line">        c    client.Client</span><br><span class="line">        name string</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewUserService(name string, c client.Client) UserService &#123;</span><br><span class="line">        return &amp;userService&#123;</span><br><span class="line">                c:    c,</span><br><span class="line">                name: name,</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (c *userService) RegisterUser(ctx context.Context, in *RegisterUserReq, opts ...client.CallOption) (*RegisterUserRsp, error) &#123;</span><br><span class="line">        req := c.c.NewRequest(c.name, &quot;User.RegisterUser&quot;, in)</span><br><span class="line">        out := new(RegisterUserRsp)</span><br><span class="line">        err := c.c.Call(ctx, req, out, opts...)</span><br><span class="line">        if err != nil &#123;</span><br><span class="line">                return nil, err</span><br><span class="line">        &#125;</span><br><span class="line">                        return nil, err</span><br><span class="line">        &#125;</span><br><span class="line">        return out, nil</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Server API for User service</span><br><span class="line"></span><br><span class="line">type UserHandler interface &#123;</span><br><span class="line">        RegisterUser(context.Context, *RegisterUserReq, *RegisterUserRsp) error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func RegisterUserHandler(s server.Server, hdlr UserHandler, opts ...server.HandlerOption) error &#123;</span><br><span class="line">        type user interface &#123;</span><br><span class="line">                RegisterUser(ctx context.Context, in *RegisterUserReq, out *RegisterUserRsp) error</span><br><span class="line">        &#125;</span><br><span class="line">        type User struct &#123;</span><br><span class="line">                user</span><br><span class="line">        &#125;</span><br><span class="line">        h := &amp;userHandler&#123;hdlr&#125;</span><br><span class="line">        return s.Handle(s.NewHandler(&amp;User&#123;h&#125;, opts...))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type userHandler struct &#123;</span><br><span class="line">        UserHandler</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (h *userHandler) RegisterUser(ctx context.Context, in *RegisterUserReq, out *RegisterUserRsp) error &#123;</span><br><span class="line">        return h.UserHandler.RegisterUser(ctx, in, out)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-main-go"><a href="#4-main-go" class="headerlink" title="4. main.go"></a>4. main.go</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import(</span><br><span class="line">        &quot;context&quot;</span><br><span class="line">        micro &quot;github.com/micro/go-micro/v2&quot;</span><br><span class="line">        proto &quot;datatown/proto&quot;</span><br><span class="line">        &quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">type User struct&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func(user *User)  RegisterUser(ctx context.Context, req  *proto.RegisterUserReq,  rsp *proto.RegisterUserRsp) (error)&#123;</span><br><span class="line">        rsp.Status =&quot;ok&quot;+req.Name</span><br><span class="line">        return nil</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">        // Create a new service. Optionally include some options here.</span><br><span class="line">        service := micro.NewService(</span><br><span class="line">                micro.Name(&quot;user&quot;),</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        // Init will parse the command line flags.</span><br><span class="line">        service.Init()</span><br><span class="line"></span><br><span class="line">        // Register handler</span><br><span class="line">        proto.RegisterUserHandler(service.Server(), new(User))</span><br><span class="line"></span><br><span class="line">        // Run the server</span><br><span class="line">        if err := service.Run(); err != nil &#123;</span><br><span class="line">                fmt.Println(err)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-client-go"><a href="#5-client-go" class="headerlink" title="5. client.go"></a>5. client.go</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import(</span><br><span class="line">        &quot;fmt&quot;</span><br><span class="line">        &quot;context&quot;</span><br><span class="line">        micro &quot;github.com/micro/go-micro/v2&quot;</span><br><span class="line">        proto &quot;datatown/proto&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">        // Create a new service</span><br><span class="line">        service := micro.NewService(micro.Name(&quot;user.client&quot;))</span><br><span class="line">        // Initialise the client and parse command line flags</span><br><span class="line">        service.Init()</span><br><span class="line"></span><br><span class="line">        // Create new user service  client</span><br><span class="line">        userService := proto.NewUserService(&quot;user&quot;, service.Client())</span><br><span class="line"></span><br><span class="line">        // Call the userregister</span><br><span class="line">        rsp, err := userService.RegisterUser(context.TODO(), &amp;proto.RegisterUserReq&#123;Name: &quot;John&quot;&#125;)</span><br><span class="line">        if err != nil &#123;</span><br><span class="line">                fmt.Println(err)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // Print response</span><br><span class="line">        fmt.Println(rsp.Status)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/go-micro/" rel="tag"># go-micro</a>
+              <a href="/tags/protoc/" rel="tag"># protoc</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2020/04/22/go-micro-1-build-environment/" rel="next" title="【微服务Go-micro第一篇】环境配置">
+                  <i class="fa fa-chevron-left"></i> 【微服务Go-micro第一篇】环境配置
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2020/04/23/go-micro-3-concept-interpretation/" rel="prev" title="【微服务Go-micro第三篇】相关概念解释">
+                  【微服务Go-micro第三篇】相关概念解释 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#先说结论"><span class="nav-number">1.</span> <span class="nav-text">先说结论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体代码"><span class="nav-number">2.</span> <span class="nav-text">具体代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-user-proto"><span class="nav-number">2.1.</span> <span class="nav-text">1.  user.proto</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-user-pb-go"><span class="nav-number">2.2.</span> <span class="nav-text">2. user.pb.go</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-user-pb-micro-go"><span class="nav-number">2.3.</span> <span class="nav-text">3. user.pb.micro.go</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-main-go"><span class="nav-number">2.4.</span> <span class="nav-text">4. main.go</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-client-go"><span class="nav-number">2.5.</span> <span class="nav-text">5. client.go</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="李庆文"
+    src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">李庆文</p>
+  <div class="site-description" itemprop="description">热爱生活，享受生活。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">81</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/aweng126" title="GitHub &rarr; https://github.com/aweng126" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kingwensli@gmail.com" title="E-Mail &rarr; mailto:kingwensli@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李庆文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">186k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:27</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        本站访客共计<span id="busuanzi_value_site_uv"></span>人
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
+<script src="/js/schemes/pisces.js?v=7.4.1"></script>
+<script src="/js/next-boot.js?v=7.4.1"></script>
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
