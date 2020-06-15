@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>docker-4-install-vim-in-container</title>
+    <url>/2020/06/15/docker-4-install-vim-in-container/</url>
+    <content><![CDATA[<p>本篇文章将会介绍在container中安装vim编辑器。<br>需要注意在正式开发时要通过dockerfile来进行所有环境的设置。</p>
+<a id="more"></a>
+<p>在有些容器中使用vim命令的时候，会提示如下错误。</p>
+<blockquote>
+<p>vim: command not found</p>
+</blockquote>
+<p>说明容器中没有安装vim.<br>我们可以通过如下命令进行安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure>
+<p>如果安装的时候报错，报错信息如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">E: Unable to locate package vim</span><br></pre></td></tr></table></figure>
+<p>可以通过如下命令来解决</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>vim</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker提升-实现原理</title>
     <url>/2020/06/15/docker-3-principle/</url>
     <content><![CDATA[<p>docker镜像是一个特殊的文件系统。<br>本篇文章将介绍如何docker镜像的层级结构，同时学习如何查看中间层镜像。</p>
@@ -2929,8 +2952,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2991,8 +3014,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -3018,8 +3041,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -3065,8 +3088,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>

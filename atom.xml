@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-06-15T07:16:39.901Z</updated>
+  <updated>2020-06-15T07:43:00.265Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>docker-4-install-vim-in-container</title>
+    <link href="http://yoursite.com/2020/06/15/docker-4-install-vim-in-container/"/>
+    <id>http://yoursite.com/2020/06/15/docker-4-install-vim-in-container/</id>
+    <published>2020-06-15T07:40:03.000Z</published>
+    <updated>2020-06-15T07:43:00.265Z</updated>
+    
+    <content type="html"><![CDATA[<p>本篇文章将会介绍在container中安装vim编辑器。<br>需要注意在正式开发时要通过dockerfile来进行所有环境的设置。</p><a id="more"></a><p>在有些容器中使用vim命令的时候，会提示如下错误。</p><blockquote><p>vim: command not found</p></blockquote><p>说明容器中没有安装vim.<br>我们可以通过如下命令进行安装</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure><p>如果安装的时候报错，报错信息如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">E: Unable to locate package vim</span><br></pre></td></tr></table></figure><p>可以通过如下命令来解决</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇文章将会介绍在container中安装vim编辑器。&lt;br&gt;需要注意在正式开发时要通过dockerfile来进行所有环境的设置。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="docker" scheme="http://yoursite.com/categories/docker/"/>
+    
+    
+      <category term="docker" scheme="http://yoursite.com/tags/docker/"/>
+    
+      <category term="vim" scheme="http://yoursite.com/tags/vim/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker提升-实现原理</title>
@@ -502,33 +527,6 @@
       <category term="STL" scheme="http://yoursite.com/tags/STL/"/>
     
       <category term="List" scheme="http://yoursite.com/tags/List/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>deque的简单使用</title>
-    <link href="http://yoursite.com/2020/02/06/deque%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"/>
-    <id>http://yoursite.com/2020/02/06/deque的简单使用/</id>
-    <published>2020-02-06T05:41:30.000Z</published>
-    <updated>2020-02-06T07:36:15.247Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为c++容器系列第二篇.<br>主要测试了deque相关的方法，主要作为代码备份方便之后遗忘时查询。</p><a id="more"></a><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;deque&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template &lt;class T&gt;</span><br><span class="line">void printContainer(const char * msg,const T&amp; s)&#123;</span><br><span class="line">    cout&lt;&lt;msg&lt;&lt;&apos;\t&apos;;</span><br><span class="line">    copy(s.begin(),s.end(),ostream_iterator&lt;int&gt;(cout, &quot; &quot;));</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    //三种声明方式</span><br><span class="line">    deque&lt;int&gt; s=&#123;1,2,3,4&#125;;</span><br><span class="line">    deque&lt;int&gt; s1&#123;1,2,3,4&#125;;</span><br><span class="line">    deque&lt;int&gt; s2(s.begin(),s.end()-1);</span><br><span class="line"></span><br><span class="line">    printContainer(&quot;deque s&quot;,s);</span><br><span class="line">    printContainer(&quot;deque s1&quot;,s1);</span><br><span class="line">    printContainer(&quot;deque s2 &quot;,s2);</span><br><span class="line">    </span><br><span class="line">    //两种获取对应位置元素的方式</span><br><span class="line">    cout&lt;&lt;&quot;s[0] &quot;&lt;&lt;s[0]&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;a.at[0] &quot;&lt;&lt;s.at(0)&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    //打印出全部的元素</span><br><span class="line">    cout&lt;&lt;&quot;print all elements &quot;&lt;&lt;endl;</span><br><span class="line">    for(auto i:s)&#123;</span><br><span class="line">        cout&lt;&lt;i&lt;&lt;&apos;\t&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;&quot;\n&quot;;</span><br><span class="line">    </span><br><span class="line">    cout&lt;&lt;&quot;print all elements by iteror&quot;&lt;&lt;endl;</span><br><span class="line">    auto siter = s.begin();</span><br><span class="line">    while(siter!=s.end())&#123;</span><br><span class="line">        cout&lt;&lt;*siter&lt;&lt;&apos;\t&apos;;</span><br><span class="line">        siter++;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;&quot;s.front() &quot;&lt;&lt;s.front()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;s.back() &quot;&lt;&lt;s.back()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;&quot;s.begin() &quot;&lt;&lt;*s.begin()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;s.end()-s.begin() &quot;&lt;&lt;s.end()-s.begin()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    cout&lt;&lt;&quot;s.empty() &quot;&lt;&lt;s.empty()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;s.size() &quot;&lt;&lt;s.size()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;s.max_size() &quot;&lt;&lt;s.max_size()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    //s.clear();</span><br><span class="line">    //cout&lt;&lt;&quot;after clear s.empty() &quot;&lt;&lt;s.empty()&lt;&lt;endl;  // 1</span><br><span class="line"></span><br><span class="line">    s.push_front(5);</span><br><span class="line">    printContainer(&quot;after push front 5: &quot;,s);</span><br><span class="line">    s.pop_front();</span><br><span class="line">    printContainer(&quot;after pop front: &quot;,s);</span><br><span class="line"></span><br><span class="line">    s.push_back(5);</span><br><span class="line">    printContainer(&quot;after push back5: &quot;,s);</span><br><span class="line">    s.pop_back();</span><br><span class="line">    printContainer(&quot;after pop back: &quot;,s);</span><br><span class="line"></span><br><span class="line">    s.emplace(s.begin()+2,5);</span><br><span class="line">    printContainer(&quot;emplace begin+2 &quot;,s);</span><br><span class="line"></span><br><span class="line">    s.emplace_back(6);</span><br><span class="line">    printContainer(&quot;emplace back&quot;,s);</span><br><span class="line"></span><br><span class="line">    s.erase(s.begin()+2);</span><br><span class="line">    printContainer(&quot;erase begin+2&quot;,s);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //用列表容器1的内容给s赋值，将s输出</span><br><span class="line">    reverse(s.begin(),s.end());</span><br><span class="line">    printContainer(&quot;deque l by assign:&quot;,s);</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">/* 运行结果</span><br><span class="line"> deque s    1 2 3 4</span><br><span class="line"> deque s1    1 2 3 4</span><br><span class="line"> deque s2     1 2 3</span><br><span class="line"> s[0] 1</span><br><span class="line"> a.at[0] 1</span><br><span class="line"> print all elements</span><br><span class="line"> 1    2    3    4</span><br><span class="line"> print all elements by iteror</span><br><span class="line"> 1    2    3    4</span><br><span class="line"> s.front() 1</span><br><span class="line"> s.back() 4</span><br><span class="line"> s.begin() 1</span><br><span class="line"> s.end()-s.begin() 4</span><br><span class="line"> s.empty() 0</span><br><span class="line"> s.size() 4</span><br><span class="line"> s.max_size() 4611686018427387903</span><br><span class="line"> after push front 5:     5 1 2 3 4</span><br><span class="line"> after pop front:     1 2 3 4</span><br><span class="line"> after push back5:     1 2 3 4 5</span><br><span class="line"> after pop back:     1 2 3 4</span><br><span class="line"> emplace begin+2     1 2 5 3 4</span><br><span class="line"> emplace back    1 2 5 3 4 6</span><br><span class="line"> erase begin+2    1 2 3 4 6</span><br><span class="line"> deque l by assign:    6 4 3 2 1</span><br><span class="line"> Program ended with exit code: 0</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为c++容器系列第二篇.&lt;br&gt;主要测试了deque相关的方法，主要作为代码备份方便之后遗忘时查询。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="C++基础" scheme="http://yoursite.com/categories/C-%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="C++" scheme="http://yoursite.com/tags/C/"/>
-    
-      <category term="STL" scheme="http://yoursite.com/tags/STL/"/>
-    
-      <category term="Deque" scheme="http://yoursite.com/tags/Deque/"/>
     
   </entry>
   
