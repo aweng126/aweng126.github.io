@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>docker-4-install-vim-in-container</title>
+    <title>Docker-容器内安装vim编辑器</title>
     <url>/2020/06/15/docker-4-install-vim-in-container/</url>
     <content><![CDATA[<p>本篇文章将会介绍在container中安装vim编辑器。<br>需要注意在正式开发时要通过dockerfile来进行所有环境的设置。</p>
 <a id="more"></a>
@@ -68,9 +68,10 @@
 
 <h2 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker build -t kuakua:latest .</span><br><span class="line"> -t 设置镜像名称和标签，如果标签没有设定，默认是latest</span><br><span class="line"> .  在当前目录寻找Dockerfile进行镜像打包。</span><br></pre></td></tr></table></figure>
 <h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> docker run -d -p 5001:5000 --name kuakua -v /Users/liqingwen/workplace/temp/kuakua/log:/log kuakua:latest</span><br><span class="line"></span><br><span class="line">// 详细解释</span><br><span class="line">-d  表示以守护进程的形式进行执行，后台运行</span><br><span class="line">-p 5001:5000 将容器的5000端口映射到宿主机的5001端口</span><br><span class="line">--name kuakua 将当前容器命名为kuakua</span><br><span class="line">-v bind mount a volumn 将容器的log目录和本地的/Users/liqingwen/workplace/temp/kuakua/log做一个映射。如果容器端log目录下有内容更新，则本地的log目录也会同步更新。</span><br><span class="line">kuakua:latest 镜像名称</span><br></pre></td></tr></table></figure>
-<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p>本项目完整代码已经在github开源，项目地址<a href="https://github.com/aweng126/TestProject/tree/master/kuakua" target="_blank" rel="noopener">夸夸机器人</a></p>
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p>本项目完整代码已经在github开源，项目地址<a href="https://github.com/aweng126/TestProject/tree/master/kuakua" target="_blank" rel="noopener">夸夸机器人</a>,欢迎大家去尝试一下。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener">dockerfile 官方参考文档</a></li>
+<li><a href="https://runnable.com/docker/python/dockerize-your-flask-application" target="_blank" rel="noopener">Dockerize your Flask Application</a></li>
 </ol>
 ]]></content>
       <categories>
