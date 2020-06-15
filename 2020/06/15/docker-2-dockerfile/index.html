@@ -59,7 +59,7 @@
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="在实际开发中完全使用他人构造好的镜像是不现实的。所以本篇文章我们将会学习Dockerfile的知识，从而学习如何构造符合项目要求的镜像。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-15T07:04:26.016Z">
+<meta property="og:updated_time" content="2020-06-15T07:58:55.228Z">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="http://yoursite.com/2020/06/15/docker-2-dockerfile/">
 
@@ -246,7 +246,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-06-15 14:55:13 / 修改时间：15:04:26" itemprop="dateCreated datePublished" datetime="2020-06-15T14:55:13+08:00">2020-06-15</time>
+              <time title="创建时间：2020-06-15 14:55:13 / 修改时间：15:58:55" itemprop="dateCreated datePublished" datetime="2020-06-15T14:55:13+08:00">2020-06-15</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -300,7 +300,7 @@
 
 <h2 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker build -t kuakua:latest .</span><br><span class="line"> -t 设置镜像名称和标签，如果标签没有设定，默认是latest</span><br><span class="line"> .  在当前目录寻找Dockerfile进行镜像打包。</span><br></pre></td></tr></table></figure>
 <h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> docker run -d -p 5001:5000 --name kuakua -v /Users/liqingwen/workplace/temp/kuakua/log:/log kuakua:latest</span><br><span class="line"></span><br><span class="line">// 详细解释</span><br><span class="line">-d  表示以守护进程的形式进行执行，后台运行</span><br><span class="line">-p 5001:5000 将容器的5000端口映射到宿主机的5001端口</span><br><span class="line">--name kuakua 将当前容器命名为kuakua</span><br><span class="line">-v bind mount a volumn 将容器的log目录和本地的/Users/liqingwen/workplace/temp/kuakua/log做一个映射。如果容器端log目录下有内容更新，则本地的log目录也会同步更新。</span><br><span class="line">kuakua:latest 镜像名称</span><br></pre></td></tr></table></figure>
-
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p>本项目完整代码已经在github开源，项目地址<a href="https://github.com/aweng126/TestProject/tree/master/kuakua" target="_blank" rel="noopener">夸夸机器人</a></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener">dockerfile 官方参考文档</a></li>
 </ol>
@@ -370,7 +370,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile文档展示"><span class="nav-number">1.</span> <span class="nav-text">Dockerfile文档展示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逐行命令解释"><span class="nav-number">2.</span> <span class="nav-text">逐行命令解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打包镜像"><span class="nav-number">3.</span> <span class="nav-text">打包镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行容器"><span class="nav-number">4.</span> <span class="nav-text">运行容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dockerfile文档展示"><span class="nav-number">1.</span> <span class="nav-text">Dockerfile文档展示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逐行命令解释"><span class="nav-number">2.</span> <span class="nav-text">逐行命令解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打包镜像"><span class="nav-number">3.</span> <span class="nav-text">打包镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行容器"><span class="nav-number">4.</span> <span class="nav-text">运行容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目地址"><span class="nav-number">5.</span> <span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
