@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Docker提升-实现原理</title>
+    <url>/2020/06/15/docker-3-principle/</url>
+    <content><![CDATA[<p>docker镜像是一个特殊的文件系统。<br>本篇文章将介绍如何docker镜像的层级结构，同时学习如何查看中间层镜像。</p>
+<a id="more"></a>
+
+<h2 id="docker的原理"><a href="#docker的原理" class="headerlink" title="docker的原理"></a>docker的原理</h2><p>Docker 的镜像就是它的文件系统，一个镜像可以放在另外一个镜像的上层，那么位于下层的就是它的父镜像。所以，Docker 会存在很多镜像层，每个镜像层都是只读的，并且不会改变。当我们创建一个新的容器时，Docker 会构建出一个镜像栈，并在栈的最顶层添加一个读写层，如图所示。<br><img src="https://user-gold-cdn.xitu.io/2019/4/9/16a02cdbf9e98a71?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="image"></p>
+<p>其中中间的这些镜像层就是intermediate image，是不能被删除的。</p>
+<h2 id="如何查看中间层镜像"><a href="#如何查看中间层镜像" class="headerlink" title="如何查看中间层镜像"></a>如何查看中间层镜像</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//查看镜像</span><br><span class="line">docker image ls</span><br><span class="line">//查看所有镜像（包含中间层镜像）</span><br><span class="line">docker image ls -a</span><br></pre></td></tr></table></figure>
+<p>带参数a选项的命令输出的结果中含有none:none标签的镜像都是intermediate image(中间层镜像)，这些镜像会被其他镜像所使用，是不能被随意删除的。</p>
+<h2 id="none-none-标签镜像"><a href="#none-none-标签镜像" class="headerlink" title="none:none 标签镜像"></a>none:none 标签镜像</h2><p>具有none:none 标签的景象都是intermediate image吗？ 其实不是，还有一类镜像是dangling image（悬虚镜像），通过</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker image ls</span><br></pre></td></tr></table></figure>
+<p>命令展示出来的镜像也会包含none:none标签的镜像，这就是dangling image.</p>
+<p>那么dangling image是如何产生的呢？<br>比如我们最开始通过如下命令构造一个名称为test:v1的镜像，</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker build -t test:v1 .</span><br></pre></td></tr></table></figure>
+<p>然后我们后期对代码进行了修改，所以我们会重新构造一个镜像。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker build -t test:v1 .</span><br></pre></td></tr></table></figure>
+<p>我们没有为它分配新的名字，新构造的镜像还是叫做test:v1。这个时候原来的test:v1就会成为dangling image，根本没用，而且会占用存储空间。</p>
+<p>可以通过如下命令将所有的玄虚镜像删掉。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker image prune</span><br></pre></td></tr></table></figure>
+
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>记得多关注一下docker的help文档,以查看镜像命令为例</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">➜  log docker image ls --help</span><br><span class="line"></span><br><span class="line">Usage:  docker image ls [OPTIONS] [REPOSITORY[:TAG]]</span><br><span class="line"></span><br><span class="line">List images</span><br><span class="line"></span><br><span class="line">Aliases:</span><br><span class="line">  ls, images, list</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -a, --all             Show all images (default hides intermediate images)</span><br><span class="line">      --digests         Show digests</span><br><span class="line">  -f, --filter filter   Filter output based on conditions provided</span><br><span class="line">      --format string   Pretty-print images using a Go template</span><br><span class="line">      --no-trunc        Don&apos;t truncate output</span><br><span class="line">  -q, --quiet           Only show numeric IDs</span><br></pre></td></tr></table></figure>
+<p>可以看到-a选项后面说，默认是隐藏intermediate images的。所以我们就可以了解到存在intermediate images 而且还可以通过在原命令的后面加参数a来查看中间层镜像。</p>
+<p>更细节的原理可以查看这篇文章<a href="https://www.projectatomic.io/blog/2015/07/what-are-docker-none-none-images/" target="_blank" rel="noopener">What are Docker <none>:<none> images?</a>。</p>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>principle</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker进阶-Dockerfile的编写和使用</title>
     <url>/2020/06/15/docker-2-dockerfile/</url>
     <content><![CDATA[<p>在实际开发中完全使用他人构造好的镜像是不现实的。<br>所以本篇文章我们将会学习Dockerfile的知识，从而学习如何构造符合项目要求的镜像。</p>
@@ -747,8 +781,8 @@ greeter.proto 内容如下<figure class="highlight plain"><table><tr><td class="
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Greedy</tag>
         <tag>DP</tag>
+        <tag>Greedy</tag>
         <tag>Codinginterviews</tag>
       </tags>
   </entry>
@@ -2895,8 +2929,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -2957,8 +2991,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -2984,8 +3018,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -3031,8 +3065,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
