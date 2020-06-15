@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Docker进阶-Dockerfile的编写和使用</title>
+    <url>/2020/06/15/docker-2-dockerfile/</url>
+    <content><![CDATA[<p>在实际开发中完全使用他人构造好的镜像是不现实的。<br>所以本篇文章我们将会学习Dockerfile的知识，从而学习如何构造符合项目要求的镜像。</p>
+<a id="more"></a>
+
+<h2 id="Dockerfile文档展示"><a href="#Dockerfile文档展示" class="headerlink" title="Dockerfile文档展示"></a>Dockerfile文档展示</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM ubuntu:16.04</span><br><span class="line"></span><br><span class="line">RUN apt-get update -y &amp;&amp; \</span><br><span class="line">    apt-get install -y python3-pip python3-dev</span><br><span class="line"></span><br><span class="line"># We copy just the requirements.txt first to leverage Docker cache</span><br><span class="line">COPY ./requirements.txt /app/requirements.txt</span><br><span class="line"></span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line">RUN python3 -m pip install --upgrade pip</span><br><span class="line">RUN pip3 install -r requirements.txt</span><br><span class="line"></span><br><span class="line">COPY . /app</span><br><span class="line"></span><br><span class="line"># ENTRYPOINT [ &quot;python3&quot; ]</span><br><span class="line"></span><br><span class="line">CMD [ &quot;python3&quot;, &quot;main.py&quot; ]</span><br></pre></td></tr></table></figure>
+<h2 id="逐行命令解释"><a href="#逐行命令解释" class="headerlink" title="逐行命令解释"></a>逐行命令解释</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. FROM ubuntu:16.04</span><br><span class="line"></span><br><span class="line">FROM 关键字会初始化一个image构造，并为后续的所有操作设置基础镜像，，上面的例子表示，该image是以ubuntu:16.04为基础构建的。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2. RUN apt-get update -y &amp;&amp; \</span><br><span class="line">    apt-get install -y python3-pip python3-dev</span><br><span class="line"></span><br><span class="line">RUN 会在上一层的基础上添加新的layer,并将结果提交给下一层。RUN命令有两种形式。一种是shell格式，格式如下</span><br><span class="line">RUN &lt;command&gt; (shell form, the command is run in a shell, which by default is /bin/sh -c on Linux or cmd /S /C on Windows)</span><br><span class="line"></span><br><span class="line">另一种是exec格式，格式如下</span><br><span class="line">RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;] (exec form)</span><br><span class="line"></span><br><span class="line">&amp;&amp; \ 并不是Docker独有的，只是告诉linux这两条命令要一起执行，而不是执行两次，这样就只会产生一层layer,如果有两个RUN，那么就会产生两个中间层。 </span><br><span class="line"></span><br><span class="line">3. COPY ./requirements.txt /app/requirements.txt</span><br><span class="line">COPY 命令同样有两种形式，可以实现将源文件复制到目标位置，支持正则表达式。</span><br><span class="line">COPY [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</span><br><span class="line">COPY [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</span><br><span class="line"></span><br><span class="line">4. WORKDIR /app</span><br><span class="line">- WORKDIR 会设置当前的工作目录，在本条指令之后的RUN, CMD, ENTRYPOINT, COPY 和 ADD目录都是在当前目录下执行的。</span><br><span class="line">- WORKDIR 可以出现多次，从而更换shell的执行路径</span><br><span class="line"></span><br><span class="line">5. RUN python3 -m pip install --upgrade pip</span><br><span class="line">6. RUN pip3 install -r requirements.txt</span><br><span class="line">RUN命令的shell形式，更新pip同时安装依赖。</span><br><span class="line"></span><br><span class="line">7. COPY . /app</span><br><span class="line">复制命令 将当前目录的所有文件复制到/app目录下</span><br><span class="line"></span><br><span class="line">8.CMD [ &quot;python3&quot;, &quot;main.py&quot; ]</span><br><span class="line">CMD的作用是提供容器的默认指令，也就是我们docker run 的最后一个参数。CMD有三种形式，在一个Dockerfile中，如果有多个CMD指令，那么只有最后一个CMD命令会起作用。</span><br><span class="line">CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;] (exec form, this is the preferred form)</span><br><span class="line">CMD [&quot;param1&quot;,&quot;param2&quot;] (as default parameters to ENTRYPOINT)</span><br><span class="line">CMD command param1 param2 (shell form)</span><br><span class="line"></span><br><span class="line">如果CMD命令后只有参数，没有可执行的命令，那么它肯定是配合ENTRYPOINT使用的。同时要注意，如果是配合ENTRYPOINT的时候，CMD和ENTRYPOINT都要使用使用 JSON array 格式。如果用ENTRYPOINT进行改写，则如下所示。</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [ &quot;python&quot; ]</span><br><span class="line">CMD [ &quot;main.py&quot; ]</span><br></pre></td></tr></table></figure>
+
+<h2 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker build -t kuakua:latest .</span><br><span class="line"> -t 设置镜像名称和标签，如果标签没有设定，默认是latest</span><br><span class="line"> .  在当前目录寻找Dockerfile进行镜像打包。</span><br></pre></td></tr></table></figure>
+<h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> docker run -d -p 5001:5000 --name kuakua -v /Users/liqingwen/workplace/temp/kuakua/log:/log kuakua:latest</span><br><span class="line"></span><br><span class="line">// 详细解释</span><br><span class="line">-d  表示以守护进程的形式进行执行，后台运行</span><br><span class="line">-p 5001:5000 将容器的5000端口映射到宿主机的5001端口</span><br><span class="line">--name kuakua 将当前容器命名为kuakua</span><br><span class="line">-v bind mount a volumn 将容器的log目录和本地的/Users/liqingwen/workplace/temp/kuakua/log做一个映射。如果容器端log目录下有内容更新，则本地的log目录也会同步更新。</span><br><span class="line">kuakua:latest 镜像名称</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener">dockerfile 官方参考文档</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>dockerfile</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Docker初探-认识并使用docker</title>
     <url>/2020/06/15/docker-fundamentals/</url>
     <content><![CDATA[<p>docker是目前最流行的虚拟化技术。<br>本篇文章主要介绍docker的基本概念以及初步尝试使用docker技术。</p>
@@ -723,8 +747,8 @@ greeter.proto 内容如下<figure class="highlight plain"><table><tr><td class="
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>DP</tag>
         <tag>Greedy</tag>
+        <tag>DP</tag>
         <tag>Codinginterviews</tag>
       </tags>
   </entry>
@@ -2871,8 +2895,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2933,8 +2957,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -2960,8 +2984,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
@@ -3007,8 +3031,8 @@ NTFS取代FAT（文件分配表）和HPFS（高性能文件系统）并进行一
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>medium</tag>
         <tag>Greedy</tag>
+        <tag>medium</tag>
       </tags>
   </entry>
   <entry>
