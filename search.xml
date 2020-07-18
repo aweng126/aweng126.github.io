@@ -65,7 +65,7 @@
 <h3 id="分布式爬虫部署"><a href="#分布式爬虫部署" class="headerlink" title="分布式爬虫部署"></a>分布式爬虫部署</h3><p>当数据量太大，单机爬虫的速率就远远不能满足我们的需求，这个时候就可以考虑使用分布式爬虫，将很多台主机一起来爬取想要的数据，上面说的爬虫框架sacrpy就是单机版本的，scrapy-redis就是在scrapy的基础上添加redis用来做爬取队列，可以作为分布式爬虫使用，scrapy-cluster是在scrapy-redis的基础上添加大数据组件kafka从而与大数据平台对接，也属于分布式爬虫。scrapyd可以用来方便的部署分布式爬虫程序。<a href="https://docs.gerapy.com/en/latest/" target="_blank" rel="noopener">Gerapy</a>也值得关注。</p>
 <h3 id="APP内容的爬取"><a href="#APP内容的爬取" class="headerlink" title="APP内容的爬取"></a>APP内容的爬取</h3><p>本部分我没有做过，但是我知道有很多库，包括Charles、mitmproxy、Appium等，可以对手机app进行抓包，从而采集到想要的数据。</p>
 <h2 id="学习经验"><a href="#学习经验" class="headerlink" title="学习经验"></a>学习经验</h2><ol>
-<li>要以项目为主导</li>
+<li>要以项目为主导，no bb，show your code！！</li>
 <li>善于使用搜索引擎google、bing</li>
 <li>学会使用<a href="https://stackoverflow.com/" target="_blank" rel="noopener">stackoverflow</a>查找bug</li>
 <li>尽量通过官方文档学习新的技术</li>
