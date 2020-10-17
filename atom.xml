@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-09-11T13:06:19.670Z</updated>
+  <updated>2020-10-17T12:39:14.290Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>jupyter设置多编程语言支持</title>
+    <link href="http://yoursite.com/2020/10/17/jupyter%E8%AE%BE%E7%BD%AE%E5%A4%9A%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/"/>
+    <id>http://yoursite.com/2020/10/17/jupyter设置多编程语言支持/</id>
+    <published>2020-10-17T12:28:47.000Z</published>
+    <updated>2020-10-17T12:39:14.290Z</updated>
+    
+    <content type="html"><![CDATA[<p>本篇文章主要介绍如何设置jupyter notebook使其在支持python的基础上支持octave和R语言。</p><a id="more"></a><p><a href="https://github.com/jupyter/notebook" target="_blank" rel="noopener">jupyter notebook</a>是目前应用非常广泛的一个软件。它最大的亮点在于让用户可以即时编码，即时测试，即时调整，而且支持超过40种编程语言，详情可参考<a href="https://github.com/jupyter/jupyter/wiki/Jupyter-kernels" target="_blank" rel="noopener">jupyter-kernels-list</a>。</p><h2 id="设置多编程语言支持"><a href="#设置多编程语言支持" class="headerlink" title="设置多编程语言支持"></a>设置多编程语言支持</h2><h3 id="octave支持"><a href="#octave支持" class="headerlink" title="octave支持"></a>octave支持</h3><ol><li>首先本地要安装octave, mac用户可以直接通过如下命令安装<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install octave</span><br></pre></td></tr></table></figure>其他系统可以自行参考<a href="https://www.gnu.org/software/octave/download" target="_blank" rel="noopener">octave安装教程</a></li><li>安装jupyter和octave进行交互的octave_kernel<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install octave_kernel</span><br></pre></td></tr></table></figure>更多细节可以参考<a href="https://github.com/Calysto/octave_kernel/blob/master/README.rst" target="_blank" rel="noopener">octave_kernel-Github</a></li></ol><h3 id="R语言支持"><a href="#R语言支持" class="headerlink" title="R语言支持"></a>R语言支持</h3><ol><li>本地安装R语言环境</li></ol><p>下载连接 <a href="https://mirrors.tuna.tsinghua.edu.cn/CRAN/" target="_blank" rel="noopener">tsinghua-cran-download</a></p><p>R语言官网<a href="https://www.r-project.org/" target="_blank" rel="noopener">R-project</a></p><ol start="2"><li>配置R语言kernel<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 进入R语言console</span><br><span class="line">R</span><br><span class="line"># 安装kernel</span><br><span class="line">install.packages(&apos;IRkernel&apos;)</span><br><span class="line">选择合适的源即可。</span><br><span class="line"># 为系统所有用户安装</span><br><span class="line">IRkernel::installspec(user = FALSE)</span><br></pre></td></tr></table></figure></li></ol><h3 id="查看jupyter的内核支持"><a href="#查看jupyter的内核支持" class="headerlink" title="查看jupyter的内核支持"></a>查看jupyter的内核支持</h3><ol><li>通过命令行查看<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter kernelspec list</span><br></pre></td></tr></table></figure><img src="https://cdn.kingwen.cn/qiniu_kwimg20201016145435.png" alt=""></li></ol><p>2.通过打开notebook新建文件来查看</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter notebook</span><br></pre></td></tr></table></figure><p><img src="https://cdn.kingwen.cn/qiniu_kwimg20201016145812.png" alt=""></p><h2 id="bug记录"><a href="#bug记录" class="headerlink" title="bug记录"></a>bug记录</h2><ol><li>configurations are cuurently only defined for the following language:</li></ol><p><img src="https://cdn.kingwen.cn/qiniu_kwimg20201016114704.png" alt=""></p><ul><li>问题描述</li></ul><p>这个问题出现在我为本地jupyter新添加了R语言和octave语言的kernel.但是当我新建一个对应的文件的时候，就报错上面的错误。</p><ul><li>解决措施</li></ul><p>问题出现在autopep8插件上，这个插件仅仅支持python，所以在使用其他语言的时候就会报错，所以当我们在编写其他语言相关的文件时候，我们将这个插件关掉即可。</p><p><img src="https://cdn.kingwen.cn/qiniu_kwimg20201016113535.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇文章主要介绍如何设置jupyter notebook使其在支持python的基础上支持octave和R语言。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="工具推荐" scheme="http://yoursite.com/categories/%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
+    
+    
+      <category term="jupyter" scheme="http://yoursite.com/tags/jupyter/"/>
+    
+      <category term="octave" scheme="http://yoursite.com/tags/octave/"/>
+    
+      <category term="R" scheme="http://yoursite.com/tags/R/"/>
+    
+  </entry>
   
   <entry>
     <title>七牛云+PicGo制作博客图床</title>
@@ -498,33 +525,6 @@
       <category term="STL" scheme="http://yoursite.com/tags/STL/"/>
     
       <category term="Set" scheme="http://yoursite.com/tags/Set/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>array的简单使用</title>
-    <link href="http://yoursite.com/2020/02/06/array%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"/>
-    <id>http://yoursite.com/2020/02/06/array的简单使用/</id>
-    <published>2020-02-06T11:39:53.000Z</published>
-    <updated>2020-02-06T11:41:32.838Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为c++容器系列第五篇.<br>主要测试了array相关的方法，主要作为代码备份方便之后遗忘时查询。</p><a id="more"></a><p>array是c++11新加入的，是对c类型的树组进行了进一步的封装。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;array&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">template&lt;class T&gt;</span><br><span class="line">void printArray(string s,const T&amp; marr)&#123;</span><br><span class="line">    cout&lt;&lt;s&lt;&lt;&apos;\t&apos;;</span><br><span class="line">    for(auto a:marr)&#123;</span><br><span class="line">        cout&lt;&lt;a&lt;&lt;&apos;\t&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    //声明</span><br><span class="line">    array&lt;int,3&gt; marr = &#123;3,2,4&#125;;</span><br><span class="line">    array&lt;int,2&gt; marr1&#123;1,2&#125;;</span><br><span class="line">    printArray(&quot;marr&quot;,marr);</span><br><span class="line">    printArray(&quot;marr1 &quot;,marr1);</span><br><span class="line">    </span><br><span class="line">    // access 相关</span><br><span class="line">    cout&lt;&lt;&quot;marr[0]: &quot;&lt;&lt;marr[0]&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;marr.at(0): &quot;&lt;&lt;marr.at(0)&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;marr.data(): &quot;&lt;&lt;*marr.data()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;marr.front(): &quot;&lt;&lt;marr.front()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;marr.back(): &quot;&lt;&lt;marr.back()&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    //capacity 相关</span><br><span class="line">    cout&lt;&lt;&quot;marr.size(): &quot;&lt;&lt;marr.size()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;marr.empty(): &quot;&lt;&lt;marr.empty()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;marr.max_size(): &quot;&lt;&lt;marr.max_size()&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    //Operations</span><br><span class="line">    printArray(&quot;before sort&quot;, marr);</span><br><span class="line">    sort(marr.begin(),marr.end());</span><br><span class="line">    printArray(&quot;after sort&quot;, marr);</span><br><span class="line">    </span><br><span class="line">    marr.fill(5);</span><br><span class="line">    printArray(&quot;marr.fill(5)&quot;, marr);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 运行结果</span><br><span class="line"> marr    3    2    4</span><br><span class="line"> marr1     1    2</span><br><span class="line"> marr[0]: 3</span><br><span class="line"> marr.at(0): 3</span><br><span class="line"> marr.data(): 3</span><br><span class="line"> marr.front(): 3</span><br><span class="line"> marr.back(): 4</span><br><span class="line"> marr.size(): 3</span><br><span class="line"> marr.empty(): 0</span><br><span class="line"> marr.max_size(): 3</span><br><span class="line"> before sort    3    2    4</span><br><span class="line"> after sort    2    3    4</span><br><span class="line"> marr.fill(5)    5    5    5</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为c++容器系列第五篇.&lt;br&gt;主要测试了array相关的方法，主要作为代码备份方便之后遗忘时查询。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="C++基础" scheme="http://yoursite.com/categories/C-%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="C++" scheme="http://yoursite.com/tags/C/"/>
-    
-      <category term="STL" scheme="http://yoursite.com/tags/STL/"/>
-    
-      <category term="Array" scheme="http://yoursite.com/tags/Array/"/>
     
   </entry>
   
