@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="本文为剑指 offer 系列第二十三篇。主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。">
+  <meta name="description" content="本文为剑指 offer 系列第二十三篇。 主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。">
 <meta name="keywords" content="Stack,Codinginterviews">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-栈的压入弹出序列">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;%E5%89%91%E6%8C%87offer-%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="本文为剑指 offer 系列第二十三篇。主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。">
+<meta property="og:description" content="本文为剑指 offer 系列第二十三篇。 主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-01-20T10:42:55.075Z">
 <meta name="twitter:card" content="summary">
@@ -297,12 +297,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文为剑指 offer 系列第二十三篇。<br>主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。</p>
+        <p>本文为剑指 offer 系列第二十三篇。<br>
+主要知识点依旧是栈Stack，判断一个序列是否可以成为某个入栈序列的出栈序列，题目很好很经典，值得学习。</p>
 <a id="more"></a>
-
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&tqId=11174&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>因为需要判断的出栈顺序已经确定了，所以我们只要按照压栈顺序来判断一下如此压栈能不能产生对应的出栈顺序即可。<br>考虑到可能中间出栈的情况，所以我们在每压入一个元素之后要进行相应的判断，如果栈顶元素和出栈数组中标记的元素是对应的，那么当前元素出栈，待判断的元素后移一位，如果不对应，则继续压栈。<br>直到所有元素压栈完成，可能的出栈操作结束。<br>这个时候看栈内是否还剩元素，如果不剩元素，那么就是依据出栈数组中的数据已经完成出栈，则出栈顺序成立。否则就是不成立。</p>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool IsPopOrder(vector&lt;int&gt; pushV,vector&lt;int&gt; popV) &#123;</span><br><span class="line">        stack&lt;int&gt; mstack;</span><br><span class="line">        int j = 0;</span><br><span class="line">        for(int i = 0;i&lt;pushV.size();i++)&#123;</span><br><span class="line">            mstack.push(pushV[i]);</span><br><span class="line">            while(!mstack.empty() &amp;&amp; mstack.top() == popV[j])&#123;</span><br><span class="line">                mstack.pop();</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return mstack.empty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="题目描述"><a href="https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106?tpId=13&amp;tqId=11174&amp;tPage=2&amp;rp=1&amp;ru=%2Fta%2Fcoding-interviews&amp;qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2>
+<p>输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的）</p>
+<h2 id="解题思路">解题思路</h2>
+<p>因为需要判断的出栈顺序已经确定了，所以我们只要按照压栈顺序来判断一下如此压栈能不能产生对应的出栈顺序即可。<br>
+考虑到可能中间出栈的情况，所以我们在每压入一个元素之后要进行相应的判断，如果栈顶元素和出栈数组中标记的元素是对应的，那么当前元素出栈，待判断的元素后移一位，如果不对应，则继续压栈。<br>
+直到所有元素压栈完成，可能的出栈操作结束。<br>
+这个时候看栈内是否还剩元素，如果不剩元素，那么就是依据出栈数组中的数据已经完成出栈，则出栈顺序成立。否则就是不成立。</p>
+<h2 id="解题代码">解题代码</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool IsPopOrder(vector&lt;int&gt; pushV,vector&lt;int&gt; popV) &#123;</span><br><span class="line">        stack&lt;int&gt; mstack;</span><br><span class="line">        int j = 0;</span><br><span class="line">        for(int i = 0;i&lt;pushV.size();i++)&#123;</span><br><span class="line">            mstack.push(pushV[i]);</span><br><span class="line">            while(!mstack.empty() &amp;&amp; mstack.top() == popV[j])&#123;</span><br><span class="line">                mstack.pop();</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return mstack.empty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <p>以上，本题结束！</p>
 
@@ -387,7 +393,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -400,7 +406,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

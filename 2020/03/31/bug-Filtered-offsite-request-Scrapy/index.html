@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="在写爬虫的时候遇见了一个bug,报错信息为 Filtered offsite request domain[‘mydomain’],从网上找到了答案并成功解决了问题，特别记录一下。">
+  <meta name="description" content="在写爬虫的时候遇见了一个bug,报错信息为 Filtered offsite request domain[‘mydomain’], 从网上找到了答案并成功解决了问题，特别记录一下。">
 <meta name="keywords" content="scrapy,bug">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bug-Scrapy-Filtered_offsite_request">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;31&#x2F;bug-Filtered-offsite-request-Scrapy&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="在写爬虫的时候遇见了一个bug,报错信息为 Filtered offsite request domain[‘mydomain’],从网上找到了答案并成功解决了问题，特别记录一下。">
+<meta property="og:description" content="在写爬虫的时候遇见了一个bug,报错信息为 Filtered offsite request domain[‘mydomain’], 从网上找到了答案并成功解决了问题，特别记录一下。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-03-31T09:11:37.138Z">
 <meta name="twitter:card" content="summary">
@@ -297,16 +297,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在写爬虫的时候遇见了一个bug,报错信息为 Filtered offsite request domain[‘mydomain’],<br>从网上找到了答案并成功解决了问题，特别记录一下。</p>
+        <p>在写爬虫的时候遇见了一个bug,报错信息为 Filtered offsite request domain[‘mydomain’],<br>
+从网上找到了答案并成功解决了问题，特别记录一下。</p>
 <a id="more"></a>
-<h2 id="检查allowed-domains"><a href="#检查allowed-domains" class="headerlink" title="检查allowed_domains"></a>检查allowed_domains</h2><p>要去查看自己爬取的url是否符合我们的domain。如果我们要爬取的网站的网址为 <a href="https://www.example.com/1.html，" target="_blank" rel="noopener">https://www.example.com/1.html，</a> 那么我们就需要添加example.com到我们写好的爬虫中的allow_domains的list列表中。</p>
+<h2 id="检查allowed-domains">检查allowed_domains</h2>
+<p>要去查看自己爬取的url是否符合我们的domain。如果我们要爬取的网站的网址为 <a href="https://www.example.com/1.html%EF%BC%8C" target="_blank" rel="noopener">https://www.example.com/1.html，</a> 那么我们就需要添加example.com到我们写好的爬虫中的allow_domains的list列表中。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">allowed_domains = [&apos;example.com&apos;]</span><br></pre></td></tr></table></figure>
 <p>看一下<a href="https://docs.scrapy.org/en/latest/topics/spiders.html" target="_blank" rel="noopener">Scrapy官方文档</a>的解释。</p>
 <blockquote>
-<p><strong>allowed_domains</strong><br>An optional list of strings containing domains that this spider is allowed to crawl. Requests for URLs not belonging to the domain names specified in this list (or their subdomains) won’t be followed if OffsiteMiddleware is enabled.</p>
+<p><strong>allowed_domains</strong><br>
+An optional list of strings containing domains that this spider is allowed to crawl. Requests for URLs not belonging to the domain names specified in this list (or their subdomains) won’t be followed if OffsiteMiddleware is enabled.</p>
 </blockquote>
 <p>如果设置进行url过滤,那么对于要新添加到爬取队列中的所有的url中必须包含allow_domains中的一个域名才可以，否则这个url就会被舍弃。</p>
-<h2 id="设置-dont-filte-True"><a href="#设置-dont-filte-True" class="headerlink" title="设置 dont_filte=True"></a>设置 dont_filte=True</h2><p>可以直接停止scrapy对于url的过滤。也就是在新生成的Request中添加 dont_filte=True，比如下面这样。</p>
+<h2 id="设置-dont-filte-True">设置 dont_filte=True</h2>
+<p>可以直接停止scrapy对于url的过滤。也就是在新生成的Request中添加 dont_filte=True，比如下面这样。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def parse(self, response):</span><br><span class="line"> yield Request(url=&apos;https://example.com&apos;, dont_filter=True, callback=self.parse2)</span><br><span class="line">def parse2(self, response):</span><br><span class="line"> pass</span><br></pre></td></tr></table></figure>
 <p>看一下<a href="https://docs.scrapy.org/en/latest/topics/request-response.html" target="_blank" rel="noopener">Scrapy官方文档</a>的解释：</p>
 <blockquote>
@@ -396,7 +400,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -409,7 +413,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

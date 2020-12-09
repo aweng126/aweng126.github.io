@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="上周六和同学一起尝试了一下Google Kickstart的题目，开了开眼，涨了涨见识！本文是G轮第一题BookReading的思路以及代码，留个纪念。">
+  <meta name="description" content="上周六和同学一起尝试了一下Google Kickstart的题目，开了开眼，涨了涨见识！ 本文是G轮第一题BookReading的思路以及代码，留个纪念。">
 <meta name="keywords" content="kickstart,DP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kickstart-2019-G-T1-BookReading">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;22&#x2F;kickstart-2019-G-T1-BookReading&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="上周六和同学一起尝试了一下Google Kickstart的题目，开了开眼，涨了涨见识！本文是G轮第一题BookReading的思路以及代码，留个纪念。">
+<meta property="og:description" content="上周六和同学一起尝试了一下Google Kickstart的题目，开了开眼，涨了涨见识！ 本文是G轮第一题BookReading的思路以及代码，留个纪念。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;aweng126&#x2F;FigureBed&#x2F;master&#x2F;img&#x2F;20191023100352.png">
 <meta property="og:updated_time" content="2019-10-23T02:05:18.981Z">
@@ -305,25 +305,47 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>上周六和同学一起尝试了一下Google Kickstart的题目，开了开眼，涨了涨见识！<br>本文是G轮第一题BookReading的思路以及代码，留个纪念。</p>
+        <p>上周六和同学一起尝试了一下Google Kickstart的题目，开了开眼，涨了涨见识！<br>
+本文是G轮第一题BookReading的思路以及代码，留个纪念。</p>
 <a id="more"></a>
-
-<h2 id="题目详情"><a href="#题目详情" class="headerlink" title="题目详情"></a><a href="https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050e02/000000000018fd0d" target="_blank" rel="noopener">题目详情</a></h2><h3 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h3><p>Supervin is a librarian handling an ancient book with N pages, numbered from 1 to N. Since the book is too old, unfortunately M pages are torn out: page number P1, P2, …, PM.</p>
+<h2 id="题目详情"><a href="https://codingcompetitions.withgoogle.com/kickstart/round/0000000000050e02/000000000018fd0d" target="_blank" rel="noopener">题目详情</a></h2>
+<h3 id="Problem">Problem</h3>
+<p>Supervin is a librarian handling an ancient book with N pages, numbered from 1 to N. Since the book is too old, unfortunately M pages are torn out: page number P1, P2, …, PM.</p>
 <p>Today, there are Q lazy readers who are interested in reading the ancient book. Since they are lazy, each reader will not necessarily read all the pages. Instead, the i-th reader will only read the pages that are numbered multiples of Ri and not torn out. Supervin would like to know the sum of the number of pages read by each reader.</p>
-<h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><p>The first line of the input gives the number of test cases, T. T test cases follow. Each test case begins with a line containing the three integers N, M, and Q, the number of pages in the book, the number of torn out pages in the book, and the number of readers, respectively. The second line contains M integers, the i-th of which is Pi. The third line contains Q integers, the i-th of which is Ri.</p>
-<h3 id="Limits"><a href="#Limits" class="headerlink" title="Limits"></a>Limits</h3><p>Time limit: 40 seconds per test set.<br>Memory limit: 1GB.<br>1 ≤ T ≤ 100.<br>1 ≤ P1 &lt; P2 &lt; … &lt; PM ≤ N.<br>1 ≤ Ri ≤ N, for all i.</p>
-<p>Test set 1 (Visible)<br>1 ≤ M ≤ N ≤ 1000.<br>1 ≤ Q ≤ 1000.</p>
-<p>Test set 2 (Hidden)<br>1 ≤ M ≤ N ≤ 105.<br>1 ≤ Q ≤ 105.</p>
-<h3 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h3><p><img src="https://raw.githubusercontent.com/aweng126/FigureBed/master/img/20191023100352.png" alt=""></p>
-<h2 id="题意理解"><a href="#题意理解" class="headerlink" title="题意理解"></a>题意理解</h2><p>图书管理员想知道大家一共读了多少页书，需要我们统计。<br>已知情况是书的总页数N，坏了的页数M，有Q个读者。<br>然后知道坏的M分别是那些页，知道读者每个人都要读那些页（实际上知道的是基数，这个读者会读这个基数的整数倍）。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>如果大家想看最终结果，可以直接翻到最后，然后前面的代码写的比较乱，后来经过王博指点，有了很大的改善。好的代码习惯还是要保持的。</p>
-<h3 id="暴力求解"><a href="#暴力求解" class="headerlink" title="暴力求解"></a>暴力求解</h3><p>一看题目很简单，对于每个人来说，如果书籍不坏，那么他可以读页数/基数页，然后看看坏了的页数中有几个是基数的倍数，减去就可以。然后我们最终的结果就是每个人的结果加和。<br>代码如下，写的很乱，而且第二个样例不出意外的超时了。</p>
+<h3 id="Input">Input</h3>
+<p>The first line of the input gives the number of test cases, T. T test cases follow. Each test case begins with a line containing the three integers N, M, and Q, the number of pages in the book, the number of torn out pages in the book, and the number of readers, respectively. The second line contains M integers, the i-th of which is Pi. The third line contains Q integers, the i-th of which is Ri.</p>
+<h3 id="Limits">Limits</h3>
+<p>Time limit: 40 seconds per test set.<br>
+Memory limit: 1GB.<br>
+1 ≤ T ≤ 100.<br>
+1 ≤ P1 &lt; P2 &lt; … &lt; PM ≤ N.<br>
+1 ≤ Ri ≤ N, for all i.</p>
+<p>Test set 1 (Visible)<br>
+1 ≤ M ≤ N ≤ 1000.<br>
+1 ≤ Q ≤ 1000.</p>
+<p>Test set 2 (Hidden)<br>
+1 ≤ M ≤ N ≤ 105.<br>
+1 ≤ Q ≤ 105.</p>
+<h3 id="Sample">Sample</h3>
+<p><img src="https://raw.githubusercontent.com/aweng126/FigureBed/master/img/20191023100352.png" alt=""></p>
+<h2 id="题意理解">题意理解</h2>
+<p>图书管理员想知道大家一共读了多少页书，需要我们统计。<br>
+已知情况是书的总页数N，坏了的页数M，有Q个读者。<br>
+然后知道坏的M分别是那些页，知道读者每个人都要读那些页（实际上知道的是基数，这个读者会读这个基数的整数倍）。</p>
+<h2 id="解题思路">解题思路</h2>
+<p>如果大家想看最终结果，可以直接翻到最后，然后前面的代码写的比较乱，后来经过王博指点，有了很大的改善。好的代码习惯还是要保持的。</p>
+<h3 id="暴力求解">暴力求解</h3>
+<p>一看题目很简单，对于每个人来说，如果书籍不坏，那么他可以读页数/基数页，然后看看坏了的页数中有几个是基数的倍数，减去就可以。然后我们最终的结果就是每个人的结果加和。<br>
+代码如下，写的很乱，而且第二个样例不出意外的超时了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">void solve(int case_num)&#123;</span><br><span class="line">    int N,M,Q;</span><br><span class="line">    cin&gt;&gt;N&gt;&gt;M&gt;&gt;Q;</span><br><span class="line">    vector&lt;int&gt; torn;</span><br><span class="line">    int res =0;</span><br><span class="line">    //vector&lt;int&gt; reader;</span><br><span class="line">    for(int i = 0;i&lt;M;i++)&#123;</span><br><span class="line">        int mi;</span><br><span class="line">        cin &gt;&gt; mi;</span><br><span class="line">        torn.emplace_back(mi);</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i =0;i&lt;Q;i++)&#123;</span><br><span class="line">        int ri;</span><br><span class="line">        cin &gt;&gt; ri;</span><br><span class="line">        int num = N/ri;</span><br><span class="line">        int sortnum =0;</span><br><span class="line">        for(int j = 0;j&lt;M;j++)&#123;</span><br><span class="line">            if(torn[j]%ri==0)&#123;</span><br><span class="line">                sortnum++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        res += (num - sortnum);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; &quot;Case #&quot; &lt;&lt; case_num &lt;&lt; &quot;: &quot; &lt;&lt; res &lt;&lt; endl;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">  int t;</span><br><span class="line">  cin &gt;&gt; t;</span><br><span class="line">  for (int i = 1; i &lt;= t; ++i) &#123;</span><br><span class="line">    solve(i);</span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="动态规划求解"><a href="#动态规划求解" class="headerlink" title="动态规划求解"></a>动态规划求解</h3><p>仔细想想，其实我们上面暴力的时间复杂度是O（M<em>Q），当破坏的页数很多的时候，很多判断是无效的，没有意义的，比如某位读者只读2的倍数，那么我其实只要判断2，4，6，2</em>n&lt;=N这些页就可以。其他的页数完全可以不用判断，所以这个地方可以简化。于是是不是可以把每个基数对应的结果都算出来，然后当读读者的基数的时候，直接将其求和就可以呢？当然可以！于是就有了下面的代码。</p>
+<h3 id="动态规划求解">动态规划求解</h3>
+<p>仔细想想，其实我们上面暴力的时间复杂度是O（M<em>Q），当破坏的页数很多的时候，很多判断是无效的，没有意义的，比如某位读者只读2的倍数，那么我其实只要判断2，4，6，2</em>n&lt;=N这些页就可以。其他的页数完全可以不用判断，所以这个地方可以简化。于是是不是可以把每个基数对应的结果都算出来，然后当读读者的基数的时候，直接将其求和就可以呢？当然可以！于是就有了下面的代码。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long LL;</span><br><span class="line">const int MAXN = 1e5+10;</span><br><span class="line"></span><br><span class="line">int a[MAXN],ans[MAXN];</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">  int t,x;</span><br><span class="line">  scanf(&quot;%d&quot;,&amp;t);</span><br><span class="line">  for (int i = 1; i &lt;= t; ++i) &#123;</span><br><span class="line">        int N,M,Q;</span><br><span class="line">        scanf(&quot;%d %d %d&quot;,&amp;N,&amp;M,&amp;Q);</span><br><span class="line"></span><br><span class="line">        for(int i = 1;i&lt;=N;i++)&#123;</span><br><span class="line">            a[i] = 1;</span><br><span class="line">        &#125;</span><br><span class="line">      </span><br><span class="line">        for(int i = 1;i&lt;=M;i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;,&amp;x);</span><br><span class="line">            a[x] = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        for(int i = 1; i&lt;=N; i++)&#123;</span><br><span class="line">            for(int j =i; j &lt;= N; j+=i)&#123;</span><br><span class="line">                 ans[i] += a[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        LL res =0;</span><br><span class="line">        for( int i = 1; i &lt;= Q; i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;,&amp;x);</span><br><span class="line">            res += ans[x];</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;Case #%d: %lld\n&quot;,i,res);</span><br><span class="line">        </span><br><span class="line">        for(int i = 0;i&lt;=N;i++)&#123;</span><br><span class="line">            ans[i] = 0;</span><br><span class="line">            a[i] =0;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="进一步动态规划"><a href="#进一步动态规划" class="headerlink" title="进一步动态规划"></a>进一步动态规划</h3><p>上面的方法把所有的基数对应的结果都算出来了，但是其实中间的很多结果我们是用不到的，比如我们就两个读者，分别读2的倍数和3的倍数，而上面那个方法将1-N的所有结果都算出来了，最后只用了2和3对应的结果而已，这样就造成了浪费。所以我们是不是可以将结果进行保存，下次来了一个读者，看看之前有没有算过，如果算过，就直接用之前保存的结果，如果没有算过，那么就计算一下，然后保存起来呢？当然可以！于是就有了下面的代码。</p>
+<h3 id="进一步动态规划">进一步动态规划</h3>
+<p>上面的方法把所有的基数对应的结果都算出来了，但是其实中间的很多结果我们是用不到的，比如我们就两个读者，分别读2的倍数和3的倍数，而上面那个方法将1-N的所有结果都算出来了，最后只用了2和3对应的结果而已，这样就造成了浪费。所以我们是不是可以将结果进行保存，下次来了一个读者，看看之前有没有算过，如果算过，就直接用之前保存的结果，如果没有算过，那么就计算一下，然后保存起来呢？当然可以！于是就有了下面的代码。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long LL;</span><br><span class="line">const int MAXN = 1e5+10;</span><br><span class="line"></span><br><span class="line">int getPage(int N,int i,int arr[])&#123;</span><br><span class="line">    int res =0;</span><br><span class="line">    for(int j = i; j&lt;=N; j+=i)&#123;</span><br><span class="line">        res += arr[j];</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int a[MAXN],ans[MAXN];</span><br><span class="line">int N,M,Q;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">  int t,x;</span><br><span class="line">  scanf(&quot;%d&quot;,&amp;t);</span><br><span class="line">  for (int i = 1; i &lt;= t; ++i) &#123;</span><br><span class="line">        scanf(&quot;%d %d %d&quot;,&amp;N,&amp;M,&amp;Q);</span><br><span class="line">        for(int i = 1;i&lt;=N;i++)&#123;</span><br><span class="line">            a[i] = 1;</span><br><span class="line">        &#125;</span><br><span class="line">      </span><br><span class="line">        for(int i = 1;i&lt;=M;i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;,&amp;x);</span><br><span class="line">            a[x] = 0;</span><br><span class="line">        &#125;</span><br><span class="line">        memset(ans, 0, sizeof ans);</span><br><span class="line">      </span><br><span class="line">        LL res =0;</span><br><span class="line">        for( int i = 1; i &lt;= Q; i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;,&amp;x);</span><br><span class="line">            if(ans[x]==0)&#123;</span><br><span class="line">                ans[x] = getPage(N, x,a);</span><br><span class="line">            &#125;</span><br><span class="line">            res += ans[x];</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;Case #%d: %lld\n&quot;,i,res);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="本题收获"><a href="#本题收获" class="headerlink" title="本题收获"></a>本题收获</h2><ol>
+<h2 id="本题收获">本题收获</h2>
+<ol>
 <li>了解到了比较好的编码规范，以后会应用到实践中。</li>
 <li>锻炼了自己分析问题的能力，提高算法的效率很重要，而其中的意识要逐渐培养。</li>
 <li>认识到了c++灵活但是有时候太灵活，以后需要好好注意如何使用。</li>
@@ -411,7 +433,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -424,7 +446,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

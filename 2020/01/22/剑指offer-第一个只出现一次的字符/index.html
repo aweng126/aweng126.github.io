@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="本文为剑指 offer 系列第三十三篇。主要知识点为字符串，找个map来存一下出现次数，很简单。">
+  <meta name="description" content="本文为剑指 offer 系列第三十三篇。 主要知识点为字符串，找个map来存一下出现次数，很简单。">
 <meta name="keywords" content="Map,Codinginterviews,String">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-第一个只出现一次的字符">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;22&#x2F;%E5%89%91%E6%8C%87offer-%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="本文为剑指 offer 系列第三十三篇。主要知识点为字符串，找个map来存一下出现次数，很简单。">
+<meta property="og:description" content="本文为剑指 offer 系列第三十三篇。 主要知识点为字符串，找个map来存一下出现次数，很简单。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-01-22T13:11:21.476Z">
 <meta name="twitter:card" content="summary">
@@ -297,13 +297,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文为剑指 offer 系列第三十三篇。<br>主要知识点为字符串，找个map来存一下出现次数，很简单。</p>
+        <p>本文为剑指 offer 系列第三十三篇。<br>
+主要知识点为字符串，找个map来存一下出现次数，很简单。</p>
 <a id="more"></a>
-
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/1c82e8cf713b4bbeb2a5b31cf5b0417c?tpId=13&tqId=11187&tPage=2&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>在一个字符串(0&lt;=字符串长度&lt;=10000，全部由字母组成)中找到第一个只出现一次的字符,并返回它的位置, 如果没有则返回 -1（需要区分大小写）.</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>构造一个map,对于字符串中的每个字符匹配一个对应的出现次数。然后遍历整个map,返回第一个出现次数为1的字符。<br>或者再从头到尾遍历字符串，查找map中对应字符出现的次数，返回第一个出现次数为1的字符。</p>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int FirstNotRepeatingChar(string str) &#123;</span><br><span class="line">        if(str.size() == 0) return -1;</span><br><span class="line">        unordered_map&lt;char,int&gt; mmap;</span><br><span class="line">        for(int i = 0;i&lt;str.size();i++)&#123;</span><br><span class="line">            if(mmap.count(str[i]))&#123;</span><br><span class="line">               mmap[str[i]] += 10000;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">               mmap[str[i]] = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int res = INT_MAX;</span><br><span class="line">        for(auto a:mmap)&#123;</span><br><span class="line">            res = res&gt;a.second?a.second:res;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>
+<h2 id="题目描述"><a href="https://www.nowcoder.com/practice/1c82e8cf713b4bbeb2a5b31cf5b0417c?tpId=13&amp;tqId=11187&amp;tPage=2&amp;rp=2&amp;ru=%2Fta%2Fcoding-interviews&amp;qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2>
+<p>在一个字符串(0&lt;=字符串长度&lt;=10000，全部由字母组成)中找到第一个只出现一次的字符,并返回它的位置, 如果没有则返回 -1（需要区分大小写）.</p>
+<h2 id="解题思路">解题思路</h2>
+<p>构造一个map,对于字符串中的每个字符匹配一个对应的出现次数。然后遍历整个map,返回第一个出现次数为1的字符。<br>
+或者再从头到尾遍历字符串，查找map中对应字符出现的次数，返回第一个出现次数为1的字符。</p>
+<h2 id="解题代码">解题代码</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int FirstNotRepeatingChar(string str) &#123;</span><br><span class="line">        if(str.size() == 0) return -1;</span><br><span class="line">        unordered_map&lt;char,int&gt; mmap;</span><br><span class="line">        for(int i = 0;i&lt;str.size();i++)&#123;</span><br><span class="line">            if(mmap.count(str[i]))&#123;</span><br><span class="line">               mmap[str[i]] += 10000;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">               mmap[str[i]] = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        int res = INT_MAX;</span><br><span class="line">        for(auto a:mmap)&#123;</span><br><span class="line">            res = res&gt;a.second?a.second:res;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)<br>
+以上，本题结束！</p>
 
     </div>
 
@@ -387,7 +392,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -400,7 +405,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

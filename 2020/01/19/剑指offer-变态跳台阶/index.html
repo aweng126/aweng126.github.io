@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="本文为剑指 offer 系列第十一篇。主要知识点为找规律，可以作为上一篇跳台阶的升级版,依旧比较简单。">
+  <meta name="description" content="本文为剑指 offer 系列第十一篇。 主要知识点为找规律，可以作为上一篇跳台阶的升级版,依旧比较简单。">
 <meta name="keywords" content="Codinginterviews,数学">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-变态跳台阶">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;19&#x2F;%E5%89%91%E6%8C%87offer-%E5%8F%98%E6%80%81%E8%B7%B3%E5%8F%B0%E9%98%B6&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="本文为剑指 offer 系列第十一篇。主要知识点为找规律，可以作为上一篇跳台阶的升级版,依旧比较简单。">
+<meta property="og:description" content="本文为剑指 offer 系列第十一篇。 主要知识点为找规律，可以作为上一篇跳台阶的升级版,依旧比较简单。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-01-19T11:12:10.937Z">
 <meta name="twitter:card" content="summary">
@@ -297,19 +297,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文为剑指 offer 系列第十一篇。<br>主要知识点为找规律，可以作为上一篇跳台阶的升级版,依旧比较简单。</p>
+        <p>本文为剑指 offer 系列第十一篇。<br>
+主要知识点为找规律，可以作为上一篇跳台阶的升级版,依旧比较简单。</p>
 <a id="more"></a>
-
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/22243d016f6b47f2a6928b4313c85387?tpId=13&tqId=11162&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>直接找规律。</p>
+<h2 id="题目描述"><a href="https://www.nowcoder.com/practice/22243d016f6b47f2a6928b4313c85387?tpId=13&amp;tqId=11162&amp;tPage=1&amp;rp=1&amp;ru=%2Fta%2Fcoding-interviews&amp;qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2>
+<p>一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p>
+<h2 id="解题思路">解题思路</h2>
+<p>直接找规律。</p>
 <ol>
 <li>第一级台阶：1种方式。</li>
 <li>第二级台阶：2种方式。1+1 ：直接跳到2级或者从1级上跳上来。</li>
 <li>第三级台阶：4种方式。1+1+2 ：直接跳到3级或者从1级跳上来或者从2级跳上来。</li>
 <li>……</li>
-<li>第n级台阶：2^(n-1)种方式。 1+1+2+4+……+2^(n-2) = 2^(n-1)。直接跳到n级或者从前面的每一级跳到当前n级。    </li>
+<li>第n级台阶：2^(n-1)种方式。 1+1+2+4+……+2^(n-2) = 2^(n-1)。直接跳到n级或者从前面的每一级跳到当前n级。</li>
 </ol>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloorII(int number) &#123;</span><br><span class="line">        return pow(2,number-1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="解题代码">解题代码</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloorII(int number) &#123;</span><br><span class="line">        return pow(2,number-1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(1)</p>
 <p>以上，本题结束！</p>
 
@@ -394,7 +397,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -407,7 +410,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

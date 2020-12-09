@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="我对于爬虫项目的阶段性总结。包含做项目时的流程、每个流程相关技术概述以及自己的学习经验。方便自己后期查阅，也希望能给别人一点点指引。">
+  <meta name="description" content="我对于爬虫项目的阶段性总结。 包含做项目时的流程、每个流程相关技术概述以及自己的学习经验。 方便自己后期查阅，也希望能给别人一点点指引。">
 <meta name="keywords" content="spider,总结">
 <meta property="og:type" content="article">
 <meta property="og:title" content="爬虫项目阶段性总结">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;07&#x2F;18&#x2F;data-scientist-grow-up&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="我对于爬虫项目的阶段性总结。包含做项目时的流程、每个流程相关技术概述以及自己的学习经验。方便自己后期查阅，也希望能给别人一点点指引。">
+<meta property="og:description" content="我对于爬虫项目的阶段性总结。 包含做项目时的流程、每个流程相关技术概述以及自己的学习经验。 方便自己后期查阅，也希望能给别人一点点指引。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-07-18T09:29:51.835Z">
 <meta name="twitter:card" content="summary">
@@ -297,22 +297,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>我对于爬虫项目的阶段性总结。<br>包含做项目时的流程、每个流程相关技术概述以及自己的学习经验。<br>方便自己后期查阅，也希望能给别人一点点指引。</p>
+        <p>我对于爬虫项目的阶段性总结。<br>
+包含做项目时的流程、每个流程相关技术概述以及自己的学习经验。<br>
+方便自己后期查阅，也希望能给别人一点点指引。</p>
 <a id="more"></a>
-
-<h2 id="【前言】"><a href="#【前言】" class="headerlink" title="【前言】"></a>【前言】</h2><ol>
+<h2 id="【前言】">【前言】</h2>
+<ol>
 <li>本学习计划仅作为参考，具体学习路线根据自己的实际情况酌情调整。</li>
 <li>本学习路线图侧重数据工程师或者数据科学家路线，包括数据爬虫，清洗，存储，分析，展示等一系列流程。</li>
 <li>本文档主要是给大黄写的，大黄写代码要加油啊！</li>
 </ol>
-<h2 id="完整的项目流程"><a href="#完整的项目流程" class="headerlink" title="完整的项目流程"></a>完整的项目流程</h2><ol>
+<h2 id="完整的项目流程">完整的项目流程</h2>
+<ol>
 <li>确定项目内容：可以选择自己感兴趣的内容或者根据工作任务确定。</li>
 <li>确定项目最终效果：根据目标效果反推出需要的数据。</li>
 <li>确定数据源：根据想要的数据确定一个或者多个数据源</li>
 <li>确定技术方案：分析数据源，确定需要的技术方案以及技术可行性。</li>
 <li>开始动手！按照技术方案将数据进行采集，并最终实现预期的项目效果。</li>
 </ol>
-<h2 id="项目详细技术"><a href="#项目详细技术" class="headerlink" title="项目详细技术"></a>项目详细技术</h2><h3 id="网页数据获取"><a href="#网页数据获取" class="headerlink" title="网页数据获取"></a>网页数据获取</h3><p>本部分工作主要是用爬虫程序模拟浏览器访问对应的网站来获取网页html数据。</p>
+<h2 id="项目详细技术">项目详细技术</h2>
+<h3 id="网页数据获取">网页数据获取</h3>
+<p>本部分工作主要是用爬虫程序模拟浏览器访问对应的网站来获取网页html数据。</p>
 <ol>
 <li>发送请求获取网页数据。以python为例，可以通过类似于<a href="https://requests.readthedocs.io/en/master/" target="_blank" rel="noopener">requests</a>、urllib等package发送请求。</li>
 <li>在正式编写代码前，要首先通过F12开发者选项（chrome浏览器）分析请求内容。或者直接通过网站页面右键-&gt;检查-&gt;network面板进行查看。</li>
@@ -325,45 +330,61 @@
 <ol start="3">
 <li>注意各种反爬虫措施的处理，包括伪造请求头、设置请求间隔时间、设置ip代理,携带cookie信息等等</li>
 </ol>
-<h3 id="网页解析"><a href="#网页解析" class="headerlink" title="网页解析"></a>网页解析</h3><p>本部分工作是将网页对应的html页面内容进行解析。重点是灵活使用各种解析库，将想要的数据提取出来。<br>其中解析库主要包括<a href="https://www.runoob.com/xpath/xpath-syntax.html" target="_blank" rel="noopener">xpath</a>,<a href="https://www.crummy.com/software/BeautifulSoup/doc" target="_blank" rel="noopener">bs4</a>，<a href="https://pythonhosted.org/pyquery/" target="_blank" rel="noopener">pyquery</a>等，还可以结合正则表达式、字符串操作等多种方式对网页内容进行解析。</p>
-<h3 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h3><p>网页解析出来的内容数据可能存在数据缺失、数据格式不一致等问题。所以需要进行数据处理操作。</p>
+<h3 id="网页解析">网页解析</h3>
+<p>本部分工作是将网页对应的html页面内容进行解析。重点是灵活使用各种解析库，将想要的数据提取出来。<br>
+其中解析库主要包括<a href="https://www.runoob.com/xpath/xpath-syntax.html" target="_blank" rel="noopener">xpath</a>,<a href="https://www.crummy.com/software/BeautifulSoup/doc" target="_blank" rel="noopener">bs4</a>，<a href="https://pythonhosted.org/pyquery/" target="_blank" rel="noopener">pyquery</a>等，还可以结合正则表达式、字符串操作等多种方式对网页内容进行解析。</p>
+<h3 id="数据处理">数据处理</h3>
+<p>网页解析出来的内容数据可能存在数据缺失、数据格式不一致等问题。所以需要进行数据处理操作。</p>
 <ul>
 <li>数据缺失问题：删除整条数据、填充特殊值、填充中位数、填充众数、数据拟合等</li>
 <li>数据格式不一致问题：确定数据统一格式，包括单位、格式等</li>
 </ul>
-<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p>将处理好的数据进行数据存储，方便后期使用。</p>
+<h3 id="数据存储">数据存储</h3>
+<p>将处理好的数据进行数据存储，方便后期使用。</p>
 <ul>
 <li>关系型数据库：mysql、oracle等</li>
 <li>文档型数据库：mongodb</li>
 <li>图数据库：neo4j</li>
-<li>内存数据库： redis<br>个人比较倾向于爬虫处理后的结果暂时放到mongdb中，原因就是方便读写。等数据处理结束之后可以根据数据类型以及对外服务的类型决定放到图数据库或者关系型数据库。</li>
+<li>内存数据库： redis<br>
+个人比较倾向于爬虫处理后的结果暂时放到mongdb中，原因就是方便读写。等数据处理结束之后可以根据数据类型以及对外服务的类型决定放到图数据库或者关系型数据库。</li>
 </ul>
-<h3 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h3><p>根据预期的项目效果对已经爬取的数据进行数据分析。</p>
+<h3 id="数据分析">数据分析</h3>
+<p>根据预期的项目效果对已经爬取的数据进行数据分析。</p>
 <ul>
 <li>按照不同类别进行划分，比如不同的地域，不同季节，不同人群等。</li>
 <li>按照时间线进行分析，比如平均身高，平均薪酬等。</li>
 <li>按照其他统计学的知识对数据进行处理并分析。</li>
 </ul>
-<h3 id="数据展示"><a href="#数据展示" class="headerlink" title="数据展示"></a>数据展示</h3><p>数据分析的结果要通过合适的方式进行展示。</p>
+<h3 id="数据展示">数据展示</h3>
+<p>数据分析的结果要通过合适的方式进行展示。</p>
 <ul>
 <li>ppt、word等办公软件。考虑内嵌图表或者截图插入</li>
 <li>个人网站、个人博客等。考虑使用<a href="https://echarts.apache.org/examples/zh/index.html" target="_blank" rel="noopener">echarts.js</a>或者<a href="https://observablehq.com/@d3/gallery" target="_blank" rel="noopener">d3.js</a>等图表库，效果非常好。</li>
 </ul>
-<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>我们研究或者调研的内容告诉我们什么内容，说明了什么道理，给我们什么启示，这个也应该作为我们整个项目的一部分进行说明。</p>
-<h2 id="技术进一步提升"><a href="#技术进一步提升" class="headerlink" title="技术进一步提升"></a>技术进一步提升</h2><p>上面介绍的技术仅仅适应于数据量较小的常规数据采集路线。下面说一下其中可以进行扩展和提升的部分。</p>
-<h3 id="爬虫框架的使用"><a href="#爬虫框架的使用" class="headerlink" title="爬虫框架的使用"></a>爬虫框架的使用</h3><p>数据采集是一个比较常见的需求，所以程序员们开发出了很多方便扩展的爬虫框架，比如<a href="https://docs.scrapy.org/en/latest/intro/tutorial.html" target="_blank" rel="noopener">scrapy</a>、<a href="http://docs.pyspider.org/en/latest/" target="_blank" rel="noopener">pyspider</a>、<a href="https://scrapy-redis.readthedocs.io/en/stable/" target="_blank" rel="noopener">scrapy-redis</a>、<a href="https://scrapy-cluster.readthedocs.io/en/latest/topics/introduction/overview.html" target="_blank" rel="noopener">scrapy-cluster</a>等，可以让我们将重点放在处理核心业务上。</p>
-<h3 id="docker的使用"><a href="#docker的使用" class="headerlink" title="docker的使用"></a>docker的使用</h3><p>docker可以认为是一个轻量的虚拟机，通过镜像来创建实例，每个实例彼此隔离彼此独立，从而可以让程序员摆脱编程开发测试部署环境不一致的问题，同时方便进行横向扩展。在我们项目构造出对应的镜像之后，便会由镜像在手，天下我有的豪气。<br>在使用新的组件之前，可以先去<a href="https://hub.docker.com/" target="_blank" rel="noopener">dockerhub</a>看看，之后尽量所有的项目要通过docker进行部署，用dockerfile来进行定义。让项目组件化，这样就可以解耦合，从而方便扩展和升级。</p>
+<h3 id="结论">结论</h3>
+<p>我们研究或者调研的内容告诉我们什么内容，说明了什么道理，给我们什么启示，这个也应该作为我们整个项目的一部分进行说明。</p>
+<h2 id="技术进一步提升">技术进一步提升</h2>
+<p>上面介绍的技术仅仅适应于数据量较小的常规数据采集路线。下面说一下其中可以进行扩展和提升的部分。</p>
+<h3 id="爬虫框架的使用">爬虫框架的使用</h3>
+<p>数据采集是一个比较常见的需求，所以程序员们开发出了很多方便扩展的爬虫框架，比如<a href="https://docs.scrapy.org/en/latest/intro/tutorial.html" target="_blank" rel="noopener">scrapy</a>、<a href="http://docs.pyspider.org/en/latest/" target="_blank" rel="noopener">pyspider</a>、<a href="https://scrapy-redis.readthedocs.io/en/stable/" target="_blank" rel="noopener">scrapy-redis</a>、<a href="https://scrapy-cluster.readthedocs.io/en/latest/topics/introduction/overview.html" target="_blank" rel="noopener">scrapy-cluster</a>等，可以让我们将重点放在处理核心业务上。</p>
+<h3 id="docker的使用">docker的使用</h3>
+<p>docker可以认为是一个轻量的虚拟机，通过镜像来创建实例，每个实例彼此隔离彼此独立，从而可以让程序员摆脱编程开发测试部署环境不一致的问题，同时方便进行横向扩展。在我们项目构造出对应的镜像之后，便会由镜像在手，天下我有的豪气。<br>
+在使用新的组件之前，可以先去<a href="https://hub.docker.com/" target="_blank" rel="noopener">dockerhub</a>看看，之后尽量所有的项目要通过docker进行部署，用dockerfile来进行定义。让项目组件化，这样就可以解耦合，从而方便扩展和升级。</p>
 <p>爬虫过程的每一个步骤都可以单独拿出来交给对应的docker镜像来处理。看自己最后的需求进行不同粒度的分解。</p>
-<h3 id="大数据组件"><a href="#大数据组件" class="headerlink" title="大数据组件"></a>大数据组件</h3><p>在数据清洗、数据分析的时候如果数据量太大，可以和大数据平台进行对接，包括hadoop、mapreduce等，然后将对应的结果保存起来供进一步使用。</p>
+<h3 id="大数据组件">大数据组件</h3>
+<p>在数据清洗、数据分析的时候如果数据量太大，可以和大数据平台进行对接，包括hadoop、mapreduce等，然后将对应的结果保存起来供进一步使用。</p>
 <p>大数据平台的东西由很多，而且环境部署比较麻烦，所以本部分强烈建议使用docker进行部署，然后在部署的时候要注意不同实例之间的通信。</p>
-<h3 id="分布式爬虫部署"><a href="#分布式爬虫部署" class="headerlink" title="分布式爬虫部署"></a>分布式爬虫部署</h3><p>当数据量太大，单机爬虫的速率就远远不能满足我们的需求，这个时候就可以考虑使用分布式爬虫，将很多台主机一起来爬取想要的数据，上面说的爬虫框架sacrpy就是单机版本的，scrapy-redis就是在scrapy的基础上添加redis用来做爬取队列，可以作为分布式爬虫使用，scrapy-cluster是在scrapy-redis的基础上添加大数据组件kafka从而与大数据平台对接，也属于分布式爬虫。scrapyd可以用来方便的部署分布式爬虫程序。<a href="https://docs.gerapy.com/en/latest/" target="_blank" rel="noopener">Gerapy</a>也值得关注。</p>
-<h3 id="APP内容的爬取"><a href="#APP内容的爬取" class="headerlink" title="APP内容的爬取"></a>APP内容的爬取</h3><p>本部分我没有做过，但是我知道有很多库，包括Charles、mitmproxy、Appium等，可以对手机app进行抓包，从而采集到想要的数据。</p>
-<h2 id="学习经验"><a href="#学习经验" class="headerlink" title="学习经验"></a>学习经验</h2><ol>
+<h3 id="分布式爬虫部署">分布式爬虫部署</h3>
+<p>当数据量太大，单机爬虫的速率就远远不能满足我们的需求，这个时候就可以考虑使用分布式爬虫，将很多台主机一起来爬取想要的数据，上面说的爬虫框架sacrpy就是单机版本的，scrapy-redis就是在scrapy的基础上添加redis用来做爬取队列，可以作为分布式爬虫使用，scrapy-cluster是在scrapy-redis的基础上添加大数据组件kafka从而与大数据平台对接，也属于分布式爬虫。scrapyd可以用来方便的部署分布式爬虫程序。<a href="https://docs.gerapy.com/en/latest/" target="_blank" rel="noopener">Gerapy</a>也值得关注。</p>
+<h3 id="APP内容的爬取">APP内容的爬取</h3>
+<p>本部分我没有做过，但是我知道有很多库，包括Charles、mitmproxy、Appium等，可以对手机app进行抓包，从而采集到想要的数据。</p>
+<h2 id="学习经验">学习经验</h2>
+<ol>
 <li>要以项目为主导，no bb，show your code！！</li>
 <li>善于使用搜索引擎google、bing</li>
 <li>学会使用<a href="https://stackoverflow.com/" target="_blank" rel="noopener">stackoverflow</a>查找bug</li>
 <li>尽量通过官方文档学习新的技术</li>
-<li>合理使用github这个宝库 </li>
+<li>合理使用github这个宝库</li>
 <li>找一本好的参考资料比如<a href="https://item.jd.com/12333540.html" target="_blank" rel="noopener">Python 3网络爬虫开发实战</a>以及网站<a href="https://cuiqingcai.com/" target="_blank" rel="noopener">静觅-崔庆才</a></li>
 </ol>
 <p>最后，开始动手吧！！！！</p>
@@ -449,7 +470,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -462,7 +483,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

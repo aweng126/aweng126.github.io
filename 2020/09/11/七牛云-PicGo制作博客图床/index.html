@@ -314,17 +314,22 @@
       
         <p>用七牛云和PicGo给博客的图片安了一个家，七牛云真香！</p>
 <a id="more"></a>
-
 <p>对于所有写博客的同学来说，图床是一个必须要考虑的事情，最好图床可以稳定、便宜还要好用。</p>
 <p>我从写博客以来，用过微博的图床(后来外链关闭了)，用过github搭建过图床（访问速度堪忧），用过简书做图床(平台现在越做越差)，后来就直接用有道云笔记了（但是只能自己看），一路走来，充满坎坷。</p>
 <p>最近刚好有点时间，我就把自己的域名和服务器重新认证了一下，准备以后好好做点东西，所以图床的事情也必须要搞一下，于是本篇文章应运而生！</p>
-<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><ol>
-<li><a href="https://github.com/Molunerfinn/PicGo" target="_blank" rel="noopener">PicGO</a>：到releases下载最新版本的符合自己电脑的安装包，下载即可。注意下载的是稳定版本还是试用版本，带有beta的都是试用版本。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911200650.png" alt=""></li>
-<li><a href="https://www.qiniu.com/" target="_blank" rel="noopener">七牛云</a>对象存储：在七牛云新建存储空间，用来保存图片即可。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911201552.png" alt=""></li>
+<h2 id="前期准备">前期准备</h2>
+<ol>
+<li><a href="https://github.com/Molunerfinn/PicGo" target="_blank" rel="noopener">PicGO</a>：到releases下载最新版本的符合自己电脑的安装包，下载即可。注意下载的是稳定版本还是试用版本，带有beta的都是试用版本。<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911200650.png" alt=""></li>
+<li><a href="https://www.qiniu.com/" target="_blank" rel="noopener">七牛云</a>对象存储：在七牛云新建存储空间，用来保存图片即可。<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911201552.png" alt=""></li>
 <li>实名认证后的域名。可以通过腾讯云或者阿里云进行域名购买，然后记得要到工信部认证。否则是不能对外提供服务的。</li>
 </ol>
-<h2 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h2><h3 id="1-设置七牛云存储"><a href="#1-设置七牛云存储" class="headerlink" title="1.设置七牛云存储"></a>1.设置七牛云存储</h3><ol>
-<li>对象存储-&gt;空间管理-&gt;新建空间<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911201447.png" alt=""></li>
+<h2 id="具体步骤">具体步骤</h2>
+<h3 id="1-设置七牛云存储">1.设置七牛云存储</h3>
+<ol>
+<li>对象存储-&gt;空间管理-&gt;新建空间<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911201447.png" alt=""></li>
 </ol>
 <ul>
 <li>存储空间名称：名称自定义即可。要注意长度</li>
@@ -332,31 +337,52 @@
 <li>访问控制：要设置为公开</li>
 </ul>
 <ol start="2">
-<li>设置自己的存储空间<br>刷新列表就可以看到自己刚刚新建的存储空间。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911201842.png" alt=""><br>这里其实最需要干的是要绑定自己的域名，七牛云仅仅提供了一个测试域名，只能有一个月的使用时间，之后便不能访问了。所以需要干的是选择设置，绑定自己的域名。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911202412.png" alt=""><br>具体绑定域名方法七牛云有详细的说明文档，以及https和cdn的绑定，按照说明指导就行。</li>
+<li>设置自己的存储空间<br>
+刷新列表就可以看到自己刚刚新建的存储空间。<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911201842.png" alt=""><br>
+这里其实最需要干的是要绑定自己的域名，七牛云仅仅提供了一个测试域名，只能有一个月的使用时间，之后便不能访问了。所以需要干的是选择设置，绑定自己的域名。<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911202412.png" alt=""><br>
+具体绑定域名方法七牛云有详细的说明文档，以及https和cdn的绑定，按照说明指导就行。</li>
 </ol>
-<h3 id="2-设置PicGo"><a href="#2-设置PicGo" class="headerlink" title="2. 设置PicGo"></a>2. 设置PicGo</h3><ol>
-<li>右键图标查看详情打开picGO设置面板，左侧图床设置选择七牛图床<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911203034.png" alt=""></li>
+<h3 id="2-设置PicGo">2. 设置PicGo</h3>
+<ol>
+<li>右键图标查看详情打开picGO设置面板，左侧图床设置选择七牛图床<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911203034.png" alt=""></li>
 </ol>
 <ul>
-<li>AccessKey和SecretKey：七牛云页面右上角个人中心的密钥管理里面可以设置<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911203301.png" alt=""></li>
+<li>AccessKey和SecretKey：七牛云页面右上角个人中心的密钥管理里面可以设置<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911203301.png" alt=""></li>
 <li>存储空间名称：就是我们前面的存储空间的名称。注意我这里用的是我实际图床使用的名字kwimg，但是我前面演示的是dh-img，那个仅仅是演示。大家在设置的时候此处要和前面创建的保持一致。</li>
-<li>设定访问网址：<br>如果是没有实际绑定自己的域名的话，可以在空间概览中查看。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911203700.png" alt=""><br>如果是自己已经绑定好域名的话，是下面这个样子的。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911203838.png" alt=""><br>还有需要注意的一点是需要自己在网址的前面加上(<strong>http:// 或者 https://</strong>)。</li>
-<li>确认存储区域<br>这里和我们之前申请存储空间的时候选择的区域是相关的。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911204251.png" alt=""></li>
+<li>设定访问网址：<br>
+如果是没有实际绑定自己的域名的话，可以在空间概览中查看。<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911203700.png" alt=""><br>
+如果是自己已经绑定好域名的话，是下面这个样子的。<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911203838.png" alt=""><br>
+还有需要注意的一点是需要自己在网址的前面加上(<strong>http:// 或者 https://</strong>)。</li>
+<li>确认存储区域<br>
+这里和我们之前申请存储空间的时候选择的区域是相关的。<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911204251.png" alt=""></li>
 <li>设定网址后缀： 这个暂时不用设置</li>
 <li>制定存储区域： 自己随便设置，仅仅是图片的url路径多点东西而已不重要。</li>
 </ul>
 <ol start="2">
-<li>设置快捷键<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911204718.png" alt=""></li>
-<li>设置开机自启<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911204812.png" alt=""></li>
+<li>设置快捷键<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911204718.png" alt=""></li>
+<li>设置开机自启<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911204812.png" alt=""></li>
 <li>接下来就可以非常开心的将图片提交到七牛云存储啦。</li>
 </ol>
 <ul>
 <li>当我们截图之后直接通过快捷键上传图片，图片上传成功之后对应的markdown地址会在本地的粘贴板。直接在对应的markdown文件中ctrl+v就行啦。</li>
-<li>如果想看之前提交过图片，可以左键点击图标查看；也可以右键查看详情，然后查看对应的相册，点击图片下面的三个按钮最左面一个就可以复制本张图片的markdown地址；中间一个可以修改url地址；最右面一个可以将本张图片在相册中删掉，但是七牛云存储中依然存在。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911205205.png" alt=""></li>
+<li>如果想看之前提交过图片，可以左键点击图标查看；也可以右键查看详情，然后查看对应的相册，点击图片下面的三个按钮最左面一个就可以复制本张图片的markdown地址；中间一个可以修改url地址；最右面一个可以将本张图片在相册中删掉，但是七牛云存储中依然存在。<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20200911205205.png" alt=""></li>
 </ul>
-<h2 id="关于价格"><a href="#关于价格" class="headerlink" title="关于价格"></a>关于价格</h2><p><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911205849.png" alt=""><br>如果仅仅是个人博客，而且访问量没有那么大的话，基本上就是免费的，七牛云真棒！！</p>
+<h2 id="关于价格">关于价格</h2>
+<p><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911205849.png" alt=""><br>
+如果仅仅是个人博客，而且访问量没有那么大的话，基本上就是免费的，七牛云真棒！！</p>
 <p>ok,剩下的就是安心写博客啦,gogogo!</p>
-<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ol>
+<h2 id="参考文档">参考文档</h2>
+<ol>
 <li><a href="https://picgo.github.io/PicGo-Doc/zh/guide/" target="_blank" rel="noopener">PicGo-Guide文档</a></li>
 </ol>
 
@@ -442,7 +468,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -455,7 +481,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。本篇文章探究c++编译过程的第二篇，主要解释了第一篇中的一些现象，同时尝试编译出预处理文件、汇编文件、对象文件等编译过程中的中间产物。">
+  <meta name="description" content="在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。 本篇文章探究c++编译过程的第二篇，主要解释了第一篇中的一些现象，同时尝试编译出预处理文件、汇编文件、对象文件等编译过程中的中间产物。">
 <meta name="keywords" content="编译,g++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="再探c++编译过程">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;03&#x2F;%E5%86%8D%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。本篇文章探究c++编译过程的第二篇，主要解释了第一篇中的一些现象，同时尝试编译出预处理文件、汇编文件、对象文件等编译过程中的中间产物。">
+<meta property="og:description" content="在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。 本篇文章探究c++编译过程的第二篇，主要解释了第一篇中的一些现象，同时尝试编译出预处理文件、汇编文件、对象文件等编译过程中的中间产物。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-12-03T15:10:22.769Z">
 <meta name="twitter:card" content="summary">
@@ -297,11 +297,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。<br>本篇文章探究c++编译过程的第二篇，主要解释了第一篇中的一些现象，同时尝试编译出预处理文件、汇编文件、对象文件等编译过程中的中间产物。</p>
+        <p>在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。<br>
+本篇文章探究c++编译过程的第二篇，主要解释了第一篇中的一些现象，同时尝试编译出预处理文件、汇编文件、对象文件等编译过程中的中间产物。</p>
 <a id="more"></a>
-<h2 id="编译原理解释"><a href="#编译原理解释" class="headerlink" title="编译原理解释"></a>编译原理解释</h2><h3 id="编译器的作用"><a href="#编译器的作用" class="headerlink" title="编译器的作用"></a>编译器的作用</h3><p>编译器 g++ 通过检查命令行中指定的文件的后缀名可识别其为 C++ 源代码文件。</p>
+<h2 id="编译原理解释">编译原理解释</h2>
+<h3 id="编译器的作用">编译器的作用</h3>
+<p>编译器 g++ 通过检查命令行中指定的文件的后缀名可识别其为 C++ 源代码文件。</p>
 <p>编译器默认的动作：编译源代码文件生成<strong>对象文件(object file)</strong>，将<strong>对象文件</strong>和 <strong>libstdc++ 库中的函数</strong>进行链接得到可执行程序。</p>
-<h3 id="c-编程中常见文件后缀"><a href="#c-编程中常见文件后缀" class="headerlink" title="c++编程中常见文件后缀"></a>c++编程中常见文件后缀</h3><table>
+<h3 id="c-编程中常见文件后缀">c++编程中常见文件后缀</h3>
+<table>
     <tbody>
   <tr>
     <td style="font-family:verdana, sans-serif;font-size:12px;">
@@ -343,57 +347,84 @@
     <td style="font-family:verdana, sans-serif;font-size:12px;">标准C++系统头文件</td></tr>
 </tbody>
 </table>
-
-<h3 id="初探解疑"><a href="#初探解疑" class="headerlink" title="初探解疑"></a>初探解疑</h3><ol>
-<li>初探过程中，当我们直接通过如下命令编译出最后的执行文件的过程中，<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ helloworld.cpp -o helloworld</span><br></pre></td></tr></table></figure>
-其实是存在中间状态文件的，也就是编译过程中所说到的<strong>对象文件</strong>，查表可知应该是以.o为后缀的文件。</li>
-<li>初探过程中，当我们将头文件talk.h和实现源文件talk.cpp分开之后，然后只编译测试文件talktest.cpp的时候是报错的，那么现在我们就可以理解为什么报错了，原因在于最终的可执行文件是要链接对象文件和标准库中的文件形成的，而对象文件是必须要通过cpp等c++源代码编译形成的，所以对于我们自己编写的cpp文件是一定要经过自己手动编译才能参与到后续的链接过程中的。</li>
+<h3 id="初探解疑">初探解疑</h3>
+<ol>
+<li>初探过程中，当我们直接通过如下命令编译出最后的执行文件的过程中，</li>
 </ol>
-<h2 id="再探c-编译过程"><a href="#再探c-编译过程" class="headerlink" title="再探c++编译过程"></a>再探c++编译过程</h2><h3 id="生成对象文件"><a href="#生成对象文件" class="headerlink" title="生成对象文件"></a>生成对象文件</h3><p>1.利用初探中写好的talk.h,talk.cpp,talktest.cpp文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ helloworld.cpp -o helloworld</span><br></pre></td></tr></table></figure>
+<p>其实是存在中间状态文件的，也就是编译过程中所说到的<strong>对象文件</strong>，查表可知应该是以.o为后缀的文件。<br>
+2. 初探过程中，当我们将头文件talk.h和实现源文件talk.cpp分开之后，然后只编译测试文件talktest.cpp的时候是报错的，那么现在我们就可以理解为什么报错了，原因在于最终的可执行文件是要链接对象文件和标准库中的文件形成的，而对象文件是必须要通过cpp等c++源代码编译形成的，所以对于我们自己编写的cpp文件是一定要经过自己手动编译才能参与到后续的链接过程中的。</p>
+<h2 id="再探c-编译过程">再探c++编译过程</h2>
+<h3 id="生成对象文件">生成对象文件</h3>
+<p>1.利用初探中写好的talk.h,talk.cpp,talktest.cpp文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">talk.h</span><br><span class="line">*/</span><br><span class="line">class Talk&#123;</span><br><span class="line">    public:</span><br><span class="line">        void say(const char*); </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">talk.cpp</span><br><span class="line">*/</span><br><span class="line">#include &quot;talk.h&quot;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">void Talk::say(const char* str)&#123;</span><br><span class="line">    std::cout&lt;&lt;&quot;talk with&quot;&lt;&lt;&apos;\t&apos;&lt;&lt;str&lt;&lt;std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">talktest.cpp</span><br><span class="line">*/</span><br><span class="line">#include &quot;talk.h&quot;</span><br><span class="line">int main()&#123;</span><br><span class="line">    Talk talk;</span><br><span class="line">    talk.say(&quot;kingwen&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="2">
-<li><p>直接编译出对象文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -c talk.cpp</span><br><span class="line">g++ -c talktest.cpp</span><br></pre></td></tr></table></figure></li>
-<li><p>查看当前文件</p>
+<li>直接编译出对象文件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -c talk.cpp</span><br><span class="line">g++ -c talktest.cpp</span><br></pre></td></tr></table></figure>
+<p>3.查看当前文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls</span><br></pre></td></tr></table></figure>
 <p>可以发现多了两个文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">talk.o talktest.o</span><br></pre></td></tr></table></figure></li>
-<li><p>编译对象文件生成可执行文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ talk.o talktest.o -o talktest1</span><br></pre></td></tr></table></figure></li>
-<li><p>执行talktest1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">talk.o talktest.o</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>编译对象文件生成可执行文件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ talk.o talktest.o -o talktest1</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>执行talktest1</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./talktest1</span><br></pre></td></tr></table></figure>
 <p>结果和我们执行直接生成编译结果是一样的,结果如下所示。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">talk with   kingwen</span><br></pre></td></tr></table></figure></li>
-<li><p>对象文件输出<br>我们在第二步中是通过<strong>gcc -c talk.cpp</strong>直接编译出了<strong>talk.o</strong>这个对象。<br>这里会使得编译结果的默认名称和源码名称一致。但是我们其实可以自定义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">talk with   kingwen</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>对象文件输出<br>
+我们在第二步中是通过<strong>gcc -c talk.cpp</strong>直接编译出了<strong>talk.o</strong>这个对象。<br>
+这里会使得编译结果的默认名称和源码名称一致。但是我们其实可以自定义。</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -c talk.cpp -o talker.o</span><br><span class="line">g++ -c talktest.cpp -o talkertest.o</span><br></pre></td></tr></table></figure>
 <p>然后编译运行方式和前面说明的一致即可。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ talker.o talkertest.o -o talkertest</span><br><span class="line">./talkertest</span><br></pre></td></tr></table></figure>
 <p>最后得到的结果也和之前是一样的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">talk with   kingwen</span><br></pre></td></tr></table></figure>
 <p>PS:所以如果以后在编码过程中如果碰见说缺少对象文件，那么就是对应的cpp源代码文件没有编译，我们可以通过g++命令对其进行编译即可解决问题。</p>
-<h3 id="生成预处理文件"><a href="#生成预处理文件" class="headerlink" title="生成预处理文件"></a>生成预处理文件</h3></li>
-<li><p>找到初探中的helloworld.cpp代码</p>
+<h3 id="生成预处理文件">生成预处理文件</h3>
+<ol>
+<li>找到初探中的helloworld.cpp代码</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/* </span><br><span class="line">  helloworld.cpp </span><br><span class="line">  用于测试g++编译单个源文件生成可执行程序</span><br><span class="line">*/</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">    std::cout&lt;&lt;&quot;hello world&quot;&lt;&lt;std::endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>通过wc命令来查看helloworld.cpp文件的行数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  compilec++ wc -l helloworld.cpp</span><br><span class="line">       8 helloworld.cpp</span><br></pre></td></tr></table></figure></li>
-<li><p>代码预处理<br>通过如下命令会将预处理的结果在标准输出中进行输出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  compilec++ wc -l helloworld.cpp</span><br><span class="line">       8 helloworld.cpp</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>代码预处理<br>
+通过如下命令会将预处理的结果在标准输出中进行输出。</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -E helloworld.cpp</span><br></pre></td></tr></table></figure>
 <p>当然我们也可以将结果进行输出保存</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -E helloworld.cpp -o helloworld.ii</span><br></pre></td></tr></table></figure>
 <p>通过wc命令来查看预处理结果helloworld.ii的行数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">compilec++ wc -l helloworld.ii</span><br><span class="line">  41484 helloworld.ii</span><br></pre></td></tr></table></figure>
 <p>可以发现文件大小有了翻天覆地的变化，这里主要就是将头文件等引入了我们的文件中。</p>
-</li>
+<h3 id="生成汇编文件">生成汇编文件</h3>
+<ol>
+<li>同样还是之前的helloworld.cpp代码</li>
 </ol>
-<h3 id="生成汇编文件"><a href="#生成汇编文件" class="headerlink" title="生成汇编文件"></a>生成汇编文件</h3><ol>
-<li>同样还是之前的helloworld.cpp代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/* </span><br><span class="line">  helloworld.cpp </span><br><span class="line">  用于测试g++编译单个源文件生成可执行程序</span><br><span class="line">*/</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">    std::cout&lt;&lt;&quot;hello world&quot;&lt;&lt;std::endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>直接编译生成汇编代码<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -S helloworld.cpp -o helloworld.s</span><br></pre></td></tr></table></figure></li>
-<li>查看生成的汇编代码<br>其实可以使用cat或者head或者tail进行查看，<br>这里我用的是sed命令查看了从1360到1372行，因为我觉得这块代码更加符合我对汇编的想象。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n &apos;1360,1372p&apos; helloworld.s</span><br></pre></td></tr></table></figure>
-结果如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">compilec++ sed -n &apos;1360,1372p&apos; helloworld.s</span><br><span class="line">    movq    %rsp, %rbp</span><br><span class="line">    .cfi_def_cfa_register %rbp</span><br><span class="line">    movl    %edi, -4(%rbp)</span><br><span class="line">    movl    %esi, -8(%rbp)</span><br><span class="line">    movl    -4(%rbp), %esi</span><br><span class="line">    cmpl    -8(%rbp), %esi</span><br><span class="line">    sete    %al</span><br><span class="line">    andb    $1, %al</span><br><span class="line">    movzbl  %al, %eax</span><br><span class="line">    popq    %rbp</span><br><span class="line">    retq</span><br><span class="line">    .cfi_endproc</span><br><span class="line">                                        ## -- End function</span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><a href="https://blog.csdn.net/guoxiaoqian8028/article/details/18915513" target="_blank" rel="noopener">GCC编译C++</a></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/* </span><br><span class="line">  helloworld.cpp </span><br><span class="line">  用于测试g++编译单个源文件生成可执行程序</span><br><span class="line">*/</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">    std::cout&lt;&lt;&quot;hello world&quot;&lt;&lt;std::endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>直接编译生成汇编代码</li>
 </ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -S helloworld.cpp -o helloworld.s</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>查看生成的汇编代码<br>
+其实可以使用cat或者head或者tail进行查看，<br>
+这里我用的是sed命令查看了从1360到1372行，因为我觉得这块代码更加符合我对汇编的想象。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n &apos;1360,1372p&apos; helloworld.s</span><br></pre></td></tr></table></figure>
+<p>结果如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">compilec++ sed -n &apos;1360,1372p&apos; helloworld.s</span><br><span class="line">    movq    %rsp, %rbp</span><br><span class="line">    .cfi_def_cfa_register %rbp</span><br><span class="line">    movl    %edi, -4(%rbp)</span><br><span class="line">    movl    %esi, -8(%rbp)</span><br><span class="line">    movl    -4(%rbp), %esi</span><br><span class="line">    cmpl    -8(%rbp), %esi</span><br><span class="line">    sete    %al</span><br><span class="line">    andb    $1, %al</span><br><span class="line">    movzbl  %al, %eax</span><br><span class="line">    popq    %rbp</span><br><span class="line">    retq</span><br><span class="line">    .cfi_endproc</span><br><span class="line">                                        ## -- End function</span><br></pre></td></tr></table></figure>
+<h2 id="参考">参考</h2>
+<p><a href="https://blog.csdn.net/guoxiaoqian8028/article/details/18915513" target="_blank" rel="noopener">GCC编译C++</a></p>
 
     </div>
 
@@ -476,7 +507,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -489,7 +520,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="本文为剑指 offer 系列第六十七篇。主要知识点为约瑟夫环，偏向于数学一点，值得认真仔细的看。">
+  <meta name="description" content="本文为剑指 offer 系列第六十七篇。 主要知识点为约瑟夫环，偏向于数学一点，值得认真仔细的看。">
 <meta name="keywords" content="Codinginterviews,数学">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-孩子们的游戏">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;29&#x2F;%E5%89%91%E6%8C%87offer-%E5%AD%A9%E5%AD%90%E4%BB%AC%E7%9A%84%E6%B8%B8%E6%88%8F&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="本文为剑指 offer 系列第六十七篇。主要知识点为约瑟夫环，偏向于数学一点，值得认真仔细的看。">
+<meta property="og:description" content="本文为剑指 offer 系列第六十七篇。 主要知识点为约瑟夫环，偏向于数学一点，值得认真仔细的看。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-01-29T02:27:46.816Z">
 <meta name="twitter:card" content="summary">
@@ -297,14 +297,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文为剑指 offer 系列第六十七篇。<br>主要知识点为约瑟夫环，偏向于数学一点，值得认真仔细的看。</p>
+        <p>本文为剑指 offer 系列第六十七篇。<br>
+主要知识点为约瑟夫环，偏向于数学一点，值得认真仔细的看。</p>
 <a id="more"></a>
-
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/f78a359491e64a50bce2d89cff857eb6?tpId=13&tqId=11199&tPage=3&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>每年六一儿童节,牛客都会准备一些小礼物去看望孤儿院的小朋友,今年亦是如此。HF作为牛客的资深元老,自然也准备了一些小游戏。其中,有个游戏是这样的:首先,让小朋友们围成一个大圈。然后,他随机指定一个数m,让编号为0的小朋友开始报数。每次喊到m-1的那个小朋友要出列唱首歌,然后可以在礼品箱中任意的挑选礼物,并且不再回到圈中,从他的下一个小朋友开始,继续0…m-1报数….这样下去….直到剩下最后一个小朋友,可以不用表演,并且拿到牛客名贵的“名侦探柯南”典藏版(名额有限哦!!^_^)。请你试着想下,哪个小朋友会得到这份礼品呢？(注：小朋友的编号是从0到n-1)<br>如果没有小朋友，请返回-1；</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>通过一个环形链表来循环跑圈，每次删除编号为m-1的节点，直到最后只剩下一个节点，就是想要的节点。</p>
-<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>约瑟夫环。<br>最开始是n个人，m个数字，如果从0开始编码，那么第一个删除的节点k = (m-1)%n,继续向后从0开始对k+1,k+2,……,0,1,……，n-2,n-1进行编号，则前后的对应关系如下。<br>X  -&gt; Y<br>k+1 -&gt; 0<br>k+2 -&gt; 1<br>……<br>0  -&gt; n-k-1<br>1  -&gt; n-k<br>……<br>n-1 -&gt; n-2<br>我们可以发现变化后的编号Y和变化前的编号有一定的对应关系，<br>Y = (X-k-1)%n,对以的X = (Y+k+1)%n,将k = (m-1)%n代入，X = (Y+m)%n，<br>我们将这个关系用函数表示，F(n,m)表示n个人每次删除第m个数字最后剩下的数字，则上面的关系就变成了F(n,m) = (F(n-1,m)+m)%n,同时很明显的F(1,m) = 0;<br>进而可以利用递归得到我们最后的解。</p>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int LastRemaining_Solution(int n, int m)</span><br><span class="line">    &#123;</span><br><span class="line">        if(n &lt; 1 || m &lt; 1)&#123;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125;else if(n == 1)&#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            // F[n] = (F[n - 1] + m) % n</span><br><span class="line">            return (LastRemaining_Solution(n-1,m)+m)%n;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>
+<h2 id="题目描述"><a href="https://www.nowcoder.com/practice/f78a359491e64a50bce2d89cff857eb6?tpId=13&amp;tqId=11199&amp;tPage=3&amp;rp=2&amp;ru=%2Fta%2Fcoding-interviews&amp;qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2>
+<p>每年六一儿童节,牛客都会准备一些小礼物去看望孤儿院的小朋友,今年亦是如此。HF作为牛客的资深元老,自然也准备了一些小游戏。其中,有个游戏是这样的:首先,让小朋友们围成一个大圈。然后,他随机指定一个数m,让编号为0的小朋友开始报数。每次喊到m-1的那个小朋友要出列唱首歌,然后可以在礼品箱中任意的挑选礼物,并且不再回到圈中,从他的下一个小朋友开始,继续0…m-1报数…这样下去…直到剩下最后一个小朋友,可以不用表演,并且拿到牛客名贵的“名侦探柯南”典藏版(名额有限哦!!^_^)。请你试着想下,哪个小朋友会得到这份礼品呢？(注：小朋友的编号是从0到n-1)<br>
+如果没有小朋友，请返回-1；</p>
+<h2 id="解题思路">解题思路</h2>
+<h3 id="思路1">思路1</h3>
+<p>通过一个环形链表来循环跑圈，每次删除编号为m-1的节点，直到最后只剩下一个节点，就是想要的节点。</p>
+<h3 id="思路2">思路2</h3>
+<p>约瑟夫环。<br>
+最开始是n个人，m个数字，如果从0开始编码，那么第一个删除的节点k = (m-1)%n,继续向后从0开始对k+1,k+2,……,0,1,……，n-2,n-1进行编号，则前后的对应关系如下。<br>
+X  -&gt; Y<br>
+k+1 -&gt; 0<br>
+k+2 -&gt; 1<br>
+……<br>
+0  -&gt; n-k-1<br>
+1  -&gt; n-k<br>
+……<br>
+n-1 -&gt; n-2<br>
+我们可以发现变化后的编号Y和变化前的编号有一定的对应关系，<br>
+Y = (X-k-1)%n,对以的X = (Y+k+1)%n,将k = (m-1)%n代入，X = (Y+m)%n，<br>
+我们将这个关系用函数表示，F(n,m)表示n个人每次删除第m个数字最后剩下的数字，则上面的关系就变成了F(n,m) = (F(n-1,m)+m)%n,同时很明显的F(1,m) = 0;<br>
+进而可以利用递归得到我们最后的解。</p>
+<h2 id="解题代码">解题代码</h2>
+<h3 id="思路2代码">思路2代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int LastRemaining_Solution(int n, int m)</span><br><span class="line">    &#123;</span><br><span class="line">        if(n &lt; 1 || m &lt; 1)&#123;</span><br><span class="line">            return -1;</span><br><span class="line">        &#125;else if(n == 1)&#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            // F[n] = (F[n - 1] + m) % n</span><br><span class="line">            return (LastRemaining_Solution(n-1,m)+m)%n;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)<br>
+以上，本题结束！</p>
 
     </div>
 
@@ -387,7 +408,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -400,7 +421,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

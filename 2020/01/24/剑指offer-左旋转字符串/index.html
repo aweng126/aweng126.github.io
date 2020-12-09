@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="本文为剑指 offer 系列第四十二篇。主要知识点为字符串，非常简单，都没啥值得说的。">
+  <meta name="description" content="本文为剑指 offer 系列第四十二篇。 主要知识点为字符串，非常简单，都没啥值得说的。">
 <meta name="keywords" content="Codinginterviews,String">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-左旋转字符串">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;24&#x2F;%E5%89%91%E6%8C%87offer-%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="本文为剑指 offer 系列第四十二篇。主要知识点为字符串，非常简单，都没啥值得说的。">
+<meta property="og:description" content="本文为剑指 offer 系列第四十二篇。 主要知识点为字符串，非常简单，都没啥值得说的。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-01-24T02:13:09.044Z">
 <meta name="twitter:card" content="summary">
@@ -297,18 +297,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文为剑指 offer 系列第四十二篇。<br>主要知识点为字符串，非常简单，都没啥值得说的。</p>
+        <p>本文为剑指 offer 系列第四十二篇。<br>
+主要知识点为字符串，非常简单，都没啥值得说的。</p>
 <a id="more"></a>
-
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/12d959b108cb42b1ab72cef4d36af5ec?tpId=13&tqId=11196&tPage=3&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>汇编语言中有一种移位指令叫做循环左移（ROL），现在有个简单的任务，就是用字符串模拟这个指令的运算结果。对于一个给定的字符序列S，请你把其循环左移K位后的序列输出。例如，字符序列S=”abcXYZdef”,要求输出循环左移3位后的结果，即“XYZdefabc”。是不是很简单？OK，搞定它！</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>这里其实有三种情况需要考虑，</p>
+<h2 id="题目描述"><a href="https://www.nowcoder.com/practice/12d959b108cb42b1ab72cef4d36af5ec?tpId=13&amp;tqId=11196&amp;tPage=3&amp;rp=2&amp;ru=%2Fta%2Fcoding-interviews&amp;qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2>
+<p>汇编语言中有一种移位指令叫做循环左移（ROL），现在有个简单的任务，就是用字符串模拟这个指令的运算结果。对于一个给定的字符序列S，请你把其循环左移K位后的序列输出。例如，字符序列S=”abcXYZdef”,要求输出循环左移3位后的结果，即“XYZdefabc”。是不是很简单？OK，搞定它！</p>
+<h2 id="解题思路">解题思路</h2>
+<p>这里其实有三种情况需要考虑，</p>
 <ol>
 <li>K等于字符串的长度： 这个时候可以直接返回原来的字符串。</li>
 <li>K小于字符串的长度： 这个时候相当于对于原来的字符串进行截取，一段是前面K位，一段是剩下的。然后左右置换重新拼接即可。</li>
-<li>K大于字符串的长度： 这个时候实际上相当于已经左移一圈了，继续左移实际上最后效果相当于左移<br>K = K % len.<br>然后该情况就变成了第二种情况。 </li>
+<li>K大于字符串的长度： 这个时候实际上相当于已经左移一圈了，继续左移实际上最后效果相当于左移<br>
+K = K % len.<br>
+然后该情况就变成了第二种情况。</li>
 </ol>
 <p>本题目给的测试用例不是很好，或者说题目意思说的不明确，当循环左移到头之后怎么办呢？是直接返回，还是按照循环左移这个名字来真的循环呢？两种理解都可以过所有样例,感觉题目出的非常不好。</p>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    string LeftRotateString(string str, int n) &#123;</span><br><span class="line">        int slen = str.size();</span><br><span class="line">        if(slen == 0) return str;</span><br><span class="line">        //if(slen &lt; n) return str; // 如果左移位数超过字符串长度，直接返回，也可以过测试用例。</span><br><span class="line">        int realn = n%slen;</span><br><span class="line">        string head = str.substr(0,realn);</span><br><span class="line">        string tail = str.substr(realn);</span><br><span class="line">        return tail+head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="解题代码">解题代码</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    string LeftRotateString(string str, int n) &#123;</span><br><span class="line">        int slen = str.size();</span><br><span class="line">        if(slen == 0) return str;</span><br><span class="line">        //if(slen &lt; n) return str; // 如果左移位数超过字符串长度，直接返回，也可以过测试用例。</span><br><span class="line">        int realn = n%slen;</span><br><span class="line">        string head = str.substr(0,realn);</span><br><span class="line">        string tail = str.substr(realn);</span><br><span class="line">        return tail+head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <p>以上，本题结束！</p>
 
@@ -393,7 +398,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -406,7 +411,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

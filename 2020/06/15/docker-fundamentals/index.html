@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="docker是目前最流行的虚拟化技术。本篇文章主要介绍docker的基本概念以及初步尝试使用docker技术。">
+  <meta name="description" content="docker是目前最流行的虚拟化技术。 本篇文章主要介绍docker的基本概念以及初步尝试使用docker技术。">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker初探-认识并使用docker">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;15&#x2F;docker-fundamentals&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="docker是目前最流行的虚拟化技术。本篇文章主要介绍docker的基本概念以及初步尝试使用docker技术。">
+<meta property="og:description" content="docker是目前最流行的虚拟化技术。 本篇文章主要介绍docker的基本概念以及初步尝试使用docker技术。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;user-gold-cdn.xitu.io&#x2F;2019&#x2F;4&#x2F;9&#x2F;16a02cdab4a554d0?imageView2&#x2F;0&#x2F;w&#x2F;1280&#x2F;h&#x2F;960&#x2F;format&#x2F;webp&#x2F;ignore-error&#x2F;1">
 <meta property="og:image" content="https:&#x2F;&#x2F;user-gold-cdn.xitu.io&#x2F;2019&#x2F;4&#x2F;9&#x2F;16a02cdbf14142a0?imageView2&#x2F;0&#x2F;w&#x2F;1280&#x2F;h&#x2F;960&#x2F;format&#x2F;webp&#x2F;ignore-error&#x2F;1">
@@ -300,92 +300,118 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>docker是目前最流行的虚拟化技术。<br>本篇文章主要介绍docker的基本概念以及初步尝试使用docker技术。</p>
+        <p>docker是目前最流行的虚拟化技术。<br>
+本篇文章主要介绍docker的基本概念以及初步尝试使用docker技术。</p>
 <a id="more"></a>
-
-
-<h2 id="docker是什么"><a href="#docker是什么" class="headerlink" title="docker是什么"></a>docker是什么</h2><p> Docker 属于 Linux容器的一种封装，提供简单易用的容器使用接口。它是目前最流行的 Linux 容器解决方案。</p>
-<p> Docker将应用程序与该程序的依赖，打包在一个文件里面。只要运行这个文件，就会生成一个虚拟容器。程序在这个虚拟容器里运行，就好像在真实的物理机上运行一样。</p>
-<h2 id="docker好在哪"><a href="#docker好在哪" class="headerlink" title="docker好在哪"></a>docker好在哪</h2><ol>
+<h2 id="docker是什么">docker是什么</h2>
+<p>Docker 属于 Linux容器的一种封装，提供简单易用的容器使用接口。它是目前最流行的 Linux 容器解决方案。</p>
+<p>Docker将应用程序与该程序的依赖，打包在一个文件里面。只要运行这个文件，就会生成一个虚拟容器。程序在这个虚拟容器里运行，就好像在真实的物理机上运行一样。</p>
+<h2 id="docker好在哪">docker好在哪</h2>
+<ol>
 <li>更高效的利用系统资源</li>
 <li>更快速的启动时间</li>
 <li>一致的运行环境</li>
 <li>持续交付和部署</li>
 <li>容易迁移、维护和扩展</li>
 </ol>
-<h2 id="docker专有名词"><a href="#docker专有名词" class="headerlink" title="docker专有名词"></a>docker专有名词</h2><ol>
+<h2 id="docker专有名词">docker专有名词</h2>
+<ol>
 <li>镜像，image, 包括各种环境的定义和说明。</li>
 <li>容器，container, 是一个镜像的运行实体，不同容器之间是相互隔离的。</li>
 <li>仓库，镜像的仓库，用于用户发布自己的镜像或者查找自己需要的镜像，目前最大的公开仓库为<a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker hub</a>,一个项目star越多，说明项目越好越稳定。</li>
 </ol>
 <p><img src="https://user-gold-cdn.xitu.io/2019/4/9/16a02cdab4a554d0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt=""></p>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="启动docker"><a href="#启动docker" class="headerlink" title="启动docker"></a>启动docker</h3><p>如果是mac或者windows用户，可以直接使用Docker Desktop来可视化处理<br>如果是linux用户，需要通过命令行来启动</p>
+<h2 id="常用命令">常用命令</h2>
+<h3 id="启动docker">启动docker</h3>
+<p>如果是mac或者windows用户，可以直接使用Docker Desktop来可视化处理<br>
+如果是linux用户，需要通过命令行来启动</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker start/stop/restart</span><br></pre></td></tr></table></figure>
-<h3 id="使用docker"><a href="#使用docker" class="headerlink" title="使用docker"></a>使用docker</h3><ol>
-<li>help帮助命令<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image --help</span><br></pre></td></tr></table></figure>
-通过这条命令可以查看与docker的镜像相关的命令<br>将image替换为container，则可以查看到关于container的相关帮助。<br>同时，可以进一步查看相关命令的细节，比如下面的命令就可以查看image下prune命令的细节。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image prune --help</span><br></pre></td></tr></table></figure>
-
-
-</li>
+<h3 id="使用docker">使用docker</h3>
+<ol>
+<li>help帮助命令</li>
 </ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image --help</span><br></pre></td></tr></table></figure>
+<p>通过这条命令可以查看与docker的镜像相关的命令<br>
+将image替换为container，则可以查看到关于container的相关帮助。<br>
+同时，可以进一步查看相关命令的细节，比如下面的命令就可以查看image下prune命令的细节。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image prune --help</span><br></pre></td></tr></table></figure>
 <ol start="2">
-<li><p>搜索并拉取镜像</p>
+<li>搜索并拉取镜像</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 搜索与ubuntu相关的image</span><br><span class="line">docker search ubuntu</span><br><span class="line"></span><br><span class="line">// 拉取镜像到本地</span><br><span class="line">docker pull ubuntu</span><br><span class="line"></span><br><span class="line">// 如果没有特别声明tag,会默认使用latest标签。</span><br><span class="line">// 当然可以去docker hub去查找image并查看更加细节的东西，比如版本信息，然后在拉取的时候可以指定版本。</span><br><span class="line">docker pull ubuntu:18.04</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>列出当前本地的所有镜像</p>
+<ol start="3">
+<li>列出当前本地的所有镜像</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line">或者</span><br><span class="line">docker image ls</span><br></pre></td></tr></table></figure>
 <p>如果想同时查看中间层镜像</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker images -a</span><br><span class="line">或者</span><br><span class="line">docker image ls -a</span><br></pre></td></tr></table></figure></li>
-<li><p>删除本地镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker images -a</span><br><span class="line">或者</span><br><span class="line">docker image ls -a</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>删除本地镜像</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 删除固定的某个镜像</span><br><span class="line">docker rmi imageid</span><br><span class="line">docker image rm imageid</span><br><span class="line"></span><br><span class="line">//删除所有玄虚镜像</span><br><span class="line">docker image prune</span><br><span class="line"></span><br><span class="line">// 删除所有玄虚镜像和未使用的景象</span><br><span class="line">docker image prune -a</span><br><span class="line"></span><br><span class="line">// 删除所有仓库名为redis的镜像</span><br><span class="line">docker image rm $(docker image ls -q redis)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动一个容器</p>
+<ol start="5">
+<li>启动一个容器</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 从image启动一个容器</span><br><span class="line">docker run -it --name ubuntu  ubuntu:18.04  /bin/bash</span><br><span class="line"> -i : Keep STDIN open even if not attached 即使没有连接，也要保持标准输入保持打开状态</span><br><span class="line"> -t : Allocate a pseudo-TTY  分配一个伪tty</span><br><span class="line"> -name ubuntu : 为当前容器分配名字为ubuntu</span><br><span class="line"> ubuntu:18.04 ：要运行的镜像</span><br><span class="line"> /bin/bash ：要执行的命令。</span><br><span class="line"></span><br><span class="line">还有一个参数非常常见 </span><br><span class="line"> -d : Run container in background and print container ID 在后台运行容器，且打印容器id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 把之前停止的容器重新启动</span><br><span class="line">docker start containerid</span><br><span class="line">docker attach containerid</span><br></pre></td></tr></table></figure>
 <p>使用docker run命令来启动容器，docker在后台运行的标准操作包括</p>
-<ol>
-<li>检查本地是否存在指定的镜像，不存在则从公有仓库下载</li>
-<li>使用镜像创建并启动容器</li>
-<li>分配一个文件系统，并在只读的镜像层外面挂载一层可读可写层</li>
-<li>从宿主主机配置的网桥接口中桥接一个虚拟接口道容器中去</li>
-<li>从地址池分配一个ip地址给容器</li>
-<li>执行用户指定的应用程序</li>
-<li>执行完毕之后容器被终止</li>
-</ol>
-</li>
-</ol>
+<pre><code>1. 检查本地是否存在指定的镜像，不存在则从公有仓库下载
+2. 使用镜像创建并启动容器
+3.分配一个文件系统，并在只读的镜像层外面挂载一层可读可写层
+4.从宿主主机配置的网桥接口中桥接一个虚拟接口道容器中去
+5.从地址池分配一个ip地址给容器
+6.执行用户指定的应用程序
+7.执行完毕之后容器被终止
+</code></pre>
 <p>需要注意的是，对于容器要执行的命令而言，如果执行结束，那么容器就会关闭。</p>
 <ol start="6">
-<li><p>查看当前正在运行的容器</p>
+<li>查看当前正在运行的容器</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
 <p>如果还想查看已经退出的容器</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>连接一个执行之中的容器</p>
+<ol start="7">
+<li>连接一个执行之中的容器</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container exec -it containerid</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>退出正在运行的容器</p>
+<ol start="8">
+<li>退出正在运行的容器</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ctrl + D</span><br><span class="line">或者</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看镜像所占空间</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker system df</span><br></pre></td></tr></table></figure></li>
-<li><p>删除某些名称中含有dingms的container</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container rm $(docker ps -a |grep dingms | awk &apos;&#123;print $1&#125;&apos;)</span><br></pre></td></tr></table></figure></li>
-<li><p>守护态进程<br>很多时候，需要让docker在后台运行而不是直接把结果输出到当前宿主下面，这个时候可以用守护态运行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 没有使用守护态，始终在本地终端输出</span><br><span class="line">docker run  ubuntu:18.04 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</span><br><span class="line"></span><br><span class="line">//使用守护态,不在本地终端输出，但是在最后结果输出</span><br><span class="line">docker run -d ubuntu:18.04 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</span><br><span class="line">// 查看当前contain</span><br><span class="line">docker container ls</span><br><span class="line">docker container logs containerid</span><br></pre></td></tr></table></figure></li>
-<li><p>终止某个容器</p>
+<ol start="9">
+<li>查看镜像所占空间</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker system df</span><br></pre></td></tr></table></figure>
+<ol start="10">
+<li>删除某些名称中含有dingms的container</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container rm $(docker ps -a |grep dingms | awk &apos;&#123;print $1&#125;&apos;)</span><br></pre></td></tr></table></figure>
+<ol start="11">
+<li>守护态进程<br>
+很多时候，需要让docker在后台运行而不是直接把结果输出到当前宿主下面，这个时候可以用守护态运行。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 没有使用守护态，始终在本地终端输出</span><br><span class="line">docker run  ubuntu:18.04 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</span><br><span class="line"></span><br><span class="line">//使用守护态,不在本地终端输出，但是在最后结果输出</span><br><span class="line">docker run -d ubuntu:18.04 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</span><br><span class="line">// 查看当前contain</span><br><span class="line">docker container ls</span><br><span class="line">docker container logs containerid</span><br></pre></td></tr></table></figure>
+<ol start="12">
+<li>终止某个容器</li>
+</ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container stop containerid</span><br></pre></td></tr></table></figure>
 <p>对于正在运行中的容器，重新启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container restart containerid</span><br></pre></td></tr></table></figure></li>
-<li><p>进入容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker attach containerid</span><br><span class="line"></span><br><span class="line">docker exec -it containerid bash</span><br><span class="line"></span><br><span class="line">用attach进入终端之后，如果exit会直接让容器终止。</span><br><span class="line">但是exec通过exit退出之后，容器不会终止。</span><br></pre></td></tr></table></figure></li>
-<li><p>镜像打包和加载</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 打包镜像</span><br><span class="line">docker save -o ~/Desktop/kuakua.tar kuakua:latest</span><br><span class="line">// 加载tar包到对应的镜像</span><br><span class="line">docker load -i ~/Desktop/kuakua.tar</span><br></pre></td></tr></table></figure></li>
-<li><p>导出和导入容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 导出容器快照文件到本地文件</span><br><span class="line">docker export containerid &gt; name.tar</span><br><span class="line">// 从容器快照文件再导入为镜像</span><br><span class="line">cat name.tar | docker import - test/name:v1.0</span><br><span class="line">// 查看所属镜像</span><br><span class="line">docker images</span><br></pre></td></tr></table></figure>
-<p>从网上找到一个非常棒的图<br><img src="https://user-gold-cdn.xitu.io/2019/4/9/16a02cdbf14142a0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="image"></p>
-</li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container restart containerid</span><br></pre></td></tr></table></figure>
+<ol start="13">
+<li>进入容器</li>
 </ol>
-<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker attach containerid</span><br><span class="line"></span><br><span class="line">docker exec -it containerid bash</span><br><span class="line"></span><br><span class="line">用attach进入终端之后，如果exit会直接让容器终止。</span><br><span class="line">但是exec通过exit退出之后，容器不会终止。</span><br></pre></td></tr></table></figure>
+<ol start="14">
+<li>镜像打包和加载</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 打包镜像</span><br><span class="line">docker save -o ~/Desktop/kuakua.tar kuakua:latest</span><br><span class="line">// 加载tar包到对应的镜像</span><br><span class="line">docker load -i ~/Desktop/kuakua.tar</span><br></pre></td></tr></table></figure>
+<ol start="15">
+<li>导出和导入容器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 导出容器快照文件到本地文件</span><br><span class="line">docker export containerid &gt; name.tar</span><br><span class="line">// 从容器快照文件再导入为镜像</span><br><span class="line">cat name.tar | docker import - test/name:v1.0</span><br><span class="line">// 查看所属镜像</span><br><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<p>从网上找到一个非常棒的图<br>
+<img src="https://user-gold-cdn.xitu.io/2019/4/9/16a02cdbf14142a0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="image"></p>
+<h2 id="参考文章">参考文章</h2>
+<ol>
 <li><a href="https://yeasy.gitbooks.io/docker_practice/" target="_blank" rel="noopener">Docker 从入门到实践</a></li>
 <li><a href="https://docs.docker.com/engine/reference/run/" target="_blank" rel="noopener">Docker-cli官方文档</a></li>
 <li><a href="https://juejin.im/post/5cacbfd7e51d456e8833390c#heading-0" target="_blank" rel="noopener">30 分钟快速入门 Docker 教程</a></li>
@@ -471,7 +497,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -484,7 +510,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

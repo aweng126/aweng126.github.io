@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="本文为剑指offer系列第二篇。个人感觉属于奇淫巧技，但是是真的很巧妙，有利于打破思维定势。">
+  <meta name="description" content="本文为剑指offer系列第二篇。 个人感觉属于奇淫巧技，但是是真的很巧妙，有利于打破思维定势。">
 <meta name="keywords" content="Codinginterviews,智力题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-求1+2+……+n">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;16&#x2F;%E5%89%91%E6%8C%87offer-%E6%B1%821-2-%E2%80%A6%E2%80%A6-n&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="本文为剑指offer系列第二篇。个人感觉属于奇淫巧技，但是是真的很巧妙，有利于打破思维定势。">
+<meta property="og:description" content="本文为剑指offer系列第二篇。 个人感觉属于奇淫巧技，但是是真的很巧妙，有利于打破思维定势。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-01-16T08:58:25.465Z">
 <meta name="twitter:card" content="summary">
@@ -278,7 +278,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>948</span>
+              <span>950</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -297,17 +297,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文为剑指offer系列第二篇。<br>个人感觉属于奇淫巧技，但是是真的很巧妙，有利于打破思维定势。</p>
+        <p>本文为剑指offer系列第二篇。<br>
+个人感觉属于奇淫巧技，但是是真的很巧妙，有利于打破思维定势。</p>
 <a id="more"></a>
-
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1?tpId=13&tqId=11200&tPage=3&rp=3&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>求1+2+3+…+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>思路1: 其实可以调用库函数<br>思路2: 可以使用 &amp;&amp; 和 || 的熔断机制。<br>思路3：使用sizeof函数和右移操作。</p>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="朴素思想代码"><a href="#朴素思想代码" class="headerlink" title="朴素思想代码"></a>朴素思想代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Sum_Solution(int n) &#123;</span><br><span class="line">        return (1+n)*n/2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Sum_Solution(int n) &#123;</span><br><span class="line">        return fma(fma(n,n+1,0),0.5,0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="题目描述"><a href="https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1?tpId=13&amp;tqId=11200&amp;tPage=3&amp;rp=3&amp;ru=/ta/coding-interviews&amp;qru=/ta/coding-interviews/question-ranking" target="_blank" rel="noopener">题目描述</a></h2>
+<p>求1+2+3+…+n，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）</p>
+<h2 id="解题思路">解题思路</h2>
+<p>思路1: 其实可以调用库函数<br>
+思路2: 可以使用 &amp;&amp; 和 || 的熔断机制。<br>
+思路3：使用sizeof函数和右移操作。</p>
+<h2 id="解题代码">解题代码</h2>
+<h3 id="朴素思想代码">朴素思想代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Sum_Solution(int n) &#123;</span><br><span class="line">        return (1+n)*n/2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="思路1代码">思路1代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Sum_Solution(int n) &#123;</span><br><span class="line">        return fma(fma(n,n+1,0),0.5,0);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p><a href="https://en.cppreference.com/w/cpp/numeric/math/fma" target="_blank" rel="noopener">fma</a>(x,y,z)函数作用是返回x*y+z. 我们让z为0,就变成了单纯的加法。</p>
-<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Sum_Solution(int n) &#123;</span><br><span class="line">        int sum  = n;</span><br><span class="line">        bool b = (n&gt;0) &amp;&amp; (sum += Sum_Solution(n-1))&gt;0;</span><br><span class="line">        return sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h3 id="思路3代码"><a href="#思路3代码" class="headerlink" title="思路3代码"></a>思路3代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Sum_Solution(int n) &#123;</span><br><span class="line">        char a[n][n+1];</span><br><span class="line">        return sizeof(a)&gt;&gt;1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>因为sizeof()函数可以用来计算对象空间大小，每个char是1个字节，所以对于大小为n<em>(n+1)的二维数组而言，空间就是n</em>(n+1). 结果右移一位等同于除以2.<br>由此我们可以推广到其他的数据类型上，比如int,每个int是4个字节，所以要在原来的基础上右移3位。</p>
+<h3 id="思路2代码">思路2代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Sum_Solution(int n) &#123;</span><br><span class="line">        int sum  = n;</span><br><span class="line">        bool b = (n&gt;0) &amp;&amp; (sum += Sum_Solution(n-1))&gt;0;</span><br><span class="line">        return sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="思路3代码">思路3代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Sum_Solution(int n) &#123;</span><br><span class="line">        char a[n][n+1];</span><br><span class="line">        return sizeof(a)&gt;&gt;1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>因为sizeof()函数可以用来计算对象空间大小，每个char是1个字节，所以对于大小为n*(n+1)的二维数组而言，空间就是n*(n+1). 结果右移一位等同于除以2.<br>
+由此我们可以推广到其他的数据类型上，比如int,每个int是4个字节，所以要在原来的基础上右移3位。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int Sum_Solution(int n) &#123;</span><br><span class="line">       int a[n][n+1];</span><br><span class="line">       return sizeof(a)&gt;&gt;3;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>以上，本题结束！</p>
 
@@ -392,7 +402,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -405,7 +415,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

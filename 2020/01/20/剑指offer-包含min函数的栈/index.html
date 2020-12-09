@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="本文为剑指 offer 系列第二十二篇。主要知识点为栈，要求给栈再pop和push操作之外在添加一个min操作来获得当前栈元素的最小值。">
+  <meta name="description" content="本文为剑指 offer 系列第二十二篇。 主要知识点为栈，要求给栈再pop和push操作之外在添加一个min操作来获得当前栈元素的最小值。">
 <meta name="keywords" content="Stack,Codinginterviews">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-包含min函数的栈">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;%E5%89%91%E6%8C%87offer-%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="本文为剑指 offer 系列第二十二篇。主要知识点为栈，要求给栈再pop和push操作之外在添加一个min操作来获得当前栈元素的最小值。">
+<meta property="og:description" content="本文为剑指 offer 系列第二十二篇。 主要知识点为栈，要求给栈再pop和push操作之外在添加一个min操作来获得当前栈元素的最小值。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-01-20T05:01:24.077Z">
 <meta name="twitter:card" content="summary">
@@ -297,21 +297,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文为剑指 offer 系列第二十二篇。<br>主要知识点为栈，要求给栈再pop和push操作之外在添加一个min操作来获得当前栈元素的最小值。</p>
+        <p>本文为剑指 offer 系列第二十二篇。<br>
+主要知识点为栈，要求给栈再pop和push操作之外在添加一个min操作来获得当前栈元素的最小值。</p>
 <a id="more"></a>
-
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/4c776177d2c04c2494f2555c9fcc1e49?tpId=13&tqId=11173&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>如果不考虑时间复杂度O(1)限制的话，我们可以加一个栈，然后加一个数组来存，每次找最小元素的话，可以利用stl的min_element来获的，在pop的时候记得将数组中的pop的元素也要删除掉。<br>但是这样复杂度会比较高。有一个查找和删除的操作。</p>
-<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>用一个栈A来正常保存元素，另一个栈B来保存当前元素个数下A栈中最小的元素，两个栈始终保持同样高度。</p>
+<h2 id="题目描述"><a href="https://www.nowcoder.com/practice/4c776177d2c04c2494f2555c9fcc1e49?tpId=13&amp;tqId=11173&amp;tPage=1&amp;rp=1&amp;ru=%2Fta%2Fcoding-interviews&amp;qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2>
+<p>定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））</p>
+<h2 id="解题思路">解题思路</h2>
+<h3 id="思路1">思路1</h3>
+<p>如果不考虑时间复杂度O(1)限制的话，我们可以加一个栈，然后加一个数组来存，每次找最小元素的话，可以利用stl的min_element来获的，在pop的时候记得将数组中的pop的元素也要删除掉。<br>
+但是这样复杂度会比较高。有一个查找和删除的操作。</p>
+<h3 id="思路2">思路2</h3>
+<p>用一个栈A来正常保存元素，另一个栈B来保存当前元素个数下A栈中最小的元素，两个栈始终保持同样高度。</p>
 <ol>
 <li>进行pop操作的时候两个都pop。</li>
 <li>进行push操作的时候，A正常push，Bpush的时候要判断新加入的元素和之前B的栈顶元素谁大谁小，push进去那个小的元素。</li>
 <li>进行min操作的时候，返回B的栈顶元素即可。</li>
 </ol>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    stack&lt;int&gt; mstack;</span><br><span class="line">    vector&lt;int&gt; mvec;</span><br><span class="line">    void push(int value) &#123;</span><br><span class="line">        mstack.push(value);</span><br><span class="line">        mvec.push_back(value);</span><br><span class="line">    &#125;</span><br><span class="line">    void pop() &#123;</span><br><span class="line">      int a = mstack.top();</span><br><span class="line">      mstack.pop();</span><br><span class="line">      auto b = find(mvec.begin(),mvec.end(),a);</span><br><span class="line">      mvec.erase(b);</span><br><span class="line">    &#125;</span><br><span class="line">    int top() &#123;</span><br><span class="line">       return mstack.top();</span><br><span class="line">    &#125;</span><br><span class="line">    int min() &#123;</span><br><span class="line">        return *min_element(mvec.begin(),mvec.end()); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="解题代码">解题代码</h2>
+<h3 id="思路1代码">思路1代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    stack&lt;int&gt; mstack;</span><br><span class="line">    vector&lt;int&gt; mvec;</span><br><span class="line">    void push(int value) &#123;</span><br><span class="line">        mstack.push(value);</span><br><span class="line">        mvec.push_back(value);</span><br><span class="line">    &#125;</span><br><span class="line">    void pop() &#123;</span><br><span class="line">      int a = mstack.top();</span><br><span class="line">      mstack.pop();</span><br><span class="line">      auto b = find(mvec.begin(),mvec.end(),a);</span><br><span class="line">      mvec.erase(b);</span><br><span class="line">    &#125;</span><br><span class="line">    int top() &#123;</span><br><span class="line">       return mstack.top();</span><br><span class="line">    &#125;</span><br><span class="line">    int min() &#123;</span><br><span class="line">        return *min_element(mvec.begin(),mvec.end()); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
-<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    //思路2 两个栈进行保存</span><br><span class="line">    stack&lt;int&gt; dstack;</span><br><span class="line">    stack&lt;int&gt; mstack;</span><br><span class="line">    void push(int value) &#123;</span><br><span class="line">        dstack.push(value);</span><br><span class="line">        if(mstack.empty() || mstack.top()&gt;value)&#123;</span><br><span class="line">            mstack.push(value);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            mstack.push(mstack.top());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void pop() &#123;</span><br><span class="line">        dstack.pop();</span><br><span class="line">        mstack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    int top() &#123;</span><br><span class="line">       return dstack.top();</span><br><span class="line">    &#125;</span><br><span class="line">    int min() &#123;</span><br><span class="line">        return mstack.top(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度为O(n),空间复杂度为O(n)<br>以上，本题结束！</p>
+<h3 id="思路2代码">思路2代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    //思路2 两个栈进行保存</span><br><span class="line">    stack&lt;int&gt; dstack;</span><br><span class="line">    stack&lt;int&gt; mstack;</span><br><span class="line">    void push(int value) &#123;</span><br><span class="line">        dstack.push(value);</span><br><span class="line">        if(mstack.empty() || mstack.top()&gt;value)&#123;</span><br><span class="line">            mstack.push(value);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            mstack.push(mstack.top());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    void pop() &#123;</span><br><span class="line">        dstack.pop();</span><br><span class="line">        mstack.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    int top() &#123;</span><br><span class="line">       return dstack.top();</span><br><span class="line">    &#125;</span><br><span class="line">    int min() &#123;</span><br><span class="line">        return mstack.top(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(n)<br>
+以上，本题结束！</p>
 
     </div>
 
@@ -394,7 +403,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -407,7 +416,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

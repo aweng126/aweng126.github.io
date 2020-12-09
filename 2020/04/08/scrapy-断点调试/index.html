@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="因为平时我们在写代码的时候都会依靠于debug来进行调试，那么一般通过命令行启动的scrapy项目要如何进行dubug呢？">
+  <meta name="description" content="因为平时我们在写代码的时候都会依靠于debug来进行调试， 那么一般通过命令行启动的scrapy项目要如何进行dubug呢？">
 <meta name="keywords" content="scrapy,debug">
 <meta property="og:type" content="article">
 <meta property="og:title" content="scrapy-断点调试">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;08&#x2F;scrapy-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="因为平时我们在写代码的时候都会依靠于debug来进行调试，那么一般通过命令行启动的scrapy项目要如何进行dubug呢？">
+<meta property="og:description" content="因为平时我们在写代码的时候都会依靠于debug来进行调试， 那么一般通过命令行启动的scrapy项目要如何进行dubug呢？">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-04-08T05:28:22.673Z">
 <meta name="twitter:card" content="summary">
@@ -297,12 +297,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>因为平时我们在写代码的时候都会依靠于debug来进行调试，<br>那么一般通过命令行启动的scrapy项目要如何进行dubug呢？</p>
+        <p>因为平时我们在写代码的时候都会依靠于debug来进行调试，<br>
+那么一般通过命令行启动的scrapy项目要如何进行dubug呢？</p>
 <a id="more"></a>
 <p>用pycharm来解决这个问题的方式也比较简单。</p>
 <ol>
 <li>正常加断点</li>
-<li>要编写一个run.py文件来模拟命令行启动,文件和spiders目录同级，内容如下。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from scrapy import cmdline</span><br><span class="line"></span><br><span class="line">name = &apos;spidername&apos;</span><br><span class="line">cmd = &apos;scrapy crawl &#123;0&#125;&apos;.format(name)</span><br><span class="line">cmdline.execute(cmd.split())</span><br></pre></td></tr></table></figure></li>
+<li>要编写一个run.py文件来模拟命令行启动,文件和spiders目录同级，内容如下。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from scrapy import cmdline</span><br><span class="line"></span><br><span class="line">name = &apos;spidername&apos;</span><br><span class="line">cmd = &apos;scrapy crawl &#123;0&#125;&apos;.format(name)</span><br><span class="line">cmdline.execute(cmd.split())</span><br></pre></td></tr></table></figure>
+<ol start="3">
 <li>点击右上角的debug来执行即可。</li>
 </ol>
 <p>再说一下debug的三个选项</p>
@@ -392,7 +396,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -405,7 +409,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

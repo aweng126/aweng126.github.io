@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="本文为剑指 offer 系列第五十五篇。主要知识点为二叉树，就是简单的判断一棵树是不是对称二叉树。">
+  <meta name="description" content="本文为剑指 offer 系列第五十五篇。 主要知识点为二叉树，就是简单的判断一棵树是不是对称二叉树。">
 <meta name="keywords" content="Codinginterviews,BinaryTree">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-对称的二叉树">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;26&#x2F;%E5%89%91%E6%8C%87offer-%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="本文为剑指 offer 系列第五十五篇。主要知识点为二叉树，就是简单的判断一棵树是不是对称二叉树。">
+<meta property="og:description" content="本文为剑指 offer 系列第五十五篇。 主要知识点为二叉树，就是简单的判断一棵树是不是对称二叉树。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-01-26T10:41:28.309Z">
 <meta name="twitter:card" content="summary">
@@ -297,12 +297,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文为剑指 offer 系列第五十五篇。<br>主要知识点为二叉树，就是简单的判断一棵树是不是对称二叉树。</p>
+        <p>本文为剑指 offer 系列第五十五篇。<br>
+主要知识点为二叉树，就是简单的判断一棵树是不是对称二叉树。</p>
 <a id="more"></a>
-
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/ff05d44dfdb04e1d83bdbdab320efbcb?tpId=13&tqId=11211&tPage=3&rp=2&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>请实现一个函数，用来判断一颗二叉树是不是对称的。<br>注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>什么时候一棵树是对称的呢？<br>首先，根节点相同；<br>其次，如果左右子树都不存在，肯定是对称的；如果左右子树只存在一个，那么肯定是不对称的。<br>如果左右子树都存在，那么左子树是对称的，右子树也是对称的。<br>最后，通过辅助函数，递归调用，问题就可以得到解决。</p>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool isSymmetrical(TreeNode* root)</span><br><span class="line">    &#123;</span><br><span class="line">        if(!root) return true;</span><br><span class="line">        return helper(root,root);</span><br><span class="line">    &#125;</span><br><span class="line">    bool helper(TreeNode* root1,TreeNode* root2)&#123;</span><br><span class="line">        if(!root1 &amp;&amp; !root2) return true;</span><br><span class="line">        if(!root1 || !root2) return false;</span><br><span class="line">        if(root1-&gt;val != root2-&gt;val) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return helper(root1-&gt;left,root2-&gt;right) &amp;&amp; helper(root1-&gt;right,root2-&gt;left);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="题目描述"><a href="https://www.nowcoder.com/practice/ff05d44dfdb04e1d83bdbdab320efbcb?tpId=13&amp;tqId=11211&amp;tPage=3&amp;rp=2&amp;ru=%2Fta%2Fcoding-interviews&amp;qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2>
+<p>请实现一个函数，用来判断一颗二叉树是不是对称的。<br>
+注意，如果一个二叉树同此二叉树的镜像是同样的，定义其为对称的。</p>
+<h2 id="解题思路">解题思路</h2>
+<p>什么时候一棵树是对称的呢？<br>
+首先，根节点相同；<br>
+其次，如果左右子树都不存在，肯定是对称的；如果左右子树只存在一个，那么肯定是不对称的。<br>
+如果左右子树都存在，那么左子树是对称的，右子树也是对称的。<br>
+最后，通过辅助函数，递归调用，问题就可以得到解决。</p>
+<h2 id="解题代码">解题代码</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool isSymmetrical(TreeNode* root)</span><br><span class="line">    &#123;</span><br><span class="line">        if(!root) return true;</span><br><span class="line">        return helper(root,root);</span><br><span class="line">    &#125;</span><br><span class="line">    bool helper(TreeNode* root1,TreeNode* root2)&#123;</span><br><span class="line">        if(!root1 &amp;&amp; !root2) return true;</span><br><span class="line">        if(!root1 || !root2) return false;</span><br><span class="line">        if(root1-&gt;val != root2-&gt;val) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return helper(root1-&gt;left,root2-&gt;right) &amp;&amp; helper(root1-&gt;right,root2-&gt;left);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <p>以上，本题结束！</p>
 
@@ -387,7 +395,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -400,7 +408,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

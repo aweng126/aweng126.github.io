@@ -306,11 +306,16 @@
 <li>GOPROXY: 代表是使用代理。</li>
 <li>GO111MODULE: 表示是否使用module.在Go1.11版本之后就非常推荐使用go module 来管理依赖了。所以非常推荐使用。</li>
 </ol>
-<h2 id="Linux-或者-Mac环境下"><a href="#Linux-或者-Mac环境下" class="headerlink" title="Linux 或者 Mac环境下"></a>Linux 或者 Mac环境下</h2><p>直接修改环境变量就可以啦。</p>
+<h2 id="Linux-或者-Mac环境下">Linux 或者 Mac环境下</h2>
+<p>直接修改环境变量就可以啦。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br><span class="line">export GO111MODULE=on</span><br><span class="line">export GOPROXY=https://goproxy.io </span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
 <p>通过go env再查看一下，上面的路径是否生效。若已经生效，则重新 go get 下载资源即可。</p>
-<h2 id="GO-Land-开发"><a href="#GO-Land-开发" class="headerlink" title="GO Land 开发"></a>GO Land 开发</h2><p>GO111MODULE=ON还是要通过上面的方式进行设定。 </p>
-<p>如果是使用goland,还可以依次的点击如下选项设置proxy。<br>GOLAND-&gt;Preferences-&gt;Go-&gt;Go modules(vgo)-&gt;选中Enable Go module integration.<br>同时设置proxy的值为 <a href="https://goproxy.io" target="_blank" rel="noopener">https://goproxy.io</a> 或者 <a href="https://goproxy.cn,direct" target="_blank" rel="noopener">https://goproxy.cn,direct</a><br>点击apply就行。</p>
+<h2 id="GO-Land-开发">GO Land 开发</h2>
+<p>GO111MODULE=ON还是要通过上面的方式进行设定。</p>
+<p>如果是使用goland,还可以依次的点击如下选项设置proxy。<br>
+GOLAND-&gt;Preferences-&gt;Go-&gt;Go modules(vgo)-&gt;选中Enable Go module integration.<br>
+同时设置proxy的值为 <a href="https://goproxy.io" target="_blank" rel="noopener">https://goproxy.io</a> 或者 <a href="https://goproxy.cn" target="_blank" rel="noopener">https://goproxy.cn</a>,direct<br>
+点击apply就行。</p>
 <p>通过go env再查看一下，上面的路径是否生效。若已经生效，则重新 go get 下载资源即可。</p>
 
     </div>
@@ -395,7 +400,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -408,7 +413,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

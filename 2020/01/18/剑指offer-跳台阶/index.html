@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="本文为剑指 offer 系列第十篇。主要内容其实还是斐波那契数列，依旧是上一篇斐波那契的思路，再复习一遍。">
+  <meta name="description" content="本文为剑指 offer 系列第十篇。 主要内容其实还是斐波那契数列，依旧是上一篇斐波那契的思路，再复习一遍。">
 <meta name="keywords" content="Codinginterviews,斐波那契数列">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-跳台阶">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;18&#x2F;%E5%89%91%E6%8C%87offer-%E8%B7%B3%E5%8F%B0%E9%98%B6&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="本文为剑指 offer 系列第十篇。主要内容其实还是斐波那契数列，依旧是上一篇斐波那契的思路，再复习一遍。">
+<meta property="og:description" content="本文为剑指 offer 系列第十篇。 主要内容其实还是斐波那契数列，依旧是上一篇斐波那契的思路，再复习一遍。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-01-18T14:55:26.357Z">
 <meta name="twitter:card" content="summary">
@@ -297,20 +297,34 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文为剑指 offer 系列第十篇。<br>主要内容其实还是斐波那契数列，依旧是上一篇斐波那契的思路，再复习一遍。</p>
+        <p>本文为剑指 offer 系列第十篇。<br>
+主要内容其实还是斐波那契数列，依旧是上一篇斐波那契的思路，再复习一遍。</p>
 <a id="more"></a>
-
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=13&tqId=11161&tPage=1&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>第一级台阶： 1种跳法<br>第二级台阶： 2种跳法<br>第三级台阶： 3种跳法：要么从第一级跳2级跳上来，要么从第二级跳1级跳上来。<br>……<br>第n级台阶：f(n-2)+f(n-1): 要么从n-2级一次跳两级跳上来，那么从n-1级跳一级跳上来。<br>所以就是一个非常典型的斐波那契数列，最开始两项分别是1和2.</p>
-<h3 id="思路1"><a href="#思路1" class="headerlink" title="思路1"></a>思路1</h3><p>直接用递归</p>
-<h3 id="思路2"><a href="#思路2" class="headerlink" title="思路2"></a>思路2</h3><p>用数组保存</p>
-<h3 id="思路3"><a href="#思路3" class="headerlink" title="思路3"></a>思路3</h3><p>保存两个关键数字</p>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><h3 id="思路1代码"><a href="#思路1代码" class="headerlink" title="思路1代码"></a>思路1代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloor(int num) &#123;</span><br><span class="line">        //方法1.递归解决</span><br><span class="line">         if(num == 1)&#123;</span><br><span class="line">           return 1;</span><br><span class="line">         &#125;else if( num == 2)&#123;</span><br><span class="line">            return 2;</span><br><span class="line">         &#125;else&#123;</span><br><span class="line">            return jumpFloor(num-1) + jumpFloor(num-2);</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="思路2代码"><a href="#思路2代码" class="headerlink" title="思路2代码"></a>思路2代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloor(int num) &#123;</span><br><span class="line">        // 方法2: 数组保存</span><br><span class="line">         vector&lt;int&gt; a=&#123;0,1,2&#125;;</span><br><span class="line">         for(int i = 3; i&lt;=num; i++)&#123;</span><br><span class="line">             a.push_back(a[i-1]+a[i-2]);</span><br><span class="line">         &#125;</span><br><span class="line">         return a[num];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="题目描述"><a href="https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=13&amp;tqId=11161&amp;tPage=1&amp;rp=1&amp;ru=%2Fta%2Fcoding-interviews&amp;qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2>
+<p>一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。</p>
+<h2 id="解题思路">解题思路</h2>
+<p>第一级台阶： 1种跳法<br>
+第二级台阶： 2种跳法<br>
+第三级台阶： 3种跳法：要么从第一级跳2级跳上来，要么从第二级跳1级跳上来。<br>
+……<br>
+第n级台阶：f(n-2)+f(n-1): 要么从n-2级一次跳两级跳上来，那么从n-1级跳一级跳上来。<br>
+所以就是一个非常典型的斐波那契数列，最开始两项分别是1和2.</p>
+<h3 id="思路1">思路1</h3>
+<p>直接用递归</p>
+<h3 id="思路2">思路2</h3>
+<p>用数组保存</p>
+<h3 id="思路3">思路3</h3>
+<p>保存两个关键数字</p>
+<h2 id="解题代码">解题代码</h2>
+<h3 id="思路1代码">思路1代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloor(int num) &#123;</span><br><span class="line">        //方法1.递归解决</span><br><span class="line">         if(num == 1)&#123;</span><br><span class="line">           return 1;</span><br><span class="line">         &#125;else if( num == 2)&#123;</span><br><span class="line">            return 2;</span><br><span class="line">         &#125;else&#123;</span><br><span class="line">            return jumpFloor(num-1) + jumpFloor(num-2);</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="思路2代码">思路2代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloor(int num) &#123;</span><br><span class="line">        // 方法2: 数组保存</span><br><span class="line">         vector&lt;int&gt; a=&#123;0,1,2&#125;;</span><br><span class="line">         for(int i = 3; i&lt;=num; i++)&#123;</span><br><span class="line">             a.push_back(a[i-1]+a[i-2]);</span><br><span class="line">         &#125;</span><br><span class="line">         return a[num];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
-<h3 id="思路3代码"><a href="#思路3代码" class="headerlink" title="思路3代码"></a>思路3代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloor(int num) &#123;</span><br><span class="line">        // 方法3:</span><br><span class="line">        int first = 1, second = 2;</span><br><span class="line">        if(num == 1) return 1;</span><br><span class="line">        if(num == 2) return 2;</span><br><span class="line">        for(int i = 2; i &lt; num; i++)&#123;</span><br><span class="line">            int temp = first + second;</span><br><span class="line">            first = second;</span><br><span class="line">            second = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        return second;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度为O(n),空间复杂度为O(1)<br>以上，本题结束！</p>
+<h3 id="思路3代码">思路3代码</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int jumpFloor(int num) &#123;</span><br><span class="line">        // 方法3:</span><br><span class="line">        int first = 1, second = 2;</span><br><span class="line">        if(num == 1) return 1;</span><br><span class="line">        if(num == 2) return 2;</span><br><span class="line">        for(int i = 2; i &lt; num; i++)&#123;</span><br><span class="line">            int temp = first + second;</span><br><span class="line">            first = second;</span><br><span class="line">            second = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        return second;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(n),空间复杂度为O(1)<br>
+以上，本题结束！</p>
 
     </div>
 
@@ -393,7 +407,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -406,7 +420,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

@@ -283,7 +283,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>814</span>
+              <span>816</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -304,32 +304,38 @@
       
         <p>本篇文章主要介绍如何设置jupyter notebook使其在支持python的基础上支持octave和R语言。</p>
 <a id="more"></a>
-
 <p><a href="https://github.com/jupyter/notebook" target="_blank" rel="noopener">jupyter notebook</a>是目前应用非常广泛的一个软件。它最大的亮点在于让用户可以即时编码，即时测试，即时调整，而且支持超过40种编程语言，详情可参考<a href="https://github.com/jupyter/jupyter/wiki/Jupyter-kernels" target="_blank" rel="noopener">jupyter-kernels-list</a>。</p>
-<h2 id="设置多编程语言支持"><a href="#设置多编程语言支持" class="headerlink" title="设置多编程语言支持"></a>设置多编程语言支持</h2><h3 id="octave支持"><a href="#octave支持" class="headerlink" title="octave支持"></a>octave支持</h3><ol>
-<li>首先本地要安装octave, mac用户可以直接通过如下命令安装<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install octave</span><br></pre></td></tr></table></figure>
-其他系统可以自行参考<a href="https://www.gnu.org/software/octave/download" target="_blank" rel="noopener">octave安装教程</a></li>
-<li>安装jupyter和octave进行交互的octave_kernel<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install octave_kernel</span><br></pre></td></tr></table></figure>
-更多细节可以参考<a href="https://github.com/Calysto/octave_kernel/blob/master/README.rst" target="_blank" rel="noopener">octave_kernel-Github</a></li>
+<h2 id="设置多编程语言支持">设置多编程语言支持</h2>
+<h3 id="octave支持">octave支持</h3>
+<ol>
+<li>首先本地要安装octave, mac用户可以直接通过如下命令安装</li>
 </ol>
-<h3 id="R语言支持"><a href="#R语言支持" class="headerlink" title="R语言支持"></a>R语言支持</h3><ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install octave</span><br></pre></td></tr></table></figure>
+<p>其他系统可以自行参考<a href="https://www.gnu.org/software/octave/download" target="_blank" rel="noopener">octave安装教程</a><br>
+2. 安装jupyter和octave进行交互的octave_kernel</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install octave_kernel</span><br></pre></td></tr></table></figure>
+<p>更多细节可以参考<a href="https://github.com/Calysto/octave_kernel/blob/master/README.rst" target="_blank" rel="noopener">octave_kernel-Github</a></p>
+<h3 id="R语言支持">R语言支持</h3>
+<ol>
 <li>本地安装R语言环境</li>
 </ol>
 <p>下载连接 <a href="https://mirrors.tuna.tsinghua.edu.cn/CRAN/" target="_blank" rel="noopener">tsinghua-cran-download</a></p>
 <p>R语言官网<a href="https://www.r-project.org/" target="_blank" rel="noopener">R-project</a></p>
 <ol start="2">
-<li>配置R语言kernel<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 进入R语言console</span><br><span class="line">R</span><br><span class="line"># 安装kernel</span><br><span class="line">install.packages(&apos;IRkernel&apos;)</span><br><span class="line">选择合适的源即可。</span><br><span class="line"># 为系统所有用户安装</span><br><span class="line">IRkernel::installspec(user = FALSE)</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>配置R语言kernel</li>
 </ol>
-<h3 id="查看jupyter的内核支持"><a href="#查看jupyter的内核支持" class="headerlink" title="查看jupyter的内核支持"></a>查看jupyter的内核支持</h3><ol>
-<li>通过命令行查看<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter kernelspec list</span><br></pre></td></tr></table></figure>
-<img src="https://cdn.kingwen.cn/qiniu_kwimg20201016145435.png" alt=""></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 进入R语言console</span><br><span class="line">R</span><br><span class="line"># 安装kernel</span><br><span class="line">install.packages(&apos;IRkernel&apos;)</span><br><span class="line">选择合适的源即可。</span><br><span class="line"># 为系统所有用户安装</span><br><span class="line">IRkernel::installspec(user = FALSE)</span><br></pre></td></tr></table></figure>
+<h3 id="查看jupyter的内核支持">查看jupyter的内核支持</h3>
+<ol>
+<li>通过命令行查看</li>
 </ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter kernelspec list</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.kingwen.cn/qiniu_kwimg20201016145435.png" alt=""></p>
 <p>2.通过打开notebook新建文件来查看</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter notebook</span><br></pre></td></tr></table></figure>
 <p><img src="https://cdn.kingwen.cn/qiniu_kwimg20201016145812.png" alt=""></p>
-<h2 id="bug记录"><a href="#bug记录" class="headerlink" title="bug记录"></a>bug记录</h2><ol>
+<h2 id="bug记录">bug记录</h2>
+<ol>
 <li>configurations are cuurently only defined for the following language:</li>
 </ol>
 <p><img src="https://cdn.kingwen.cn/qiniu_kwimg20201016114704.png" alt=""></p>
@@ -368,6 +374,9 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/2020/12/09/learn-cron-expression/" rel="prev" title="cron表达式学习">
+                  cron表达式学习 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -422,7 +431,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -435,7 +444,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

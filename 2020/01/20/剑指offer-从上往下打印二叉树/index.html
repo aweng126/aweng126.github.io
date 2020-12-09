@@ -51,13 +51,13 @@
   };
 </script>
 
-  <meta name="description" content="本文为剑指 offer 系列第二十四篇。主要知识点就是树的层序遍历，比较经典，也比较简单。">
+  <meta name="description" content="本文为剑指 offer 系列第二十四篇。 主要知识点就是树的层序遍历，比较经典，也比较简单。">
 <meta name="keywords" content="Queue,Codinginterviews,BinaryTree,Tree">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-从上往下打印二叉树">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;%E5%89%91%E6%8C%87offer-%E4%BB%8E%E4%B8%8A%E5%BE%80%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="本文为剑指 offer 系列第二十四篇。主要知识点就是树的层序遍历，比较经典，也比较简单。">
+<meta property="og:description" content="本文为剑指 offer 系列第二十四篇。 主要知识点就是树的层序遍历，比较经典，也比较简单。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2020-01-20T10:51:09.197Z">
 <meta name="twitter:card" content="summary">
@@ -297,12 +297,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文为剑指 offer 系列第二十四篇。<br>主要知识点就是树的层序遍历，比较经典，也比较简单。</p>
+        <p>本文为剑指 offer 系列第二十四篇。<br>
+主要知识点就是树的层序遍历，比较经典，也比较简单。</p>
 <a id="more"></a>
-
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a><a href="https://www.nowcoder.com/practice/7fe2212963db4790b57431d9ed259701?tpId=13&tqId=11175&tPage=2&rp=1&ru=%2Fta%2Fcoding-interviews&qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2><p>从上往下打印出二叉树的每个节点，同层节点从左至右打印。</p>
-<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>其实就是层序遍历，通过队列保存某一层的数据，然后依次的读取这一层数据，在遍历过程中，如果节点的左右子树不为空的话，继续加入到队列中，直到队列为空。</p>
-<h2 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; PrintFromTopToBottom(TreeNode* root) &#123;</span><br><span class="line">        if(!root) return &#123;&#125;;</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q&#123;&#123;root&#125;&#125;;</span><br><span class="line">        while(!q.empty())&#123;</span><br><span class="line">                auto a = q.front(); q.pop();</span><br><span class="line">                res.push_back(a-&gt;val);</span><br><span class="line">                if(a-&gt;left) q.push(a-&gt;left);</span><br><span class="line">                if(a-&gt;right) q.push(a-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="题目描述"><a href="https://www.nowcoder.com/practice/7fe2212963db4790b57431d9ed259701?tpId=13&amp;tqId=11175&amp;tPage=2&amp;rp=1&amp;ru=%2Fta%2Fcoding-interviews&amp;qru=%2Fta%2Fcoding-interviews%2Fquestion-ranking" target="_blank" rel="noopener">题目描述</a></h2>
+<p>从上往下打印出二叉树的每个节点，同层节点从左至右打印。</p>
+<h2 id="解题思路">解题思路</h2>
+<p>其实就是层序遍历，通过队列保存某一层的数据，然后依次的读取这一层数据，在遍历过程中，如果节点的左右子树不为空的话，继续加入到队列中，直到队列为空。</p>
+<h2 id="解题代码">解题代码</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; PrintFromTopToBottom(TreeNode* root) &#123;</span><br><span class="line">        if(!root) return &#123;&#125;;</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        queue&lt;TreeNode*&gt; q&#123;&#123;root&#125;&#125;;</span><br><span class="line">        while(!q.empty())&#123;</span><br><span class="line">                auto a = q.front(); q.pop();</span><br><span class="line">                res.push_back(a-&gt;val);</span><br><span class="line">                if(a-&gt;left) q.push(a-&gt;left);</span><br><span class="line">                if(a-&gt;right) q.push(a-&gt;right);</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <p>以上，本题结束！</p>
 
@@ -389,7 +392,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">119</span>
+          <span class="site-state-item-count">120</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -402,7 +405,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">92</span>
+        <span class="site-state-item-count">95</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
