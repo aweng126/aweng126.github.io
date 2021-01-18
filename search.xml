@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Goland配置默认文件头信息</title>
+    <url>/2021/01/18/goland-default-header-information/</url>
+    <content><![CDATA[<p>本文介绍了如何给Goland编辑器配置文件头的默认信息。</p>
+<a id="more"></a>
+<p>点击Goland-&gt;Preference进入goland配置页面。<br>
+<img src="https://cdn.kingwen.cn/qiniu_kwimg20210118154352.png" alt=""><br>
+一图搞定！</p>
+]]></content>
+      <categories>
+        <category>实用技能</category>
+      </categories>
+      <tags>
+        <tag>Goland</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>curl命令下载资源速度缓慢解决方案</title>
     <url>/2020/12/15/curl%E5%91%BD%E4%BB%A4%E4%B8%8B%E8%BD%BD%E8%B5%84%E6%BA%90%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
     <content><![CDATA[<p>在服务器下载资源往往会通过curl或者wget命令，但是有时部分资源会因为网络问题下载缓慢甚至直接下载失败。<br>
@@ -2276,8 +2292,8 @@ K = K % len.<br>
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Codinginterviews</tag>
         <tag>Map</tag>
+        <tag>Codinginterviews</tag>
         <tag>String</tag>
       </tags>
   </entry>
@@ -2410,8 +2426,8 @@ res = max{dp[i]}</p>
       </categories>
       <tags>
         <tag>Array</tag>
-        <tag>Codinginterviews</tag>
         <tag>Map</tag>
+        <tag>Codinginterviews</tag>
       </tags>
   </entry>
   <entry>
