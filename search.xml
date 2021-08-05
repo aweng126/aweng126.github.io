@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Centos系统中安装golang环境</title>
+    <url>/2021/08/05/Install-golang-in-centos-system/</url>
+    <content><![CDATA[<p>本文将介绍如何在centos系统中安装golang环境。</p>
+<a id="more"></a>
+<h2 id="一、centos安装golang环境流程">一、centos安装golang环境流程</h2>
+<h3 id="1、golang仓库选择合适的package">1、golang仓库选择合适的package</h3>
+<p>从如下两个网址中选择适合自己机器的package,右键复制链接地址得到对应package的下载地址。重点关注第二个网址，这也是写本文的目的。</p>
+<ul>
+<li><a href="https://golang.org/dl/" target="_blank" rel="noopener">golang官方仓库</a></li>
+<li><a href="https://golang.google.cn/dl/" target="_blank" rel="noopener">golang-Google仓库</a></li>
+</ul>
+<h3 id="2、服务器下载">2、服务器下载</h3>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget  https://golang.google.cn/dl/go1.16.6.linux-amd64.tar.gz # 前面复制的目标package的下载网址。</span><br><span class="line">rm -rf /usr/local/go </span><br><span class="line">tar -C /usr/local -xzf go1.16.6.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="3、将go相关命令添加到环境变量中">3、将go相关命令添加到环境变量中</h3>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br><span class="line"># 添加如下内容</span><br><span class="line">export PATH=$PATH:/usr/local/go/bin </span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<h3 id="4、golang环境确认">4、golang环境确认</h3>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">go version</span><br></pre></td></tr></table></figure>
+<h2 id="二、参考文档。">二、参考文档。</h2>
+<ol>
+<li><a href="https://golang.org/doc/install" target="_blank" rel="noopener">golang-doc-install</a></li>
+<li><a href="https://www.runoob.com/go/go-environment.html" target="_blank" rel="noopener">golang环境安装</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Linux系统</category>
+      </categories>
+      <tags>
+        <tag>golang</tag>
+        <tag>centos</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Goland配置默认文件头信息</title>
     <url>/2021/01/18/goland-default-header-information/</url>
     <content><![CDATA[<p>本文介绍了如何给Goland编辑器配置文件头的默认信息。</p>
@@ -4327,8 +4359,8 @@ A[i][j] is 0 or 1.</p>
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>hard</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -4540,8 +4572,8 @@ Output: 0</p>
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>hard</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>

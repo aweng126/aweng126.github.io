@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-01-18T07:49:51.743Z</updated>
+  <updated>2021-08-05T08:03:05.698Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Centos系统中安装golang环境</title>
+    <link href="http://yoursite.com/2021/08/05/Install-golang-in-centos-system/"/>
+    <id>http://yoursite.com/2021/08/05/Install-golang-in-centos-system/</id>
+    <published>2021-08-05T07:58:17.000Z</published>
+    <updated>2021-08-05T08:03:05.698Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文将介绍如何在centos系统中安装golang环境。</p><a id="more"></a><h2 id="一、centos安装golang环境流程">一、centos安装golang环境流程</h2><h3 id="1、golang仓库选择合适的package">1、golang仓库选择合适的package</h3><p>从如下两个网址中选择适合自己机器的package,右键复制链接地址得到对应package的下载地址。重点关注第二个网址，这也是写本文的目的。</p><ul><li><a href="https://golang.org/dl/" target="_blank" rel="noopener">golang官方仓库</a></li><li><a href="https://golang.google.cn/dl/" target="_blank" rel="noopener">golang-Google仓库</a></li></ul><h3 id="2、服务器下载">2、服务器下载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget  https://golang.google.cn/dl/go1.16.6.linux-amd64.tar.gz # 前面复制的目标package的下载网址。</span><br><span class="line">rm -rf /usr/local/go </span><br><span class="line">tar -C /usr/local -xzf go1.16.6.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure><h3 id="3、将go相关命令添加到环境变量中">3、将go相关命令添加到环境变量中</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br><span class="line"># 添加如下内容</span><br><span class="line">export PATH=$PATH:/usr/local/go/bin </span><br><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure><h3 id="4、golang环境确认">4、golang环境确认</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go version</span><br></pre></td></tr></table></figure><h2 id="二、参考文档。">二、参考文档。</h2><ol><li><a href="https://golang.org/doc/install" target="_blank" rel="noopener">golang-doc-install</a></li><li><a href="https://www.runoob.com/go/go-environment.html" target="_blank" rel="noopener">golang环境安装</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文将介绍如何在centos系统中安装golang环境。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Linux系统" scheme="http://yoursite.com/categories/Linux%E7%B3%BB%E7%BB%9F/"/>
+    
+    
+      <category term="golang" scheme="http://yoursite.com/tags/golang/"/>
+    
+      <category term="centos" scheme="http://yoursite.com/tags/centos/"/>
+    
+  </entry>
   
   <entry>
     <title>Goland配置默认文件头信息</title>
@@ -507,34 +532,6 @@
       <category term="STL" scheme="http://yoursite.com/tags/STL/"/>
     
       <category term="Priority_queue" scheme="http://yoursite.com/tags/Priority-queue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>stack的简单使用</title>
-    <link href="http://yoursite.com/2020/02/08/stack%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"/>
-    <id>http://yoursite.com/2020/02/08/stack的简单使用/</id>
-    <published>2020-02-08T06:58:02.000Z</published>
-    <updated>2020-02-08T07:04:26.641Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文为c++容器系列第九篇.<br>主要测试了stack相关的方法，主要作为代码备份方便之后遗忘时查询。</p><a id="more"></a><p>严格来讲，stack其实也不算是容器，它是在容器的基础上进行疯转从而具备后进先出(LIFO)特性的adapter。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;stack&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()&#123;</span><br><span class="line">    // 声明</span><br><span class="line">    stack&lt;int&gt; s;</span><br><span class="line">    stack&lt;int&gt; s1(&#123;1,2,3&#125;);</span><br><span class="line">    stack&lt;int&gt; s2(s1);</span><br><span class="line">    </span><br><span class="line">    cout&lt;&lt;&quot;s2= &quot;;</span><br><span class="line">     while(!s2.empty())&#123;</span><br><span class="line">         cout&lt;&lt;s2.top()&lt;&lt;&apos;\t&apos;;</span><br><span class="line">         s2.pop();</span><br><span class="line">     &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    //操作</span><br><span class="line">    cout&lt;&lt;&quot;s.empty(): &quot;&lt;&lt;s.empty()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;s.size(): &quot;&lt;&lt;s.size()&lt;&lt;endl;</span><br><span class="line">    // 这里也需要注意一下，必须在确认stack中元素个数不为0的情况下，</span><br><span class="line">    // 才可以使用s.top()来获取栈顶元素，否则就会报错。</span><br><span class="line">    //cout&lt;&lt;&quot;s.top():&quot;&lt;&lt;s.top()&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    s.push(1);</span><br><span class="line">    s.emplace(2);</span><br><span class="line">    cout&lt;&lt;&quot;after push2 s.size(): &quot;&lt;&lt;s.size()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;after push2 s.empty(): &quot;&lt;&lt;s.empty()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;after push2 top element is\t&quot;&lt;&lt;s.top()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    s.pop();</span><br><span class="line">    cout&lt;&lt;&quot;after pop(),s.size():&quot;&lt;&lt;s.size()&lt;&lt;endl;</span><br><span class="line">    cout&lt;&lt;&quot;after pop(),s.top():&quot;&lt;&lt;s.top()&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">    s.push(3);</span><br><span class="line">    s.push(4);</span><br><span class="line">    s.push(5);</span><br><span class="line">    // 遍历</span><br><span class="line">    cout&lt;&lt;&quot;after push 345,s= &quot;;</span><br><span class="line">    while(!s.empty())&#123;</span><br><span class="line">        cout&lt;&lt;s.top()&lt;&lt;&apos;\t&apos;;</span><br><span class="line">        s.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">/* 运行结果</span><br><span class="line"> s2= 3    2    1</span><br><span class="line"> s.empty(): 1</span><br><span class="line"> s.size(): 0</span><br><span class="line"> after push2 s.size(): 2</span><br><span class="line"> after push2 s.empty(): 0</span><br><span class="line"> after push2 top element is    2</span><br><span class="line"> after pop(),s.size():1</span><br><span class="line"> after pop(),s.top():1</span><br><span class="line"> after push 345,s= 5    4    3    1</span><br><span class="line"> Program ended with exit code: 0</span><br><span class="line"> */</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文为c++容器系列第九篇.&lt;br&gt;
-主要测试了stack相关的方法，主要作为代码备份方便之后遗忘时查询。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="C++基础" scheme="http://yoursite.com/categories/C-%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="C++" scheme="http://yoursite.com/tags/C/"/>
-    
-      <category term="STL" scheme="http://yoursite.com/tags/STL/"/>
-    
-      <category term="Stack" scheme="http://yoursite.com/tags/Stack/"/>
     
   </entry>
   
