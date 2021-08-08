@@ -54,12 +54,12 @@
   <meta name="description" content="热爱生活，享受生活。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Kingwen&#39;s blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;go-micro&#x2F;index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;Go-micro&#x2F;index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="热爱生活，享受生活。">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://yoursite.com/tags/go-micro/">
+  <link rel="canonical" href="http://yoursite.com/tags/Go-micro/">
 
 
 <script id="page-configurations">
@@ -73,7 +73,7 @@
   };
 </script>
 
-  <title>标签: go-micro | Kingwen's blog</title>
+  <title>标签: Go-micro | Kingwen's blog</title>
   
 
 
@@ -221,7 +221,7 @@
   <div class="post-block">
     <div class="posts-collapse">
       <div class="collection-title">
-        <h1 class="collection-header">go-micro
+        <h1 class="collection-header">Go-micro
           <small>标签</small>
         </h1>
       </div>
@@ -236,55 +236,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2020-04-23T20:49:48+08:00"
-              content="2020-04-23">
-          04-23
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/04/23/go-micro-bug-io-timeout/" itemprop="url">
-            <span itemprop="name">go-get碰到timeout怎么办</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-23T18:51:33+08:00"
-              content="2020-04-23">
-          04-23
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2020/04/23/go-micro-3-concept-interpretation/" itemprop="url">
-            <span itemprop="name">【微服务Go-micro第三篇】相关概念解释</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-22T21:41:41+08:00"
+              datetime="2020-04-22T12:50:21+08:00"
               content="2020-04-22">
           04-22
         </time>
       </div>
 
       <h2 class="post-title">
-          <a class="post-title-link" href="/2020/04/22/go-micro-2-protoc-task/" itemprop="url">
-            <span itemprop="name">【微服务Go-micro第二篇】protoc到底干了啥</span>
+          <a class="post-title-link" href="/2020/04/22/go-micro-1-build-environment/" itemprop="url">
+            <span itemprop="name">【微服务Go-micro第一篇】环境配置</span>
           </a>
       </h2>
 
@@ -482,6 +442,80 @@ var pjax = new Pjax({
 window.addEventListener('pjax:success', () => {
   document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
     var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
+xtContent || element.innerHTML || '';
     var parent = element.parentNode;
     parent.removeChild(element);
     var script = document.createElement('script');
