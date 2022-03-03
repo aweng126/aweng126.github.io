@@ -6,8 +6,8 @@
     <content><![CDATA[<p>通过find命令查找authorized_keys文件来查询系统内是否存在免密登陆情况。</p>
 <a id="more"></a>
 <h2 id="原理说明">原理说明</h2>
-<p>机器A某用户如果要免秘登陆到机器B，则需要在机器A上通过类似ssh-keygen -t rsa的命令生成公钥和私钥，然后将公钥发送到机器B对应用户目录下的.ssh目录下的authorized_keys文件中。</p>
-<p>所以反推，若想查看是否存在免密登陆，则只需要查看系统用户目录下是否存在authorized_keys目录即可。</p>
+<p>机器A某用户如果要免秘登陆到机器B，则需要在机器A上通过类似ssh-keygen -t rsa的命令生成公钥和私钥，然后将公钥发送到机器B对应用户目录下的.ssh目录下的authorized_keys文件中。<br>
+所以反推，若想查看是否存在免密登陆，则只需要查看系统用户目录下是否存在authorized_keys目录即可。</p>
 <h2 id="详细命令">详细命令</h2>
 <h3 id="root用户">root用户</h3>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">find /root -name  authorized_keys</span><br></pre></td></tr></table></figure>
@@ -1437,8 +1437,8 @@ Y = (X-k-1)%n,对以的X = (Y+k+1)%n,将k = (m-1)%n代入，X = (Y+m)%n，<br>
         <category>算法训练</category>
       </categories>
       <tags>
-        <tag>Greedy</tag>
         <tag>DP</tag>
+        <tag>Greedy</tag>
         <tag>Codinginterviews</tag>
       </tags>
   </entry>
@@ -4367,8 +4367,8 @@ A[i][j] is 0 or 1.</p>
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -4444,8 +4444,8 @@ One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] 
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -4478,8 +4478,8 @@ One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] 
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -4543,8 +4543,8 @@ The number of people is less than 1,100.</p>
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
