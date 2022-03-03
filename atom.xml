@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2022-03-03T10:49:09.041Z</updated>
+  <updated>2022-03-03T11:02:54.066Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://yoursite.com/2022/03/03/check-login-without-password/"/>
     <id>http://yoursite.com/2022/03/03/check-login-without-password/</id>
     <published>2022-03-03T10:37:43.000Z</published>
-    <updated>2022-03-03T10:49:09.041Z</updated>
+    <updated>2022-03-03T11:02:54.066Z</updated>
     
-    <content type="html"><![CDATA[<p>通过find命令查找authorized_keys文件来查询系统内是否存在免密登陆情况。</p><a id="more"></a><h1>原理说明</h1><p>机器A某用户如果要免秘登陆到机器B，则需要在机器A上通过类似<code>ssh-keygen -t rsa</code>的命令生成公钥和私钥，然后将公钥发送到机器B对应用户目录下的.ssh目录下的authorized_keys文件中。</p><p>所以反推，若想查看是否存在免密登陆，则只需要查看系统用户目录下是否存在authorized_keys目录即可。</p><h1>详细命令</h1><h2 id="root用户">root用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /root -name  authorized_keys</span><br></pre></td></tr></table></figure><h2 id="普通用户">普通用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /home/*/.ssh -name authorized_keys</span><br></pre></td></tr></table></figure><p>为保证系统的安全性，在确认没有必要的情况下 直接通过<code>rm -rf</code>命令删除对应的文件即可。</p>]]></content>
+    <content type="html"><![CDATA[<p>通过find命令查找authorized_keys文件来查询系统内是否存在免密登陆情况。</p><a id="more"></a><h2 id="原理说明">原理说明</h2><p>机器A某用户如果要免秘登陆到机器B，则需要在机器A上通过类似ssh-keygen -t rsa的命令生成公钥和私钥，然后将公钥发送到机器B对应用户目录下的.ssh目录下的authorized_keys文件中。</p><p>所以反推，若想查看是否存在免密登陆，则只需要查看系统用户目录下是否存在authorized_keys目录即可。</p><h2 id="详细命令">详细命令</h2><h3 id="root用户">root用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /root -name  authorized_keys</span><br></pre></td></tr></table></figure><h3 id="普通用户">普通用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /home/*/.ssh -name authorized_keys</span><br></pre></td></tr></table></figure><p>为保证系统的安全性，在确认没有必要的情况下 直接通过rm -rf<br>命令删除对应的文件即可。</p>]]></content>
     
     <summary type="html">
     
