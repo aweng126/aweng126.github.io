@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>golang-bug-sf-IsExported-undefined</title>
+    <url>/2022/03/03/golang-bug-sf-IsExported-undefined/</url>
+    <content><![CDATA[<p>通过升级golang版本为1.17.X解决sf.IsExported undefined问题。</p>
+<a id="more"></a>
+<h2 id="问题描述">问题描述</h2>
+<p>在编写项目的时候，通过go build命令生成可执行二进制文件时候，碰见sf.IsExported undefined问题。</p>
+<p>经过查询,主要是<a href="https://github.com/kubernetes-sigs/controller-tools/issues/643" target="_blank" rel="noopener">github-issue</a>，可以发现大概率是golang版本问题，问题出现在golang1.16.X。</p>
+<h2 id="解决方案">解决方案</h2>
+<p>升级系统内golang版本为golang1.17.X即可。</p>
+<p>但是考虑到系统内其他的项目可能仍然需要原来的golang1.16版本,所以要设置系统对于多版本golang的支持。</p>
+<h2 id="详细命令">详细命令</h2>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://go.dev/dl/go1.17.7.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line">tar -C /usr/local/go117 -xzvf go1.17.7.linux-amd64.tar.gz </span><br><span class="line"></span><br><span class="line">ln -s /usr/local/go117/go/bin /usr/bin/go117</span><br></pre></td></tr></table></figure>
+<p>升级完成后可以通过如下方式查看目前系统内的golang命令。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">go version</span><br><span class="line">go117 version</span><br></pre></td></tr></table></figure>
+<p>通过go117 build命令重新编译项目，上述碰到的问题得到解决。</p>
+<p>PS: 一定要善于使用搜索引擎啊！！！</p>
+]]></content>
+      <categories>
+        <category>bug-records</category>
+      </categories>
+      <tags>
+        <tag>bug</tag>
+        <tag>golang</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Centos系统中安装golang环境</title>
     <url>/2021/08/05/Install-golang-in-centos-system/</url>
     <content><![CDATA[<p>本文将介绍如何在centos系统中安装golang环境。</p>
@@ -4317,8 +4343,8 @@ A[i][j] is 0 or 1.</p>
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -4394,8 +4420,8 @@ One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] 
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -4428,8 +4454,8 @@ One way is to shoot one arrow for example at x = 6 (bursting the balloons [2,8] 
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
@@ -4493,8 +4519,8 @@ The number of people is less than 1,100.</p>
       </categories>
       <tags>
         <tag>leetcode</tag>
-        <tag>Greedy</tag>
         <tag>medium</tag>
+        <tag>Greedy</tag>
       </tags>
   </entry>
   <entry>
