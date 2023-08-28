@@ -87,9 +87,9 @@
       <category term="bug-records" scheme="http://yoursite.com/categories/bug-records/"/>
     
     
-      <category term="bug" scheme="http://yoursite.com/tags/bug/"/>
-    
       <category term="golang" scheme="http://yoursite.com/tags/golang/"/>
+    
+      <category term="bug" scheme="http://yoursite.com/tags/bug/"/>
     
   </entry>
   
