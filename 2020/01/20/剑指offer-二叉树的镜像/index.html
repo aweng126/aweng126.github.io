@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
@@ -52,14 +52,17 @@
 </script>
 
   <meta name="description" content="本文为剑指 offer 系列第二十篇。 主要知识点为树，给定一棵树来构造它的镜像，用完美的递归逻辑和直观的层序遍历来解决这个问题。">
-<meta name="keywords" content="Codinginterviews,Tree">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-二叉树的镜像">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F&#x2F;index.html">
+<meta property="og:url" content="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="本文为剑指 offer 系列第二十篇。 主要知识点为树，给定一棵树来构造它的镜像，用完美的递归逻辑和直观的层序遍历来解决这个问题。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-20T03:48:13.837Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-20T02:35:33.000Z">
+<meta property="article:modified_time" content="2020-01-20T03:48:13.837Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="Codinginterviews">
+<meta property="article:tag" content="Tree">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/">
 
@@ -273,7 +276,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
+              <span>2.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -318,13 +321,13 @@
 <p>尝试一下前序遍历来进行替换。写完了我才发现，其实和思路1是相同的道理，只是我们将左右子树的替换单独拿了出来，替换部分其实就类似于我们遍历的时候的cout语句，殊途同归。</p>
 <h2 id="解题代码">解题代码</h2>
 <h3 id="思路1代码">思路1代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void Mirror(TreeNode *root) &#123;</span><br><span class="line">        // 方法1 递归</span><br><span class="line">        if(!root) return;</span><br><span class="line">        root = helper(root);</span><br><span class="line">    &#125;</span><br><span class="line">   TreeNode* helper(TreeNode* root)&#123;</span><br><span class="line">        if(!root) return NULL;</span><br><span class="line">        TreeNode *temp = root-&gt;left;</span><br><span class="line">        root-&gt;left = helper(root -&gt; right);</span><br><span class="line">        root-&gt;right = helper(temp);</span><br><span class="line">       return root;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void Mirror(TreeNode *root) &#123;</span><br><span class="line">        &#x2F;&#x2F; 方法1 递归</span><br><span class="line">        if(!root) return;</span><br><span class="line">        root &#x3D; helper(root);</span><br><span class="line">    &#125;</span><br><span class="line">   TreeNode* helper(TreeNode* root)&#123;</span><br><span class="line">        if(!root) return NULL;</span><br><span class="line">        TreeNode *temp &#x3D; root-&gt;left;</span><br><span class="line">        root-&gt;left &#x3D; helper(root -&gt; right);</span><br><span class="line">        root-&gt;right &#x3D; helper(temp);</span><br><span class="line">       return root;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <h3 id="思路2代码">思路2代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void Mirror(TreeNode *root) &#123;</span><br><span class="line">        //方法二 层序遍历</span><br><span class="line">        if(!root) return;</span><br><span class="line">        queue&lt;TreeNode*&gt; q&#123;&#123;root&#125;&#125;;</span><br><span class="line">        while(!q.empty())&#123;</span><br><span class="line">            for(int i = q.size();i&gt;0;i--)&#123;</span><br><span class="line">                TreeNode* a = q.front(); q.pop();</span><br><span class="line">                TreeNode* temp = a-&gt;left;</span><br><span class="line">                a-&gt;left = a-&gt;right;</span><br><span class="line">                a-&gt;right = temp;</span><br><span class="line">                if(a-&gt;left) q.push(a-&gt;left);</span><br><span class="line">                if(a-&gt;right) q.push(a-&gt;right);</span><br><span class="line">            &#125;    </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void Mirror(TreeNode *root) &#123;</span><br><span class="line">        &#x2F;&#x2F;方法二 层序遍历</span><br><span class="line">        if(!root) return;</span><br><span class="line">        queue&lt;TreeNode*&gt; q&#123;&#123;root&#125;&#125;;</span><br><span class="line">        while(!q.empty())&#123;</span><br><span class="line">            for(int i &#x3D; q.size();i&gt;0;i--)&#123;</span><br><span class="line">                TreeNode* a &#x3D; q.front(); q.pop();</span><br><span class="line">                TreeNode* temp &#x3D; a-&gt;left;</span><br><span class="line">                a-&gt;left &#x3D; a-&gt;right;</span><br><span class="line">                a-&gt;right &#x3D; temp;</span><br><span class="line">                if(a-&gt;left) q.push(a-&gt;left);</span><br><span class="line">                if(a-&gt;right) q.push(a-&gt;right);</span><br><span class="line">            &#125;    </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <h3 id="思路3代码">思路3代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void Mirror(TreeNode *root) &#123;</span><br><span class="line">        //方法3 前序遍历</span><br><span class="line">        if(!root) return;</span><br><span class="line">        root = preOrder(root);</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode* preOrder(TreeNode* root)&#123;</span><br><span class="line">        if(!root)return NULL;</span><br><span class="line">        helper3(root);</span><br><span class="line">        if(root-&gt;left) preOrder(root-&gt;left);</span><br><span class="line">        if(root-&gt;right) preOrder(root-&gt;right);</span><br><span class="line">        return root;</span><br><span class="line">    &#125;</span><br><span class="line">    void helper3(TreeNode* root)&#123;</span><br><span class="line">        TreeNode* temp = root-&gt;left;</span><br><span class="line">        root-&gt;left = root-&gt;right;</span><br><span class="line">        root-&gt;right = temp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;*&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    void Mirror(TreeNode *root) &#123;</span><br><span class="line">        &#x2F;&#x2F;方法3 前序遍历</span><br><span class="line">        if(!root) return;</span><br><span class="line">        root &#x3D; preOrder(root);</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode* preOrder(TreeNode* root)&#123;</span><br><span class="line">        if(!root)return NULL;</span><br><span class="line">        helper3(root);</span><br><span class="line">        if(root-&gt;left) preOrder(root-&gt;left);</span><br><span class="line">        if(root-&gt;right) preOrder(root-&gt;right);</span><br><span class="line">        return root;</span><br><span class="line">    &#125;</span><br><span class="line">    void helper3(TreeNode* root)&#123;</span><br><span class="line">        TreeNode* temp &#x3D; root-&gt;left;</span><br><span class="line">        root-&gt;left &#x3D; root-&gt;right;</span><br><span class="line">        root-&gt;right &#x3D; temp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)<br>
 以上，本题结束！</p>
 
@@ -409,7 +412,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -422,7 +425,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -460,7 +463,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -469,14 +472,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">213k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:43</span>
+    <span title="站点阅读时长">3:56</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
@@ -526,9 +529,17 @@
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/pisces.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -596,7 +607,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
 
 
 

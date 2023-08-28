@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
@@ -52,14 +52,17 @@
 </script>
 
   <meta name="description" content="本文为剑指 offer 系列第六十二篇。 主要知识点为数组，在矩阵中查找对应的字符串序列，类似于走迷宫或者找包围区间的题目。">
-<meta name="keywords" content="Codinginterviews,数学">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-矩阵中的路径">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;27&#x2F;%E5%89%91%E6%8C%87offer-%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84&#x2F;index.html">
+<meta property="og:url" content="http://yoursite.com/2020/01/27/%E5%89%91%E6%8C%87offer-%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="本文为剑指 offer 系列第六十二篇。 主要知识点为数组，在矩阵中查找对应的字符串序列，类似于走迷宫或者找包围区间的题目。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-27T05:24:58.138Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-27T04:55:04.000Z">
+<meta property="article:modified_time" content="2020-01-27T05:24:58.138Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="Codinginterviews">
+<meta property="article:tag" content="数学">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="http://yoursite.com/2020/01/27/%E5%89%91%E6%8C%87offer-%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/">
 
@@ -273,7 +276,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -301,7 +304,7 @@
 <p>遍历矩阵中的每个结点作为起始结点，然后从这个点开始向四周遍历，寻找字符串的下一个字符，如果字符串匹配到最后的结束标志’\0’,那就返回true,反之就返回false.<br>
 需要注意的一点是之前访问过的就不能访问了，所以需要找一个数组或者矩阵来标志这个节点之前是否已经访问过。</p>
 <h2 id="解题代码">解题代码</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool hasPath(char* matrix, int rows, int cols, char* str)</span><br><span class="line">    &#123;</span><br><span class="line">        if(rows&lt;=0 || cols&lt;=0 || !str || !matrix) return false;</span><br><span class="line">        vector&lt;bool&gt; flags(rows*cols,0);</span><br><span class="line">        for(int i = 0; i &lt; rows; i++)&#123;</span><br><span class="line">            for(int j = 0; j &lt; cols; j++)&#123;</span><br><span class="line">                if(helper(matrix,rows,cols,i,j,str,flags)) return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    bool helper(char* matrix,int rows,int cols,int i,int j,char* str,vector&lt;bool&gt; flags)&#123;</span><br><span class="line">        if(*str == &apos;\0&apos;) return true;</span><br><span class="line">        if(i &gt;= 0 &amp;&amp; j &gt;= 0 &amp;&amp; i &lt; rows &amp;&amp; j &lt; cols &amp;&amp; matrix[i*cols+j] == *str &amp;&amp; flags[i*cols+j] == false)&#123;</span><br><span class="line">            flags[i*cols+j] = true;</span><br><span class="line">            bool find = false;</span><br><span class="line">            find = helper(matrix,rows,cols,i,j+1,str+1,flags)</span><br><span class="line">                ||helper(matrix,rows,cols,i,j-1,str+1,flags)</span><br><span class="line">                ||helper(matrix,rows,cols,i+1,j,str+1,flags)</span><br><span class="line">                ||helper(matrix,rows,cols,i-1,j,str+1,flags);</span><br><span class="line">            if(find == false)&#123;</span><br><span class="line">                flags[i*cols+j] = false;</span><br><span class="line">            &#125;</span><br><span class="line">            return find;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool hasPath(char* matrix, int rows, int cols, char* str)</span><br><span class="line">    &#123;</span><br><span class="line">        if(rows&lt;&#x3D;0 || cols&lt;&#x3D;0 || !str || !matrix) return false;</span><br><span class="line">        vector&lt;bool&gt; flags(rows*cols,0);</span><br><span class="line">        for(int i &#x3D; 0; i &lt; rows; i++)&#123;</span><br><span class="line">            for(int j &#x3D; 0; j &lt; cols; j++)&#123;</span><br><span class="line">                if(helper(matrix,rows,cols,i,j,str,flags)) return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    bool helper(char* matrix,int rows,int cols,int i,int j,char* str,vector&lt;bool&gt; flags)&#123;</span><br><span class="line">        if(*str &#x3D;&#x3D; &#39;\0&#39;) return true;</span><br><span class="line">        if(i &gt;&#x3D; 0 &amp;&amp; j &gt;&#x3D; 0 &amp;&amp; i &lt; rows &amp;&amp; j &lt; cols &amp;&amp; matrix[i*cols+j] &#x3D;&#x3D; *str &amp;&amp; flags[i*cols+j] &#x3D;&#x3D; false)&#123;</span><br><span class="line">            flags[i*cols+j] &#x3D; true;</span><br><span class="line">            bool find &#x3D; false;</span><br><span class="line">            find &#x3D; helper(matrix,rows,cols,i,j+1,str+1,flags)</span><br><span class="line">                ||helper(matrix,rows,cols,i,j-1,str+1,flags)</span><br><span class="line">                ||helper(matrix,rows,cols,i+1,j,str+1,flags)</span><br><span class="line">                ||helper(matrix,rows,cols,i-1,j,str+1,flags);</span><br><span class="line">            if(find &#x3D;&#x3D; false)&#123;</span><br><span class="line">                flags[i*cols+j] &#x3D; false;</span><br><span class="line">            &#125;</span><br><span class="line">            return find;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(rows*cols*logn),空间复杂度为O(rows*cols)<br>
 以上，本题结束！</p>
 
@@ -386,7 +389,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -399,7 +402,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -437,7 +440,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -446,14 +449,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">213k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:43</span>
+    <span title="站点阅读时长">3:56</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
@@ -503,9 +506,17 @@
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/pisces.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -573,7 +584,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
 
 
 

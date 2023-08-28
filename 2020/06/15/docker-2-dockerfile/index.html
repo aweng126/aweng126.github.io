@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
@@ -52,14 +52,17 @@
 </script>
 
   <meta name="description" content="在实际开发中完全使用他人构造好的镜像是不现实的。 所以本篇文章我们将会学习Dockerfile的知识，从而学习如何构造符合项目要求的镜像。">
-<meta name="keywords" content="docker,dockerfile">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker进阶-Dockerfile的编写和使用">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;06&#x2F;15&#x2F;docker-2-dockerfile&#x2F;index.html">
+<meta property="og:url" content="http://yoursite.com/2020/06/15/docker-2-dockerfile/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="在实际开发中完全使用他人构造好的镜像是不现实的。 所以本篇文章我们将会学习Dockerfile的知识，从而学习如何构造符合项目要求的镜像。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-15T08:02:45.217Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-15T06:55:13.000Z">
+<meta property="article:modified_time" content="2020-06-15T08:02:45.217Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="dockerfile">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="http://yoursite.com/2020/06/15/docker-2-dockerfile/">
 
@@ -273,7 +276,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -296,13 +299,13 @@
 所以本篇文章我们将会学习Dockerfile的知识，从而学习如何构造符合项目要求的镜像。</p>
 <a id="more"></a>
 <h2 id="Dockerfile文档展示">Dockerfile文档展示</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:16.04</span><br><span class="line"></span><br><span class="line">RUN apt-get update -y &amp;&amp; \</span><br><span class="line">    apt-get install -y python3-pip python3-dev</span><br><span class="line"></span><br><span class="line"># We copy just the requirements.txt first to leverage Docker cache</span><br><span class="line">COPY ./requirements.txt /app/requirements.txt</span><br><span class="line"></span><br><span class="line">WORKDIR /app</span><br><span class="line"></span><br><span class="line">RUN python3 -m pip install --upgrade pip</span><br><span class="line">RUN pip3 install -r requirements.txt</span><br><span class="line"></span><br><span class="line">COPY . /app</span><br><span class="line"></span><br><span class="line"># ENTRYPOINT [ &quot;python3&quot; ]</span><br><span class="line"></span><br><span class="line">CMD [ &quot;python3&quot;, &quot;main.py&quot; ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:16.04</span><br><span class="line"></span><br><span class="line">RUN apt-get update -y &amp;&amp; \</span><br><span class="line">    apt-get install -y python3-pip python3-dev</span><br><span class="line"></span><br><span class="line"># We copy just the requirements.txt first to leverage Docker cache</span><br><span class="line">COPY .&#x2F;requirements.txt &#x2F;app&#x2F;requirements.txt</span><br><span class="line"></span><br><span class="line">WORKDIR &#x2F;app</span><br><span class="line"></span><br><span class="line">RUN python3 -m pip install --upgrade pip</span><br><span class="line">RUN pip3 install -r requirements.txt</span><br><span class="line"></span><br><span class="line">COPY . &#x2F;app</span><br><span class="line"></span><br><span class="line"># ENTRYPOINT [ &quot;python3&quot; ]</span><br><span class="line"></span><br><span class="line">CMD [ &quot;python3&quot;, &quot;main.py&quot; ]</span><br></pre></td></tr></table></figure>
 <h2 id="逐行命令解释">逐行命令解释</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">1. FROM ubuntu:16.04</span><br><span class="line"></span><br><span class="line">FROM 关键字会初始化一个image构造，并为后续的所有操作设置基础镜像，，上面的例子表示，该image是以ubuntu:16.04为基础构建的。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2. RUN apt-get update -y &amp;&amp; \</span><br><span class="line">    apt-get install -y python3-pip python3-dev</span><br><span class="line"></span><br><span class="line">RUN 会在上一层的基础上添加新的layer,并将结果提交给下一层。RUN命令有两种形式。一种是shell格式，格式如下</span><br><span class="line">RUN &lt;command&gt; (shell form, the command is run in a shell, which by default is /bin/sh -c on Linux or cmd /S /C on Windows)</span><br><span class="line"></span><br><span class="line">另一种是exec格式，格式如下</span><br><span class="line">RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;] (exec form)</span><br><span class="line"></span><br><span class="line">&amp;&amp; \ 并不是Docker独有的，只是告诉linux这两条命令要一起执行，而不是执行两次，这样就只会产生一层layer,如果有两个RUN，那么就会产生两个中间层。 </span><br><span class="line"></span><br><span class="line">3. COPY ./requirements.txt /app/requirements.txt</span><br><span class="line">COPY 命令同样有两种形式，可以实现将源文件复制到目标位置，支持正则表达式。</span><br><span class="line">COPY [--chown=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</span><br><span class="line">COPY [--chown=&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</span><br><span class="line"></span><br><span class="line">4. WORKDIR /app</span><br><span class="line">- WORKDIR 会设置当前的工作目录，在本条指令之后的RUN, CMD, ENTRYPOINT, COPY 和 ADD目录都是在当前目录下执行的。</span><br><span class="line">- WORKDIR 可以出现多次，从而更换shell的执行路径</span><br><span class="line"></span><br><span class="line">5. RUN python3 -m pip install --upgrade pip</span><br><span class="line">6. RUN pip3 install -r requirements.txt</span><br><span class="line">RUN命令的shell形式，更新pip同时安装依赖。</span><br><span class="line"></span><br><span class="line">7. COPY . /app</span><br><span class="line">复制命令 将当前目录的所有文件复制到/app目录下</span><br><span class="line"></span><br><span class="line">8.CMD [ &quot;python3&quot;, &quot;main.py&quot; ]</span><br><span class="line">CMD的作用是提供容器的默认指令，也就是我们docker run 的最后一个参数。CMD有三种形式，在一个Dockerfile中，如果有多个CMD指令，那么只有最后一个CMD命令会起作用。</span><br><span class="line">CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;] (exec form, this is the preferred form)</span><br><span class="line">CMD [&quot;param1&quot;,&quot;param2&quot;] (as default parameters to ENTRYPOINT)</span><br><span class="line">CMD command param1 param2 (shell form)</span><br><span class="line"></span><br><span class="line">如果CMD命令后只有参数，没有可执行的命令，那么它肯定是配合ENTRYPOINT使用的。同时要注意，如果是配合ENTRYPOINT的时候，CMD和ENTRYPOINT都要使用使用 JSON array 格式。如果用ENTRYPOINT进行改写，则如下所示。</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [ &quot;python&quot; ]</span><br><span class="line">CMD [ &quot;main.py&quot; ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">1. FROM ubuntu:16.04</span><br><span class="line"></span><br><span class="line">FROM 关键字会初始化一个image构造，并为后续的所有操作设置基础镜像，，上面的例子表示，该image是以ubuntu:16.04为基础构建的。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2. RUN apt-get update -y &amp;&amp; \</span><br><span class="line">    apt-get install -y python3-pip python3-dev</span><br><span class="line"></span><br><span class="line">RUN 会在上一层的基础上添加新的layer,并将结果提交给下一层。RUN命令有两种形式。一种是shell格式，格式如下</span><br><span class="line">RUN &lt;command&gt; (shell form, the command is run in a shell, which by default is &#x2F;bin&#x2F;sh -c on Linux or cmd &#x2F;S &#x2F;C on Windows)</span><br><span class="line"></span><br><span class="line">另一种是exec格式，格式如下</span><br><span class="line">RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;] (exec form)</span><br><span class="line"></span><br><span class="line">&amp;&amp; \ 并不是Docker独有的，只是告诉linux这两条命令要一起执行，而不是执行两次，这样就只会产生一层layer,如果有两个RUN，那么就会产生两个中间层。 </span><br><span class="line"></span><br><span class="line">3. COPY .&#x2F;requirements.txt &#x2F;app&#x2F;requirements.txt</span><br><span class="line">COPY 命令同样有两种形式，可以实现将源文件复制到目标位置，支持正则表达式。</span><br><span class="line">COPY [--chown&#x3D;&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</span><br><span class="line">COPY [--chown&#x3D;&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</span><br><span class="line"></span><br><span class="line">4. WORKDIR &#x2F;app</span><br><span class="line">- WORKDIR 会设置当前的工作目录，在本条指令之后的RUN, CMD, ENTRYPOINT, COPY 和 ADD目录都是在当前目录下执行的。</span><br><span class="line">- WORKDIR 可以出现多次，从而更换shell的执行路径</span><br><span class="line"></span><br><span class="line">5. RUN python3 -m pip install --upgrade pip</span><br><span class="line">6. RUN pip3 install -r requirements.txt</span><br><span class="line">RUN命令的shell形式，更新pip同时安装依赖。</span><br><span class="line"></span><br><span class="line">7. COPY . &#x2F;app</span><br><span class="line">复制命令 将当前目录的所有文件复制到&#x2F;app目录下</span><br><span class="line"></span><br><span class="line">8.CMD [ &quot;python3&quot;, &quot;main.py&quot; ]</span><br><span class="line">CMD的作用是提供容器的默认指令，也就是我们docker run 的最后一个参数。CMD有三种形式，在一个Dockerfile中，如果有多个CMD指令，那么只有最后一个CMD命令会起作用。</span><br><span class="line">CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;] (exec form, this is the preferred form)</span><br><span class="line">CMD [&quot;param1&quot;,&quot;param2&quot;] (as default parameters to ENTRYPOINT)</span><br><span class="line">CMD command param1 param2 (shell form)</span><br><span class="line"></span><br><span class="line">如果CMD命令后只有参数，没有可执行的命令，那么它肯定是配合ENTRYPOINT使用的。同时要注意，如果是配合ENTRYPOINT的时候，CMD和ENTRYPOINT都要使用使用 JSON array 格式。如果用ENTRYPOINT进行改写，则如下所示。</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [ &quot;python&quot; ]</span><br><span class="line">CMD [ &quot;main.py&quot; ]</span><br></pre></td></tr></table></figure>
 <h2 id="打包镜像">打包镜像</h2>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker build -t kuakua:latest .</span><br><span class="line"> -t 设置镜像名称和标签，如果标签没有设定，默认是latest</span><br><span class="line"> .  在当前目录寻找Dockerfile进行镜像打包。</span><br></pre></td></tr></table></figure>
 <h2 id="运行容器">运行容器</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> docker run -d -p 5001:5000 --name kuakua -v /Users/liqingwen/workplace/temp/kuakua/log:/log kuakua:latest</span><br><span class="line"></span><br><span class="line">// 详细解释</span><br><span class="line">-d  表示以守护进程的形式进行执行，后台运行</span><br><span class="line">-p 5001:5000 将容器的5000端口映射到宿主机的5001端口</span><br><span class="line">--name kuakua 将当前容器命名为kuakua</span><br><span class="line">-v bind mount a volumn 将容器的log目录和本地的/Users/liqingwen/workplace/temp/kuakua/log做一个映射。如果容器端log目录下有内容更新，则本地的log目录也会同步更新。</span><br><span class="line">kuakua:latest 镜像名称</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> docker run -d -p 5001:5000 --name kuakua -v &#x2F;Users&#x2F;liqingwen&#x2F;workplace&#x2F;temp&#x2F;kuakua&#x2F;log:&#x2F;log kuakua:latest</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 详细解释</span><br><span class="line">-d  表示以守护进程的形式进行执行，后台运行</span><br><span class="line">-p 5001:5000 将容器的5000端口映射到宿主机的5001端口</span><br><span class="line">--name kuakua 将当前容器命名为kuakua</span><br><span class="line">-v bind mount a volumn 将容器的log目录和本地的&#x2F;Users&#x2F;liqingwen&#x2F;workplace&#x2F;temp&#x2F;kuakua&#x2F;log做一个映射。如果容器端log目录下有内容更新，则本地的log目录也会同步更新。</span><br><span class="line">kuakua:latest 镜像名称</span><br></pre></td></tr></table></figure>
 <h2 id="项目地址">项目地址</h2>
 <p>本项目完整代码已经在github开源，项目地址<a href="https://github.com/aweng126/TestProject/tree/master/kuakua" target="_blank" rel="noopener">夸夸机器人</a>,欢迎大家去尝试一下。</p>
 <h2 id="参考">参考</h2>
@@ -392,7 +395,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -405,7 +408,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -443,7 +446,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -452,14 +455,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">213k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:43</span>
+    <span title="站点阅读时长">3:56</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
@@ -509,9 +512,17 @@
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/pisces.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -579,7 +590,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
 
 
 

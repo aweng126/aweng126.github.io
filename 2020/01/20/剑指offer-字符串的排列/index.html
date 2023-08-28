@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
@@ -52,17 +52,20 @@
 </script>
 
   <meta name="description" content="本文为剑指 offer 系列第二十八篇。 主要知识点为字符串，给定n个字符，给出所有的可能的排列，非常经典。">
-<meta name="keywords" content="Codinginterviews,Math">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-字符串的排列">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97&#x2F;index.html">
+<meta property="og:url" content="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="本文为剑指 offer 系列第二十八篇。 主要知识点为字符串，给定n个字符，给出所有的可能的排列，非常经典。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdn.net&#x2F;20160426160344631">
-<meta property="og:updated_time" content="2020-01-21T08:21:55.053Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdn.net/20160426160344631">
+<meta property="article:published_time" content="2020-01-20T14:25:43.000Z">
+<meta property="article:modified_time" content="2020-01-21T08:21:55.053Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="Codinginterviews">
+<meta property="article:tag" content="Math">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdn.net&#x2F;20160426160344631">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20160426160344631">
   <link rel="canonical" href="http://yoursite.com/2020/01/20/%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/">
 
 
@@ -281,14 +284,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
+              <span>3.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -373,13 +376,13 @@
 而基于交换的方法的话，从0号索引开始和与前面字符不重复的每一位进行替换。所以索引0和索引0替换，得到{b,b},0和1进行替换的时候，发现之前已经存在b了，所以就不再替换。1和1替换的时候，发现之前也存在b了，所以也不再进行替换，所以最后结果仅仅只有{bb}，从而避免了重复。</p>
 <h2 id="解题代码">解题代码</h2>
 <h3 id="思路1代码">思路1代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; Permutation(string str) &#123;</span><br><span class="line">        // 方法1： 直接使用stl中的next_permutation方法</span><br><span class="line">        vector&lt;string&gt; res;</span><br><span class="line">        if(str.size() == 0) return res;</span><br><span class="line">        do&#123;</span><br><span class="line">            res.push_back(str);</span><br><span class="line">        &#125;while(next_permutation(str.begin(),str.end()));</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; Permutation(string str) &#123;</span><br><span class="line">        &#x2F;&#x2F; 方法1： 直接使用stl中的next_permutation方法</span><br><span class="line">        vector&lt;string&gt; res;</span><br><span class="line">        if(str.size() &#x3D;&#x3D; 0) return res;</span><br><span class="line">        do&#123;</span><br><span class="line">            res.push_back(str);</span><br><span class="line">        &#125;while(next_permutation(str.begin(),str.end()));</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <h3 id="思路2代码">思路2代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; res;</span><br><span class="line">    vector&lt;string&gt; Permutation(string str) &#123;</span><br><span class="line">        //方法2： 基于前缀的排列生成。每次在排完前面的之后，对后面所有的元素进行全排列</span><br><span class="line">        if(str.size() == 0) return res;</span><br><span class="line">        helper2(&quot;&quot;,str);</span><br><span class="line">        //去除重复元素 如 aa 前面的res会生成 aa 和 aa， 而我们的结果只要返回&#123;aa&#125;即可</span><br><span class="line">        set&lt;string&gt; s(res.begin(),res.end());</span><br><span class="line">        res = vector&lt;string&gt;(s.begin(),s.end());</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    // 方法2的辅助函数。</span><br><span class="line">    void helper2(string prefix, string str)&#123;</span><br><span class="line">        if(str.size() == 0)&#123;</span><br><span class="line">            res.push_back(prefix);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            for(int i = 0;i &lt; str.size(); i++)&#123;</span><br><span class="line">                helper2(prefix+str[i],str.substr(0,i)+str.substr(i+1,str.size()));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; res;</span><br><span class="line">    vector&lt;string&gt; Permutation(string str) &#123;</span><br><span class="line">        &#x2F;&#x2F;方法2： 基于前缀的排列生成。每次在排完前面的之后，对后面所有的元素进行全排列</span><br><span class="line">        if(str.size() &#x3D;&#x3D; 0) return res;</span><br><span class="line">        helper2(&quot;&quot;,str);</span><br><span class="line">        &#x2F;&#x2F;去除重复元素 如 aa 前面的res会生成 aa 和 aa， 而我们的结果只要返回&#123;aa&#125;即可</span><br><span class="line">        set&lt;string&gt; s(res.begin(),res.end());</span><br><span class="line">        res &#x3D; vector&lt;string&gt;(s.begin(),s.end());</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 方法2的辅助函数。</span><br><span class="line">    void helper2(string prefix, string str)&#123;</span><br><span class="line">        if(str.size() &#x3D;&#x3D; 0)&#123;</span><br><span class="line">            res.push_back(prefix);</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            for(int i &#x3D; 0;i &lt; str.size(); i++)&#123;</span><br><span class="line">                helper2(prefix+str[i],str.substr(0,i)+str.substr(i+1,str.size()));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <h3 id="思路3代码">思路3代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; res;</span><br><span class="line">    vector&lt;string&gt; Permutation(string str) &#123;</span><br><span class="line">        </span><br><span class="line">        //方法3: 基于交换的全排列生成，可以避免有重复元素</span><br><span class="line">        if(str.size() == 0) return res;</span><br><span class="line">        helper3(str,0);</span><br><span class="line">        sort(res.begin(),res.end());</span><br><span class="line">        return res;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 方法3的辅助函数</span><br><span class="line">    void helper3(string str,int begin)&#123;</span><br><span class="line">        if(begin == str.size())&#123;</span><br><span class="line">            res.push_back(str);</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = begin; i&lt; str.size(); i++)&#123;</span><br><span class="line">           if(!HasDuplicate(str,begin,i))&#123;</span><br><span class="line">                swap(str[begin],str[i]);</span><br><span class="line">                helper3(str,begin+1);</span><br><span class="line">                swap(str[begin],str[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    bool HasDuplicate(string str,int begin,int end)&#123;</span><br><span class="line">        for(int i = begin;i &lt; end; i++)&#123;</span><br><span class="line">            if(str[i] == str[end]) return true;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;string&gt; res;</span><br><span class="line">    vector&lt;string&gt; Permutation(string str) &#123;</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F;方法3: 基于交换的全排列生成，可以避免有重复元素</span><br><span class="line">        if(str.size() &#x3D;&#x3D; 0) return res;</span><br><span class="line">        helper3(str,0);</span><br><span class="line">        sort(res.begin(),res.end());</span><br><span class="line">        return res;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 方法3的辅助函数</span><br><span class="line">    void helper3(string str,int begin)&#123;</span><br><span class="line">        if(begin &#x3D;&#x3D; str.size())&#123;</span><br><span class="line">            res.push_back(str);</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i &#x3D; begin; i&lt; str.size(); i++)&#123;</span><br><span class="line">           if(!HasDuplicate(str,begin,i))&#123;</span><br><span class="line">                swap(str[begin],str[i]);</span><br><span class="line">                helper3(str,begin+1);</span><br><span class="line">                swap(str[begin],str[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    bool HasDuplicate(string str,int begin,int end)&#123;</span><br><span class="line">        for(int i &#x3D; begin;i &lt; end; i++)&#123;</span><br><span class="line">            if(str[i] &#x3D;&#x3D; str[end]) return true;</span><br><span class="line">        &#125;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <h2 id="参考资料">参考资料</h2>
 <p>1.<a href="https://blog.csdn.net/gatieme/article/details/51251158" target="_blank" rel="noopener">剑指Offer–028-字符串的排列</a><br>
@@ -466,7 +469,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -479,7 +482,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -517,7 +520,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -526,14 +529,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">213k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:43</span>
+    <span title="站点阅读时长">3:56</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
@@ -583,9 +586,17 @@
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/pisces.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -653,7 +664,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
 
 
 

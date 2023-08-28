@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
@@ -52,14 +52,17 @@
 </script>
 
   <meta name="description" content="本文为剑指 offer 系列第五十九篇。 主要知识点为二叉搜索树，二叉搜索树由于本身的特性，其中序遍历结果是有序的， 针对这一点，经常有题目出现。">
-<meta name="keywords" content="Codinginterviews,BinarySearchTree">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-二叉搜索树的第k个结点">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;27&#x2F;%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E7%AC%ACk%E4%B8%AA%E7%BB%93%E7%82%B9&#x2F;index.html">
+<meta property="og:url" content="http://yoursite.com/2020/01/27/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E7%AC%ACk%E4%B8%AA%E7%BB%93%E7%82%B9/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="本文为剑指 offer 系列第五十九篇。 主要知识点为二叉搜索树，二叉搜索树由于本身的特性，其中序遍历结果是有序的， 针对这一点，经常有题目出现。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-27T02:39:17.705Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-27T01:50:33.000Z">
+<meta property="article:modified_time" content="2020-01-27T02:39:17.705Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="Codinginterviews">
+<meta property="article:tag" content="BinarySearchTree">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="http://yoursite.com/2020/01/27/%E5%89%91%E6%8C%87offer-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E7%AC%ACk%E4%B8%AA%E7%BB%93%E7%82%B9/">
 
@@ -306,10 +309,10 @@
 <p>找一个全局计数器表示中序遍历到多少个节点，如果到第K个节点就可以直接返回当前结果了。如果没有到第K个节点，那么就返回NULL。</p>
 <h2 id="解题代码">解题代码</h2>
 <h3 id="思路1代码">思路1代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    TreeNode* KthNode(TreeNode* pRoot, int k)</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        if(!pRoot || k&lt;=0) return NULL; </span><br><span class="line">        inorder(pRoot,res);</span><br><span class="line">        if(res.size() &lt; k)&#123;</span><br><span class="line">            return NULL;</span><br><span class="line">        &#125; else&#123;</span><br><span class="line">            return res[k-1];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    vector&lt;TreeNode*&gt; res;</span><br><span class="line">    void inorder(TreeNode* root,vector&lt;TreeNode*&gt;&amp; res)&#123;</span><br><span class="line">        if(!root) return ;</span><br><span class="line">        if(root-&gt;left) inorder(root-&gt;left,res);</span><br><span class="line">        res.push_back(root);</span><br><span class="line">        if(root-&gt;right) inorder(root-&gt;right,res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">*&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    TreeNode* KthNode(TreeNode* pRoot, int k)</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        if(!pRoot || k&lt;&#x3D;0) return NULL; </span><br><span class="line">        inorder(pRoot,res);</span><br><span class="line">        if(res.size() &lt; k)&#123;</span><br><span class="line">            return NULL;</span><br><span class="line">        &#125; else&#123;</span><br><span class="line">            return res[k-1];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    vector&lt;TreeNode*&gt; res;</span><br><span class="line">    void inorder(TreeNode* root,vector&lt;TreeNode*&gt;&amp; res)&#123;</span><br><span class="line">        if(!root) return ;</span><br><span class="line">        if(root-&gt;left) inorder(root-&gt;left,res);</span><br><span class="line">        res.push_back(root);</span><br><span class="line">        if(root-&gt;right) inorder(root-&gt;right,res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <h3 id="思路2代码">思路2代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">*/</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    TreeNode* KthNode(TreeNode* pRoot, int k)</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        if(!pRoot || k&lt;=0) return NULL; </span><br><span class="line">        inorder(pRoot,k);</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    int count = 0;</span><br><span class="line">    TreeNode* res = NULL;</span><br><span class="line">    void inorder(TreeNode* root,int k)&#123;</span><br><span class="line">        if(!root) return ;</span><br><span class="line">        if(root-&gt;left) inorder(root-&gt;left,k);</span><br><span class="line">        count++;</span><br><span class="line">        if(count == k)&#123;</span><br><span class="line">            res = root;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        if(root-&gt;right) inorder(root-&gt;right,k);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">*&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    TreeNode* KthNode(TreeNode* pRoot, int k)</span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">        if(!pRoot || k&lt;&#x3D;0) return NULL; </span><br><span class="line">        inorder(pRoot,k);</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">    int count &#x3D; 0;</span><br><span class="line">    TreeNode* res &#x3D; NULL;</span><br><span class="line">    void inorder(TreeNode* root,int k)&#123;</span><br><span class="line">        if(!root) return ;</span><br><span class="line">        if(root-&gt;left) inorder(root-&gt;left,k);</span><br><span class="line">        count++;</span><br><span class="line">        if(count &#x3D;&#x3D; k)&#123;</span><br><span class="line">            res &#x3D; root;</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        if(root-&gt;right) inorder(root-&gt;right,k);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)<br>
 以上，本题结束！</p>
 
@@ -394,7 +397,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -407,7 +410,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -445,7 +448,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -454,14 +457,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">213k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:43</span>
+    <span title="站点阅读时长">3:56</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
@@ -511,9 +514,17 @@
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/pisces.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -581,7 +592,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
 
 
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
@@ -52,14 +52,17 @@
 </script>
 
   <meta name="description" content="本文为剑指 offer 系列第五十一篇。 主要知识点为字符串中每个字符的出现次数，同样的题目其实已经出现很多次了，相信大家都已经可以做到手到擒来了。">
-<meta name="keywords" content="Codinginterviews,String">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-字符流中第一个不重复的字符">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;26&#x2F;%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E6%B5%81%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%B8%8D%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%97%E7%AC%A6&#x2F;index.html">
+<meta property="og:url" content="http://yoursite.com/2020/01/26/%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E6%B5%81%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%B8%8D%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%97%E7%AC%A6/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="本文为剑指 offer 系列第五十一篇。 主要知识点为字符串中每个字符的出现次数，同样的题目其实已经出现很多次了，相信大家都已经可以做到手到擒来了。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-26T06:31:29.225Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-26T06:26:41.000Z">
+<meta property="article:modified_time" content="2020-01-26T06:31:29.225Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="Codinginterviews">
+<meta property="article:tag" content="String">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="http://yoursite.com/2020/01/26/%E5%89%91%E6%8C%87offer-%E5%AD%97%E7%AC%A6%E6%B5%81%E4%B8%AD%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%B8%8D%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AD%97%E7%AC%A6/">
 
@@ -273,7 +276,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>762</span>
+              <span>805</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -302,7 +305,7 @@
 <h2 id="解题思路">解题思路</h2>
 <p>对于插入的每个字符都进行一次保存，然后对于每个字符出现的次数都可以通过map来保存出现次数，最后遍历一遍map找到第一个出现次数为1的字符就可以了。</p>
 <h2 id="解题代码">解题代码</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    string s = &quot;&quot;;</span><br><span class="line">    map&lt;char,int&gt; mmap;</span><br><span class="line">  //Insert one char from stringstream</span><br><span class="line">    void Insert(char ch)</span><br><span class="line">    &#123;</span><br><span class="line">       s += ch;</span><br><span class="line">       if(mmap[ch])&#123;</span><br><span class="line">           mmap[ch]++;</span><br><span class="line">       &#125;else&#123;</span><br><span class="line">           mmap[ch] = 1;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  //return the first appearence once char in current stringstream</span><br><span class="line">    char FirstAppearingOnce()</span><br><span class="line">    &#123;</span><br><span class="line">        for(char a:s)&#123;</span><br><span class="line">            if(mmap[a] == 1)</span><br><span class="line">               return a;</span><br><span class="line">        &#125;</span><br><span class="line">        return &apos;#&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Solution</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">    string s &#x3D; &quot;&quot;;</span><br><span class="line">    map&lt;char,int&gt; mmap;</span><br><span class="line">  &#x2F;&#x2F;Insert one char from stringstream</span><br><span class="line">    void Insert(char ch)</span><br><span class="line">    &#123;</span><br><span class="line">       s +&#x3D; ch;</span><br><span class="line">       if(mmap[ch])&#123;</span><br><span class="line">           mmap[ch]++;</span><br><span class="line">       &#125;else&#123;</span><br><span class="line">           mmap[ch] &#x3D; 1;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#x2F;&#x2F;return the first appearence once char in current stringstream</span><br><span class="line">    char FirstAppearingOnce()</span><br><span class="line">    &#123;</span><br><span class="line">        for(char a:s)&#123;</span><br><span class="line">            if(mmap[a] &#x3D;&#x3D; 1)</span><br><span class="line">               return a;</span><br><span class="line">        &#125;</span><br><span class="line">        return &#39;#&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <p>以上，本题结束！</p>
 
@@ -387,7 +390,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -400,7 +403,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -438,7 +441,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -447,14 +450,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">213k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:43</span>
+    <span title="站点阅读时长">3:56</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
@@ -504,9 +507,17 @@
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/pisces.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -574,7 +585,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
 
 
 

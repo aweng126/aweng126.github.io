@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
@@ -52,14 +52,18 @@
 </script>
 
   <meta name="description" content="本文为剑指 offer 系列第二十九篇。 主要知识点为数组，找出数组中出现次数超过一半的数字，两种方式解决这个问题。map计数和两军对决。">
-<meta name="keywords" content="Array,Map,Codinginterviews">
 <meta property="og:type" content="article">
 <meta property="og:title" content="剑指offer-数组中出现次数超过一半的数字">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;21&#x2F;%E5%89%91%E6%8C%87offer-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97&#x2F;index.html">
+<meta property="og:url" content="http://yoursite.com/2020/01/21/%E5%89%91%E6%8C%87offer-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="本文为剑指 offer 系列第二十九篇。 主要知识点为数组，找出数组中出现次数超过一半的数字，两种方式解决这个问题。map计数和两军对决。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-21T08:55:25.737Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-21T08:24:14.000Z">
+<meta property="article:modified_time" content="2020-01-21T08:55:25.737Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="Array">
+<meta property="article:tag" content="Map">
+<meta property="article:tag" content="Codinginterviews">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="http://yoursite.com/2020/01/21/%E5%89%91%E6%8C%87offer-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97/">
 
@@ -273,7 +277,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -318,10 +322,10 @@
 <p>所以2是一个可能的解，然后在数组中计算target 2出现次数为5，超过数组长度的一半，所以返回target2.</p>
 <h2 id="解题代码">解题代码</h2>
 <h3 id="思路1代码">思路1代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int MoreThanHalfNum_Solution(vector&lt;int&gt; numbers) &#123;</span><br><span class="line">        unordered_map&lt;int,int&gt; mmap;</span><br><span class="line">        for(auto a:numbers)&#123;</span><br><span class="line">            mmap[a]++;</span><br><span class="line">        &#125;</span><br><span class="line">        int temp = numbers.size()/2;</span><br><span class="line">        for(auto a:mmap)&#123;</span><br><span class="line">            if(a.second&gt; temp) return a.first;</span><br><span class="line">        &#125;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int MoreThanHalfNum_Solution(vector&lt;int&gt; numbers) &#123;</span><br><span class="line">        unordered_map&lt;int,int&gt; mmap;</span><br><span class="line">        for(auto a:numbers)&#123;</span><br><span class="line">            mmap[a]++;</span><br><span class="line">        &#125;</span><br><span class="line">        int temp &#x3D; numbers.size()&#x2F;2;</span><br><span class="line">        for(auto a:mmap)&#123;</span><br><span class="line">            if(a.second&gt; temp) return a.first;</span><br><span class="line">        &#125;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <h3 id="思路2代码">思路2代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int MoreThanHalfNum_Solution(vector&lt;int&gt; numbers) &#123;</span><br><span class="line">        // 方法2: 两军对决</span><br><span class="line">        int target = 0,time = 0;</span><br><span class="line">        for(int i = 0; i &lt; numbers.size(); i++)&#123;</span><br><span class="line">            if(time == 0)&#123;</span><br><span class="line">                target = numbers[i];</span><br><span class="line">                time = 1;</span><br><span class="line">            &#125;else if(target != numbers[i])&#123;</span><br><span class="line">                time--;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                time++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        time = count(numbers.begin(),numbers.end(),target);</span><br><span class="line">        return time&gt;numbers.size()/2?target:0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int MoreThanHalfNum_Solution(vector&lt;int&gt; numbers) &#123;</span><br><span class="line">        &#x2F;&#x2F; 方法2: 两军对决</span><br><span class="line">        int target &#x3D; 0,time &#x3D; 0;</span><br><span class="line">        for(int i &#x3D; 0; i &lt; numbers.size(); i++)&#123;</span><br><span class="line">            if(time &#x3D;&#x3D; 0)&#123;</span><br><span class="line">                target &#x3D; numbers[i];</span><br><span class="line">                time &#x3D; 1;</span><br><span class="line">            &#125;else if(target !&#x3D; numbers[i])&#123;</span><br><span class="line">                time--;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                time++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        time &#x3D; count(numbers.begin(),numbers.end(),target);</span><br><span class="line">        return time&gt;numbers.size()&#x2F;2?target:0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(1)<br>
 以上，本题结束！</p>
 
@@ -407,7 +411,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -420,7 +424,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -458,7 +462,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -467,14 +471,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">213k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:43</span>
+    <span title="站点阅读时长">3:56</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
@@ -524,9 +528,17 @@
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/pisces.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -594,7 +606,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
 
 
 

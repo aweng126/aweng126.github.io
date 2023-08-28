@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
@@ -52,14 +52,18 @@
 </script>
 
   <meta name="description" content="这道题目不是很难，但是思路也很好玩. 通过这道题，我们还可以顺便掌握c++11中刚刚引入的lambda表达式，非常棒！">
-<meta name="keywords" content="leetcode,medium,Greedy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="leetcode-406-QueueReconstructionbyHeight">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;leetcode-406-QueueReconstructionbyHeight&#x2F;index.html">
+<meta property="og:url" content="http://yoursite.com/2019/11/11/leetcode-406-QueueReconstructionbyHeight/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="这道题目不是很难，但是思路也很好玩. 通过这道题，我们还可以顺便掌握c++11中刚刚引入的lambda表达式，非常棒！">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-11T11:14:08.929Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-11T11:04:35.000Z">
+<meta property="article:modified_time" content="2019-11-11T11:14:08.929Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="Greedy">
+<meta property="article:tag" content="medium">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="http://yoursite.com/2019/11/11/leetcode-406-QueueReconstructionbyHeight/">
 
@@ -273,7 +277,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.9k</span>
+              <span>3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -328,21 +332,21 @@ The number of people is less than 1,100.</p>
 <ol>
 <li>要学会使用lambda表达式，也就是如下的代码。</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort(people.begin(), people.end(),[](vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">                 return ((a[0] &gt; b[0]) ||(a[0] == b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort(people.begin(), people.end(),[](vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">                 return ((a[0] &gt; b[0]) ||(a[0] &#x3D;&#x3D; b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
 <p>如果不使用lambda表达式那么就需要写成如下模样。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static bool cmp(vector&lt;int&gt;&amp; a, vector&lt;int&gt; b)&#123;</span><br><span class="line">    return ((a[0] &gt; b[0]) ||(a[0] == b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">&#125;</span><br><span class="line"># 然后调用的时候如下</span><br><span class="line">sort(people.begin(),people.end(),cmp);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static bool cmp(vector&lt;int&gt;&amp; a, vector&lt;int&gt; b)&#123;</span><br><span class="line">    return ((a[0] &gt; b[0]) ||(a[0] &#x3D;&#x3D; b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">&#125;</span><br><span class="line"># 然后调用的时候如下</span><br><span class="line">sort(people.begin(),people.end(),cmp);</span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>发现排序之后整个vector可以插入的位置刚刚好是vector中第二个元素的位置。</li>
 </ol>
 <h2 id="解题代码">解题代码</h2>
 <h3 id="原始代码">原始代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;</span><br><span class="line">        sort(people.begin(), people.end(),</span><br><span class="line">             [](vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">                 return ((a[0] &gt; b[0]) ||(a[0] == b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">             &#125;</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">        for(int i = 1; i &lt; people.size(); i++ )&#123;</span><br><span class="line">            auto p = people[i]; </span><br><span class="line">            if(p[1] != i)&#123;</span><br><span class="line">                people.erase(people.begin()+i);</span><br><span class="line">                people.insert(people.begin() + p[1],p);   </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return people;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;</span><br><span class="line">        sort(people.begin(), people.end(),</span><br><span class="line">             [](vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">                 return ((a[0] &gt; b[0]) ||(a[0] &#x3D;&#x3D; b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">             &#125;</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">        for(int i &#x3D; 1; i &lt; people.size(); i++ )&#123;</span><br><span class="line">            auto p &#x3D; people[i]; </span><br><span class="line">            if(p[1] !&#x3D; i)&#123;</span><br><span class="line">                people.erase(people.begin()+i);</span><br><span class="line">                people.insert(people.begin() + p[1],p);   </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return people;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h3 id="升级代码">升级代码</h3>
 <p>上面的那种方法速度比较满，原因在于是在原数组上进行插入同时还要进行删除操作，而如果我们直接新建一个vector来保存结果，那么就只需要插入就可以了，然后速度会有很大的提升。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    static bool cmp(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">        return (a[0] &gt; b[0] ||(a[0]==b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;</span><br><span class="line">        sort(people.begin(), people.end(),cmp);</span><br><span class="line">        </span><br><span class="line">        vector&lt; vector&lt;int&gt; &gt; ans;</span><br><span class="line">        for(int i = 0; i &lt; people.size(); i++ )&#123;</span><br><span class="line">            auto p = people[i]; </span><br><span class="line">            ans.insert(ans.begin()+p[1],p);</span><br><span class="line">        &#125;</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    static bool cmp(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">        return (a[0] &gt; b[0] ||(a[0]&#x3D;&#x3D;b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;</span><br><span class="line">        sort(people.begin(), people.end(),cmp);</span><br><span class="line">        </span><br><span class="line">        vector&lt; vector&lt;int&gt; &gt; ans;</span><br><span class="line">        for(int i &#x3D; 0; i &lt; people.size(); i++ )&#123;</span><br><span class="line">            auto p &#x3D; people[i]; </span><br><span class="line">            ans.insert(ans.begin()+p[1],p);</span><br><span class="line">        &#125;</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h3 id="再次升级代码">再次升级代码</h3>
 <p>为了代码好看，可以再次升级代码，使用增强的for循环。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    static bool cmp(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">        return (a[0] &gt; b[0] ||(a[0]==b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;</span><br><span class="line">        sort(people.begin(), people.end(),cmp);</span><br><span class="line">        </span><br><span class="line">        vector&lt; vector&lt;int&gt; &gt; ans;</span><br><span class="line">        for(auto p:people)&#123;</span><br><span class="line">            ans.insert(ans.begin()+p[1],p);</span><br><span class="line">        &#125;</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    static bool cmp(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b)&#123;</span><br><span class="line">        return (a[0] &gt; b[0] ||(a[0]&#x3D;&#x3D;b[0] &amp;&amp; a[1] &lt; b[1]));</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;</span><br><span class="line">        sort(people.begin(), people.end(),cmp);</span><br><span class="line">        </span><br><span class="line">        vector&lt; vector&lt;int&gt; &gt; ans;</span><br><span class="line">        for(auto p:people)&#123;</span><br><span class="line">            ans.insert(ans.begin()+p[1],p);</span><br><span class="line">        &#125;</span><br><span class="line">        return ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>以上，本题结束。</p>
 
     </div>
@@ -354,8 +358,8 @@ The number of people is less than 1,100.</p>
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/leetcode/" rel="tag"># leetcode</a>
-              <a href="/tags/medium/" rel="tag"># medium</a>
               <a href="/tags/Greedy/" rel="tag"># Greedy</a>
+              <a href="/tags/medium/" rel="tag"># medium</a>
           </div>
 
         
@@ -427,7 +431,7 @@ The number of people is less than 1,100.</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -440,7 +444,7 @@ The number of people is less than 1,100.</p>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -478,7 +482,7 @@ The number of people is less than 1,100.</p>
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -487,14 +491,14 @@ The number of people is less than 1,100.</p>
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">213k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:43</span>
+    <span title="站点阅读时长">3:56</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
@@ -544,9 +548,17 @@ The number of people is less than 1,100.</p>
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/pisces.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -614,7 +626,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
 
 
 

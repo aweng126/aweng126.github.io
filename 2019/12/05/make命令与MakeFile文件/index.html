@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
@@ -52,14 +52,17 @@
 </script>
 
   <meta name="description" content="前面三篇文章主要讲述了c++的编译过程，本篇文章主要讲述用Makefile文件来定义编译过程，用make命令来对项目进行构建，从而项目在编译过程中存在的各种依赖等可以程序化生成并保持最新版本，一次编写，永久受益。">
-<meta name="keywords" content="编译,shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="make命令与MakeFile文件">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;05&#x2F;make%E5%91%BD%E4%BB%A4%E4%B8%8EMakeFile%E6%96%87%E4%BB%B6&#x2F;index.html">
+<meta property="og:url" content="http://yoursite.com/2019/12/05/make%E5%91%BD%E4%BB%A4%E4%B8%8EMakeFile%E6%96%87%E4%BB%B6/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="前面三篇文章主要讲述了c++的编译过程，本篇文章主要讲述用Makefile文件来定义编译过程，用make命令来对项目进行构建，从而项目在编译过程中存在的各种依赖等可以程序化生成并保持最新版本，一次编写，永久受益。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-05T14:36:03.277Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-05T14:26:08.000Z">
+<meta property="article:modified_time" content="2019-12-05T14:36:03.277Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="编译">
+<meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="http://yoursite.com/2019/12/05/make%E5%91%BD%E4%BB%A4%E4%B8%8EMakeFile%E6%96%87%E4%BB%B6/">
 
@@ -324,9 +327,9 @@
 </ol>
 <h2 id="如何使用make命令">如何使用make命令</h2>
 <h3 id="有目标无条件">有目标无条件</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a.txt:</span><br><span class="line">    echo &apos;this is the a.txt&apos; &gt; a.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a.txt:</span><br><span class="line">    echo &#39;this is the a.txt&#39; &gt; a.txt</span><br></pre></td></tr></table></figure>
 <p>解释：目标是创建a.txt, 没有前置条件。具体的执行命令是将“this is the a.txt”这个字符串写入到a.txt中。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make t.txt //执行Makefile文件  </span><br><span class="line">cat a.txt //查看a.txt文件内容，发现就是this is the a.txt。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make t.txt &#x2F;&#x2F;执行Makefile文件  </span><br><span class="line">cat a.txt &#x2F;&#x2F;查看a.txt文件内容，发现就是this is the a.txt。</span><br></pre></td></tr></table></figure>
 <h3 id="有目标有条件">有目标有条件</h3>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b.txt : a.txt</span><br><span class="line">    cat a.txt &gt; b.txt</span><br></pre></td></tr></table></figure>
 <p>解释：目标是创建b.txt，前置条件是要有a.txt文件，具体命令是将a.txt的内容输出到b.txt中去。</p>
@@ -337,7 +340,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.PHONY: clean</span><br><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br></pre></td></tr></table></figure>
 <h3 id="阶段小结">阶段小结</h3>
 <p>按照前面部分的介绍，我们可以得到如下内容的Makefile文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a.txt:</span><br><span class="line">    echo &apos;this is the a.txt&apos; &gt; a.txt</span><br><span class="line"></span><br><span class="line">b.txt : a.txt</span><br><span class="line">    cat a.txt &gt; b.txt</span><br><span class="line"></span><br><span class="line">.PHONY: clean</span><br><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a.txt:</span><br><span class="line">    echo &#39;this is the a.txt&#39; &gt; a.txt</span><br><span class="line"></span><br><span class="line">b.txt : a.txt</span><br><span class="line">    cat a.txt &gt; b.txt</span><br><span class="line"></span><br><span class="line">.PHONY: clean</span><br><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br></pre></td></tr></table></figure>
 <p>其实这个时候我们如果直接执行make命令，那么会默认执行第一条规则，也就是说，对于上面的Makefile文件，</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
 <p>和</p>
@@ -345,41 +348,41 @@
 <p>是等价的。</p>
 <h3 id="前置条件不符">前置条件不符</h3>
 <p>还是在之前的Makefile的基础上继续修改。这个时候我们想创建c.txt,但是我们当前没有d.txt</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c.txt : d.txt</span><br><span class="line">    echo &apos;test no prerequists with c.txt&apos; &gt;c.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">c.txt : d.txt</span><br><span class="line">    echo &#39;test no prerequists with c.txt&#39; &gt;c.txt</span><br></pre></td></tr></table></figure>
 <p>这个时候执行make c.txt命令，肯定会报错，报错信息如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make: *** No rule to make target `d.txt&apos;, needed by `c.txt&apos;.  Stop.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make: *** No rule to make target &#96;d.txt&#39;, needed by &#96;c.txt&#39;.  Stop.</span><br></pre></td></tr></table></figure>
 <h2 id="MakeFile语法">MakeFile语法</h2>
 <h3 id="注释">注释</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 这是注释</span><br><span class="line">.PHONY :print</span><br><span class="line">print :</span><br><span class="line">    # 这也是注释</span><br><span class="line">    echo &apos;hello world&apos;  #这还是注释</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 这是注释</span><br><span class="line">.PHONY :print</span><br><span class="line">print :</span><br><span class="line">    # 这也是注释</span><br><span class="line">    echo &#39;hello world&#39;  #这还是注释</span><br></pre></td></tr></table></figure>
 <p>通过如下命令执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make print</span><br></pre></td></tr></table></figure>
 <p>结果如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  maketest git:(dev) ✗ make print</span><br><span class="line"># 这也是注释</span><br><span class="line">echo &apos;hello world&apos;  #这还是注释</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  maketest git:(dev) ✗ make print</span><br><span class="line"># 这也是注释</span><br><span class="line">echo &#39;hello world&#39;  #这还是注释</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
 <p>大家会发现，print对应的命令也打印出来了，这就涉及了回声这个概念</p>
 <h3 id="回声（echoing）">回声（echoing）</h3>
 <p>正常情况下，make会打印每条命令，然后再执行，这就叫做回声（echoing）。<br>
 所以上面print执行的时候，会将命令的内容也打印出来，然后才是真正的执行结果。<br>
 <strong>在命令的前面加上@，就可以关闭回声</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.PHONY :printnoecho</span><br><span class="line">printnoecho :</span><br><span class="line">    @echo &apos;hello world&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.PHONY :printnoecho</span><br><span class="line">printnoecho :</span><br><span class="line">    @echo &#39;hello world&#39;</span><br></pre></td></tr></table></figure>
 <p>输出结果就不会有命令内容，而仅仅剩下执行结果了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  maketest git:(dev) ✗ make printnoecho</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
 <h3 id="自定义赋值">自定义赋值</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">txt = &apos;hello world&apos;</span><br><span class="line">printxt:</span><br><span class="line">    @echo $(txt)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">txt &#x3D; &#39;hello world&#39;</span><br><span class="line">printxt:</span><br><span class="line">    @echo $(txt)</span><br></pre></td></tr></table></figure>
 <p>执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make printxt</span><br></pre></td></tr></table></figure>
 <p>输出结果</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br></pre></td></tr></table></figure>
 <h3 id="编译多个文件">编译多个文件</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ALL  =  d.txt e.txt \</span><br><span class="line">f.txt</span><br><span class="line"></span><br><span class="line">all : $(ALL)</span><br><span class="line">    echo &apos;all&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d.txt : a.txt</span><br><span class="line">    cat a.txt &gt; d.txt</span><br><span class="line"></span><br><span class="line">e.txt : d.txt</span><br><span class="line">    cat d.txt &gt; e.txt</span><br><span class="line"></span><br><span class="line">f.txt : d.txt e.txt  </span><br><span class="line">    cat d.txt e.txt &gt; f.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ALL  &#x3D;  d.txt e.txt \</span><br><span class="line">f.txt</span><br><span class="line"></span><br><span class="line">all : $(ALL)</span><br><span class="line">    echo &#39;all&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d.txt : a.txt</span><br><span class="line">    cat a.txt &gt; d.txt</span><br><span class="line"></span><br><span class="line">e.txt : d.txt</span><br><span class="line">    cat d.txt &gt; e.txt</span><br><span class="line"></span><br><span class="line">f.txt : d.txt e.txt  </span><br><span class="line">    cat d.txt e.txt &gt; f.txt</span><br></pre></td></tr></table></figure>
 <p>然后执行命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make all</span><br></pre></td></tr></table></figure>
 <p>会发现d.txt,e.txt,f.txt都会得到创建。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  maketest git:(dev) ✗ make all</span><br><span class="line">cat a.txt &gt; d.txt</span><br><span class="line">cat d.txt &gt; e.txt</span><br><span class="line">cat d.txt e.txt &gt; f.txt</span><br><span class="line">echo &apos;all&apos;</span><br><span class="line">all</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  maketest git:(dev) ✗ make all</span><br><span class="line">cat a.txt &gt; d.txt</span><br><span class="line">cat d.txt &gt; e.txt</span><br><span class="line">cat d.txt e.txt &gt; f.txt</span><br><span class="line">echo &#39;all&#39;</span><br><span class="line">all</span><br></pre></td></tr></table></figure>
 <h3 id="自动变量">自动变量</h3>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$@ : 当前目标</span><br><span class="line">$&lt; : 指代第一个前置条件</span><br><span class="line">$^ : 指代所有的前置条件</span><br></pre></td></tr></table></figure>
 <p>暂时先写这些，以后遇到什么问题再做补充。</p>
 <h2 id="本文的代码文件">本文的代码文件</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">a.txt:</span><br><span class="line">    echo &apos;this is the a.txt&apos; &gt; a.txt</span><br><span class="line"></span><br><span class="line">b.txt : a.txt</span><br><span class="line">    cat a.txt &gt; b.txt</span><br><span class="line"></span><br><span class="line">.PHONY: clean</span><br><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br><span class="line"></span><br><span class="line">c.txt : d.txt</span><br><span class="line">    echo &apos;test no prerequists with c.txt&apos; &gt;c.txt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 这是注释</span><br><span class="line">.PHONY :print</span><br><span class="line">print :</span><br><span class="line">    # 这也是注释</span><br><span class="line">    echo &apos;hello world&apos;  #这还是注释</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.PHONY :printnoecho</span><br><span class="line">printnoecho :</span><br><span class="line">    @echo &apos;hello world&apos; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">compile : %.cpp</span><br><span class="line">    g++ -o %.cpp %.cpp </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">txt = &apos;hello world&apos;</span><br><span class="line">printxt:</span><br><span class="line">    @echo $(txt)</span><br><span class="line"></span><br><span class="line">printcc:</span><br><span class="line">    $(CC) -o test test.cpp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ALL  =  d.txt e.txt \</span><br><span class="line">f.txt</span><br><span class="line"></span><br><span class="line">all : $(ALL)</span><br><span class="line">    echo &apos;all&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d.txt : a.txt</span><br><span class="line">    cat a.txt &gt; d.txt</span><br><span class="line"></span><br><span class="line">e.txt : d.txt</span><br><span class="line">    cat d.txt &gt; e.txt</span><br><span class="line"></span><br><span class="line">f.txt : d.txt e.txt  </span><br><span class="line">    cat d.txt e.txt &gt; f.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">a.txt:</span><br><span class="line">    echo &#39;this is the a.txt&#39; &gt; a.txt</span><br><span class="line"></span><br><span class="line">b.txt : a.txt</span><br><span class="line">    cat a.txt &gt; b.txt</span><br><span class="line"></span><br><span class="line">.PHONY: clean</span><br><span class="line">clean :</span><br><span class="line">    rm  *.txt</span><br><span class="line"></span><br><span class="line">c.txt : d.txt</span><br><span class="line">    echo &#39;test no prerequists with c.txt&#39; &gt;c.txt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 这是注释</span><br><span class="line">.PHONY :print</span><br><span class="line">print :</span><br><span class="line">    # 这也是注释</span><br><span class="line">    echo &#39;hello world&#39;  #这还是注释</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.PHONY :printnoecho</span><br><span class="line">printnoecho :</span><br><span class="line">    @echo &#39;hello world&#39; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">compile : %.cpp</span><br><span class="line">    g++ -o %.cpp %.cpp </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">txt &#x3D; &#39;hello world&#39;</span><br><span class="line">printxt:</span><br><span class="line">    @echo $(txt)</span><br><span class="line"></span><br><span class="line">printcc:</span><br><span class="line">    $(CC) -o test test.cpp</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ALL  &#x3D;  d.txt e.txt \</span><br><span class="line">f.txt</span><br><span class="line"></span><br><span class="line">all : $(ALL)</span><br><span class="line">    echo &#39;all&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">d.txt : a.txt</span><br><span class="line">    cat a.txt &gt; d.txt</span><br><span class="line"></span><br><span class="line">e.txt : d.txt</span><br><span class="line">    cat d.txt &gt; e.txt</span><br><span class="line"></span><br><span class="line">f.txt : d.txt e.txt  </span><br><span class="line">    cat d.txt e.txt &gt; f.txt</span><br></pre></td></tr></table></figure>
 <h2 id="文章参考">文章参考</h2>
 <ol>
 <li><a href="https://www.ruanyifeng.com/blog/2015/02/make.html" target="_blank" rel="noopener">Make 命令教程-阮一峰</a></li>
@@ -468,7 +471,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -481,7 +484,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -519,7 +522,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -528,14 +531,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">213k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:43</span>
+    <span title="站点阅读时长">3:56</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
@@ -585,9 +588,17 @@
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/pisces.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -655,7 +666,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
 
 
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
@@ -52,17 +52,23 @@
 </script>
 
   <meta name="description" content="这个是leetcode中为数不多的关于Graph的题目，判断图中是否有环，可以用BFS或者DFS两种思路进行求解。">
-<meta name="keywords" content="leetcode,medium,Graph,BFS,DFS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="leetcode-207-CourseSchedule">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;01&#x2F;leetcode-207-CourseSchedule&#x2F;index.html">
+<meta property="og:url" content="http://yoursite.com/2019/12/01/leetcode-207-CourseSchedule/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="这个是leetcode中为数不多的关于Graph的题目，判断图中是否有环，可以用BFS或者DFS两种思路进行求解。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;q1tldblw4.bkt.clouddn.com&#x2F;qiniu_kwimg20191201143417.png">
-<meta property="og:updated_time" content="2019-12-01T06:42:57.142Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://q1tldblw4.bkt.clouddn.com/qiniu_kwimg20191201143417.png">
+<meta property="article:published_time" content="2019-12-01T06:13:45.000Z">
+<meta property="article:modified_time" content="2019-12-01T06:42:57.142Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="medium">
+<meta property="article:tag" content="Graph">
+<meta property="article:tag" content="BFS">
+<meta property="article:tag" content="DFS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;q1tldblw4.bkt.clouddn.com&#x2F;qiniu_kwimg20191201143417.png">
+<meta name="twitter:image" content="http://q1tldblw4.bkt.clouddn.com/qiniu_kwimg20191201143417.png">
   <link rel="canonical" href="http://yoursite.com/2019/12/01/leetcode-207-CourseSchedule/">
 
 
@@ -275,7 +281,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.6k</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -326,9 +332,9 @@
 PS：要记得传引用而不要传对象本身，否则容易Time Limit Exceeded</p>
 <h2 id="解题代码">解题代码</h2>
 <h3 id="BFS解题代码">BFS解题代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool canFinish(int numCourses, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites) &#123;</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; graph(numCourses,vector&lt;int&gt;());</span><br><span class="line">        vector&lt;int&gt; in(numCourses,0);</span><br><span class="line">        for(auto a:prerequisites)&#123;</span><br><span class="line">            graph[a[1]].push_back(a[0]);</span><br><span class="line">            in[a[0]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        queue&lt;int&gt; q;</span><br><span class="line">        for(int i = 0;i&lt;in.size();i++)&#123;</span><br><span class="line">            if(in[i]==0) q.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while(!q.empty())&#123;</span><br><span class="line">            auto a = q.front(); q.pop();</span><br><span class="line">            for(int b:graph[a])&#123;</span><br><span class="line">                --in[b];</span><br><span class="line">                if(in[b]==0) q.push(b);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        for(int i:in)&#123;</span><br><span class="line">            if(i!=0) return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool canFinish(int numCourses, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites) &#123;</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; graph(numCourses,vector&lt;int&gt;());</span><br><span class="line">        vector&lt;int&gt; in(numCourses,0);</span><br><span class="line">        for(auto a:prerequisites)&#123;</span><br><span class="line">            graph[a[1]].push_back(a[0]);</span><br><span class="line">            in[a[0]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        queue&lt;int&gt; q;</span><br><span class="line">        for(int i &#x3D; 0;i&lt;in.size();i++)&#123;</span><br><span class="line">            if(in[i]&#x3D;&#x3D;0) q.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        while(!q.empty())&#123;</span><br><span class="line">            auto a &#x3D; q.front(); q.pop();</span><br><span class="line">            for(int b:graph[a])&#123;</span><br><span class="line">                --in[b];</span><br><span class="line">                if(in[b]&#x3D;&#x3D;0) q.push(b);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        for(int i:in)&#123;</span><br><span class="line">            if(i!&#x3D;0) return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h3 id="DFS解题代码">DFS解题代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool canFinish(int numCourses, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites) &#123;</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; graph(numCourses,vector&lt;int&gt;());</span><br><span class="line">        vector&lt;int&gt; visit(numCourses);</span><br><span class="line">        for(auto a:prerequisites)&#123;</span><br><span class="line">            graph[a[1]].push_back(a[0]);</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i = 0; i &lt; numCourses; ++i)&#123;</span><br><span class="line">            if(!findSelf(graph,visit,i)) return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    bool findSelf(vector&lt;vector&lt;int&gt;&gt;&amp; graph,vector&lt;int&gt;&amp; visit,int i)&#123;</span><br><span class="line">        if(visit[i] == -1) return false;</span><br><span class="line">        if(visit[i] == 1) return true;</span><br><span class="line">        visit[i] = -1;</span><br><span class="line">        for(auto a:graph[i])&#123;</span><br><span class="line">            if(!findSelf(graph,visit,a)) return false;</span><br><span class="line">        &#125;</span><br><span class="line">        visit[i] = 1;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    bool canFinish(int numCourses, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites) &#123;</span><br><span class="line">        vector&lt;vector&lt;int&gt;&gt; graph(numCourses,vector&lt;int&gt;());</span><br><span class="line">        vector&lt;int&gt; visit(numCourses);</span><br><span class="line">        for(auto a:prerequisites)&#123;</span><br><span class="line">            graph[a[1]].push_back(a[0]);</span><br><span class="line">        &#125;</span><br><span class="line">        for(int i &#x3D; 0; i &lt; numCourses; ++i)&#123;</span><br><span class="line">            if(!findSelf(graph,visit,i)) return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    bool findSelf(vector&lt;vector&lt;int&gt;&gt;&amp; graph,vector&lt;int&gt;&amp; visit,int i)&#123;</span><br><span class="line">        if(visit[i] &#x3D;&#x3D; -1) return false;</span><br><span class="line">        if(visit[i] &#x3D;&#x3D; 1) return true;</span><br><span class="line">        visit[i] &#x3D; -1;</span><br><span class="line">        for(auto a:graph[i])&#123;</span><br><span class="line">            if(!findSelf(graph,visit,a)) return false;</span><br><span class="line">        &#125;</span><br><span class="line">        visit[i] &#x3D; 1;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>以上，本题结束！</p>
 
     </div>
@@ -415,7 +421,7 @@ PS：要记得传引用而不要传对象本身，否则容易Time Limit Exceede
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -428,7 +434,7 @@ PS：要记得传引用而不要传对象本身，否则容易Time Limit Exceede
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -466,7 +472,7 @@ PS：要记得传引用而不要传对象本身，否则容易Time Limit Exceede
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -475,14 +481,14 @@ PS：要记得传引用而不要传对象本身，否则容易Time Limit Exceede
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">213k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:43</span>
+    <span title="站点阅读时长">3:56</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
@@ -532,9 +538,17 @@ PS：要记得传引用而不要传对象本身，否则容易Time Limit Exceede
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/pisces.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -602,7 +616,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
 
 
 

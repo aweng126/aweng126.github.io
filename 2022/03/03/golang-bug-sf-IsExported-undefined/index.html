@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
@@ -52,14 +52,17 @@
 </script>
 
   <meta name="description" content="通过升级golang版本为1.17.X解决sf.IsExported undefined问题。">
-<meta name="keywords" content="bug,golang">
 <meta property="og:type" content="article">
 <meta property="og:title" content="golang-bug-sf-IsExported-undefined">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2022&#x2F;03&#x2F;03&#x2F;golang-bug-sf-IsExported-undefined&#x2F;index.html">
+<meta property="og:url" content="http://yoursite.com/2022/03/03/golang-bug-sf-IsExported-undefined/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="通过升级golang版本为1.17.X解决sf.IsExported undefined问题。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-03-03T04:45:35.439Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-03T04:30:47.000Z">
+<meta property="article:modified_time" content="2022-03-03T04:45:35.439Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="bug">
+<meta property="article:tag" content="golang">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="http://yoursite.com/2022/03/03/golang-bug-sf-IsExported-undefined/">
 
@@ -273,7 +276,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>514</span>
+              <span>589</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -301,7 +304,7 @@
 <p>升级系统内golang版本为golang1.17.X即可。</p>
 <p>但是考虑到系统内其他的项目可能仍然需要原来的golang1.16版本,所以要设置系统对于多版本golang的支持。</p>
 <h2 id="详细命令">详细命令</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https://go.dev/dl/go1.17.7.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line">tar -C /usr/local/go117 -xzvf go1.17.7.linux-amd64.tar.gz </span><br><span class="line"></span><br><span class="line">ln -s /usr/local/go117/go/bin /usr/bin/go117</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;go.dev&#x2F;dl&#x2F;go1.17.7.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line">tar -C &#x2F;usr&#x2F;local&#x2F;go117 -xzvf go1.17.7.linux-amd64.tar.gz </span><br><span class="line"></span><br><span class="line">ln -s &#x2F;usr&#x2F;local&#x2F;go117&#x2F;go&#x2F;bin &#x2F;usr&#x2F;bin&#x2F;go117</span><br></pre></td></tr></table></figure>
 <p>升级完成后可以通过如下方式查看目前系统内的golang命令。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go version</span><br><span class="line">go117 version</span><br></pre></td></tr></table></figure>
 <p>通过go117 build命令重新编译项目，上述碰到的问题得到解决。</p>
@@ -388,7 +391,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -401,7 +404,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -439,7 +442,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -448,14 +451,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">213k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:43</span>
+    <span title="站点阅读时长">3:56</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
@@ -505,9 +508,17 @@
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/pisces.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -575,7 +586,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
 
 
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.0.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
@@ -52,14 +52,17 @@
 </script>
 
   <meta name="description" content="2019年kickstart最后一轮，下午1点到4点。 真心感慨，自己要学的东西还有很多啊， 本文是第一题H-index，计算科研人员影响因子的一道题目。">
-<meta name="keywords" content="kickstart,multiset">
 <meta property="og:type" content="article">
 <meta property="og:title" content="kickstart-2019-H-T1-HIndex">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;17&#x2F;kickstart-2019-H-T1-HIndex&#x2F;index.html">
+<meta property="og:url" content="http://yoursite.com/2019/11/17/kickstart-2019-H-T1-HIndex/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="2019年kickstart最后一轮，下午1点到4点。 真心感慨，自己要学的东西还有很多啊， 本文是第一题H-index，计算科研人员影响因子的一道题目。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-17T12:48:09.100Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-17T12:31:08.000Z">
+<meta property="article:modified_time" content="2019-11-17T12:48:09.100Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="kickstart">
+<meta property="article:tag" content="multiset">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="http://yoursite.com/2019/11/17/kickstart-2019-H-T1-HIndex/">
 
@@ -273,7 +276,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.8k</span>
+              <span>4.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -316,7 +319,7 @@ Memory limit: 1GB.<br>
 <h3 id="Test-set-2-Hidden">Test set 2 (Hidden)</h3>
 <p>1 ≤ N ≤ 105.</p>
 <h2 id="Sample">Sample</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// Input</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">5 1 2</span><br><span class="line">6</span><br><span class="line">1 3 3 2 2 15</span><br><span class="line"></span><br><span class="line">//Output</span><br><span class="line">Case #1: 1 1 2</span><br><span class="line">Case #2: 1 1 2 2 2 3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Input</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">5 1 2</span><br><span class="line">6</span><br><span class="line">1 3 3 2 2 15</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;Output</span><br><span class="line">Case #1: 1 1 2</span><br><span class="line">Case #2: 1 1 2 2 2 3</span><br></pre></td></tr></table></figure>
 <p>In Sample Case #1, Jorge wrote N = 3 papers.<br>
 After the 1st paper, Jorge’s H-index score is 1, since he has 1 paper with at least 1 citation.<br>
 After the 2nd paper, Jorge’s H-index score is still 1.<br>
@@ -356,9 +359,9 @@ After the 6th paper, Jorge’s H-index score is 3, since he has 3 papers with at
 <p>算法的复杂度为O(nlgn)</p>
 <h2 id="代码">代码</h2>
 <h3 id="原始版">原始版</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstdio&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;set&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long LL;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    int T;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;T);</span><br><span class="line">    string res;</span><br><span class="line">    for (int t = 1; t &lt;= T; ++t) &#123;</span><br><span class="line">        int M;</span><br><span class="line">        scanf(&quot;%d&quot;,&amp;M);</span><br><span class="line">        vector&lt;int&gt; arr(M+1,0);</span><br><span class="line">  </span><br><span class="line">        int x;</span><br><span class="line">        arr[0] = 0;</span><br><span class="line">        res =&quot;&quot;;</span><br><span class="line">        for(int i = 1;i&lt;=M;i++)&#123;</span><br><span class="line">             scanf(&quot;%d&quot;,&amp;x);</span><br><span class="line">             for(int j = 1; j &lt;= x &amp;&amp; j&lt;=M ; j++)&#123;</span><br><span class="line">                  arr[j]++;</span><br><span class="line">                &#125;</span><br><span class="line">             int k = i;</span><br><span class="line">             while(k&gt;0)&#123;</span><br><span class="line">                 if(arr[k] &gt;= k)&#123;</span><br><span class="line">                     res  += &quot; &quot;+to_string(k);</span><br><span class="line">                     break;</span><br><span class="line">                 &#125;</span><br><span class="line">                 k--;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">        printf(&quot;Case #%d: %s \n&quot;, t, res.c_str());</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstdio&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;set&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long LL;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    int T;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;T);</span><br><span class="line">    string res;</span><br><span class="line">    for (int t &#x3D; 1; t &lt;&#x3D; T; ++t) &#123;</span><br><span class="line">        int M;</span><br><span class="line">        scanf(&quot;%d&quot;,&amp;M);</span><br><span class="line">        vector&lt;int&gt; arr(M+1,0);</span><br><span class="line">  </span><br><span class="line">        int x;</span><br><span class="line">        arr[0] &#x3D; 0;</span><br><span class="line">        res &#x3D;&quot;&quot;;</span><br><span class="line">        for(int i &#x3D; 1;i&lt;&#x3D;M;i++)&#123;</span><br><span class="line">             scanf(&quot;%d&quot;,&amp;x);</span><br><span class="line">             for(int j &#x3D; 1; j &lt;&#x3D; x &amp;&amp; j&lt;&#x3D;M ; j++)&#123;</span><br><span class="line">                  arr[j]++;</span><br><span class="line">                &#125;</span><br><span class="line">             int k &#x3D; i;</span><br><span class="line">             while(k&gt;0)&#123;</span><br><span class="line">                 if(arr[k] &gt;&#x3D; k)&#123;</span><br><span class="line">                     res  +&#x3D; &quot; &quot;+to_string(k);</span><br><span class="line">                     break;</span><br><span class="line">                 &#125;</span><br><span class="line">                 k--;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">        printf(&quot;Case #%d: %s \n&quot;, t, res.c_str());</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="升级版">升级版</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstdio&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;set&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long LL;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    int T;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;T);</span><br><span class="line">    string res;</span><br><span class="line">    for (int t = 1; t &lt;= T; ++t) &#123;</span><br><span class="line">        int M;</span><br><span class="line">        scanf(&quot;%d&quot;,&amp;M);</span><br><span class="line">        int x;</span><br><span class="line">        string res = &quot;&quot;;</span><br><span class="line">        multiset&lt;int&gt; aset;</span><br><span class="line">        for(int i = 0;i&lt;M;i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;, &amp;x);</span><br><span class="line">            aset.insert(x);</span><br><span class="line">            int b = *aset.begin();</span><br><span class="line">            if(b &lt; aset.size())&#123;</span><br><span class="line">                aset.erase(aset.begin());</span><br><span class="line">            &#125;</span><br><span class="line">            res += &quot; &quot;+to_string(aset.size());</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;Case #%d: %s \n&quot;, t, res.c_str());</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;cstdio&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;set&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long LL;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    int T;</span><br><span class="line">    scanf(&quot;%d&quot;, &amp;T);</span><br><span class="line">    string res;</span><br><span class="line">    for (int t &#x3D; 1; t &lt;&#x3D; T; ++t) &#123;</span><br><span class="line">        int M;</span><br><span class="line">        scanf(&quot;%d&quot;,&amp;M);</span><br><span class="line">        int x;</span><br><span class="line">        string res &#x3D; &quot;&quot;;</span><br><span class="line">        multiset&lt;int&gt; aset;</span><br><span class="line">        for(int i &#x3D; 0;i&lt;M;i++)&#123;</span><br><span class="line">            scanf(&quot;%d&quot;, &amp;x);</span><br><span class="line">            aset.insert(x);</span><br><span class="line">            int b &#x3D; *aset.begin();</span><br><span class="line">            if(b &lt; aset.size())&#123;</span><br><span class="line">                aset.erase(aset.begin());</span><br><span class="line">            &#125;</span><br><span class="line">            res +&#x3D; &quot; &quot;+to_string(aset.size());</span><br><span class="line">        &#125;</span><br><span class="line">        printf(&quot;Case #%d: %s \n&quot;, t, res.c_str());</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="反思">反思</h2>
 <ol>
 <li>想了一下这个题目和之前G轮的第一题<a href="http://kingwen.cn/2019/10/22/kickstart-2019-G-T1-BookReading/" target="_blank" rel="noopener">BookReading</a>有什么不同，结论是对于bookreading来说，首先是把所有的结果都统计一遍之后，然后所有的测试用例都只需要访问之前的结果就可以了（用一个数组来表示每页书的情况，然后读取对应因子的倍数得到相应的结果，其实就是上面链接中的动态规划第一版）从而可以节省大量的时间。但是本题目并不是这样子，本题目对于每次的有一个新的数值输入，都会进行新一轮的结果运算，所以如果我们再依次的去保存每一个位置的结果，尤其是通过对数组中元素依次加1的方式实现，复杂度必然会很高，现在想想的话，其实就比每次都完全的遍历一遍（每一次都从index开始找，看看paper数组中元素个数有没有大于index，找到第一个复合条件的即可,总的时间复杂度为O(n^3)）好那么一点。然后考虑到我们其实想要的结果是数量，所以就可以非常巧妙的利用一些数据结构，上面的测试用例用的是multiset，其实用最小堆，用unordered_map都可以实现，重点是保证内部元素有序，从而可以利用容器中的数量来变相的表示我们想要的结果。</li>
@@ -448,7 +451,7 @@ After the 6th paper, Jorge’s H-index score is 3, since he has 3 papers with at
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">125</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -461,7 +464,7 @@ After the 6th paper, Jorge’s H-index score is 3, since he has 3 papers with at
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">101</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -499,7 +502,7 @@ After the 6th paper, Jorge’s H-index score is 3, since he has 3 papers with at
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -508,14 +511,14 @@ After the 6th paper, Jorge’s H-index score is 3, since he has 3 papers with at
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">201k</span>
+    <span title="站点总字数">213k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:43</span>
+    <span title="站点阅读时长">3:56</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
   <span class="post-meta-divider">|</span>
   <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
@@ -565,9 +568,17 @@ After the 6th paper, Jorge’s H-index score is 3, since he has 3 papers with at
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/pisces.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
   <script>
 var pjax = new Pjax({
   selectors: [
@@ -635,7 +646,9 @@ window.addEventListener('pjax:success', () => {
 
 
 
-  <script src="/js/local-search.js?v=7.4.1"></script>
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
 
 
 
