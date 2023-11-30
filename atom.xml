@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2023-11-29T13:37:56.870Z</updated>
+  <updated>2023-11-30T06:48:48.932Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>bug-GPG-error-bookworm-InRelease-is-not-signed</title>
+    <link href="http://yoursite.com/2023/11/30/bug-GPG-error-bookworm-InRelease-is-not-signed/"/>
+    <id>http://yoursite.com/2023/11/30/bug-GPG-error-bookworm-InRelease-is-not-signed/</id>
+    <published>2023-11-30T06:29:13.000Z</published>
+    <updated>2023-11-30T06:48:48.932Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文介绍使用python-slim执行apt-get update时候碰到的GPG error问题。</p><a id="more"></a><ol><li>现象描述</li></ol><p>基于如下Dockerfile构建目标镜像</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM python:3.12-slim</span><br><span class="line">...</span><br><span class="line">RUN apt-get update</span><br></pre></td></tr></table></figure><p>碰到类似如下描述的问题</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">W: GPG error: http:&#x2F;&#x2F;deb.debian.org&#x2F;debian bookworm InRelease: The following signatures couldn&#39;t be verified because the public key is not available: NO_PUBKEY 0E98404D386FA1D9 NO_PUBKEY 6ED0E7B82643E131 NO_PUBKEY F8D2585B8783D481</span><br><span class="line">E: The repository &#39;http:&#x2F;&#x2F;deb.debian.org&#x2F;debian bookworm InRelease&#39; is not signed.</span><br></pre></td></tr></table></figure><ol start="2"><li>原因</li></ol><blockquote><p>It is Docker with libseccomp so a newer syscall used in Debian Bookworm packages/libs is being blocked. libseccomp lets you configure allowed syscalls for a process. Docker sets a default seccomp profile for all containers such that only certain syscalls are allowed and everything else is blocked (so, newer syscalls that are not yet known to libseccomp or docker are blocked).<br><a href="https://github.com/docker-library/python/issues/837" target="_blank" rel="noopener">python:3.9 - Failed run apt update from the last version of the image #837</a></p></blockquote><p>简单解释就是官方的Python镜像升级，构建python镜像的基础镜像从原来的debian10 buster升级到debian12 bookworm, 在此情况下很多bookworm采用的新的系统调用被libseccomp屏蔽掉了，因此执行报错。</p><ol start="3"><li>解决方案<br>本人采用的解决方案为更新基础镜像。</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># FROM python:3.12-slim</span><br><span class="line">FROM python:3.12-slim-bullseye</span><br></pre></td></tr></table></figure><p>其他可能可行的解决方案</p><ul><li>Update libseccomp and docker on the host running the containers.</li><li>Add the following in the Dockerfile:</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RUN mv -i &#x2F;etc&#x2F;apt&#x2F;trusted.gpg.d&#x2F;debian-archive-*.asc  &#x2F;root&#x2F;</span><br><span class="line">RUN ln -s &#x2F;usr&#x2F;share&#x2F;keyrings&#x2F;debian-archive-* &#x2F;etc&#x2F;apt&#x2F;trusted.gpg.d&#x2F;</span><br></pre></td></tr></table></figure><ol start="4"><li>参考链接<br><a href="https://stackoverflow.com/questions/76955036/build-started-failing-using-python3-8-docker-image-on-apt-get-update-and-instal" target="_blank" rel="noopener">stackoverflow-Build started failing using Python:3.8 Docker image on apt-get update and install with GPG error: bookworm InRelease is not signed</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文介绍使用python-slim执行apt-get update时候碰到的GPG error问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="疑难杂症" scheme="http://yoursite.com/categories/%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87/"/>
+    
+    
+      <category term="bug" scheme="http://yoursite.com/tags/bug/"/>
+    
+      <category term="docker" scheme="http://yoursite.com/tags/docker/"/>
+    
+      <category term="debian" scheme="http://yoursite.com/tags/debian/"/>
+    
+  </entry>
   
   <entry>
     <title>centos安装python</title>
@@ -503,32 +530,6 @@
       <category term="Go" scheme="http://yoursite.com/tags/Go/"/>
     
       <category term="Go-micro" scheme="http://yoursite.com/tags/Go-micro/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>scrapy-断点调试</title>
-    <link href="http://yoursite.com/2020/04/08/scrapy-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95/"/>
-    <id>http://yoursite.com/2020/04/08/scrapy-%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95/</id>
-    <published>2020-04-08T03:17:04.000Z</published>
-    <updated>2020-04-08T05:28:22.673Z</updated>
-    
-    <content type="html"><![CDATA[<p>因为平时我们在写代码的时候都会依靠于debug来进行调试，<br>那么一般通过命令行启动的scrapy项目要如何进行dubug呢？</p><a id="more"></a><p>用pycharm来解决这个问题的方式也比较简单。</p><ol><li>正常加断点</li><li>要编写一个run.py文件来模拟命令行启动,文件和spiders目录同级，内容如下。</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from scrapy import cmdline</span><br><span class="line"></span><br><span class="line">name &#x3D; &#39;spidername&#39;</span><br><span class="line">cmd &#x3D; &#39;scrapy crawl &#123;0&#125;&#39;.format(name)</span><br><span class="line">cmdline.execute(cmd.split())</span><br></pre></td></tr></table></figure><ol start="3"><li>点击右上角的debug来执行即可。</li></ol><p>再说一下debug的三个选项</p><ol><li>step into : 单步执行，遇到子函数就进入子函数。</li><li>step over: 单步执行，遇到子函数不进入，而是完成子函数之后返回到当前位置，等同于处理一条命令。</li><li>step out: 单步执行，但是已经进入到子函数了，下面的部分不再单步执行而是返回到调用子函数的位置。</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;因为平时我们在写代码的时候都会依靠于debug来进行调试，&lt;br&gt;
-那么一般通过命令行启动的scrapy项目要如何进行dubug呢？&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="爬虫" scheme="http://yoursite.com/categories/%E7%88%AC%E8%99%AB/"/>
-    
-    
-      <category term="scrapy" scheme="http://yoursite.com/tags/scrapy/"/>
-    
-      <category term="debug" scheme="http://yoursite.com/tags/debug/"/>
     
   </entry>
   
