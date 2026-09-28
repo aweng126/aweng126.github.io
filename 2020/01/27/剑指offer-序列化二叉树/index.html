@@ -59,7 +59,7 @@
 <meta property="og:description" content="本文为剑指 offer 系列第五十八篇。 主要知识点为二叉树，针对于一棵给定的二叉树进行编码和解码。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-01-27T00:57:21.000Z">
-<meta property="article:modified_time" content="2020-01-27T01:39:38.236Z">
+<meta property="article:modified_time" content="2026-09-28T13:53:40.889Z">
 <meta property="article:author" content="李庆文">
 <meta property="article:tag" content="Codinginterviews">
 <meta property="article:tag" content="BinaryTree">
@@ -247,10 +247,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-01-27 08:57:21 / 修改时间：09:39:38" itemprop="dateCreated datePublished" datetime="2020-01-27T08:57:21+08:00">2020-01-27</time>
+              <time title="创建时间：2020-01-27 08:57:21" itemprop="dateCreated datePublished" datetime="2020-01-27T08:57:21+08:00">2020-01-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-28 21:53:40" itemprop="dateModified" datetime="2026-09-28T21:53:40+08:00">2026-09-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -276,7 +282,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -303,11 +309,12 @@
 <p>二叉树的序列化是指：把一棵二叉树按照某种遍历方式的结果以某种格式保存为字符串，从而使得内存中建立起来的二叉树可以持久保存。序列化可以基于先序、中序、后序、层序的二叉树遍历方式来进行修改，序列化的结果是一个字符串，序列化时通过 某种符号表示空节点（#），以 ！ 表示一个结点值的结束（value!）。</p>
 <p>二叉树的反序列化是指：根据某种遍历顺序得到的序列化字符串结果str，重构二叉树。</p>
 <h2 id="解题思路">解题思路</h2>
-<p>首先就是按照正常的先序遍历的思路对原来的二叉树进行存储，用,来隔离每个节点，用#来表示空节点。用递归的思路来进行编码。<br>
-解码的时候操作反过来，针对于之前编码生成的字符串，从头到尾依次遍历，通过**,**来对节点进行分离，通过#来判定当前节点为空，通过递归的方式生成之前的二叉树。</p>
+<p>这里按照先序遍历的顺序递归编码，用逗号表示一个节点值的结束，用#表示空节点。<br>
+解码时从头读取字符串，遇到#就返回空节点，否则读到逗号为止，得到当前节点的值，再递归构造它的左右子树。</p>
 <h2 id="解题代码">解题代码</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">*&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    char* Serialize(TreeNode *root) &#123;   </span><br><span class="line">        if(!root) return &quot;#&quot;;</span><br><span class="line">        string r &#x3D; to_string(root-&gt;val);</span><br><span class="line">        r.push_back(&#39;,&#39;);</span><br><span class="line">        char *left &#x3D; Serialize(root-&gt;left);</span><br><span class="line">        char *right &#x3D; Serialize(root-&gt;right);</span><br><span class="line">        char *ret &#x3D; new char[strlen(left) + strlen(right) + r.size()];</span><br><span class="line">        strcpy(ret, r.c_str());</span><br><span class="line">        strcat(ret, left);</span><br><span class="line">        strcat(ret, right);</span><br><span class="line">        return ret;</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode* Deserialize(char *str) &#123;</span><br><span class="line">        return decode(str);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">private:</span><br><span class="line">    TreeNode* decode(char *&amp;str) &#123;</span><br><span class="line">        if(*str&#x3D;&#x3D;&#39;#&#39;)&#123;</span><br><span class="line">            str++;</span><br><span class="line">            return NULL;</span><br><span class="line">        &#125;</span><br><span class="line">        int num &#x3D; 0;</span><br><span class="line">        while(*str !&#x3D; &#39;,&#39;)</span><br><span class="line">            num &#x3D; num*10 + (*(str++)-&#39;0&#39;);</span><br><span class="line">        str++;</span><br><span class="line">        TreeNode *root &#x3D; new TreeNode(num);</span><br><span class="line">        root-&gt;left &#x3D; decode(str);</span><br><span class="line">        root-&gt;right &#x3D; decode(str);</span><br><span class="line">        return root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度为O(n),空间复杂度为O(n)</p>
+<p>反序列化的输入是Serialize生成的合法字符串。序列化时，拼接完成的中间数组会及时释放；最终返回的数组由调用方在使用完后通过delete[]释放。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;*</span><br><span class="line">struct TreeNode &#123;</span><br><span class="line">    int val;</span><br><span class="line">    struct TreeNode *left;</span><br><span class="line">    struct TreeNode *right;</span><br><span class="line">    TreeNode(int x) :</span><br><span class="line">            val(x), left(NULL), right(NULL) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">*&#x2F;</span><br><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    char* Serialize(TreeNode *root) &#123;   </span><br><span class="line">        if(!root) return new char[2]&#123;&#39;#&#39;,&#39;\0&#39;&#125;;</span><br><span class="line">        string r &#x3D; to_string(root-&gt;val);</span><br><span class="line">        r.push_back(&#39;,&#39;);</span><br><span class="line">        char *left &#x3D; Serialize(root-&gt;left);</span><br><span class="line">        char *right &#x3D; Serialize(root-&gt;right);</span><br><span class="line">        char *ret &#x3D; new char[strlen(left) + strlen(right) + r.size() + 1];</span><br><span class="line">        strcpy(ret, r.c_str());</span><br><span class="line">        strcat(ret, left);</span><br><span class="line">        strcat(ret, right);</span><br><span class="line">        delete[] left;</span><br><span class="line">        delete[] right;</span><br><span class="line">        return ret;</span><br><span class="line">    &#125;</span><br><span class="line">    TreeNode* Deserialize(char *str) &#123;</span><br><span class="line">        if(!str || !*str) return NULL;</span><br><span class="line">        return decode(str);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">private:</span><br><span class="line">    TreeNode* decode(char *&amp;str) &#123;</span><br><span class="line">        if(*str&#x3D;&#x3D;&#39;#&#39;)&#123;</span><br><span class="line">            str++;</span><br><span class="line">            return NULL;</span><br><span class="line">        &#125;</span><br><span class="line">        bool negative &#x3D; *str &#x3D;&#x3D; &#39;-&#39;;</span><br><span class="line">        if(negative) str++;</span><br><span class="line">        int num &#x3D; 0;</span><br><span class="line">        &#x2F;&#x2F; 先按负数累加，INT_MIN的绝对值可能超出int正数范围</span><br><span class="line">        while(*str !&#x3D; &#39;,&#39;)</span><br><span class="line">            num &#x3D; num*10 - (*(str++)-&#39;0&#39;);</span><br><span class="line">        str++;</span><br><span class="line">        TreeNode *root &#x3D; new TreeNode(negative ? num : -num);</span><br><span class="line">        root-&gt;left &#x3D; decode(str);</span><br><span class="line">        root-&gt;right &#x3D; decode(str);</span><br><span class="line">        return root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>序列化的最坏时间复杂度为O(n^2)，空间复杂度为O(n)。树退化成链时，每层都会重新扫描、复制子树字符串。反序列化时间为O(n)，空间为O(n)，其中包含返回的树。</p>
 <p>以上，本题结束！</p>
 
     </div>
@@ -404,7 +411,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

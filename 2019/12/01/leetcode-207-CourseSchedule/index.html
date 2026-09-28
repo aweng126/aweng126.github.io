@@ -58,9 +58,9 @@
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="这个是leetcode中为数不多的关于Graph的题目，判断图中是否有环，可以用BFS或者DFS两种思路进行求解。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://q1tldblw4.bkt.clouddn.com/qiniu_kwimg20191201143417.png">
+<meta property="og:image" content="https://blog.kingwen.cn/images/course-schedule.svg">
 <meta property="article:published_time" content="2019-12-01T06:13:45.000Z">
-<meta property="article:modified_time" content="2019-12-01T06:42:57.142Z">
+<meta property="article:modified_time" content="2026-09-28T13:34:14.174Z">
 <meta property="article:author" content="李庆文">
 <meta property="article:tag" content="leetcode">
 <meta property="article:tag" content="medium">
@@ -68,7 +68,7 @@
 <meta property="article:tag" content="BFS">
 <meta property="article:tag" content="DFS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://q1tldblw4.bkt.clouddn.com/qiniu_kwimg20191201143417.png">
+<meta name="twitter:image" content="https://blog.kingwen.cn/images/course-schedule.svg">
   <link rel="canonical" href="https://blog.kingwen.cn/2019/12/01/leetcode-207-CourseSchedule/">
 
 
@@ -252,10 +252,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-01 14:13:45 / 修改时间：14:42:57" itemprop="dateCreated datePublished" datetime="2019-12-01T14:13:45+08:00">2019-12-01</time>
+              <time title="创建时间：2019-12-01 14:13:45" itemprop="dateCreated datePublished" datetime="2019-12-01T14:13:45+08:00">2019-12-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-28 21:34:14" itemprop="dateModified" datetime="2026-09-28T21:34:14+08:00">2026-09-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -314,13 +320,13 @@
 <h2 id="解题思路">解题思路</h2>
 <p>BFS或者DFS</p>
 <h2 id="详细解释">详细解释</h2>
-<p>其实这个题目就是说对于每一个课程都有一个前置课程，然后问如果前置课程这样安排能不能成立，其实就可以抽象出查看一个图中是否有环，因为一旦有环路，那肯定是不成立的，反之，肯定成立。</p>
+<p>其实这个题目就是说课程可能有零个或多个前置课程，然后问如果前置课程这样安排能不能成立，其实就可以抽象出查看一个图中是否有环，因为一旦有环路，那肯定是不成立的，反之，肯定成立。</p>
 <h3 id="BFS思路">BFS思路</h3>
-<p>我们创建一个队列，用于保存目前入度为0的点，然后我们对于每个节点都保存一个入度的值。然后从入度为0的值开始，进行遍历，对于这个点能达到的所有的点将其入度减去1，如果此时这个点入度为0，将其加入到队列中。当队列为空的时候，如果此时所有节点的入读都变成0，那么肯定没有环路，否则有环路。<br>
+<p>我们创建一个队列，用于保存目前入度为0的点，然后我们对于每个节点都保存一个入度的值。然后从入度为0的值开始，进行遍历，对于这个点能达到的所有的点将其入度减去1，如果此时这个点入度为0，将其加入到队列中。当队列为空的时候，如果此时所有节点的入度都变成0，那么肯定没有环路，否则有环路。<br>
 举例说明,假设输入是如下情况</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4 [[1,0],[2,0],[1,2],[3,1]]</span><br></pre></td></tr></table></figure>
 <p>对应的图其实就是<br>
-<img src="http://q1tldblw4.bkt.clouddn.com/qiniu_kwimg20191201143417.png" alt=""></p>
+<img src="/images/course-schedule.svg" alt="课程依赖关系"></p>
 <p>1.初始化队列q中元素只有0，入度数组arr=[0,2,1,1]<br>
 2. 然后经过0号节点，arr变为[0,1,0,1],此时2号加入队列<br>
 3. 然后处理2号节点，arr变成[0,0,0,1],此时1号加入队列<br>
@@ -328,7 +334,7 @@
 5. 然后处理3号节点，arr变成[0,0,0,0] 此时队列为空。<br>
 6. 然后判断arr数组中每个节点的入度是否是0，全为0，返回true。</p>
 <h3 id="DFS思路">DFS思路</h3>
-<p>DFS就是用深度优先搜索，我们对于每个节点记录一个状态，-1表示是当前节点：如果在遍历过程中发现了-1，说明又回到了自身，那就是有环路，返回flase；0是默认值，代表之前还没有访问；1表示已经访问过了。对于每一个节点都进行如此的遍历，即可得到结果。<br>
+<p>DFS就是用深度优先搜索，我们对于每个节点记录一个状态，-1表示是当前节点：如果在遍历过程中发现了-1，说明又回到了自身，那就是有环路，返回false；0是默认值，代表之前还没有访问；1表示已经访问过了。对于每一个节点都进行如此的遍历，即可得到结果。<br>
 PS：要记得传引用而不要传对象本身，否则容易Time Limit Exceeded</p>
 <h2 id="解题代码">解题代码</h2>
 <h3 id="BFS解题代码">BFS解题代码</h3>
@@ -434,7 +440,7 @@ PS：要记得传引用而不要传对象本身，否则容易Time Limit Exceede
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

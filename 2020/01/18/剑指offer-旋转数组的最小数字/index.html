@@ -59,7 +59,7 @@
 <meta property="og:description" content="本文为剑指 offer 系列第八篇。 其实就是找有序数组的最小元素，只是这个有序数组进行了一次旋转而已。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-01-18T13:58:32.000Z">
-<meta property="article:modified_time" content="2020-01-18T14:19:29.626Z">
+<meta property="article:modified_time" content="2026-09-28T13:53:40.894Z">
 <meta property="article:author" content="李庆文">
 <meta property="article:tag" content="Array">
 <meta property="article:tag" content="Codinginterviews">
@@ -247,10 +247,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-01-18 21:58:32 / 修改时间：22:19:29" itemprop="dateCreated datePublished" datetime="2020-01-18T21:58:32+08:00">2020-01-18</time>
+              <time title="创建时间：2020-01-18 21:58:32" itemprop="dateCreated datePublished" datetime="2020-01-18T21:58:32+08:00">2020-01-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-28 21:53:40" itemprop="dateModified" datetime="2026-09-28T21:53:40+08:00">2026-09-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -305,13 +311,13 @@
 NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。</p>
 <h2 id="解题思路">解题思路</h2>
 <h3 id="思路1">思路1</h3>
-<p>直接使用stl中的min_element方法。一行代码就可以搞定。</p>
+<p>空数组按题目要求返回0，其余情况直接使用stl中的min_element方法即可。</p>
 <h3 id="思路2">思路2</h3>
 <p>思路2是可以使用类似于二分的方法进行查找，我们在看这个数字经过旋转之后的变化，其实如果一旦二分，我们会发现那个最小元素其实会存在于某个区间内，而这个区间并不满足左边的元素要小于右边的元素。而另一个区间是满足的，因为本身的数组就是非递减排序的，所以只会有一个区间是出现降序排列。这样我们只要找到导致降序的点即可。<br>
 还有一个要注意的点，就是这个里面可能会有重复数据，所以可能出现中间元素和尾元素相等的情况，这个时候其实不能确定那个降序点在什么地方，所以这个时候就尾节点区间减少一个即可。</p>
 <h2 id="解题代码">解题代码</h2>
 <h3 id="思路1代码">思路1代码</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minNumberInRotateArray(vector&lt;int&gt; rotateArray) &#123;</span><br><span class="line">        return *min_element(rotateArray.begin(),rotateArray.end());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minNumberInRotateArray(vector&lt;int&gt; rotateArray) &#123;</span><br><span class="line">        if(rotateArray.empty()) return 0;</span><br><span class="line">        return *min_element(rotateArray.begin(),rotateArray.end());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>时间复杂度为O(n),空间复杂度为O(n)</p>
 <h3 id="思路2代码">思路2代码</h3>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    int minNumberInRotateArray(vector&lt;int&gt; rotateArray) &#123;</span><br><span class="line">        if(rotateArray.size() &#x3D;&#x3D; 0) return 0;</span><br><span class="line">        if(rotateArray.size() &#x3D;&#x3D; 1) return rotateArray[0];</span><br><span class="line">        int l &#x3D; 0,r &#x3D; rotateArray.size()-1;</span><br><span class="line">        while(l&lt;r)&#123;</span><br><span class="line">            int mid &#x3D; l + (r-l)&#x2F;2;</span><br><span class="line">            if(rotateArray[mid]&lt;rotateArray[r])&#123;</span><br><span class="line">                r &#x3D; mid;</span><br><span class="line">            &#125;else if(rotateArray[mid]&gt;rotateArray[r])&#123;</span><br><span class="line">                l &#x3D; mid+1;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                r--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return rotateArray[l];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -412,7 +418,7 @@ NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。</p>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

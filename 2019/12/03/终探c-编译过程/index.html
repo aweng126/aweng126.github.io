@@ -58,14 +58,14 @@
 <meta property="og:site_name" content="Kingwen&#39;s blog">
 <meta property="og:description" content="在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。 本篇文章探究c++编译过程的第三篇，属于本系列暂时的最后一篇，总结了本次对于整个编译过程的探究结果，同时解释了动态链接和静态链接以及g++和gcc的一些区别和联系。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://q1tldblw4.bkt.clouddn.com/qiniu_kwimg20191203232929.png">
+<meta property="og:image" content="https://blog.kingwen.cn/images/cpp-compilation.svg">
 <meta property="article:published_time" content="2019-12-03T15:11:35.000Z">
-<meta property="article:modified_time" content="2019-12-03T15:33:47.130Z">
+<meta property="article:modified_time" content="2026-09-28T13:34:14.174Z">
 <meta property="article:author" content="李庆文">
 <meta property="article:tag" content="编译">
 <meta property="article:tag" content="g++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://q1tldblw4.bkt.clouddn.com/qiniu_kwimg20191203232929.png">
+<meta name="twitter:image" content="https://blog.kingwen.cn/images/cpp-compilation.svg">
   <link rel="canonical" href="https://blog.kingwen.cn/2019/12/03/%E7%BB%88%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">
 
 
@@ -249,10 +249,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-03 23:11:35 / 修改时间：23:33:47" itemprop="dateCreated datePublished" datetime="2019-12-03T23:11:35+08:00">2019-12-03</time>
+              <time title="创建时间：2019-12-03 23:11:35" itemprop="dateCreated datePublished" datetime="2019-12-03T23:11:35+08:00">2019-12-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-28 21:34:14" itemprop="dateModified" datetime="2026-09-28T21:34:14+08:00">2026-09-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -302,12 +308,12 @@
 <a id="more"></a>
 <p>其实c++编译过程很复杂，一本《编译原理》让无数从业人员感到自己能力有限，我们这里介绍的仅仅是最简单的，比较概括性的内容，如果想继续深入了解可以自行去看《编译原理》书籍。</p>
 <h2 id="编译过程总结">编译过程总结</h2>
-<p><img src="http://q1tldblw4.bkt.clouddn.com/qiniu_kwimg20191203232929.png" alt=""><br>
+<p><img src="/images/cpp-compilation.svg" alt="C++编译过程"><br>
 我们现在应用的g++编译器其实是一个比较成熟的工具，内部细节我们不做深入探讨。但是从总体上来讲，它将整个编译过程分成了如下的四个步骤：</p>
 <h3 id="预编译">预编译</h3>
 <h4 id="g-执行编译">g++执行编译</h4>
 <p>从源代码文件变成预处理之后的源代码文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -E helloword.cpp helloword.ii</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -E helloworld.cpp -o helloworld.ii</span><br></pre></td></tr></table></figure>
 <h4 id="原理解释">原理解释</h4>
 <p>简单点说，就是将代码进行整合，包括宏定义，include等都替换进来，没用的东西都删掉，比如注释等。</p>
 <p>详细点说<br>
@@ -329,7 +335,7 @@
 <h3 id="编译优化">编译优化</h3>
 <h4 id="g-执行编译-2">g++执行编译</h4>
 <p>从源代码文件变成汇编代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -S helloword.cpp helloword.s</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -S helloworld.cpp -o helloworld.s</span><br></pre></td></tr></table></figure>
 <h4 id="原理解释-2">原理解释</h4>
 <p>将预处理完的文件进行一系列词法分析、语法分析、语义分析及优化后，产生相应的汇编代码文件。</p>
 <h3 id="汇编">汇编</h3>
@@ -344,7 +350,7 @@
 <p>从对象文件变成可执行文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ talk.o talktest.o -o talktest</span><br><span class="line">.&#x2F;talktest</span><br></pre></td></tr></table></figure>
 <p>也可以从源代码文件变成可执行文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ helloword.cpp -o helloworld</span><br><span class="line">.&#x2F;helloworld</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ helloworld.cpp -o helloworld</span><br><span class="line">.&#x2F;helloworld</span><br></pre></td></tr></table></figure>
 <h4 id="原理解释-4">原理解释</h4>
 <p>通过链接器将一个个目标文件（或许还会有库文件）链接在一起生成一个完整的可执行程序</p>
 <h2 id="关于链接过程">关于链接过程</h2>
@@ -472,7 +478,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

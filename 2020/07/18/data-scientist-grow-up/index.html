@@ -59,7 +59,7 @@
 <meta property="og:description" content="我对于爬虫项目的阶段性总结。 包含做项目时的流程、每个流程相关技术概述以及自己的学习经验。 方便自己后期查阅，也希望能给别人一点点指引。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-18T09:09:05.000Z">
-<meta property="article:modified_time" content="2020-07-18T09:29:51.835Z">
+<meta property="article:modified_time" content="2026-09-28T13:56:50.223Z">
 <meta property="article:author" content="李庆文">
 <meta property="article:tag" content="spider">
 <meta property="article:tag" content="总结">
@@ -247,10 +247,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-18 17:09:05 / 修改时间：17:29:51" itemprop="dateCreated datePublished" datetime="2020-07-18T17:09:05+08:00">2020-07-18</time>
+              <time title="创建时间：2020-07-18 17:09:05" itemprop="dateCreated datePublished" datetime="2020-07-18T17:09:05+08:00">2020-07-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-28 21:56:50" itemprop="dateModified" datetime="2026-09-28T21:56:50+08:00">2026-09-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -366,7 +372,7 @@
 <h3 id="爬虫框架的使用">爬虫框架的使用</h3>
 <p>数据采集是一个比较常见的需求，所以程序员们开发出了很多方便扩展的爬虫框架，比如<a href="https://docs.scrapy.org/en/latest/intro/tutorial.html" target="_blank" rel="noopener">scrapy</a>、<a href="http://docs.pyspider.org/en/latest/" target="_blank" rel="noopener">pyspider</a>、<a href="https://scrapy-redis.readthedocs.io/en/stable/" target="_blank" rel="noopener">scrapy-redis</a>、<a href="https://scrapy-cluster.readthedocs.io/en/latest/topics/introduction/overview.html" target="_blank" rel="noopener">scrapy-cluster</a>等，可以让我们将重点放在处理核心业务上。</p>
 <h3 id="docker的使用">docker的使用</h3>
-<p>docker可以认为是一个轻量的虚拟机，通过镜像来创建实例，每个实例彼此隔离彼此独立，从而可以让程序员摆脱编程开发测试部署环境不一致的问题，同时方便进行横向扩展。在我们项目构造出对应的镜像之后，便会由镜像在手，天下我有的豪气。<br>
+<p>docker通过镜像来创建容器，为程序提供彼此隔离的运行环境。这些容器共享宿主内核，比各自运行完整内核的虚拟机更轻量，也能帮助我们解决开发、测试、部署环境不一致的问题，方便进行横向扩展。在我们项目构造出对应的镜像之后，便会有镜像在手，天下我有的豪气。<br>
 在使用新的组件之前，可以先去<a href="https://hub.docker.com/" target="_blank" rel="noopener">dockerhub</a>看看，之后尽量所有的项目要通过docker进行部署，用dockerfile来进行定义。让项目组件化，这样就可以解耦合，从而方便扩展和升级。</p>
 <p>爬虫过程的每一个步骤都可以单独拿出来交给对应的docker镜像来处理。看自己最后的需求进行不同粒度的分解。</p>
 <h3 id="大数据组件">大数据组件</h3>
@@ -375,7 +381,7 @@
 <h3 id="分布式爬虫部署">分布式爬虫部署</h3>
 <p>当数据量太大，单机爬虫的速率就远远不能满足我们的需求，这个时候就可以考虑使用分布式爬虫，将很多台主机一起来爬取想要的数据，上面说的爬虫框架sacrpy就是单机版本的，scrapy-redis就是在scrapy的基础上添加redis用来做爬取队列，可以作为分布式爬虫使用，scrapy-cluster是在scrapy-redis的基础上添加大数据组件kafka从而与大数据平台对接，也属于分布式爬虫。scrapyd可以用来方便的部署分布式爬虫程序。<a href="https://docs.gerapy.com/en/latest/" target="_blank" rel="noopener">Gerapy</a>也值得关注。</p>
 <h3 id="APP内容的爬取">APP内容的爬取</h3>
-<p>本部分我没有做过，但是我知道有很多库，包括Charles、mitmproxy、Appium等，可以对手机app进行抓包，从而采集到想要的数据。</p>
+<p>本部分我没有做过，不过知道一些相关工具：Charles、mitmproxy 可以代理和分析网络请求；如果需要自动操作手机 app 的界面，还可以了解一下 UI 自动化框架 Appium。</p>
 <h2 id="学习经验">学习经验</h2>
 <ol>
 <li>要以项目为主导，no bb，show your code！！</li>
@@ -481,7 +487,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

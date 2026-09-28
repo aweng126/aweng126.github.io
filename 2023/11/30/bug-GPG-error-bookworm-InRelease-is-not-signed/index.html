@@ -59,7 +59,7 @@
 <meta property="og:description" content="本文介绍使用python-slim执行apt-get update时候碰到的GPG error问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-30T06:29:13.000Z">
-<meta property="article:modified_time" content="2023-11-30T06:48:48.932Z">
+<meta property="article:modified_time" content="2026-09-28T13:56:50.220Z">
 <meta property="article:author" content="李庆文">
 <meta property="article:tag" content="bug">
 <meta property="article:tag" content="docker">
@@ -248,10 +248,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-11-30 14:29:13 / 修改时间：14:48:48" itemprop="dateCreated datePublished" datetime="2023-11-30T14:29:13+08:00">2023-11-30</time>
+              <time title="创建时间：2023-11-30 14:29:13" itemprop="dateCreated datePublished" datetime="2023-11-30T14:29:13+08:00">2023-11-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-28 21:56:50" itemprop="dateModified" datetime="2026-09-28T21:56:50+08:00">2026-09-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -277,7 +283,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -312,18 +318,14 @@
 <p>It is Docker with libseccomp so a newer syscall used in Debian Bookworm packages/libs is being blocked. libseccomp lets you configure allowed syscalls for a process. Docker sets a default seccomp profile for all containers such that only certain syscalls are allowed and everything else is blocked (so, newer syscalls that are not yet known to libseccomp or docker are blocked).<br>
 <a href="https://github.com/docker-library/python/issues/837" target="_blank" rel="noopener">python:3.9 - Failed run apt update from the last version of the image #837</a></p>
 </blockquote>
-<p>简单解释就是官方的Python镜像升级，构建python镜像的基础镜像从原来的debian10 buster升级到debian12 bookworm, 在此情况下很多bookworm采用的新的系统调用被libseccomp屏蔽掉了，因此执行报错。</p>
+<p>简单解释就是：未固定发行版的 slim 标签会随时间变化。当基础版本切换到 Bookworm，而宿主 Docker/libseccomp 较旧时，新系统调用可能被屏蔽，从而造成这次遇到的报错。不过，单凭 <code>NO_PUBKEY</code> 还不能确定原因，排查时也要核对宿主版本、镜像及其 keyring 配置。</p>
 <ol start="3">
 <li>解决方案<br>
-本人采用的解决方案为更新基础镜像。</li>
+首选方案是更新运行容器的宿主 Docker 和 libseccomp；这也符合 <a href="https://github.com/docker-library/official-images/issues/16829" target="_blank" rel="noopener">Docker 官方镜像维护者的说明</a>。</li>
 </ol>
+<p>本人当时采用的临时办法是改用较旧的 Bullseye 基础镜像，如下。这个办法适用于当时的环境，使用前仍需确认标签和发行版的支持状态：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># FROM python:3.12-slim</span><br><span class="line">FROM python:3.12-slim-bullseye</span><br></pre></td></tr></table></figure>
-<p>其他可能可行的解决方案</p>
-<ul>
-<li>Update libseccomp and docker on the host running the containers.</li>
-<li>Add the following in the Dockerfile:</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RUN mv -i &#x2F;etc&#x2F;apt&#x2F;trusted.gpg.d&#x2F;debian-archive-*.asc  &#x2F;root&#x2F;</span><br><span class="line">RUN ln -s &#x2F;usr&#x2F;share&#x2F;keyrings&#x2F;debian-archive-* &#x2F;etc&#x2F;apt&#x2F;trusted.gpg.d&#x2F;</span><br></pre></td></tr></table></figure>
+<p>如果确认是 keyring 缺失或损坏，应修复对应发行版的 <code>debian-archive-keyring</code>，并用仓库的 <code>Signed-By</code> 限定有效密钥。不要把 <code>/usr/share/keyrings/debian-archive-*</code> 全部链接到信任目录：这个通配符还会匹配 <code>debian-archive-removed-keys.gpg</code>，引入旧发行版的密钥。密钥调整也不能修复宿主 seccomp 本身。</p>
 <ol start="4">
 <li>参考链接<br>
 <a href="https://stackoverflow.com/questions/76955036/build-started-failing-using-python3-8-docker-image-on-apt-get-update-and-instal" target="_blank" rel="noopener">stackoverflow-Build started failing using Python:3.8 Docker image on apt-get update and install with GPG error: bookworm InRelease is not signed</a></li>
@@ -423,7 +425,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

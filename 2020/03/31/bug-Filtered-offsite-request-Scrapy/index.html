@@ -59,7 +59,7 @@
 <meta property="og:description" content="在写爬虫的时候遇见了一个bug,报错信息为 Filtered offsite request domain[‘mydomain’], 从网上找到了答案并成功解决了问题，特别记录一下。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-03-31T01:58:03.000Z">
-<meta property="article:modified_time" content="2020-03-31T09:11:37.138Z">
+<meta property="article:modified_time" content="2026-09-28T13:52:54.926Z">
 <meta property="article:author" content="李庆文">
 <meta property="article:tag" content="scrapy">
 <meta property="article:tag" content="bug">
@@ -247,10 +247,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-03-31 09:58:03 / 修改时间：17:11:37" itemprop="dateCreated datePublished" datetime="2020-03-31T09:58:03+08:00">2020-03-31</time>
+              <time title="创建时间：2020-03-31 09:58:03" itemprop="dateCreated datePublished" datetime="2020-03-31T09:58:03+08:00">2020-03-31</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-28 21:52:54" itemprop="dateModified" datetime="2026-09-28T21:52:54+08:00">2026-09-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -276,7 +282,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -299,22 +305,23 @@
 从网上找到了答案并成功解决了问题，特别记录一下。</p>
 <a id="more"></a>
 <h2 id="检查allowed-domains">检查allowed_domains</h2>
-<p>要去查看自己爬取的url是否符合我们的domain。如果我们要爬取的网站的网址为 <a href="https://www.example.com/1.html%EF%BC%8C" target="_blank" rel="noopener">https://www.example.com/1.html，</a> 那么我们就需要添加example.com到我们写好的爬虫中的allow_domains的list列表中。</p>
+<p>要去查看自己爬取的url是否符合我们的domain。如果我们要爬取的网站的网址为 <a href="https://www.example.com/1.html%EF%BC%8C" target="_blank" rel="noopener">https://www.example.com/1.html，</a> 那么我们就需要添加example.com到我们写好的爬虫中的allowed_domains的list列表中。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">allowed_domains &#x3D; [&#39;example.com&#39;]</span><br></pre></td></tr></table></figure>
 <p>看一下<a href="https://docs.scrapy.org/en/latest/topics/spiders.html" target="_blank" rel="noopener">Scrapy官方文档</a>的解释。</p>
 <blockquote>
 <p><strong>allowed_domains</strong><br>
 An optional list of strings containing domains that this spider is allowed to crawl. Requests for URLs not belonging to the domain names specified in this list (or their subdomains) won’t be followed if OffsiteMiddleware is enabled.</p>
 </blockquote>
-<p>如果设置进行url过滤,那么对于要新添加到爬取队列中的所有的url中必须包含allow_domains中的一个域名才可以，否则这个url就会被舍弃。</p>
-<h2 id="设置-dont-filte-True">设置 dont_filte=True</h2>
-<p>可以直接停止scrapy对于url的过滤。也就是在新生成的Request中添加 dont_filte=True，比如下面这样。</p>
+<p>也就是说，启用域名过滤后，请求的主机名必须属于 allowed_domains 中的域名或其子域，否则就会被过滤。仅在 URL 的其他位置出现这个字符串是不够的。</p>
+<h2 id="设置-dont-filter-True">设置 dont_filter=True</h2>
+<p>可以让这个请求跳过重复请求过滤和 OffsiteMiddleware 的域名限制。也就是在新生成的Request中添加 dont_filter=True，比如下面这样。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def parse(self, response):</span><br><span class="line"> yield Request(url&#x3D;&#39;https:&#x2F;&#x2F;example.com&#39;, dont_filter&#x3D;True, callback&#x3D;self.parse2)</span><br><span class="line">def parse2(self, response):</span><br><span class="line"> pass</span><br></pre></td></tr></table></figure>
 <p>看一下<a href="https://docs.scrapy.org/en/latest/topics/request-response.html" target="_blank" rel="noopener">Scrapy官方文档</a>的解释：</p>
 <blockquote>
 <p>dont_filter (boolean) – indicates that this request should not be filtered by the scheduler. This is used when you want to perform an identical request multiple times, to ignore the duplicates filter. Use it with care, or you will get into crawling loops. Default to False.</p>
 </blockquote>
-<p>这个方法就比较粗暴，就直接不对url进行过滤。那么也就是说对于所有的爬取到的url都会进行重新爬取，但是如果一旦有url是重复的，可能就会陷入循环。所以尽量不要采用这么暴力的方式。这也是scrapy默认将其设置为False的一个原因。</p>
+<p>这个设置只影响当前请求，不会全局关闭过滤。不过它连重复请求检查也一起跳过了，如果不断生成相同请求，就可能陷入循环。所以还是优先检查 allowed_domains，确实需要时再用这个方法。</p>
+<p>较新 Scrapy 如果只想跳过域名过滤，可参考 <a href="https://docs.scrapy.org/en/latest/topics/request-response.html#scrapy.Request.dont_filter" target="_blank" rel="noopener">allow_offsite</a>，并确认所用版本支持。</p>
 <p>PS:一定要细心，我个人出现的问题是我想当然的设置了域名，然后真实网站的域名和我设置的域名差一个字母，所以最后就报错了。</p>
 
     </div>
@@ -382,7 +389,7 @@ An optional list of strings containing domains that this spider is allowed to cr
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#检查allowed-domains"><span class="nav-number">1.</span> <span class="nav-text">检查allowed_domains</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-dont-filte-True"><span class="nav-number">2.</span> <span class="nav-text">设置 dont_filte&#x3D;True</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#检查allowed-domains"><span class="nav-number">1.</span> <span class="nav-text">检查allowed_domains</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-dont-filter-True"><span class="nav-number">2.</span> <span class="nav-text">设置 dont_filter&#x3D;True</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -411,7 +418,7 @@ An optional list of strings containing domains that this spider is allowed to cr
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

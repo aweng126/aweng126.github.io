@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="本文将介绍如何通过配置ip白名单和黑名单限制linux访问ip,从而保障安全。">
+  <meta name="description" content="本文将介绍通过ip白名单和黑名单限制SSH访问的方法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="restrict-iP-under-linux">
 <meta property="og:url" content="https://blog.kingwen.cn/2023/12/04/restrict-ip-under-linux/index.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="本文将介绍如何通过配置ip白名单和黑名单限制linux访问ip,从而保障安全。">
+<meta property="og:description" content="本文将介绍通过ip白名单和黑名单限制SSH访问的方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-04T11:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-04T11:14:29.693Z">
+<meta property="article:modified_time" content="2026-09-28T13:37:44.364Z">
 <meta property="article:author" content="李庆文">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="network">
@@ -247,10 +247,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-12-04 19:00:00 / 修改时间：19:14:29" itemprop="dateCreated datePublished" datetime="2023-12-04T19:00:00+08:00">2023-12-04</time>
+              <time title="创建时间：2023-12-04 19:00:00" itemprop="dateCreated datePublished" datetime="2023-12-04T19:00:00+08:00">2023-12-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-28 21:37:44" itemprop="dateModified" datetime="2026-09-28T21:37:44+08:00">2026-09-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -276,7 +282,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>317</span>
+              <span>870</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -295,24 +301,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>本文将介绍如何通过配置ip白名单和黑名单限制linux访问ip,从而保障安全。</p>
+        <p>本文将介绍通过ip白名单和黑名单限制SSH访问的方法。</p>
 <a id="more"></a>
+<blockquote>
+<p>版本说明：下面的 <code>/etc/hosts.allow</code>、<code>/etc/hosts.deny</code> 是历史 TCP Wrappers 用法，只适用于确实启用了 libwrap 的 sshd。上游 OpenSSH 从 6.7 起移除了这项支持，部分发行版曾保留补丁；不能仅凭 Linux 系统或文件存在就判断有效。现代系统请使用发行版防火墙，或按 <a href="https://man.openbsd.org/sshd_config#AllowUsers" target="_blank" rel="noopener">sshd_config</a> 的 <code>AllowUsers USER@HOST</code> 等配置限制 SSH 登录。</p>
+</blockquote>
+<p>以下白名单和黑名单是两种独立策略，按需要选择一种。示例 IP 请替换成自己的地址。</p>
 <ol>
-<li>白名单</li>
+<li>白名单：只允许指定来源</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;hosts.allow</span><br><span class="line"></span><br><span class="line"># 配置允许单个ip可登陆</span><br><span class="line">sshd:216.64.87.126:allow</span><br><span class="line"></span><br><span class="line"># 配置子网内所有ip可登陆</span><br><span class="line">sshd:216.64.87.0&#x2F;24:allow</span><br></pre></td></tr></table></figure>
+<p>在 <code>/etc/hosts.allow</code> 中配置允许的地址；单个 IP 与整个子网按需要选择：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 允许单个 IP</span><br><span class="line">sshd:216.64.87.126:allow</span><br><span class="line"></span><br><span class="line"># 或允许整个子网</span><br><span class="line"># sshd:216.64.87.0&#x2F;255.255.255.0:allow</span><br></pre></td></tr></table></figure>
+<p>在 <code>/etc/hosts.deny</code> 中拒绝其他来源：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sshd:ALL:deny</span><br></pre></td></tr></table></figure>
+<p>仅写 hosts.allow 不够：TCP Wrappers 在两个文件都未命中时默认允许。</p>
 <ol start="2">
-<li>黑名单</li>
+<li>黑名单：只拒绝指定来源</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;hosts.deny</span><br><span class="line"></span><br><span class="line"># 配置单个ip不可登陆</span><br><span class="line">sshd:216.64.87.126:allow</span><br><span class="line"></span><br><span class="line"># 配置子网内所有ip不可登陆</span><br><span class="line">sshd:216.64.87.0&#x2F;24:allow</span><br></pre></td></tr></table></figure>
+<p>先确认 <code>/etc/hosts.allow</code> 没有允许这些来源的规则，再在 <code>/etc/hosts.deny</code> 中配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 拒绝单个 IP</span><br><span class="line">sshd:216.64.87.126:deny</span><br><span class="line"></span><br><span class="line"># 或拒绝整个子网</span><br><span class="line"># sshd:216.64.87.0&#x2F;255.255.255.0:deny</span><br></pre></td></tr></table></figure>
+<p>hosts.allow 优先于 hosts.deny，命中后就停止匹配，不能把同一地址同时写成允许和拒绝。</p>
 <ol start="3">
 <li>配置生效</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service sshd restart</span><br></pre></td></tr></table></figure>
+<p>支持 TCP Wrappers 的服务会在新连接时读取这些规则，一般不必为了修改这两个文件而重启 sshd。保持当前管理会话，并从第二个会话分别测试允许和拒绝的地址；确认有效后再退出。若 sshd 不支持 libwrap，重启也不会让这些文件生效。</p>
 <ol start="4">
-<li>参考链接<br>
-<a href="https://www.cnblogs.com/lcword/p/14371300.html" target="_blank" rel="noopener">linux下限制ip访问</a></li>
+<li>参考链接</li>
 </ol>
+<ul>
+<li><a href="https://manpages.debian.org/testing/libwrap0/hosts_access.5.en.html" target="_blank" rel="noopener">hosts_access：匹配顺序与默认行为</a></li>
+<li><a href="https://manpages.debian.org/bullseye/libwrap0/hosts_options.5.en.html" target="_blank" rel="noopener">hosts_options：allow/deny 选项</a></li>
+<li><a href="https://www.openssh.org/releasenotes.html" target="_blank" rel="noopener">OpenSSH 发布说明</a></li>
+<li><a href="https://www.cnblogs.com/lcword/p/14371300.html" target="_blank" rel="noopener">linux下限制ip访问</a></li>
+</ul>
 
     </div>
 
@@ -404,7 +425,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

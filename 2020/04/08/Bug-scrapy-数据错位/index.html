@@ -59,7 +59,7 @@
 <meta property="og:description" content="在用scrapy进行数据爬取的时候，发现通过meta传递的数据不匹配，最后发现是深拷贝和浅拷贝的问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-04-08T02:34:43.000Z">
-<meta property="article:modified_time" content="2020-04-08T03:15:10.660Z">
+<meta property="article:modified_time" content="2026-09-28T13:56:19.911Z">
 <meta property="article:author" content="李庆文">
 <meta property="article:tag" content="scrapy">
 <meta property="article:tag" content="bug">
@@ -247,10 +247,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-04-08 10:34:43 / 修改时间：11:15:10" itemprop="dateCreated datePublished" datetime="2020-04-08T10:34:43+08:00">2020-04-08</time>
+              <time title="创建时间：2020-04-08 10:34:43" itemprop="dateCreated datePublished" datetime="2020-04-08T10:34:43+08:00">2020-04-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-28 21:56:19" itemprop="dateModified" datetime="2026-09-28T21:56:19+08:00">2026-09-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -276,7 +282,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>453</span>
+              <span>486</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -298,10 +304,10 @@
         <p>在用scrapy进行数据爬取的时候，发现通过meta传递的数据不匹配，最后发现是深拷贝和浅拷贝的问题。</p>
 <a id="more"></a>
 <h2 id="Bug详情">Bug详情</h2>
-<p>yield Request中传递的meta是浅拷贝，所以当我们有多条请求等待处理的时候，前面请求传递的meta会被后面请求传递的meta修改（他们指向同一个对象），所以就会造成前后不匹配。<br>
-解决方式就是将其浅拷贝变成深拷贝。</p>
+<p>Request 会浅复制传入的 meta 字典，但其中的可变值（比如 item）仍可能被多个请求共享。如果循环里复用同一个 item 并继续修改，等待处理的请求就可能读到后一次修改的值，造成前后不匹配。<br>
+可以为每条逻辑记录新建 item；如果需要保留传递时的快照，也可以深拷贝这个 item。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import copy</span><br><span class="line">···</span><br><span class="line">def parse(self, response):</span><br><span class="line">     yield Request(url&#x3D;new_url, meta&#x3D;&#123;&#39;item&#39;: copy.deepcopy(item)&#125;, callback&#x3D;self.another_parse)</span><br></pre></td></tr></table></figure>
-<p>同理，如果下载的时候下载item的时候也报错的话，也要记得将item的传递变成深拷贝即可。</p>
+<p>同理，如果 yield 后还会继续修改同一个 item，也可以先深拷贝再传递，避免后续修改影响已交出的数据：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 原来是yield item ,变成如下的样子即可。</span><br><span class="line">yield copy.deepcopy(item)</span><br></pre></td></tr></table></figure>
 <h2 id="参考链接">参考链接</h2>
 <p>1.<a href="https://www.jianshu.com/p/42f22085f4c5" target="_blank" rel="noopener">scrapy里面item传递数据后数据不正确的问题</a></p>
@@ -400,7 +406,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

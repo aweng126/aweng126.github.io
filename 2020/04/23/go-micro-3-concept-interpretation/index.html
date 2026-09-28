@@ -61,9 +61,9 @@
 <meta property="og:image" content="http://www.topgoer.com/static/wei/6/1.png">
 <meta property="og:image" content="http://www.topgoer.com/static/wei/6/1.png">
 <meta property="article:published_time" content="2020-04-23T10:51:33.000Z">
-<meta property="article:modified_time" content="2020-04-23T11:06:52.405Z">
+<meta property="article:modified_time" content="2026-09-28T13:54:29.969Z">
 <meta property="article:author" content="李庆文">
-<meta property="article:tag" content="go-micro">
+<meta property="article:tag" content="Go-micro">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://www.topgoer.com/static/wei/6/1.png">
   <link rel="canonical" href="https://blog.kingwen.cn/2020/04/23/go-micro-3-concept-interpretation/">
@@ -249,10 +249,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-04-23 18:51:33 / 修改时间：19:06:52" itemprop="dateCreated datePublished" datetime="2020-04-23T18:51:33+08:00">2020-04-23</time>
+              <time title="创建时间：2020-04-23 18:51:33" itemprop="dateCreated datePublished" datetime="2020-04-23T18:51:33+08:00">2020-04-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-28 21:54:29" itemprop="dateModified" datetime="2026-09-28T21:54:29+08:00">2026-09-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -278,7 +284,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.8k</span>
+              <span>6.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -300,6 +306,9 @@
         <p>在搭建环境的时候其实我就有很多疑问了，怎么有这么多概念？<br>
 微服务、RPC, gRPC, protoc等等，它们都是啥？本篇文章来进行比较详细的解释。</p>
 <a id="more"></a>
+<blockquote>
+<p>本文围绕 2020 年的 Go Micro v2 整理概念。下面的接口和默认组件属于当时的记录，不同版本可能变化；使用时请以项目固定版本的 <a href="https://pkg.go.dev/github.com/micro/go-micro/v2" target="_blank" rel="noopener">v2 API 文档</a> 为准。</p>
+</blockquote>
 <h2 id="微服务">微服务</h2>
 <p>使用一套小服务来开发单个应用的方式，每个服务运行在独立的进程里，一般采用轻量级的通讯机制互联，并且它们可以通过自动化的方式部署。</p>
 <h2 id="RPC">RPC</h2>
@@ -333,10 +342,10 @@
 <li>以.proto结尾</li>
 <li>Message命名采用驼峰命名方式，字段命名采用小写字母加下划线分隔方式</li>
 <li>结构定义可以包含：message、service、enum</li>
-<li>可以通过required表示这个参数是必须的，optional表示这个参数是可选的。通过default表示这个参数的默认值</li>
+<li>这里使用 proto3：不支持 proto2 的 required 和自定义 <code>[default = ...]</code>。未设置的普通数值字段默认为 0，字符串为空串；业务默认值要在应用中处理。前文 protoc 3.11.4 的示例不使用 optional，较新 proto3 对 optional 的支持需按编译器版本确认。</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">syntax &#x3D; &quot;proto3&quot;; &#x2F;&#x2F; </span><br><span class="line"></span><br><span class="line">message SearchRequest &#123;</span><br><span class="line">  required string query &#x3D; 1;</span><br><span class="line">  optional int32 page_number &#x3D; 2;</span><br><span class="line">  optional int32 result_per_page &#x3D; 3 [default &#x3D; 10];</span><br><span class="line">  enum Corpus &#123;</span><br><span class="line">    UNIVERSAL &#x3D; 0;</span><br><span class="line">    WEB &#x3D; 1;</span><br><span class="line">    IMAGES &#x3D; 2;</span><br><span class="line">    LOCAL &#x3D; 3;</span><br><span class="line">    NEWS &#x3D; 4;</span><br><span class="line">    PRODUCTS &#x3D; 5;</span><br><span class="line">    VIDEO &#x3D; 6;</span><br><span class="line">  &#125;</span><br><span class="line">  optional Corpus corpus &#x3D; 4 [default &#x3D; UNIVERSAL];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">service SearchService &#123;</span><br><span class="line">        rpc Search (SearchRequest) returns (SearchResponse) &#123;&#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>更多使用方式可以参见下面的两个链接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">syntax &#x3D; &quot;proto3&quot;; &#x2F;&#x2F; </span><br><span class="line"></span><br><span class="line">message SearchRequest &#123;</span><br><span class="line">  string query &#x3D; 1;</span><br><span class="line">  int32 page_number &#x3D; 2;</span><br><span class="line">  int32 result_per_page &#x3D; 3;</span><br><span class="line">  enum Corpus &#123;</span><br><span class="line">    UNIVERSAL &#x3D; 0;</span><br><span class="line">    WEB &#x3D; 1;</span><br><span class="line">    IMAGES &#x3D; 2;</span><br><span class="line">    LOCAL &#x3D; 3;</span><br><span class="line">    NEWS &#x3D; 4;</span><br><span class="line">    PRODUCTS &#x3D; 5;</span><br><span class="line">    VIDEO &#x3D; 6;</span><br><span class="line">  &#125;</span><br><span class="line">  Corpus corpus &#x3D; 4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message SearchResponse &#123;</span><br><span class="line">  repeated string results &#x3D; 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">service SearchService &#123;</span><br><span class="line">        rpc Search (SearchRequest) returns (SearchResponse) &#123;&#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>更多使用方式可以参见 <a href="https://protobuf.dev/programming-guides/proto3/" target="_blank" rel="noopener">Proto3 官方语法指南</a>，也可以阅读下面的参考文章，但要区分 proto2 和 proto3。</p>
 <h3 id="参考链接">参考链接</h3>
 <ol>
 <li><a href="https://colobu.com/2015/01/07/Protobuf-language-guide/" target="_blank" rel="noopener">[译]Protobuf 语法指南</a></li>
@@ -352,7 +361,7 @@
 <li>消息编码：基于内容类型动态编码消息，客户端和服务器端将会使用基于内容类型的编解码器来对Go语言的类型进行无缝隙的编解码。客户端可以编码并发送各种类型额消息，客户端和服务器端默认能够处理这些消息，默认包含 protobuf and json。</li>
 <li>请求/相应：RPC通信是基于双向信息流的请求和相应。go-micro提供一种同步的抽象。一个发送给服务的请求会被自动的解析、负载均衡、拨号、转成字节流。默认传输是通过gRPC。</li>
 <li>异步信息：发布订阅机制在异步通信和事件驱动架构中非常重要，事件通知在微服务开发中占有重要地位。默认的消息传递系统是http事件消息代理。</li>
-<li>可插拔： Go Micro为每个分布式系统抽象出接口。因此，Go Micro的接口都是可插拔的，允许其在运行时不可知的情况下仍可支持。所以只要实现接口，可以在内部使用任何的技术。更多插件请参考：<a href="http://github.com/micro/go-plugins" target="_blank" rel="noopener">github.com/micro/go-plugins</a></li>
+<li>可插拔：Go Micro为各个组件定义了接口，只要实现相应的接口，就可以替换内部的技术实现。更多插件请参考 <a href="https://github.com/go-micro/plugins" target="_blank" rel="noopener">Go Micro 插件仓库</a>，其中包含多个大版本，本文的 v2 项目需要选择对应版本的目录和使用说明。</li>
 </ol>
 <h3 id="go-micro通信流程">go-micro通信流程</h3>
 <ol>
@@ -401,7 +410,7 @@
 <li>要进行通信：这部分由transort来负责。</li>
 <li>Broker主要对异步信息进行处理</li>
 </ul>
-<p>4.这几部分具体有哪些实现呢？可以看<a href="https://github.com/micro/go-plugins" target="_blank" rel="noopener">go-plugins</a>这个库中的插件的集合。</p>
+<p>4.这几部分具体有哪些实现呢？可以看<a href="https://github.com/go-micro/plugins" target="_blank" rel="noopener">Go Micro plugins</a>这个库中的插件集合，下面按接口类型列出了一些例子。</p>
 <table>
 <thead>
 <tr>
@@ -457,7 +466,7 @@
 <li>编写服务器端和客户端代码</li>
 <li>执行服务器端和客户端代码</li>
 </ul>
-<p>注意：在执行的时候可以指定最下面一层的各个组件，具体指定方式可以通过命令行指定或者设置环境变量或者直接在文件中写死等方式，更加详细的内容可以查看<a href="https://github.com/micro/go-plugins/blob/master/README.md" target="_blank" rel="noopener">Go-Plugins-README</a></p>
+<p>最后，我们可以通过命令行参数、环境变量或代码配置，选择各个接口使用的组件。具体方式可以查看<a href="https://github.com/go-micro/plugins#usage" target="_blank" rel="noopener">Go Micro 插件使用说明</a>。</p>
 
     </div>
 
@@ -467,7 +476,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/go-micro/" rel="tag"># go-micro</a>
+              <a href="/tags/Go-micro/" rel="tag"># Go-micro</a>
           </div>
 
         
@@ -552,7 +561,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

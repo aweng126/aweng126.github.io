@@ -59,7 +59,7 @@
 <meta property="og:description" content="在Bilibili跟着侯捷老师学C++系列第二篇，带指针的类mString类。 人生得遇良师，实属大幸，侯捷老师就属于这种老师，再夸一遍！！">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-11-22T15:47:22.000Z">
-<meta property="article:modified_time" content="2019-11-22T15:51:17.271Z">
+<meta property="article:modified_time" content="2026-09-28T13:53:46.118Z">
 <meta property="article:author" content="李庆文">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="Houjie">
@@ -248,10 +248,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-11-22 23:47:22 / 修改时间：23:51:17" itemprop="dateCreated datePublished" datetime="2019-11-22T23:47:22+08:00">2019-11-22</time>
+              <time title="创建时间：2019-11-22 23:47:22" itemprop="dateCreated datePublished" datetime="2019-11-22T23:47:22+08:00">2019-11-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-28 21:53:46" itemprop="dateModified" datetime="2026-09-28T21:53:46+08:00">2026-09-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -277,14 +283,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4k</span>
+              <span>4.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
 
         </div>
@@ -299,12 +305,12 @@
         <p>在Bilibili跟着侯捷老师学C++系列第二篇，带指针的类mString类。<br>
 人生得遇良师，实属大幸，侯捷老师就属于这种老师，再夸一遍！！</p>
 <a id="more"></a>
-<p>因为C++的效率是最高的，所以对于C++自己一定要好好掌握，个人看法，你如果能学会C++，其他语言都将不在话下。然后刚好碰到一个非常好的教程，有一位非常棒的老师-侯捷老师，有一个好的平台-Bilibili，还有非常好的训练场地——leetcode，所以此时不学什么时候学呢？</p>
+<p>因为C++可以编写高效的程序，所以对于C++自己一定要好好掌握，个人看法，你如果能学会C++，其他语言都将不在话下。然后刚好碰到一个非常好的教程，有一位非常棒的老师-侯捷老师，有一个好的平台-Bilibili，还有非常好的训练场地——leetcode，所以此时不学什么时候学呢？</p>
 <h2 id="教程">教程</h2>
 <p><a href="https://www.bilibili.com/video/av19038490" target="_blank" rel="noopener">侯捷C++手把手教学(上),适合新手</a></p>
 <h2 id="代码文件">代码文件</h2>
 <h3 id="mstring-hpp">mstring.hpp</h3>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">#ifndef mstring_hpp</span><br><span class="line">#define mstring_hpp</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class mstring&#123;</span><br><span class="line">public:</span><br><span class="line">    mstring(const char* a &#x3D; 0);</span><br><span class="line">    mstring(const mstring&amp; str);</span><br><span class="line">    mstring&amp; operator &#x3D;(const mstring&amp; str);</span><br><span class="line">    ~mstring();</span><br><span class="line">    char* get_c_str() const &#123;return mdata;&#125;</span><br><span class="line">    </span><br><span class="line">private:</span><br><span class="line">    char* mdata;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">inline</span><br><span class="line">mstring::mstring(const char* a)&#123;</span><br><span class="line">    if(a)&#123;</span><br><span class="line">        mdata &#x3D; new char[strlen(a)+1];</span><br><span class="line">        strcpy(mdata, a);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        mdata &#x3D; new char[1];</span><br><span class="line">        *mdata &#x3D; &#39;\0&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">inline</span><br><span class="line">mstring::mstring(const mstring&amp; str)&#123;</span><br><span class="line">    mdata &#x3D; new char[std::strlen(str.mdata)+1];</span><br><span class="line">    strcpy(mdata, str.mdata);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">inline</span><br><span class="line">mstring&amp; mstring::operator&#x3D;(const mstring&amp; str)&#123;</span><br><span class="line">    if(this &#x3D;&#x3D; &amp;str)&#123;</span><br><span class="line">        return *this;</span><br><span class="line">    &#125;</span><br><span class="line">    this-&gt;mdata &#x3D; new char[strlen(str.mdata)+1];</span><br><span class="line">    strcpy(this-&gt;mdata,str.mdata);</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline</span><br><span class="line">mstring::~mstring()&#123;</span><br><span class="line">    delete[] mdata;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ostream&amp; operator &lt;&lt; (ostream&amp; os,const mstring&amp; str)&#123;</span><br><span class="line">    return os&lt;&lt;str.get_c_str();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#endif &#x2F;* mstring_hpp *&#x2F;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">#ifndef mstring_hpp</span><br><span class="line">#define mstring_hpp</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;cstring&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class mstring&#123;</span><br><span class="line">public:</span><br><span class="line">    mstring(const char* a &#x3D; 0);</span><br><span class="line">    mstring(const mstring&amp; str);</span><br><span class="line">    mstring&amp; operator &#x3D;(const mstring&amp; str);</span><br><span class="line">    ~mstring();</span><br><span class="line">    char* get_c_str() const &#123;return mdata;&#125;</span><br><span class="line">    </span><br><span class="line">private:</span><br><span class="line">    char* mdata;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">inline</span><br><span class="line">mstring::mstring(const char* a)&#123;</span><br><span class="line">    if(a)&#123;</span><br><span class="line">        mdata &#x3D; new char[strlen(a)+1];</span><br><span class="line">        strcpy(mdata, a);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        mdata &#x3D; new char[1];</span><br><span class="line">        *mdata &#x3D; &#39;\0&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">inline</span><br><span class="line">mstring::mstring(const mstring&amp; str)&#123;</span><br><span class="line">    mdata &#x3D; new char[std::strlen(str.mdata)+1];</span><br><span class="line">    strcpy(mdata, str.mdata);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">inline</span><br><span class="line">mstring&amp; mstring::operator&#x3D;(const mstring&amp; str)&#123;</span><br><span class="line">    if(this &#x3D;&#x3D; &amp;str)&#123;</span><br><span class="line">        return *this;</span><br><span class="line">    &#125;</span><br><span class="line">    char* newdata &#x3D; new char[strlen(str.mdata)+1];</span><br><span class="line">    strcpy(newdata, str.mdata);</span><br><span class="line">    delete[] mdata;</span><br><span class="line">    mdata &#x3D; newdata;</span><br><span class="line">    return *this;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">inline</span><br><span class="line">mstring::~mstring()&#123;</span><br><span class="line">    delete[] mdata;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">inline ostream&amp; operator &lt;&lt; (ostream&amp; os,const mstring&amp; str)&#123;</span><br><span class="line">    return os&lt;&lt;str.get_c_str();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#endif &#x2F;* mstring_hpp *&#x2F;</span><br></pre></td></tr></table></figure>
 <h3 id="mstring-cpp">mstring.cpp</h3>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;mstring.hpp&quot;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()&#123;</span><br><span class="line">    mstring s1;</span><br><span class="line">    cout&lt;&lt;&quot;s1 &#x3D; &quot;&lt;&lt;s1&lt;&lt;endl;</span><br><span class="line">    mstring s2(&quot;hello&quot;);</span><br><span class="line">    cout&lt;&lt;&quot;s2 &#x3D; &quot;&lt;&lt;s2&lt;&lt;endl;</span><br><span class="line">    s1 &#x3D; s2;</span><br><span class="line">    cout&lt;&lt;&quot;s1 &#x3D; &quot;&lt;&lt;s1&lt;&lt;endl;</span><br><span class="line">    mstring s3(s2);</span><br><span class="line">    cout&lt;&lt;&quot;s3 &#x3D; &quot;&lt;&lt;s3&lt;&lt;endl;</span><br><span class="line">    </span><br><span class="line">    mstring *p &#x3D; new mstring(&quot;world&quot;);</span><br><span class="line">    cout&lt;&lt;&quot;*p &#x3D; &quot;&lt;&lt;*p&lt;&lt;endl;</span><br><span class="line">    delete p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="运行结果">运行结果</h3>
@@ -322,11 +328,11 @@
 3. 拷贝赋值</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mstring&amp; operator &#x3D;(const mstring&amp; str);</span><br></pre></td></tr></table></figure>
 <p>这里首先要注意的是我们重载了运算符=，然后是当前类的方法。其次是我们传入的参数，我们不会修改，所以设置为const，是通过引用传进来的，返回值同样是一个mstring对象，我们通过引用返回。</p>
-<p>对于成员函数，其实每个函数都含有一个隐藏的参数this，我们可以通过this和参数引用的地址来确定是否是自我赋值，要进行判断，否则会报错。因为具体赋值的过程是先删除本身的数据，然后创建一个能容纳str的空间的内存，然后将str内容拷贝到内存中。如果this和str指向同一个地址，那么刚开始删除掉就已经没有了，之后的创建空间就会出错。所以一定要注意这个拷贝赋值时自我赋值的问题。<br>
+<p>在非静态成员函数中，this指向当前对象，所以可以用this == &amp;str判断是否是自我赋值，是的话就直接返回。其他情况下，先申请新空间并复制str的内容，再删除旧数据，最后更新mdata。注意这个顺序：既要释放旧空间来避免内存泄漏，也要在new抛出异常时保留原来的数据。<br>
 4. 析构函数</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~mstring();</span><br></pre></td></tr></table></figure>
 <p>析构函数是指当对象生命周期结束之后会自动调用当前对象的析构函数，主要负责释放通过new关键字请求得到的内存空间。如果不自行解决，那么new出来的这块空间就会变成无主空间，会造成内存泄露。<br>
-5. 对于一个带有指针的类，必须要有拷贝构造和拷贝赋值还有析构函数。<br>
+5. 对于像本例这样直接拥有动态内存的类，要一起考虑拷贝构造、拷贝赋值和析构函数；只是保存非拥有型指针时，不一定需要自行实现这三个函数。<br>
 6. 其他成员函数的编写</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">char* get_c_str() const &#123;return mdata;&#125;</span><br></pre></td></tr></table></figure>
 <p>首先这个函数可以认为是一个辅助函数，方便之后重载&lt;&lt; 符号的，因为ostream已经被重载过所以可以输出char类型的指针所指向的数据，所以我们这里单独写一个用于输出。<br>
@@ -337,21 +343,21 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">inline</span><br><span class="line">mstring::~mstring()&#123;</span><br><span class="line">    delete[] mdata;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>在构造函数中是创建了一个char类型的数组，那么在析构函数中也要以同样的方式进行释放。<br>
 8. 关于栈存储<br>
-Stack,是存在于作用域的一块内存空间，例如当你调用函数，函数本身就会形成一个stack来放置它所接收的参数，以及对应的返回地址。在函数本体中声明的任何变量，其所使用的内存块都会在上述stack中。当作用域结束，所有内存都会被回收，内存中的对象也就再也找不到了，所以这就是我们上一节所讲的不能返回一个local对象的引用或者指针而要直接返回他们本身。<br>
+Stack通常用来保存函数调用的参数、返回地址和普通非static局部对象，优化后有些局部对象也可能放进寄存器。这里要注意，自动存储期的局部对象会在离开作用域时销毁，所以我们上一节才说，不能返回这类local对象的引用或者指针，而应该按值返回。static局部对象和new创建的对象有不同的存储期，下面分别举例。<br>
 9. 关于堆存储<br>
 Heap，或者叫做system heap，是指由操作系统提供的一块global的内存空间，程序可以通过new来动态分配获得若干区块。这样就需要自己来动手释放掉。<br>
 10. stack object的生命周期</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> complex c1(1,2);   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> Complex c1(1,2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在一个大括号（作用域）中创建的对象也就是所谓的local对象，比如c1,在作用域结束的时候就会被自动清理。<br>
 11. static local object的生命周期</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    static complex c2(1,2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    static Complex c2(1,2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>当一个局部变量被static关键字修饰的时候,比如c2，它就是一个静态对象，其生命在作用域结束之后仍然存在，直到整个程序结束。<br>
 12. global objects的生命周期</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">complex c3(1,2);</span><br><span class="line">int main()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Complex c3(1,2);</span><br><span class="line">int main()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>全局对象，写在{}之外的对象,比如c3，其生命周期是整个程序。这个经常在算法题目中出现。<br>
 13. heap objects的生命周期</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    complex* p &#x3D; new Complex(1,2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里的p就是一个堆对象，是由动态分配生成的，在其被deleted之际才会结束。<br>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    Complex* p &#x3D; new Complex(1,2);</span><br><span class="line">    delete p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里p本身是局部指针，离开作用域时它的生命周期就结束；p指向的Complex对象才是动态分配的对象，需要通过delete p销毁。如果只离开作用域而不delete，指针消失了，动态对象却不会自动释放，就会造成内存泄漏。<br>
 14. new关键字:先分配内存，然后调用构造函数<br>
 15. delete关键字：先调用析构函数，然后再释放内存。</p>
 
@@ -450,7 +456,7 @@ Heap，或者叫做system heap，是指由操作系统提供的一块global的�
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

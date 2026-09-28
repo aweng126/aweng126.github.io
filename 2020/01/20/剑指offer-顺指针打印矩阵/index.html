@@ -59,7 +59,7 @@
 <meta property="og:description" content="本文为剑指 offer 系列第二十一篇。 给定一个矩阵，顺时针将数据打印出来，没有特殊的难点，主要就是为了考察耐心和细心程度。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-01-20T03:51:53.000Z">
-<meta property="article:modified_time" content="2020-01-20T04:04:57.907Z">
+<meta property="article:modified_time" content="2026-09-28T13:36:16.932Z">
 <meta property="article:author" content="李庆文">
 <meta property="article:tag" content="Codinginterviews">
 <meta property="article:tag" content="matrix">
@@ -247,10 +247,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-01-20 11:51:53 / 修改时间：12:04:57" itemprop="dateCreated datePublished" datetime="2020-01-20T11:51:53+08:00">2020-01-20</time>
+              <time title="创建时间：2020-01-20 11:51:53" itemprop="dateCreated datePublished" datetime="2020-01-20T11:51:53+08:00">2020-01-20</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-09-28 21:36:16" itemprop="dateModified" datetime="2026-09-28T21:36:16+08:00">2026-09-28</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -276,7 +282,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -309,8 +315,8 @@
 <p>建立好上下左右的边界，然后按照顺时针的顺序依次遍历即可。<br>
 需要注意只有一行或者一列的情况，不要重复遍历。</p>
 <h2 id="解题代码">解题代码</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; printMatrix(vector&lt;vector&lt;int&gt; &gt; matrix) &#123;</span><br><span class="line">        int rows &#x3D; matrix.size(); </span><br><span class="line">        int cols &#x3D; matrix[0].size();</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        if(rows &#x3D;&#x3D; 0 || cols &#x3D;&#x3D; 0) return res;</span><br><span class="line">        int left &#x3D; 0, right &#x3D; cols-1, up &#x3D; 0, bottom &#x3D; rows-1;</span><br><span class="line">        while(left &lt;&#x3D; right &amp;&amp; up &lt;&#x3D; bottom)&#123;</span><br><span class="line">            &#x2F;&#x2F; 上面一行</span><br><span class="line">            for(int i &#x3D; left; i &lt;&#x3D; right; i++)&#123;</span><br><span class="line">                res.push_back(matrix[up][i]);</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F; 右侧一列</span><br><span class="line">            for(int i &#x3D; up+1; i &lt;&#x3D; bottom; i++)&#123;</span><br><span class="line">                res.push_back(matrix[i][right]);</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F; 下面一行</span><br><span class="line">            if(up !&#x3D; bottom)&#123;</span><br><span class="line">                for(int i &#x3D; right-1; i &gt;&#x3D; left; i--)&#123;</span><br><span class="line">                res.push_back(matrix[bottom][i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F; 左侧一列</span><br><span class="line">            if(left !&#x3D; right)&#123;</span><br><span class="line">                for(int i &#x3D; bottom-1; i &gt; up; i--)&#123;</span><br><span class="line">                res.push_back(matrix[i][left]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            left++; right--; up++; bottom--;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度为O(n^2),空间复杂度为O(n)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;int&gt; printMatrix(vector&lt;vector&lt;int&gt; &gt; matrix) &#123;</span><br><span class="line">        if(matrix.empty() || matrix[0].empty()) return &#123;&#125;;</span><br><span class="line">        int rows &#x3D; matrix.size(); </span><br><span class="line">        int cols &#x3D; matrix[0].size();</span><br><span class="line">        vector&lt;int&gt; res;</span><br><span class="line">        if(rows &#x3D;&#x3D; 0 || cols &#x3D;&#x3D; 0) return res;</span><br><span class="line">        int left &#x3D; 0, right &#x3D; cols-1, up &#x3D; 0, bottom &#x3D; rows-1;</span><br><span class="line">        while(left &lt;&#x3D; right &amp;&amp; up &lt;&#x3D; bottom)&#123;</span><br><span class="line">            &#x2F;&#x2F; 上面一行</span><br><span class="line">            for(int i &#x3D; left; i &lt;&#x3D; right; i++)&#123;</span><br><span class="line">                res.push_back(matrix[up][i]);</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F; 右侧一列</span><br><span class="line">            for(int i &#x3D; up+1; i &lt;&#x3D; bottom; i++)&#123;</span><br><span class="line">                res.push_back(matrix[i][right]);</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F; 下面一行</span><br><span class="line">            if(up !&#x3D; bottom)&#123;</span><br><span class="line">                for(int i &#x3D; right-1; i &gt;&#x3D; left; i--)&#123;</span><br><span class="line">                res.push_back(matrix[bottom][i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            &#x2F;&#x2F; 左侧一列</span><br><span class="line">            if(left !&#x3D; right)&#123;</span><br><span class="line">                for(int i &#x3D; bottom-1; i &gt; up; i--)&#123;</span><br><span class="line">                res.push_back(matrix[i][left]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            left++; right--; up++; bottom--;</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度为O(rows<em>cols)，结果数组占用O(rows</em>cols)空间，遍历本身只需要O(1)辅助空间。这里按值传入的矩阵还会产生O(rows*cols)的副本。</p>
 <p>以上，本题结束！</p>
 
     </div>
@@ -407,7 +413,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">107</span>
+        <span class="site-state-item-count">103</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
