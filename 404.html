@@ -51,15 +51,15 @@
   };
 </script>
 
-  <meta name="description" content="(function () {   &#x2F;&#x2F; 兼容标签合并前仅大小写不同的旧地址。   var aliases &#x3D; { array: &#39;Array&#39;, stack: &#39;Stack&#39;, dockerfile: &#39;Dockerfile&#39;, &#39;go-micro&#39;: &#39;Go-micro&#39; };   var match &#x3D; window.location.pathname.match(&#x2F;^\&#x2F;tags\&#x2F;(ar">
+  <meta name="description" content="(function () {   &#x2F;&#x2F; 改名后仍保留的地址由 _config.yml 映射，这里兼容被合并的旧地址。   var aliases &#x3D; {     tags: {       array: &#39;&#x2F;tags&#x2F;Array&#x2F;&#39;,       stack: &#39;&#x2F;tags&#x2F;Stack&#x2F;&#39;,       dockerfile: &#39;&#x2F;tags&#x2F;Dockerfile&#x2F;&#39;,       &#39;go-mic">
 <meta property="og:type" content="website">
 <meta property="og:title" content="页面没有找到">
 <meta property="og:url" content="https://blog.kingwen.cn/404.html">
 <meta property="og:site_name" content="Kingwen&#39;s blog">
-<meta property="og:description" content="(function () {   &#x2F;&#x2F; 兼容标签合并前仅大小写不同的旧地址。   var aliases &#x3D; { array: &#39;Array&#39;, stack: &#39;Stack&#39;, dockerfile: &#39;Dockerfile&#39;, &#39;go-micro&#39;: &#39;Go-micro&#39; };   var match &#x3D; window.location.pathname.match(&#x2F;^\&#x2F;tags\&#x2F;(ar">
+<meta property="og:description" content="(function () {   &#x2F;&#x2F; 改名后仍保留的地址由 _config.yml 映射，这里兼容被合并的旧地址。   var aliases &#x3D; {     tags: {       array: &#39;&#x2F;tags&#x2F;Array&#x2F;&#39;,       stack: &#39;&#x2F;tags&#x2F;Stack&#x2F;&#39;,       dockerfile: &#39;&#x2F;tags&#x2F;Dockerfile&#x2F;&#39;,       &#39;go-mic">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-09-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-09-28T13:32:14.889Z">
+<meta property="article:modified_time" content="2026-09-28T14:25:31.186Z">
 <meta property="article:author" content="李庆文">
 <meta name="twitter:card" content="summary">
   <link rel="canonical" href="https://blog.kingwen.cn/404">
@@ -244,12 +244,52 @@
       <div class="post-body">
           <script>
 (function () {
-  // 兼容标签合并前仅大小写不同的旧地址。
-  var aliases = { array: 'Array', stack: 'Stack', dockerfile: 'Dockerfile', 'go-micro': 'Go-micro' };
-  var match = window.location.pathname.match(/^\/tags\/(array|stack|dockerfile|go-micro)(\/|$)(.*)$/);
-  if (match) {
-    window.location.replace('/tags/' + aliases[match[1]] + '/' + match[3] + window.location.search + window.location.hash);
+  // 改名后仍保留的地址由 _config.yml 映射，这里兼容被合并的旧地址。
+  var aliases = {
+    tags: {
+      array: '/tags/Array/',
+      stack: '/tags/Stack/',
+      dockerfile: '/tags/Dockerfile/',
+      'go-micro': '/tags/Go-micro/',
+      golang: '/tags/Go/',
+      mac: '/tags/MacOs/',
+      FigureBed: '/tags/图床/',
+      LinkedList: '/tags/链表/',
+      Math: '/tags/数学/',
+      Tree: '/tags/BinaryTree/',
+      AVLTree: '/tags/BinaryTree/',
+      timout: '/tags/timeout/',
+      Why: '/tags/C/',
+      principle: '/tags/docker/',
+      mouse: '/tags/智力题/',
+      BrainStorm: '/tags/智力题/'
+    },
+    categories: {
+      Bugs: '/categories/微服务/',
+      'bug-records': '/categories/微服务/',
+      Linux系统: '/categories/微服务/',
+      必备技能: '/categories/爬虫/',
+      思维风暴: '/categories/算法训练/',
+      精品宝藏: '/categories/工具推荐/',
+      // 这些旧分类的文章已分到多个主题，统一回到分类总览。
+      python: '/categories/',
+      疑难杂症: '/categories/',
+      实用技能: '/categories/'
+    }
+  };
+  var match = window.location.pathname.match(/^\/(tags|categories)\/([^/]+)(\/.*)?$/);
+  if (!match) return;
+  var name;
+  try {
+    name = decodeURIComponent(match[2]);
+  } catch (error) {
+    return;
   }
+  var group = aliases[match[1]];
+  if (!Object.prototype.hasOwnProperty.call(group, name)) return;
+  var target = group[name];
+  var suffix = target === '/categories/' ? '' : (match[3] || '/').slice(1);
+  window.location.replace(encodeURI(target) + suffix + window.location.search + window.location.hash);
 })();
 </script>
 <p>这个页面暂时找不到了，可以回到<a href="/">首页</a>或<a href="/tags/">标签页</a>继续看看。</p>
@@ -315,13 +355,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">103</span>
+        <span class="site-state-item-count">94</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
