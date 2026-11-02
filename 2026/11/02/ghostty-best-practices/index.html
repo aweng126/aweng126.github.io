@@ -275,14 +275,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.6k</span>
+              <span>3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -298,7 +298,7 @@
 <a id="more"></a>
 <p>下面的快捷键按 macOS 版 Ghostty 1.4.0 的默认设置整理。如果改过键位，可以运行 <code>ghostty +list-keybinds</code> 查看当前绑定。</p>
 <p>符号说明：<code>⌘</code> = Command，<code>⌥</code> = Option / Alt，<code>⌃</code> = Control，<code>⇧</code> = Shift。加号表示同时按下；配置里的 <code>super</code>、<code>cmd</code> 都表示 macOS 的 Command。</p>
-<p>忘记快捷键时，先按 <code>⌘ + ⇧ + P</code> 打开命令面板，搜索操作名称。最常用的工作流是：<code>⌘T</code> 开标签页，<code>⌘D</code> 开右侧分屏，<code>⌘⌥方向键</code> 切换分屏，<code>⌘⇧Enter</code> 临时放大。</p>
+<p>忘记快捷键时，可以按 <code>⌘ + ⇧ + P</code> 打开命令面板，按操作名称搜索。</p>
 <h2 id="窗口与标签页">窗口与标签页</h2>
 <table>
 <thead>
@@ -312,12 +312,12 @@
 <tr>
 <td>新建窗口</td>
 <td><code>⌘ + N</code></td>
-<td>独立窗口，适合不同任务或显示器。</td>
+<td></td>
 </tr>
 <tr>
 <td>新建标签页</td>
 <td><code>⌘ + T</code></td>
-<td>同一窗口内组织不同项目。</td>
+<td></td>
 </tr>
 <tr>
 <td>上一个标签页</td>
@@ -332,17 +332,17 @@
 <tr>
 <td>跳到第 1～8 个标签页</td>
 <td><code>⌘ + 1 … 8</code></td>
-<td>按标签页顺序直接定位。</td>
+<td></td>
 </tr>
 <tr>
 <td>跳到最后一个标签页</td>
 <td><code>⌘ + 9</code></td>
-<td>注意：表示最后一个，而非固定第九个。</td>
+<td>无论有多少个标签页，都会跳到最后一个。</td>
 </tr>
 <tr>
 <td>关闭当前终端</td>
 <td><code>⌘ + W</code></td>
-<td>有分屏时关闭当前分屏；关闭最后一个终端时，标签页也会关闭。</td>
+<td>有分屏时只关闭当前分屏；关闭最后一个分屏时，标签页也会关闭。</td>
 </tr>
 <tr>
 <td>关闭当前标签页</td>
@@ -357,27 +357,27 @@
 <tr>
 <td>退出 Ghostty</td>
 <td><code>⌘ + Q</code></td>
-<td>退出整个应用。</td>
+<td></td>
 </tr>
 <tr>
 <td>切换全屏</td>
 <td><code>⌘ + ⌃ + F</code></td>
-<td>默认也绑定了 <code>⌘ + Enter</code>。</td>
+<td>也可用 <code>⌘ + Enter</code>。</td>
 </tr>
 <tr>
-<td>撤销支持的界面操作</td>
+<td>撤销界面操作</td>
 <td><code>⌘ + Z</code></td>
-<td>也可用 <code>⌘ + ⇧ + T</code>，例如在有效时间内恢复关闭的终端。</td>
+<td>也可用 <code>⌘ + ⇧ + T</code>，可恢复刚关闭的分屏、标签页或窗口。</td>
 </tr>
 <tr>
 <td>重做界面操作</td>
 <td><code>⌘ + ⇧ + Z</code></td>
-<td>只适用于 Ghostty 支持撤销的操作。</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<p>关闭时是否弹出确认取决于配置、正在运行的程序和 Shell Integration。撤销受 <code>undo-timeout</code> 限制，不会撤销 Shell 命令或文件修改。</p>
-<h2 id="分屏：创建、切换与调整">分屏：创建、切换与调整</h2>
+<p>关闭终端时是否弹出确认，与配置、运行中的程序和 Shell Integration 有关。界面操作只能在 <code>undo-timeout</code> 设置的时间内撤销；这里的撤销不影响 Shell 命令或文件修改。</p>
+<h2 id="分屏操作">分屏操作</h2>
 <table>
 <thead>
 <tr>
@@ -390,27 +390,27 @@
 <tr>
 <td>向右分屏</td>
 <td><code>⌘ + D</code></td>
-<td>新增一个右侧终端，形成左右布局。</td>
+<td>左右布局。</td>
 </tr>
 <tr>
 <td>向下分屏</td>
 <td><code>⌘ + ⇧ + D</code></td>
-<td>新增一个下方终端，形成上下布局。</td>
+<td>上下布局。</td>
 </tr>
 <tr>
-<td>切到指定方向的分屏</td>
+<td>切到相邻分屏</td>
 <td><code>⌘ + ⌥ + 方向键</code></td>
-<td>按上、下、左、右选择相邻终端。</td>
+<td></td>
 </tr>
 <tr>
 <td>切到上一个分屏</td>
 <td><code>⌘ + [</code></td>
-<td>按分屏顺序切换。</td>
+<td>加上 <code>⇧</code> 则切换标签页。</td>
 </tr>
 <tr>
 <td>切到下一个分屏</td>
 <td><code>⌘ + ]</code></td>
-<td>与加 Shift 后的标签页切换区分。</td>
+<td>加上 <code>⇧</code> 则切换标签页。</td>
 </tr>
 <tr>
 <td>放大 / 还原当前分屏</td>
@@ -425,12 +425,12 @@
 <tr>
 <td>均分分屏尺寸</td>
 <td><code>⌘ + ⌃ + =</code></td>
-<td>恢复均衡布局。</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<p>日常开发可以左侧编辑、右上运行命令、右下看日志。需要集中阅读时临时放大一个分屏；不必为了放大而关闭其他终端。</p>
-<h2 id="搜索、滚动与命令输出">搜索、滚动与命令输出</h2>
+<p>可以为每个项目开一个标签页，再把编辑、构建和日志放在不同分屏里。例如左侧编辑代码，右上运行命令，右下查看日志。阅读日志时，按 <code>⌘ + ⇧ + Enter</code> 放大当前分屏，再按一次恢复布局。</p>
+<h2 id="搜索与滚动">搜索与滚动</h2>
 <table>
 <thead>
 <tr>
@@ -443,72 +443,73 @@
 <tr>
 <td>搜索终端内容</td>
 <td><code>⌘ + F</code></td>
-<td>搜索当前终端保留的内容。</td>
+<td></td>
 </tr>
 <tr>
-<td>搜索当前选中文本</td>
+<td>搜索选中文本</td>
 <td><code>⌘ + E</code></td>
-<td>先选中报错、路径或关键词。</td>
+<td>可先选中报错、路径或关键词。</td>
 </tr>
 <tr>
 <td>下一个搜索结果</td>
 <td><code>⌘ + G</code></td>
-<td>需要已激活搜索。</td>
+<td>搜索时可用。</td>
 </tr>
 <tr>
 <td>上一个搜索结果</td>
 <td><code>⌘ + ⇧ + G</code></td>
-<td>需要已激活搜索。</td>
+<td>搜索时可用。</td>
 </tr>
 <tr>
 <td>关闭搜索</td>
 <td><code>Esc</code></td>
-<td>默认也可用 <code>⌘ + ⇧ + F</code>。</td>
+<td>也可用 <code>⌘ + ⇧ + F</code>。</td>
 </tr>
 <tr>
 <td>向上 / 向下翻页</td>
 <td><code>⌘ + Page Up / Page Down</code></td>
-<td>滚动终端回滚区。</td>
+<td></td>
 </tr>
 <tr>
 <td>滚到顶部 / 底部</td>
 <td><code>⌘ + Home / End</code></td>
-<td>紧凑键盘通常可用 Fn 配合方向键产生这些键。</td>
+<td>紧凑键盘通常可用 <code>Fn</code> 配合方向键输入这些键。</td>
 </tr>
 <tr>
-<td>上一个 / 下一个命令提示符</td>
+<td>跳到上一个 / 下一个提示符</td>
 <td><code>⌘ + ↑ / ↓</code></td>
-<td>也可加 Shift；依赖提示符标记与 Shell Integration。</td>
+<td>也可加 <code>⇧</code>；需要 Shell Integration 提供提示符标记。</td>
 </tr>
 <tr>
 <td>滚到选区</td>
 <td><code>⌘ + J</code></td>
-<td>快速回到当前选中的文本位置。</td>
+<td>回到选中文本的位置。</td>
 </tr>
 <tr>
 <td>清空屏幕与回滚内容</td>
 <td><code>⌘ + K</code></td>
-<td>会清除终端的历史输出，先保存需要的日志。</td>
+<td>清除后无法再通过滚动查看之前的输出。</td>
 </tr>
 <tr>
-<td>将当前屏幕内容写入临时文件并粘贴路径</td>
+<td>导出屏幕并粘贴路径</td>
 <td><code>⌘ + ⇧ + J</code></td>
-<td>导出当前屏幕，不等同于导出全部回滚历史。</td>
+<td>将当前屏幕写入临时文件，向终端粘贴文件路径。</td>
 </tr>
 <tr>
-<td>将当前屏幕内容写入临时文件并复制路径</td>
+<td>导出屏幕并复制路径</td>
 <td><code>⌘ + ⌃ + ⇧ + J</code></td>
-<td>复制的是文件路径，方便交给其他工具。</td>
+<td>将当前屏幕写入临时文件，向剪贴板复制文件路径。</td>
 </tr>
 <tr>
-<td>用默认程序打开当前屏幕导出文件</td>
+<td>导出屏幕并打开文件</td>
 <td><code>⌘ + ⌥ + ⇧ + J</code></td>
-<td>便于在编辑器中继续查看。</td>
+<td>将当前屏幕写入临时文件，用系统默认程序打开。</td>
 </tr>
 </tbody>
 </table>
-<p>搜索不会恢复已经超出回滚限制的输出。需要长期保存的日志，优先在运行命令时写入文件。<code>⌘K</code> 与 Shell 常用的 <code>⌃L</code> 行为不同：前者会清除回滚内容。</p>
-<h2 id="复制粘贴、选择与字体">复制粘贴、选择与字体</h2>
+<p>搜索范围限于终端仍保留的内容，屏幕导出也只包含当前屏幕。需要完整保存日志时，可以在运行命令时将输出写入文件。</p>
+<p><code>⌘ + K</code> 会清除回滚内容；Shell 中常用的 <code>⌃ + L</code> 通常只清理当前显示，仍能向上滚动查看历史输出。</p>
+<h2 id="文本操作与字体">文本操作与字体</h2>
 <table>
 <thead>
 <tr>
@@ -526,17 +527,17 @@
 <tr>
 <td>粘贴</td>
 <td><code>⌘ + V</code></td>
-<td>多行命令粘贴前先检查内容。</td>
+<td></td>
 </tr>
 <tr>
 <td>全选</td>
 <td><code>⌘ + A</code></td>
-<td>选择当前终端内容。</td>
+<td></td>
 </tr>
 <tr>
-<td>调整已有选区</td>
+<td>调整选区</td>
 <td><code>⇧ + 方向键</code></td>
-<td>用于扩展或收缩现有文本选择。</td>
+<td>需先选中文本，再扩展或收缩选区。</td>
 </tr>
 <tr>
 <td>增大字体</td>
@@ -546,64 +547,41 @@
 <tr>
 <td>缩小字体</td>
 <td><code>⌘ + -</code></td>
-<td>调整显示字号。</td>
+<td></td>
 </tr>
 <tr>
-<td>恢复配置中的字号</td>
+<td>恢复默认字号</td>
 <td><code>⌘ + 0</code></td>
-<td>回到 font-size 指定的大小。</td>
+<td>恢复为配置中 <code>font-size</code> 指定的大小。</td>
 </tr>
 </tbody>
 </table>
-<p>启用 Shell Integration 后，还可以按住 <code>⌘</code> 三击，选中一条命令的输出；在提示符处 <code>⌥ + 单击</code> 可以移动输入光标。是否可用取决于 Shell 与提示符集成。</p>
-<h2 id="配置管理：先查看默认值，再做小幅定制">配置管理：先查看默认值，再做小幅定制</h2>
-<table>
-<thead>
-<tr>
-<th>操作</th>
-<th>快捷键</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>打开配置文件</td>
-<td><code>⌘ + ,</code></td>
-<td>使用系统配置的编辑程序打开。</td>
-</tr>
-<tr>
-<td>重新加载配置</td>
-<td><code>⌘ + ⇧ + ,</code></td>
-<td>部分设置只对新终端生效，或需要重启应用。</td>
-</tr>
-<tr>
-<td>命令面板</td>
-<td><code>⌘ + ⇧ + P</code></td>
-<td>搜索操作并查看当前绑定的快捷键。</td>
-</tr>
-<tr>
-<td>终端检查器</td>
-<td><code>⌘ + ⌥ + I</code></td>
-<td>排查按键、渲染和终端行为。</td>
-</tr>
-</tbody>
-</table>
-<p>先记录本机版本和键位。带 <code>--default</code> 的命令列出默认绑定，不带该参数则列出加载当前配置后的绑定；它们不包含操作系统拦截的快捷键。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ghostty --version</span><br><span class="line">ghostty +list-keybinds --default</span><br><span class="line">ghostty +list-keybinds</span><br><span class="line">ghostty +show-config --default --docs</span><br><span class="line">ghostty +validate-config</span><br></pre></td></tr></table></figure>
-<p>如果提示 <code>command not found: ghostty</code>，macOS 默认安装位置可直接使用下面的可执行文件，不必为了查阅文档修改 Shell 配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Applications/Ghostty.app/Contents/MacOS/ghostty +list-keybinds --default</span><br></pre></td></tr></table></figure>
-<p>当前版本配置文件推荐使用 <code>config.ghostty</code>，旧文件名 <code>config</code> 仍受支持。默认路径包括：</p>
+<p>启用 Shell Integration 后，按住 <code>⌘</code> 连点三次可以选中一条命令的输出；在提示符处按住 <code>⌥</code> 单击，可以把输入光标移到点击位置。</p>
+<h2 id="配置与快捷键">配置与快捷键</h2>
+<h3 id="编辑配置">编辑配置</h3>
+<p>按 <code>⌘ + ,</code>，用系统默认编辑程序打开配置文件。配置采用 <code>名称 = 值</code> 的写法，例如：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字号与窗口内边距</span></span><br><span class="line"><span class="attr">font-size</span> = <span class="number">14</span></span><br><span class="line"><span class="attr">window-padding-x</span> = <span class="number">8</span></span><br><span class="line"><span class="attr">window-padding-y</span> = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将左 Option 当作 Alt，可能影响特殊字符输入</span></span><br><span class="line"><span class="attr">macos-option-as-alt</span> = left</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义全局快捷键：显示或隐藏快速终端</span></span><br><span class="line"><span class="attr">keybind</span> = global:ctrl+grave_accent=toggle_quick_terminal</span><br></pre></td></tr></table></figure>
+<p>这些设置可以按需加入已有配置。快捷键采用 <code>keybind = 按键=动作</code> 的写法，例如 <code>keybind = cmd+d=new_split:right</code>。示例中的 <code>global:ctrl+grave_accent</code> 是自定义绑定，快速终端没有默认快捷键。</p>
+<p>全局快捷键需要在“系统设置 → 隐私与安全性 → 辅助功能”中授权 Ghostty。如果按键组合已被其他应用或系统占用，可以换一组。</p>
+<h3 id="校验与重载">校验与重载</h3>
+<p>修改后，在终端中检查配置是否有效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ghostty +validate-config</span><br></pre></td></tr></table></figure>
+<p>校验通过后，按 <code>⌘ + ⇧ + ,</code> 重新加载。部分设置只对新终端生效，或需要重启 Ghostty。</p>
+<h3 id="配置文件位置">配置文件位置</h3>
+<p>配置文件使用 <code>config.ghostty</code>，旧文件名 <code>config</code> 也仍然可用。默认读取以下位置：</p>
 <ul>
-<li>通用路径：<code>~/.config/ghostty/config.ghostty</code>；若设置了 <code>XDG_CONFIG_HOME</code>，则使用对应目录。</li>
+<li>通用路径：<code>~/.config/ghostty/config.ghostty</code>。设置了 <code>XDG_CONFIG_HOME</code> 时，改为 <code>$XDG_CONFIG_HOME/ghostty/config.ghostty</code>。</li>
 <li>macOS 路径：<code>~/Library/Application Support/com.mitchellh.ghostty/config.ghostty</code>。</li>
 </ul>
-<p>macOS 路径中的配置在 XDG 路径之后加载，同名设置可能覆盖前面的值。日常维护一个主要配置文件更容易排查。通过 <code>⌘,</code> 打开配置，比凭记忆猜路径更方便。</p>
-<p>下面是可选配置示例，按需添加到已有配置中；其中快速终端的快捷键是自定义绑定，并非默认键位：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字号与留白，按屏幕调整</span></span><br><span class="line"><span class="attr">font-size</span> = <span class="number">14</span></span><br><span class="line"><span class="attr">window-padding-x</span> = <span class="number">8</span></span><br><span class="line"><span class="attr">window-padding-y</span> = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可选：将左 Option 当作 Alt，可能影响特殊字符输入</span></span><br><span class="line"><span class="attr">macos-option-as-alt</span> = left</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可选：全局快速终端，无默认快捷键</span></span><br><span class="line"><span class="attr">keybind</span> = global:ctrl+grave_accent=toggle_quick_terminal</span><br></pre></td></tr></table></figure>
-<p>全局快速终端绑定需要给 Ghostty 辅助功能权限；若该组合已被系统或其他应用占用，请换一组。配置写法是 <code>keybind = 按键=动作</code>，例如 <code>keybind = cmd+d=new_split:right</code>。保留默认绑定，只补充常用操作，后续维护会更轻松。</p>
-<p>修改后先运行 <code>ghostty +validate-config</code>，再按 <code>⌘⇧,</code> 重载。若操作不符合预期，查看命令面板和当前 <code>+list-keybinds</code> 输出。</p>
-<h2 id="补充：Shell-常用按键">补充：Shell 常用按键</h2>
-<p>下面属于 Shell / 终端程序的常见按键约定，不是 Ghostty 的界面快捷键。行编辑行为以 zsh / bash 的 Emacs 键位为例，Vi 模式、tmux 和其他程序可能不同。</p>
+<p>两处都有配置时，先读取通用路径，再读取 macOS 路径；后加载的同名设置会覆盖前面的值。</p>
+<h3 id="查询与排查">查询与排查</h3>
+<p>遇到快捷键或配置问题时，可以用下面几条命令查看当前设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看版本</span></span><br><span class="line">ghostty --version</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看默认快捷键</span></span><br><span class="line">ghostty +list-keybinds --default</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看加载个人配置后的快捷键</span></span><br><span class="line">ghostty +list-keybinds</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看默认配置及各项说明</span></span><br><span class="line">ghostty +show-config --default --docs</span><br></pre></td></tr></table></figure>
+<p>如果提示 <code>command not found: ghostty</code>，安装在默认位置的 macOS 版可以通过完整路径运行，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Applications/Ghostty.app/Contents/MacOS/ghostty +validate-config</span><br></pre></td></tr></table></figure>
+<p><code>+list-keybinds</code> 列出的是 Ghostty 的绑定，系统拦截的快捷键需要另外检查。排查按键或渲染问题时，还可以按 <code>⌘ + ⌥ + I</code> 打开终端检查器。</p>
+<h2 id="Shell-常用按键">Shell 常用按键</h2>
+<p>下面这些按键由 Shell 或终端程序处理。行编辑以 zsh / bash 的 Emacs 键位为例，使用 Vi 模式、tmux 或其他程序时，行为可能不同。</p>
 <table>
 <thead>
 <tr>
@@ -616,45 +594,37 @@
 <tr>
 <td>中断前台程序</td>
 <td><code>⌃ + C</code></td>
-<td>向前台任务发送中断信号，程序可以自行处理。</td>
+<td>发送中断信号，程序可以自行处理。</td>
 </tr>
 <tr>
 <td>搜索命令历史</td>
 <td><code>⌃ + R</code></td>
-<td>由 Shell 或历史搜索插件处理。</td>
+<td>可能由历史搜索插件接管。</td>
 </tr>
 <tr>
 <td>移到行首 / 行尾</td>
 <td><code>⌃ + A / E</code></td>
-<td>编辑当前输入的命令。</td>
+<td></td>
 </tr>
 <tr>
 <td>删除光标前的一个单词</td>
 <td><code>⌃ + W</code></td>
-<td>由 Shell 行编辑模式决定。</td>
+<td></td>
 </tr>
 <tr>
 <td>删除光标前到行首的内容</td>
 <td><code>⌃ + U</code></td>
-<td>适合重新输入一条命令。</td>
+<td></td>
 </tr>
 <tr>
-<td>重绘 / 清理当前显示</td>
+<td>清理当前显示</td>
 <td><code>⌃ + L</code></td>
-<td>常见 Shell 行编辑行为，通常保留回滚历史。</td>
+<td>通常保留回滚历史。</td>
 </tr>
 </tbody>
 </table>
-<p>不要把 <code>⌃D</code> 当作分屏快捷键：它通常表示输入结束，在空提示符处可能退出 Shell。Ghostty 的向右分屏是 <code>⌘D</code>。</p>
-<h2 id="日常使用习惯">日常使用习惯</h2>
-<ol>
-<li>**按项目分标签页，按任务分分屏。**同一项目的编辑、构建、日志放在一个标签页，避免开太多难以辨认的窗口。</li>
-<li>**先记住高频操作。**新建标签、左右分屏、分屏切换、临时放大、搜索、重载配置这几组足以覆盖多数开发场景。</li>
-<li>**保留 Shell Integration。**Ghostty 支持为 zsh 等 Shell 自动注入集成；目录继承和提示符跳转不工作时，先检查集成与提示符插件。</li>
-<li>**需要持久会话时配合 tmux。**尤其是远程 SSH 长任务，把任务放在 tmux 会话中，断线后可以重新连接。Ghostty 的标签页和分屏用于本机组织界面。</li>
-<li>**升级后重新核对。**记录 <code>ghostty --version</code> 与默认键位，及时更新本页；自定义配置与默认键位分别维护。</li>
-</ol>
-<h2 id="官方参考">官方参考</h2>
+<p><code>⌃ + D</code> 通常表示输入结束，在空提示符处可能退出 Shell；向右分屏使用的是 <code>⌘ + D</code>。</p>
+<h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a href="https://ghostty.org/docs/config/keybind" target="_blank" rel="noopener">自定义快捷键与默认绑定查询</a></li>
 <li><a href="https://ghostty.org/docs/config/keybind/reference" target="_blank" rel="noopener">快捷键动作参考</a></li>
@@ -725,7 +695,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#窗口与标签页"><span class="nav-number">1.</span> <span class="nav-text">窗口与标签页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分屏：创建、切换与调整"><span class="nav-number">2.</span> <span class="nav-text">分屏：创建、切换与调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索、滚动与命令输出"><span class="nav-number">3.</span> <span class="nav-text">搜索、滚动与命令输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制粘贴、选择与字体"><span class="nav-number">4.</span> <span class="nav-text">复制粘贴、选择与字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置管理：先查看默认值，再做小幅定制"><span class="nav-number">5.</span> <span class="nav-text">配置管理：先查看默认值，再做小幅定制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充：Shell-常用按键"><span class="nav-number">6.</span> <span class="nav-text">补充：Shell 常用按键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日常使用习惯"><span class="nav-number">7.</span> <span class="nav-text">日常使用习惯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方参考"><span class="nav-number">8.</span> <span class="nav-text">官方参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#窗口与标签页"><span class="nav-number">1.</span> <span class="nav-text">窗口与标签页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分屏操作"><span class="nav-number">2.</span> <span class="nav-text">分屏操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索与滚动"><span class="nav-number">3.</span> <span class="nav-text">搜索与滚动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本操作与字体"><span class="nav-number">4.</span> <span class="nav-text">文本操作与字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置与快捷键"><span class="nav-number">5.</span> <span class="nav-text">配置与快捷键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑配置"><span class="nav-number">5.1.</span> <span class="nav-text">编辑配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#校验与重载"><span class="nav-number">5.2.</span> <span class="nav-text">校验与重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件位置"><span class="nav-number">5.3.</span> <span class="nav-text">配置文件位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询与排查"><span class="nav-number">5.4.</span> <span class="nav-text">查询与排查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell-常用按键"><span class="nav-number">6.</span> <span class="nav-text">Shell 常用按键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -801,12 +771,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">221k</span>
+    <span title="站点总字数">220k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:05</span>
+    <span title="站点阅读时长">4:04</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
   </div>
