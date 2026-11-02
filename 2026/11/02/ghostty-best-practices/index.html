@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Kingwen's blog" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="整理 Ghostty 在 macOS 上的常用快捷键和配置方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ghostty 使用笔记：macOS 快捷键与配置">
+<meta property="og:url" content="https://blog.kingwen.cn/2026/11/02/ghostty-best-practices/index.html">
+<meta property="og:site_name" content="Kingwen&#39;s blog">
+<meta property="og:description" content="整理 Ghostty 在 macOS 上的常用快捷键和配置方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-11-02T11:35:00.000Z">
+<meta property="article:modified_time" content="2026-11-02T11:35:00.000Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="macOS">
+<meta property="article:tag" content="快捷键">
+<meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://blog.kingwen.cn/2026/11/02/ghostty-best-practices/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Ghostty 使用笔记：macOS 快捷键与配置 | Kingwen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kingwen's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">没有输出的输入是不完整的</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="fa fa-fw fa-folder"></i>资源</a>
+
+  </li>
+        <li class="menu-item menu-item-booklist">
+
+    <a href="/booklist/" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kingwen.cn/2026/11/02/ghostty-best-practices/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ghostty 使用笔记：macOS 快捷键与配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2026-11-02 19:35:00" itemprop="dateCreated datePublished" datetime="2026-11-02T19:35:00+08:00">2026-11-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/" itemprop="url" rel="index">
+                    <span itemprop="name">工具与效率</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>整理 Ghostty 在 macOS 上的常用快捷键和配置方法。</p>
+<a id="more"></a>
+<p>下面的快捷键按 macOS 版 Ghostty 1.4.0 的默认设置整理。如果改过键位，可以运行 <code>ghostty +list-keybinds</code> 查看当前绑定。</p>
+<p>符号说明：<code>⌘</code> = Command，<code>⌥</code> = Option / Alt，<code>⌃</code> = Control，<code>⇧</code> = Shift。加号表示同时按下；配置里的 <code>super</code>、<code>cmd</code> 都表示 macOS 的 Command。</p>
+<p>忘记快捷键时，先按 <code>⌘ + ⇧ + P</code> 打开命令面板，搜索操作名称。最常用的工作流是：<code>⌘T</code> 开标签页，<code>⌘D</code> 开右侧分屏，<code>⌘⌥方向键</code> 切换分屏，<code>⌘⇧Enter</code> 临时放大。</p>
+<h2 id="窗口与标签页">窗口与标签页</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新建窗口</td>
+<td><code>⌘ + N</code></td>
+<td>独立窗口，适合不同任务或显示器。</td>
+</tr>
+<tr>
+<td>新建标签页</td>
+<td><code>⌘ + T</code></td>
+<td>同一窗口内组织不同项目。</td>
+</tr>
+<tr>
+<td>上一个标签页</td>
+<td><code>⌃ + ⇧ + Tab</code></td>
+<td>也可以使用 <code>⌘ + ⇧ + [</code>。</td>
+</tr>
+<tr>
+<td>下一个标签页</td>
+<td><code>⌃ + Tab</code></td>
+<td>也可以使用 <code>⌘ + ⇧ + ]</code>。</td>
+</tr>
+<tr>
+<td>跳到第 1～8 个标签页</td>
+<td><code>⌘ + 1 … 8</code></td>
+<td>按标签页顺序直接定位。</td>
+</tr>
+<tr>
+<td>跳到最后一个标签页</td>
+<td><code>⌘ + 9</code></td>
+<td>注意：表示最后一个，而非固定第九个。</td>
+</tr>
+<tr>
+<td>关闭当前终端</td>
+<td><code>⌘ + W</code></td>
+<td>有分屏时关闭当前分屏；关闭最后一个终端时，标签页也会关闭。</td>
+</tr>
+<tr>
+<td>关闭当前标签页</td>
+<td><code>⌘ + ⌥ + W</code></td>
+<td>关闭该标签页及其中所有分屏。</td>
+</tr>
+<tr>
+<td>关闭当前窗口</td>
+<td><code>⌘ + ⇧ + W</code></td>
+<td>包括窗口内所有标签页和分屏。</td>
+</tr>
+<tr>
+<td>退出 Ghostty</td>
+<td><code>⌘ + Q</code></td>
+<td>退出整个应用。</td>
+</tr>
+<tr>
+<td>切换全屏</td>
+<td><code>⌘ + ⌃ + F</code></td>
+<td>默认也绑定了 <code>⌘ + Enter</code>。</td>
+</tr>
+<tr>
+<td>撤销支持的界面操作</td>
+<td><code>⌘ + Z</code></td>
+<td>也可用 <code>⌘ + ⇧ + T</code>，例如在有效时间内恢复关闭的终端。</td>
+</tr>
+<tr>
+<td>重做界面操作</td>
+<td><code>⌘ + ⇧ + Z</code></td>
+<td>只适用于 Ghostty 支持撤销的操作。</td>
+</tr>
+</tbody>
+</table>
+<p>关闭时是否弹出确认取决于配置、正在运行的程序和 Shell Integration。撤销受 <code>undo-timeout</code> 限制，不会撤销 Shell 命令或文件修改。</p>
+<h2 id="分屏：创建、切换与调整">分屏：创建、切换与调整</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>向右分屏</td>
+<td><code>⌘ + D</code></td>
+<td>新增一个右侧终端，形成左右布局。</td>
+</tr>
+<tr>
+<td>向下分屏</td>
+<td><code>⌘ + ⇧ + D</code></td>
+<td>新增一个下方终端，形成上下布局。</td>
+</tr>
+<tr>
+<td>切到指定方向的分屏</td>
+<td><code>⌘ + ⌥ + 方向键</code></td>
+<td>按上、下、左、右选择相邻终端。</td>
+</tr>
+<tr>
+<td>切到上一个分屏</td>
+<td><code>⌘ + [</code></td>
+<td>按分屏顺序切换。</td>
+</tr>
+<tr>
+<td>切到下一个分屏</td>
+<td><code>⌘ + ]</code></td>
+<td>与加 Shift 后的标签页切换区分。</td>
+</tr>
+<tr>
+<td>放大 / 还原当前分屏</td>
+<td><code>⌘ + ⇧ + Enter</code></td>
+<td>让当前分屏占满标签页，再按一次恢复布局。</td>
+</tr>
+<tr>
+<td>调整分屏尺寸</td>
+<td><code>⌘ + ⌃ + 方向键</code></td>
+<td>向指定方向调整，每次 10 像素。</td>
+</tr>
+<tr>
+<td>均分分屏尺寸</td>
+<td><code>⌘ + ⌃ + =</code></td>
+<td>恢复均衡布局。</td>
+</tr>
+</tbody>
+</table>
+<p>日常开发可以左侧编辑、右上运行命令、右下看日志。需要集中阅读时临时放大一个分屏；不必为了放大而关闭其他终端。</p>
+<h2 id="搜索、滚动与命令输出">搜索、滚动与命令输出</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>搜索终端内容</td>
+<td><code>⌘ + F</code></td>
+<td>搜索当前终端保留的内容。</td>
+</tr>
+<tr>
+<td>搜索当前选中文本</td>
+<td><code>⌘ + E</code></td>
+<td>先选中报错、路径或关键词。</td>
+</tr>
+<tr>
+<td>下一个搜索结果</td>
+<td><code>⌘ + G</code></td>
+<td>需要已激活搜索。</td>
+</tr>
+<tr>
+<td>上一个搜索结果</td>
+<td><code>⌘ + ⇧ + G</code></td>
+<td>需要已激活搜索。</td>
+</tr>
+<tr>
+<td>关闭搜索</td>
+<td><code>Esc</code></td>
+<td>默认也可用 <code>⌘ + ⇧ + F</code>。</td>
+</tr>
+<tr>
+<td>向上 / 向下翻页</td>
+<td><code>⌘ + Page Up / Page Down</code></td>
+<td>滚动终端回滚区。</td>
+</tr>
+<tr>
+<td>滚到顶部 / 底部</td>
+<td><code>⌘ + Home / End</code></td>
+<td>紧凑键盘通常可用 Fn 配合方向键产生这些键。</td>
+</tr>
+<tr>
+<td>上一个 / 下一个命令提示符</td>
+<td><code>⌘ + ↑ / ↓</code></td>
+<td>也可加 Shift；依赖提示符标记与 Shell Integration。</td>
+</tr>
+<tr>
+<td>滚到选区</td>
+<td><code>⌘ + J</code></td>
+<td>快速回到当前选中的文本位置。</td>
+</tr>
+<tr>
+<td>清空屏幕与回滚内容</td>
+<td><code>⌘ + K</code></td>
+<td>会清除终端的历史输出，先保存需要的日志。</td>
+</tr>
+<tr>
+<td>将当前屏幕内容写入临时文件并粘贴路径</td>
+<td><code>⌘ + ⇧ + J</code></td>
+<td>导出当前屏幕，不等同于导出全部回滚历史。</td>
+</tr>
+<tr>
+<td>将当前屏幕内容写入临时文件并复制路径</td>
+<td><code>⌘ + ⌃ + ⇧ + J</code></td>
+<td>复制的是文件路径，方便交给其他工具。</td>
+</tr>
+<tr>
+<td>用默认程序打开当前屏幕导出文件</td>
+<td><code>⌘ + ⌥ + ⇧ + J</code></td>
+<td>便于在编辑器中继续查看。</td>
+</tr>
+</tbody>
+</table>
+<p>搜索不会恢复已经超出回滚限制的输出。需要长期保存的日志，优先在运行命令时写入文件。<code>⌘K</code> 与 Shell 常用的 <code>⌃L</code> 行为不同：前者会清除回滚内容。</p>
+<h2 id="复制粘贴、选择与字体">复制粘贴、选择与字体</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>复制选中文本</td>
+<td><code>⌘ + C</code></td>
+<td>终端内中断程序通常使用 <code>⌃ + C</code>。</td>
+</tr>
+<tr>
+<td>粘贴</td>
+<td><code>⌘ + V</code></td>
+<td>多行命令粘贴前先检查内容。</td>
+</tr>
+<tr>
+<td>全选</td>
+<td><code>⌘ + A</code></td>
+<td>选择当前终端内容。</td>
+</tr>
+<tr>
+<td>调整已有选区</td>
+<td><code>⇧ + 方向键</code></td>
+<td>用于扩展或收缩现有文本选择。</td>
+</tr>
+<tr>
+<td>增大字体</td>
+<td><code>⌘ + =</code></td>
+<td>默认也接受 <code>⌘ + +</code>。</td>
+</tr>
+<tr>
+<td>缩小字体</td>
+<td><code>⌘ + -</code></td>
+<td>调整显示字号。</td>
+</tr>
+<tr>
+<td>恢复配置中的字号</td>
+<td><code>⌘ + 0</code></td>
+<td>回到 font-size 指定的大小。</td>
+</tr>
+</tbody>
+</table>
+<p>启用 Shell Integration 后，还可以按住 <code>⌘</code> 三击，选中一条命令的输出；在提示符处 <code>⌥ + 单击</code> 可以移动输入光标。是否可用取决于 Shell 与提示符集成。</p>
+<h2 id="配置管理：先查看默认值，再做小幅定制">配置管理：先查看默认值，再做小幅定制</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>打开配置文件</td>
+<td><code>⌘ + ,</code></td>
+<td>使用系统配置的编辑程序打开。</td>
+</tr>
+<tr>
+<td>重新加载配置</td>
+<td><code>⌘ + ⇧ + ,</code></td>
+<td>部分设置只对新终端生效，或需要重启应用。</td>
+</tr>
+<tr>
+<td>命令面板</td>
+<td><code>⌘ + ⇧ + P</code></td>
+<td>搜索操作并查看当前绑定的快捷键。</td>
+</tr>
+<tr>
+<td>终端检查器</td>
+<td><code>⌘ + ⌥ + I</code></td>
+<td>排查按键、渲染和终端行为。</td>
+</tr>
+</tbody>
+</table>
+<p>先记录本机版本和键位。带 <code>--default</code> 的命令列出默认绑定，不带该参数则列出加载当前配置后的绑定；它们不包含操作系统拦截的快捷键。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ghostty --version</span><br><span class="line">ghostty +list-keybinds --default</span><br><span class="line">ghostty +list-keybinds</span><br><span class="line">ghostty +show-config --default --docs</span><br><span class="line">ghostty +validate-config</span><br></pre></td></tr></table></figure>
+<p>如果提示 <code>command not found: ghostty</code>，macOS 默认安装位置可直接使用下面的可执行文件，不必为了查阅文档修改 Shell 配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Applications/Ghostty.app/Contents/MacOS/ghostty +list-keybinds --default</span><br></pre></td></tr></table></figure>
+<p>当前版本配置文件推荐使用 <code>config.ghostty</code>，旧文件名 <code>config</code> 仍受支持。默认路径包括：</p>
+<ul>
+<li>通用路径：<code>~/.config/ghostty/config.ghostty</code>；若设置了 <code>XDG_CONFIG_HOME</code>，则使用对应目录。</li>
+<li>macOS 路径：<code>~/Library/Application Support/com.mitchellh.ghostty/config.ghostty</code>。</li>
+</ul>
+<p>macOS 路径中的配置在 XDG 路径之后加载，同名设置可能覆盖前面的值。日常维护一个主要配置文件更容易排查。通过 <code>⌘,</code> 打开配置，比凭记忆猜路径更方便。</p>
+<p>下面是可选配置示例，按需添加到已有配置中；其中快速终端的快捷键是自定义绑定，并非默认键位：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字号与留白，按屏幕调整</span></span><br><span class="line"><span class="attr">font-size</span> = <span class="number">14</span></span><br><span class="line"><span class="attr">window-padding-x</span> = <span class="number">8</span></span><br><span class="line"><span class="attr">window-padding-y</span> = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可选：将左 Option 当作 Alt，可能影响特殊字符输入</span></span><br><span class="line"><span class="attr">macos-option-as-alt</span> = left</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可选：全局快速终端，无默认快捷键</span></span><br><span class="line"><span class="attr">keybind</span> = global:ctrl+grave_accent=toggle_quick_terminal</span><br></pre></td></tr></table></figure>
+<p>全局快速终端绑定需要给 Ghostty 辅助功能权限；若该组合已被系统或其他应用占用，请换一组。配置写法是 <code>keybind = 按键=动作</code>，例如 <code>keybind = cmd+d=new_split:right</code>。保留默认绑定，只补充常用操作，后续维护会更轻松。</p>
+<p>修改后先运行 <code>ghostty +validate-config</code>，再按 <code>⌘⇧,</code> 重载。若操作不符合预期，查看命令面板和当前 <code>+list-keybinds</code> 输出。</p>
+<h2 id="补充：Shell-常用按键">补充：Shell 常用按键</h2>
+<p>下面属于 Shell / 终端程序的常见按键约定，不是 Ghostty 的界面快捷键。行编辑行为以 zsh / bash 的 Emacs 键位为例，Vi 模式、tmux 和其他程序可能不同。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中断前台程序</td>
+<td><code>⌃ + C</code></td>
+<td>向前台任务发送中断信号，程序可以自行处理。</td>
+</tr>
+<tr>
+<td>搜索命令历史</td>
+<td><code>⌃ + R</code></td>
+<td>由 Shell 或历史搜索插件处理。</td>
+</tr>
+<tr>
+<td>移到行首 / 行尾</td>
+<td><code>⌃ + A / E</code></td>
+<td>编辑当前输入的命令。</td>
+</tr>
+<tr>
+<td>删除光标前的一个单词</td>
+<td><code>⌃ + W</code></td>
+<td>由 Shell 行编辑模式决定。</td>
+</tr>
+<tr>
+<td>删除光标前到行首的内容</td>
+<td><code>⌃ + U</code></td>
+<td>适合重新输入一条命令。</td>
+</tr>
+<tr>
+<td>重绘 / 清理当前显示</td>
+<td><code>⌃ + L</code></td>
+<td>常见 Shell 行编辑行为，通常保留回滚历史。</td>
+</tr>
+</tbody>
+</table>
+<p>不要把 <code>⌃D</code> 当作分屏快捷键：它通常表示输入结束，在空提示符处可能退出 Shell。Ghostty 的向右分屏是 <code>⌘D</code>。</p>
+<h2 id="日常使用习惯">日常使用习惯</h2>
+<ol>
+<li>**按项目分标签页，按任务分分屏。**同一项目的编辑、构建、日志放在一个标签页，避免开太多难以辨认的窗口。</li>
+<li>**先记住高频操作。**新建标签、左右分屏、分屏切换、临时放大、搜索、重载配置这几组足以覆盖多数开发场景。</li>
+<li>**保留 Shell Integration。**Ghostty 支持为 zsh 等 Shell 自动注入集成；目录继承和提示符跳转不工作时，先检查集成与提示符插件。</li>
+<li>**需要持久会话时配合 tmux。**尤其是远程 SSH 长任务，把任务放在 tmux 会话中，断线后可以重新连接。Ghostty 的标签页和分屏用于本机组织界面。</li>
+<li>**升级后重新核对。**记录 <code>ghostty --version</code> 与默认键位，及时更新本页；自定义配置与默认键位分别维护。</li>
+</ol>
+<h2 id="官方参考">官方参考</h2>
+<ul>
+<li><a href="https://ghostty.org/docs/config/keybind" target="_blank" rel="noopener">自定义快捷键与默认绑定查询</a></li>
+<li><a href="https://ghostty.org/docs/config/keybind/reference" target="_blank" rel="noopener">快捷键动作参考</a></li>
+<li><a href="https://ghostty.org/docs/config" target="_blank" rel="noopener">配置文件位置、语法与重载</a></li>
+<li><a href="https://ghostty.org/docs/features/shell-integration" target="_blank" rel="noopener">Shell Integration</a></li>
+<li><a href="https://github.com/ghostty-org/ghostty/blob/v1.4.0/src/config/Config.zig" target="_blank" rel="noopener">Ghostty 1.4.0 配置与默认快捷键源码</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MacOs/" rel="tag"># macOS</a>
+              <a href="/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/" rel="tag"># 快捷键</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2023/12/04/restrict-ip-under-linux/" rel="next" title="restrict-iP-under-linux">
+                  <i class="fa fa-chevron-left"></i> restrict-iP-under-linux
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#窗口与标签页"><span class="nav-number">1.</span> <span class="nav-text">窗口与标签页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分屏：创建、切换与调整"><span class="nav-number">2.</span> <span class="nav-text">分屏：创建、切换与调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索、滚动与命令输出"><span class="nav-number">3.</span> <span class="nav-text">搜索、滚动与命令输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制粘贴、选择与字体"><span class="nav-number">4.</span> <span class="nav-text">复制粘贴、选择与字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置管理：先查看默认值，再做小幅定制"><span class="nav-number">5.</span> <span class="nav-text">配置管理：先查看默认值，再做小幅定制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充：Shell-常用按键"><span class="nav-number">6.</span> <span class="nav-text">补充：Shell 常用按键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日常使用习惯"><span class="nav-number">7.</span> <span class="nav-text">日常使用习惯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方参考"><span class="nav-number">8.</span> <span class="nav-text">官方参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="李庆文"
+    src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">李庆文</p>
+  <div class="site-description" itemprop="description">热爱生活，享受生活。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">94</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/aweng126" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;aweng126" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kingwensli@gmail.com" title="E-Mail &amp;rarr; mailto:kingwensli@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李庆文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">221k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:05</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        本站访客共计<span id="busuanzi_value_site_uv"></span>人
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>

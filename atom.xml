@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Kingwen&#39;s blog</title>
+  
+  <subtitle>没有输出的输入是不完整的</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://blog.kingwen.cn/"/>
+  <updated>2026-11-02T11:35:00.000Z</updated>
+  <id>https://blog.kingwen.cn/</id>
+  
+  <author>
+    <name>李庆文</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ghostty 使用笔记：macOS 快捷键与配置</title>
+    <link href="https://blog.kingwen.cn/2026/11/02/ghostty-best-practices/"/>
+    <id>https://blog.kingwen.cn/2026/11/02/ghostty-best-practices/</id>
+    <published>2026-11-02T11:35:00.000Z</published>
+    <updated>2026-11-02T11:35:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>整理 Ghostty 在 macOS 上的常用快捷键和配置方法。</p><a id="more"></a><p>下面的快捷键按 macOS 版 Ghostty 1.4.0 的默认设置整理。如果改过键位，可以运行 <code>ghostty +list-keybinds</code> 查看当前绑定。</p><p>符号说明：<code>⌘</code> = Command，<code>⌥</code> = Option / Alt，<code>⌃</code> = Control，<code>⇧</code> = Shift。加号表示同时按下；配置里的 <code>super</code>、<code>cmd</code> 都表示 macOS 的 Command。</p><p>忘记快捷键时，先按 <code>⌘ + ⇧ + P</code> 打开命令面板，搜索操作名称。最常用的工作流是：<code>⌘T</code> 开标签页，<code>⌘D</code> 开右侧分屏，<code>⌘⌥方向键</code> 切换分屏，<code>⌘⇧Enter</code> 临时放大。</p><h2 id="窗口与标签页">窗口与标签页</h2><table><thead><tr><th>操作</th><th>快捷键</th><th>说明</th></tr></thead><tbody><tr><td>新建窗口</td><td><code>⌘ + N</code></td><td>独立窗口，适合不同任务或显示器。</td></tr><tr><td>新建标签页</td><td><code>⌘ + T</code></td><td>同一窗口内组织不同项目。</td></tr><tr><td>上一个标签页</td><td><code>⌃ + ⇧ + Tab</code></td><td>也可以使用 <code>⌘ + ⇧ + [</code>。</td></tr><tr><td>下一个标签页</td><td><code>⌃ + Tab</code></td><td>也可以使用 <code>⌘ + ⇧ + ]</code>。</td></tr><tr><td>跳到第 1～8 个标签页</td><td><code>⌘ + 1 … 8</code></td><td>按标签页顺序直接定位。</td></tr><tr><td>跳到最后一个标签页</td><td><code>⌘ + 9</code></td><td>注意：表示最后一个，而非固定第九个。</td></tr><tr><td>关闭当前终端</td><td><code>⌘ + W</code></td><td>有分屏时关闭当前分屏；关闭最后一个终端时，标签页也会关闭。</td></tr><tr><td>关闭当前标签页</td><td><code>⌘ + ⌥ + W</code></td><td>关闭该标签页及其中所有分屏。</td></tr><tr><td>关闭当前窗口</td><td><code>⌘ + ⇧ + W</code></td><td>包括窗口内所有标签页和分屏。</td></tr><tr><td>退出 Ghostty</td><td><code>⌘ + Q</code></td><td>退出整个应用。</td></tr><tr><td>切换全屏</td><td><code>⌘ + ⌃ + F</code></td><td>默认也绑定了 <code>⌘ + Enter</code>。</td></tr><tr><td>撤销支持的界面操作</td><td><code>⌘ + Z</code></td><td>也可用 <code>⌘ + ⇧ + T</code>，例如在有效时间内恢复关闭的终端。</td></tr><tr><td>重做界面操作</td><td><code>⌘ + ⇧ + Z</code></td><td>只适用于 Ghostty 支持撤销的操作。</td></tr></tbody></table><p>关闭时是否弹出确认取决于配置、正在运行的程序和 Shell Integration。撤销受 <code>undo-timeout</code> 限制，不会撤销 Shell 命令或文件修改。</p><h2 id="分屏：创建、切换与调整">分屏：创建、切换与调整</h2><table><thead><tr><th>操作</th><th>快捷键</th><th>说明</th></tr></thead><tbody><tr><td>向右分屏</td><td><code>⌘ + D</code></td><td>新增一个右侧终端，形成左右布局。</td></tr><tr><td>向下分屏</td><td><code>⌘ + ⇧ + D</code></td><td>新增一个下方终端，形成上下布局。</td></tr><tr><td>切到指定方向的分屏</td><td><code>⌘ + ⌥ + 方向键</code></td><td>按上、下、左、右选择相邻终端。</td></tr><tr><td>切到上一个分屏</td><td><code>⌘ + [</code></td><td>按分屏顺序切换。</td></tr><tr><td>切到下一个分屏</td><td><code>⌘ + ]</code></td><td>与加 Shift 后的标签页切换区分。</td></tr><tr><td>放大 / 还原当前分屏</td><td><code>⌘ + ⇧ + Enter</code></td><td>让当前分屏占满标签页，再按一次恢复布局。</td></tr><tr><td>调整分屏尺寸</td><td><code>⌘ + ⌃ + 方向键</code></td><td>向指定方向调整，每次 10 像素。</td></tr><tr><td>均分分屏尺寸</td><td><code>⌘ + ⌃ + =</code></td><td>恢复均衡布局。</td></tr></tbody></table><p>日常开发可以左侧编辑、右上运行命令、右下看日志。需要集中阅读时临时放大一个分屏；不必为了放大而关闭其他终端。</p><h2 id="搜索、滚动与命令输出">搜索、滚动与命令输出</h2><table><thead><tr><th>操作</th><th>快捷键</th><th>说明</th></tr></thead><tbody><tr><td>搜索终端内容</td><td><code>⌘ + F</code></td><td>搜索当前终端保留的内容。</td></tr><tr><td>搜索当前选中文本</td><td><code>⌘ + E</code></td><td>先选中报错、路径或关键词。</td></tr><tr><td>下一个搜索结果</td><td><code>⌘ + G</code></td><td>需要已激活搜索。</td></tr><tr><td>上一个搜索结果</td><td><code>⌘ + ⇧ + G</code></td><td>需要已激活搜索。</td></tr><tr><td>关闭搜索</td><td><code>Esc</code></td><td>默认也可用 <code>⌘ + ⇧ + F</code>。</td></tr><tr><td>向上 / 向下翻页</td><td><code>⌘ + Page Up / Page Down</code></td><td>滚动终端回滚区。</td></tr><tr><td>滚到顶部 / 底部</td><td><code>⌘ + Home / End</code></td><td>紧凑键盘通常可用 Fn 配合方向键产生这些键。</td></tr><tr><td>上一个 / 下一个命令提示符</td><td><code>⌘ + ↑ / ↓</code></td><td>也可加 Shift；依赖提示符标记与 Shell Integration。</td></tr><tr><td>滚到选区</td><td><code>⌘ + J</code></td><td>快速回到当前选中的文本位置。</td></tr><tr><td>清空屏幕与回滚内容</td><td><code>⌘ + K</code></td><td>会清除终端的历史输出，先保存需要的日志。</td></tr><tr><td>将当前屏幕内容写入临时文件并粘贴路径</td><td><code>⌘ + ⇧ + J</code></td><td>导出当前屏幕，不等同于导出全部回滚历史。</td></tr><tr><td>将当前屏幕内容写入临时文件并复制路径</td><td><code>⌘ + ⌃ + ⇧ + J</code></td><td>复制的是文件路径，方便交给其他工具。</td></tr><tr><td>用默认程序打开当前屏幕导出文件</td><td><code>⌘ + ⌥ + ⇧ + J</code></td><td>便于在编辑器中继续查看。</td></tr></tbody></table><p>搜索不会恢复已经超出回滚限制的输出。需要长期保存的日志，优先在运行命令时写入文件。<code>⌘K</code> 与 Shell 常用的 <code>⌃L</code> 行为不同：前者会清除回滚内容。</p><h2 id="复制粘贴、选择与字体">复制粘贴、选择与字体</h2><table><thead><tr><th>操作</th><th>快捷键</th><th>说明</th></tr></thead><tbody><tr><td>复制选中文本</td><td><code>⌘ + C</code></td><td>终端内中断程序通常使用 <code>⌃ + C</code>。</td></tr><tr><td>粘贴</td><td><code>⌘ + V</code></td><td>多行命令粘贴前先检查内容。</td></tr><tr><td>全选</td><td><code>⌘ + A</code></td><td>选择当前终端内容。</td></tr><tr><td>调整已有选区</td><td><code>⇧ + 方向键</code></td><td>用于扩展或收缩现有文本选择。</td></tr><tr><td>增大字体</td><td><code>⌘ + =</code></td><td>默认也接受 <code>⌘ + +</code>。</td></tr><tr><td>缩小字体</td><td><code>⌘ + -</code></td><td>调整显示字号。</td></tr><tr><td>恢复配置中的字号</td><td><code>⌘ + 0</code></td><td>回到 font-size 指定的大小。</td></tr></tbody></table><p>启用 Shell Integration 后，还可以按住 <code>⌘</code> 三击，选中一条命令的输出；在提示符处 <code>⌥ + 单击</code> 可以移动输入光标。是否可用取决于 Shell 与提示符集成。</p><h2 id="配置管理：先查看默认值，再做小幅定制">配置管理：先查看默认值，再做小幅定制</h2><table><thead><tr><th>操作</th><th>快捷键</th><th>说明</th></tr></thead><tbody><tr><td>打开配置文件</td><td><code>⌘ + ,</code></td><td>使用系统配置的编辑程序打开。</td></tr><tr><td>重新加载配置</td><td><code>⌘ + ⇧ + ,</code></td><td>部分设置只对新终端生效，或需要重启应用。</td></tr><tr><td>命令面板</td><td><code>⌘ + ⇧ + P</code></td><td>搜索操作并查看当前绑定的快捷键。</td></tr><tr><td>终端检查器</td><td><code>⌘ + ⌥ + I</code></td><td>排查按键、渲染和终端行为。</td></tr></tbody></table><p>先记录本机版本和键位。带 <code>--default</code> 的命令列出默认绑定，不带该参数则列出加载当前配置后的绑定；它们不包含操作系统拦截的快捷键。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ghostty --version</span><br><span class="line">ghostty +list-keybinds --default</span><br><span class="line">ghostty +list-keybinds</span><br><span class="line">ghostty +show-config --default --docs</span><br><span class="line">ghostty +validate-config</span><br></pre></td></tr></table></figure><p>如果提示 <code>command not found: ghostty</code>，macOS 默认安装位置可直接使用下面的可执行文件，不必为了查阅文档修改 Shell 配置：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Applications/Ghostty.app/Contents/MacOS/ghostty +list-keybinds --default</span><br></pre></td></tr></table></figure><p>当前版本配置文件推荐使用 <code>config.ghostty</code>，旧文件名 <code>config</code> 仍受支持。默认路径包括：</p><ul><li>通用路径：<code>~/.config/ghostty/config.ghostty</code>；若设置了 <code>XDG_CONFIG_HOME</code>，则使用对应目录。</li><li>macOS 路径：<code>~/Library/Application Support/com.mitchellh.ghostty/config.ghostty</code>。</li></ul><p>macOS 路径中的配置在 XDG 路径之后加载，同名设置可能覆盖前面的值。日常维护一个主要配置文件更容易排查。通过 <code>⌘,</code> 打开配置，比凭记忆猜路径更方便。</p><p>下面是可选配置示例，按需添加到已有配置中；其中快速终端的快捷键是自定义绑定，并非默认键位：</p><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字号与留白，按屏幕调整</span></span><br><span class="line"><span class="attr">font-size</span> = <span class="number">14</span></span><br><span class="line"><span class="attr">window-padding-x</span> = <span class="number">8</span></span><br><span class="line"><span class="attr">window-padding-y</span> = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可选：将左 Option 当作 Alt，可能影响特殊字符输入</span></span><br><span class="line"><span class="attr">macos-option-as-alt</span> = left</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可选：全局快速终端，无默认快捷键</span></span><br><span class="line"><span class="attr">keybind</span> = global:ctrl+grave_accent=toggle_quick_terminal</span><br></pre></td></tr></table></figure><p>全局快速终端绑定需要给 Ghostty 辅助功能权限；若该组合已被系统或其他应用占用，请换一组。配置写法是 <code>keybind = 按键=动作</code>，例如 <code>keybind = cmd+d=new_split:right</code>。保留默认绑定，只补充常用操作，后续维护会更轻松。</p><p>修改后先运行 <code>ghostty +validate-config</code>，再按 <code>⌘⇧,</code> 重载。若操作不符合预期，查看命令面板和当前 <code>+list-keybinds</code> 输出。</p><h2 id="补充：Shell-常用按键">补充：Shell 常用按键</h2><p>下面属于 Shell / 终端程序的常见按键约定，不是 Ghostty 的界面快捷键。行编辑行为以 zsh / bash 的 Emacs 键位为例，Vi 模式、tmux 和其他程序可能不同。</p><table><thead><tr><th>操作</th><th>快捷键</th><th>说明</th></tr></thead><tbody><tr><td>中断前台程序</td><td><code>⌃ + C</code></td><td>向前台任务发送中断信号，程序可以自行处理。</td></tr><tr><td>搜索命令历史</td><td><code>⌃ + R</code></td><td>由 Shell 或历史搜索插件处理。</td></tr><tr><td>移到行首 / 行尾</td><td><code>⌃ + A / E</code></td><td>编辑当前输入的命令。</td></tr><tr><td>删除光标前的一个单词</td><td><code>⌃ + W</code></td><td>由 Shell 行编辑模式决定。</td></tr><tr><td>删除光标前到行首的内容</td><td><code>⌃ + U</code></td><td>适合重新输入一条命令。</td></tr><tr><td>重绘 / 清理当前显示</td><td><code>⌃ + L</code></td><td>常见 Shell 行编辑行为，通常保留回滚历史。</td></tr></tbody></table><p>不要把 <code>⌃D</code> 当作分屏快捷键：它通常表示输入结束，在空提示符处可能退出 Shell。Ghostty 的向右分屏是 <code>⌘D</code>。</p><h2 id="日常使用习惯">日常使用习惯</h2><ol><li>**按项目分标签页，按任务分分屏。**同一项目的编辑、构建、日志放在一个标签页，避免开太多难以辨认的窗口。</li><li>**先记住高频操作。**新建标签、左右分屏、分屏切换、临时放大、搜索、重载配置这几组足以覆盖多数开发场景。</li><li>**保留 Shell Integration。**Ghostty 支持为 zsh 等 Shell 自动注入集成；目录继承和提示符跳转不工作时，先检查集成与提示符插件。</li><li>**需要持久会话时配合 tmux。**尤其是远程 SSH 长任务，把任务放在 tmux 会话中，断线后可以重新连接。Ghostty 的标签页和分屏用于本机组织界面。</li><li>**升级后重新核对。**记录 <code>ghostty --version</code> 与默认键位，及时更新本页；自定义配置与默认键位分别维护。</li></ol><h2 id="官方参考">官方参考</h2><ul><li><a href="https://ghostty.org/docs/config/keybind" target="_blank" rel="noopener">自定义快捷键与默认绑定查询</a></li><li><a href="https://ghostty.org/docs/config/keybind/reference" target="_blank" rel="noopener">快捷键动作参考</a></li><li><a href="https://ghostty.org/docs/config" target="_blank" rel="noopener">配置文件位置、语法与重载</a></li><li><a href="https://ghostty.org/docs/features/shell-integration" target="_blank" rel="noopener">Shell Integration</a></li><li><a href="https://github.com/ghostty-org/ghostty/blob/v1.4.0/src/config/Config.zig" target="_blank" rel="noopener">Ghostty 1.4.0 配置与默认快捷键源码</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;整理 Ghostty 在 macOS 上的常用快捷键和配置方法。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="工具与效率" scheme="https://blog.kingwen.cn/categories/%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
+    
+    
+      <category term="macOS" scheme="https://blog.kingwen.cn/tags/MacOs/"/>
+    
+      <category term="快捷键" scheme="https://blog.kingwen.cn/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>restrict-iP-under-linux</title>
+    <link href="https://blog.kingwen.cn/2023/12/04/restrict-ip-under-linux/"/>
+    <id>https://blog.kingwen.cn/2023/12/04/restrict-ip-under-linux/</id>
+    <published>2023-12-04T11:00:00.000Z</published>
+    <updated>2026-11-02T11:46:49.336Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文将介绍通过ip白名单和黑名单限制SSH访问的方法。</p><a id="more"></a><blockquote><p>版本说明：下面的 <code>/etc/hosts.allow</code>、<code>/etc/hosts.deny</code> 是历史 TCP Wrappers 用法，只适用于确实启用了 libwrap 的 sshd。上游 OpenSSH 从 6.7 起移除了这项支持，部分发行版曾保留补丁；不能仅凭 Linux 系统或文件存在就判断有效。现代系统请使用发行版防火墙，或按 <a href="https://man.openbsd.org/sshd_config#AllowUsers" target="_blank" rel="noopener">sshd_config</a> 的 <code>AllowUsers USER@HOST</code> 等配置限制 SSH 登录。</p></blockquote><p>以下白名单和黑名单是两种独立策略，按需要选择一种。示例 IP 请替换成自己的地址。</p><ol><li>白名单：只允许指定来源</li></ol><p>在 <code>/etc/hosts.allow</code> 中配置允许的地址；单个 IP 与整个子网按需要选择：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 允许单个 IP</span><br><span class="line">sshd:216.64.87.126:allow</span><br><span class="line"></span><br><span class="line"># 或允许整个子网</span><br><span class="line"># sshd:216.64.87.0&#x2F;255.255.255.0:allow</span><br></pre></td></tr></table></figure><p>在 <code>/etc/hosts.deny</code> 中拒绝其他来源：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sshd:ALL:deny</span><br></pre></td></tr></table></figure><p>仅写 hosts.allow 不够：TCP Wrappers 在两个文件都未命中时默认允许。</p><ol start="2"><li>黑名单：只拒绝指定来源</li></ol><p>先确认 <code>/etc/hosts.allow</code> 没有允许这些来源的规则，再在 <code>/etc/hosts.deny</code> 中配置：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 拒绝单个 IP</span><br><span class="line">sshd:216.64.87.126:deny</span><br><span class="line"></span><br><span class="line"># 或拒绝整个子网</span><br><span class="line"># sshd:216.64.87.0&#x2F;255.255.255.0:deny</span><br></pre></td></tr></table></figure><p>hosts.allow 优先于 hosts.deny，命中后就停止匹配，不能把同一地址同时写成允许和拒绝。</p><ol start="3"><li>配置生效</li></ol><p>支持 TCP Wrappers 的服务会在新连接时读取这些规则，一般不必为了修改这两个文件而重启 sshd。保持当前管理会话，并从第二个会话分别测试允许和拒绝的地址；确认有效后再退出。若 sshd 不支持 libwrap，重启也不会让这些文件生效。</p><ol start="4"><li>参考链接</li></ol><ul><li><a href="https://manpages.debian.org/testing/libwrap0/hosts_access.5.en.html" target="_blank" rel="noopener">hosts_access：匹配顺序与默认行为</a></li><li><a href="https://manpages.debian.org/bullseye/libwrap0/hosts_options.5.en.html" target="_blank" rel="noopener">hosts_options：allow/deny 选项</a></li><li><a href="https://www.openssh.org/releasenotes.html" target="_blank" rel="noopener">OpenSSH 发布说明</a></li><li><a href="https://www.cnblogs.com/lcword/p/14371300.html" target="_blank" rel="noopener">linux下限制ip访问</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文将介绍通过ip白名单和黑名单限制SSH访问的方法。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="系统与运维" scheme="https://blog.kingwen.cn/categories/linux/"/>
+    
+    
+      <category term="Linux" scheme="https://blog.kingwen.cn/tags/linux/"/>
+    
+      <category term="SSH" scheme="https://blog.kingwen.cn/tags/SSH/"/>
+    
+      <category term="network" scheme="https://blog.kingwen.cn/tags/network/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Download-Microsoft-Remote-Desktop-for-MacOS</title>
+    <link href="https://blog.kingwen.cn/2023/12/01/Download-Microsoft-Remote-Desktop-for-MacOS/"/>
+    <id>https://blog.kingwen.cn/2023/12/01/Download-Microsoft-Remote-Desktop-for-MacOS/</id>
+    <published>2023-12-01T05:42:39.000Z</published>
+    <updated>2026-11-02T11:46:49.329Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文将分享在Mac系统安装Microsoft Remote Desktop方法。</p><a id="more"></a><blockquote><p>本文记录 2023 年的下载办法。Microsoft Remote Desktop for Mac 现已更名为 Windows App，新安装请优先查看 <a href="https://apps.apple.com/us/app/microsoft-remote-desktop/id1295203466?mt=12" target="_blank" rel="noopener">微软发布的 App Store 页面</a> 及其系统要求；商店是否可用以账号地区和当前页面为准。</p></blockquote><p>当时由于苹果账号的地域限制，我不能在app store直接下载用于访问远程桌面的Microsoft remote desktop for macos.<br>因此从网上找到了下载链接。</p><p><a href="https://go.microsoft.com/fwlink/?linkid=868963" target="_blank" rel="noopener">Microsoft Remote Desktop for MacOS链接</a><br>感谢文章<a href="https://blog.csdn.net/Jason_WangYing/article/details/109080206" target="_blank" rel="noopener">Microsoft Remote Desktop for MacOS 在线下载</a>的分享。</p><p>当时为了防止在线资源失效，我还把下载好的安装包上传到了阿里云盘。不过没有记下版本和系统要求，下面的链接仅作留存，新安装还是使用前面的官方入口。</p><p><a href="https://www.alipan.com/s/5t33zb4KGxZ" target="_blank" rel="noopener">Microsoft Remote Desktop for MacOS 阿里云盘链接</a></p><p>安装完成后，就可以开始配置远程连接了。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文将分享在Mac系统安装Microsoft Remote Desktop方法。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="工具与效率" scheme="https://blog.kingwen.cn/categories/%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
+    
+    
+      <category term="macOS" scheme="https://blog.kingwen.cn/tags/MacOs/"/>
+    
+      <category term="remote desktop" scheme="https://blog.kingwen.cn/tags/remote-desktop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>bug-GPG-error-bookworm-InRelease-is-not-signed</title>
+    <link href="https://blog.kingwen.cn/2023/11/30/bug-GPG-error-bookworm-InRelease-is-not-signed/"/>
+    <id>https://blog.kingwen.cn/2023/11/30/bug-GPG-error-bookworm-InRelease-is-not-signed/</id>
+    <published>2023-11-30T06:29:13.000Z</published>
+    <updated>2026-11-02T11:46:49.330Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文介绍使用python-slim执行apt-get update时候碰到的GPG error问题。</p><a id="more"></a><ol><li>现象描述</li></ol><p>基于如下Dockerfile构建目标镜像</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM python:3.12-slim</span><br><span class="line">...</span><br><span class="line">RUN apt-get update</span><br></pre></td></tr></table></figure><p>碰到类似如下描述的问题</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">W: GPG error: http:&#x2F;&#x2F;deb.debian.org&#x2F;debian bookworm InRelease: The following signatures couldn&#39;t be verified because the public key is not available: NO_PUBKEY 0E98404D386FA1D9 NO_PUBKEY 6ED0E7B82643E131 NO_PUBKEY F8D2585B8783D481</span><br><span class="line">E: The repository &#39;http:&#x2F;&#x2F;deb.debian.org&#x2F;debian bookworm InRelease&#39; is not signed.</span><br></pre></td></tr></table></figure><ol start="2"><li>原因</li></ol><blockquote><p>It is Docker with libseccomp so a newer syscall used in Debian Bookworm packages/libs is being blocked. libseccomp lets you configure allowed syscalls for a process. Docker sets a default seccomp profile for all containers such that only certain syscalls are allowed and everything else is blocked (so, newer syscalls that are not yet known to libseccomp or docker are blocked).<br><a href="https://github.com/docker-library/python/issues/837" target="_blank" rel="noopener">python:3.9 - Failed run apt update from the last version of the image #837</a></p></blockquote><p>简单解释就是：未固定发行版的 slim 标签会随时间变化。当基础版本切换到 Bookworm，而宿主 Docker/libseccomp 较旧时，新系统调用可能被屏蔽，从而造成这次遇到的报错。不过，单凭 <code>NO_PUBKEY</code> 还不能确定原因，排查时也要核对宿主版本、镜像及其 keyring 配置。</p><ol start="3"><li>解决方案<br>首选方案是更新运行容器的宿主 Docker 和 libseccomp；这也符合 <a href="https://github.com/docker-library/official-images/issues/16829" target="_blank" rel="noopener">Docker 官方镜像维护者的说明</a>。</li></ol><p>本人当时采用的临时办法是改用较旧的 Bullseye 基础镜像，如下。这个办法适用于当时的环境，使用前仍需确认标签和发行版的支持状态：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># FROM python:3.12-slim</span><br><span class="line">FROM python:3.12-slim-bullseye</span><br></pre></td></tr></table></figure><p>如果确认是 keyring 缺失或损坏，应修复对应发行版的 <code>debian-archive-keyring</code>，并用仓库的 <code>Signed-By</code> 限定有效密钥。不要把 <code>/usr/share/keyrings/debian-archive-*</code> 全部链接到信任目录：这个通配符还会匹配 <code>debian-archive-removed-keys.gpg</code>，引入旧发行版的密钥。密钥调整也不能修复宿主 seccomp 本身。</p><ol start="4"><li>参考链接<br><a href="https://stackoverflow.com/questions/76955036/build-started-failing-using-python3-8-docker-image-on-apt-get-update-and-instal" target="_blank" rel="noopener">stackoverflow-Build started failing using Python:3.8 Docker image on apt-get update and install with GPG error: bookworm InRelease is not signed</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文介绍使用python-slim执行apt-get update时候碰到的GPG error问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Docker与容器" scheme="https://blog.kingwen.cn/categories/docker/"/>
+    
+    
+      <category term="bug" scheme="https://blog.kingwen.cn/tags/bug/"/>
+    
+      <category term="Docker" scheme="https://blog.kingwen.cn/tags/docker/"/>
+    
+      <category term="Debian" scheme="https://blog.kingwen.cn/tags/debian/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>centos安装python</title>
+    <link href="https://blog.kingwen.cn/2023/11/29/install-python-on-centos/"/>
+    <id>https://blog.kingwen.cn/2023/11/29/install-python-on-centos/</id>
+    <published>2023-11-29T12:02:00.000Z</published>
+    <updated>2026-11-02T11:46:49.333Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文将介绍如何在centos系统通过源码安装python。</p><a id="more"></a><blockquote><p>本文记录 2023 年安装 Python 3.12.0 的流程，当时没有记下具体的 CentOS 版本。示例中的 OpenSSL 1.1.1o 已停止上游公共维护，新部署请选择仍受支持的系统、Python 和 OpenSSL 版本组合。</p></blockquote><p>Python 3.10 及以上要求 OpenSSL 至少为 1.1.1，而不同 CentOS 版本自带的 OpenSSL 也不同，需要先检查本机环境。下面将 OpenSSL 和 Python 安装到独立目录，保留系统原有的程序和库。</p><h2 id="安装独立的openssl">安装独立的openssl</h2><p>先准备 C 编译器、make 及目标 Python 所需的开发库；具体软件包名随 CentOS 版本变化。Python 3.12 要求支持 C11 的编译器，可按 <a href="https://docs.python.org/3.12/using/configure.html" target="_blank" rel="noopener">Python 构建要求</a> 检查环境。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 检查默认 openssl</span><br><span class="line">which openssl</span><br><span class="line">openssl version</span><br><span class="line"></span><br><span class="line"># 下载并核对官方提供的校验值，历史示例使用 OpenSSL 1.1.1o</span><br><span class="line"># 历史归档与校验值见 https:&#x2F;&#x2F;openssl-library.org&#x2F;source&#x2F;old&#x2F;1.1.1&#x2F;</span><br><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;openssl&#x2F;openssl&#x2F;releases&#x2F;download&#x2F;OpenSSL_1_1_1o&#x2F;openssl-1.1.1o.tar.gz</span><br><span class="line">tar -xzvf openssl-1.1.1o.tar.gz</span><br><span class="line">cd openssl-1.1.1o</span><br><span class="line"></span><br><span class="line"># 独立安装；保留发行版的 openssl 和共享库</span><br><span class="line">.&#x2F;config --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;custom-openssl --libdir&#x3D;lib --openssldir&#x3D;&#x2F;etc&#x2F;pki&#x2F;tls</span><br><span class="line">make &amp;&amp; sudo make install_sw</span><br><span class="line">cd ..</span><br><span class="line"></span><br><span class="line"># 检查新安装的版本，不修改 &#x2F;usr&#x2F;bin&#x2F;openssl</span><br><span class="line">LD_LIBRARY_PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;custom-openssl&#x2F;lib &#x2F;usr&#x2F;local&#x2F;custom-openssl&#x2F;bin&#x2F;openssl version</span><br></pre></td></tr></table></figure><p>上面的 <code>/etc/pki/tls</code> 是常见的 CentOS 证书配置目录，使用前应确认本机的 openssl.cnf 和系统信任库位置。安装目标使用 <code>install_sw</code>，避免覆盖证书配置；共享库搜索路径只用于上面这一次检查，不设为全局变量。</p><h2 id="安装python">安装python</h2><p>在centos系统中下载源码，如下。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 历史示例版本；新安装请在 https:&#x2F;&#x2F;www.python.org&#x2F;downloads&#x2F; 选择受支持的补丁版本</span><br><span class="line">wget https:&#x2F;&#x2F;www.python.org&#x2F;ftp&#x2F;python&#x2F;3.12.0&#x2F;Python-3.12.0.tgz</span><br><span class="line"></span><br><span class="line"># 解压</span><br><span class="line">tar -zxvf Python-3.12.0.tgz</span><br><span class="line">cd Python-3.12.0</span><br><span class="line"></span><br><span class="line"># 编译安装到独立目录，并记录 OpenSSL 库的运行时路径</span><br><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;python3.12.0 --with-openssl&#x3D;&#x2F;usr&#x2F;local&#x2F;custom-openssl --with-openssl-rpath&#x3D;auto</span><br><span class="line">make &amp;&amp; sudo make altinstall</span><br><span class="line"></span><br><span class="line"># 测试版本及 ssl 模块</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;python3.12.0&#x2F;bin&#x2F;python3.12 --version</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;python3.12.0&#x2F;bin&#x2F;python3.12 -c &#39;import ssl; print(ssl.OPENSSL_VERSION)&#39;</span><br><span class="line"></span><br><span class="line"># 通过这个解释器使用 pip</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;python3.12.0&#x2F;bin&#x2F;python3.12 -m pip --version</span><br></pre></td></tr></table></figure><p>确认所需模块编译成功、上面的检查也通过后，便可以使用这个独立的 Python 啦！项目依赖建议安装在由该解释器创建的虚拟环境中。</p><p>参考：<a href="https://docs.python.org/3.12/using/unix.html" target="_blank" rel="noopener">Python Unix 安装与 Custom OpenSSL</a>。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文将介绍如何在centos系统通过源码安装python。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Python与爬虫" scheme="https://blog.kingwen.cn/categories/%E7%88%AC%E8%99%AB/"/>
+    
+    
+      <category term="CentOS" scheme="https://blog.kingwen.cn/tags/centos/"/>
+    
+      <category term="Python" scheme="https://blog.kingwen.cn/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>change-pip-source-in-dockerfile</title>
+    <link href="https://blog.kingwen.cn/2023/08/28/change-pip-source-in-dockerfile/"/>
+    <id>https://blog.kingwen.cn/2023/08/28/change-pip-source-in-dockerfile/</id>
+    <published>2023-08-28T11:44:57.000Z</published>
+    <updated>2026-11-02T11:46:49.330Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇文章将介绍如何在Dockerfile中更新pip源。</p><a id="more"></a><blockquote><p>Dockerfile 保留当时使用的 Python 3.7 标签，它已停止上游维护；新项目请选择受支持的 Python 版本。这里重点演示 pip 配置文件的位置。</p></blockquote><p>首先新建项目文件夹test,包含用于构建镜像的Dockerfile文件和设置pip源信息的pip.conf文件。</p><h2 id="目录结构">目录结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir test</span><br><span class="line">cd test</span><br><span class="line">touch Dockerfile pip.conf</span><br></pre></td></tr></table></figure><h3 id="更新pip-conf文件">更新pip.conf文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[global]</span><br><span class="line">timeout &#x3D; 120</span><br><span class="line">index-url &#x3D; https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple</span><br></pre></td></tr></table></figure><p>这里的 index-url 用于安装软件包，不用于 <code>pip search</code>。使用 HTTPS 源时保留默认的证书校验即可，不需要额外设置 trusted-host。</p><h3 id="更新Dockerfile文件">更新Dockerfile文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FROM python:3.7-slim</span><br><span class="line"></span><br><span class="line"># replace python pip source</span><br><span class="line">COPY pip.conf &#x2F;etc&#x2F;pip.conf</span><br><span class="line"></span><br><span class="line">RUN pip3 install flask redis</span><br><span class="line"></span><br><span class="line">#其他Dockefile的命令...</span><br><span class="line"></span><br><span class="line">CMD [&quot;python3&quot;,&quot;main.py&quot;]</span><br></pre></td></tr></table></figure><h2 id="编译执行">编译执行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 在前面已进入的 test 目录执行</span><br><span class="line">docker build -t gateway:v0.1 .</span><br></pre></td></tr></table></figure><p>编译成功，即可实现在镜像中使用pip命令安装对应的软件库。<br>如果自己主机的pip源要更新，则可以将上述 global 配置合并到自己机器对应的 pip 配置文件中，保留已有的其他必要设置。<br>bingo！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇文章将介绍如何在Dockerfile中更新pip源。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Docker与容器" scheme="https://blog.kingwen.cn/categories/docker/"/>
+    
+    
+      <category term="Docker" scheme="https://blog.kingwen.cn/tags/docker/"/>
+    
+      <category term="Dockerfile" scheme="https://blog.kingwen.cn/tags/Dockerfile/"/>
+    
+      <category term="Python" scheme="https://blog.kingwen.cn/tags/python/"/>
+    
+      <category term="pip" scheme="https://blog.kingwen.cn/tags/pip/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>check-login-without-password</title>
+    <link href="https://blog.kingwen.cn/2022/03/03/check-login-without-password/"/>
+    <id>https://blog.kingwen.cn/2022/03/03/check-login-without-password/</id>
+    <published>2022-03-03T10:37:43.000Z</published>
+    <updated>2026-11-02T11:46:49.330Z</updated>
+    
+    <content type="html"><![CDATA[<p>通过find命令查找authorized_keys文件，可以初步检查默认路径下配置的SSH公钥授权。</p><a id="more"></a><h2 id="原理说明">原理说明</h2><p>机器A某用户如果要通过公钥登录机器B，通常先生成密钥对，再将公钥放到机器B对应用户的 <code>.ssh/authorized_keys</code> 文件中。私钥可能仍有口令，所以公钥登录也不等于私钥无需解锁。</p><p>不过，仅凭 authorized_keys 文件是否存在，不能判断所有“免密登录”情况：sshd 可以配置其他 <code>AuthorizedKeysFile</code> 路径、<code>AuthorizedKeysCommand</code> 或受信 CA；用户家目录也不一定在 <code>/home</code>。文件存在时，还要检查其内容、权限以及服务端是否启用相应认证。</p><h2 id="详细命令">详细命令</h2><p>下面只对常见默认路径做初筛，命令需要有读取对应目录的权限。</p><h3 id="root用户">root用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find &#x2F;root -type f -name authorized_keys</span><br></pre></td></tr></table></figure><h3 id="普通用户">普通用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find &#x2F;home -type f -name authorized_keys</span><br></pre></td></tr></table></figure><p>完整检查应结合用户的实际家目录和 sshd 的有效配置，包括 <code>Match</code> 条件。可以参考 <a href="https://man.openbsd.org/sshd_config" target="_blank" rel="noopener">sshd_config 官方说明</a>。</p><p>如果发现不再需要的公钥，先核对授权人并备份，再删除对应的那一条记录。删除整个文件会撤销其中所有密钥；操作前保留当前会话，并确认另一个登录方式可用，避免把自己锁在机器外面。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;通过find命令查找authorized_keys文件，可以初步检查默认路径下配置的SSH公钥授权。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="系统与运维" scheme="https://blog.kingwen.cn/categories/linux/"/>
+    
+    
+      <category term="Linux" scheme="https://blog.kingwen.cn/tags/linux/"/>
+    
+      <category term="security" scheme="https://blog.kingwen.cn/tags/security/"/>
+    
+      <category term="SSH" scheme="https://blog.kingwen.cn/tags/SSH/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>golang-bug-sf-IsExported-undefined</title>
+    <link href="https://blog.kingwen.cn/2022/03/03/golang-bug-sf-IsExported-undefined/"/>
+    <id>https://blog.kingwen.cn/2022/03/03/golang-bug-sf-IsExported-undefined/</id>
+    <published>2022-03-03T04:30:47.000Z</published>
+    <updated>2026-11-02T11:46:49.333Z</updated>
+    
+    <content type="html"><![CDATA[<p>通过升级golang版本为1.17.X解决sf.IsExported undefined问题。</p><a id="more"></a><h2 id="问题描述">问题描述</h2><p>在编写项目的时候，通过go build命令生成可执行二进制文件时候，碰见sf.IsExported undefined问题。</p><p>经过查询,主要是<a href="https://github.com/kubernetes-sigs/controller-tools/issues/643" target="_blank" rel="noopener">github-issue</a>，可以发现大概率是golang版本问题，问题出现在golang1.16.X。</p><h2 id="解决方案">解决方案</h2><p>当时将 Go 升级到 1.17.X 即可，因为 <code>reflect.StructField.IsExported</code> 是 Go 1.17 新增的方法。下面保留 Go 1.17.7 的历史多版本示例；新项目请选择仍受支持、满足依赖要求的 Go 版本。</p><p>但是考虑到系统内其他的项目可能仍然需要原来的golang1.16版本,所以要设置系统对于多版本golang的支持。</p><h2 id="详细命令">详细命令</h2><p>先确认下面的目标目录用于本次新安装，且 <code>/usr/local/bin/go117</code> 尚不存在，避免覆盖已有版本。同时把 <code>/usr/local/bin</code> 加入 PATH，方便后面直接调用 go117。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;go.dev&#x2F;dl&#x2F;go1.17.7.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line">sudo mkdir -p &#x2F;usr&#x2F;local&#x2F;go117</span><br><span class="line">sudo tar -C &#x2F;usr&#x2F;local&#x2F;go117 -xzvf go1.17.7.linux-amd64.tar.gz</span><br><span class="line"></span><br><span class="line">sudo ln -s &#x2F;usr&#x2F;local&#x2F;go117&#x2F;go&#x2F;bin&#x2F;go &#x2F;usr&#x2F;local&#x2F;bin&#x2F;go117</span><br></pre></td></tr></table></figure><p>安装完成后，可以分别查看这两个版本：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go version</span><br><span class="line">go117 version</span><br></pre></td></tr></table></figure><p>通过go117 build命令重新编译项目，上述碰到的问题得到解决。</p><p>PS: 一定要善于使用搜索引擎啊！！！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;通过升级golang版本为1.17.X解决sf.IsExported undefined问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Go与微服务" scheme="https://blog.kingwen.cn/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+    
+    
+      <category term="bug" scheme="https://blog.kingwen.cn/tags/bug/"/>
+    
+      <category term="Go" scheme="https://blog.kingwen.cn/tags/Go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Centos系统中安装golang环境</title>
+    <link href="https://blog.kingwen.cn/2021/08/05/Install-golang-in-centos-system/"/>
+    <id>https://blog.kingwen.cn/2021/08/05/Install-golang-in-centos-system/</id>
+    <published>2021-08-05T07:58:17.000Z</published>
+    <updated>2026-11-02T11:46:49.329Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文将介绍如何在centos系统中安装golang环境。</p><a id="more"></a><h2 id="一、centos安装golang环境流程">一、centos安装golang环境流程</h2><h3 id="1、golang仓库选择合适的package">1、golang仓库选择合适的package</h3><p>从如下两个网址中选择适合自己机器的package,右键复制链接地址得到对应package的下载地址。重点关注第二个网址，这也是写本文的目的。</p><ul><li><a href="https://golang.org/dl/" target="_blank" rel="noopener">golang官方仓库</a></li><li><a href="https://golang.google.cn/dl/" target="_blank" rel="noopener">golang-Google仓库</a></li></ul><h3 id="2、服务器下载">2、服务器下载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget  https:&#x2F;&#x2F;golang.google.cn&#x2F;dl&#x2F;go1.16.6.linux-amd64.tar.gz # 前面复制的目标package的下载网址。</span><br><span class="line">rm -rf &#x2F;usr&#x2F;local&#x2F;go </span><br><span class="line">tar -C &#x2F;usr&#x2F;local -xzf go1.16.6.linux-amd64.tar.gz</span><br></pre></td></tr></table></figure><h3 id="3、将go相关命令添加到环境变量中">3、将go相关命令添加到环境变量中</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim ~&#x2F;.bash_profile</span><br><span class="line"># 添加如下内容</span><br><span class="line">export PATH&#x3D;$PATH:&#x2F;usr&#x2F;local&#x2F;go&#x2F;bin </span><br><span class="line">source ~&#x2F;.bash_profile</span><br></pre></td></tr></table></figure><h3 id="4、golang环境确认">4、golang环境确认</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go version</span><br></pre></td></tr></table></figure><h2 id="二、参考文档。">二、参考文档。</h2><ol><li><a href="https://golang.org/doc/install" target="_blank" rel="noopener">golang-doc-install</a></li><li><a href="https://www.runoob.com/go/go-environment.html" target="_blank" rel="noopener">golang环境安装</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文将介绍如何在centos系统中安装golang环境。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Go与微服务" scheme="https://blog.kingwen.cn/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+    
+    
+      <category term="Go" scheme="https://blog.kingwen.cn/tags/Go/"/>
+    
+      <category term="CentOS" scheme="https://blog.kingwen.cn/tags/centos/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Goland配置默认文件头信息</title>
+    <link href="https://blog.kingwen.cn/2021/01/18/goland-default-header-information/"/>
+    <id>https://blog.kingwen.cn/2021/01/18/goland-default-header-information/</id>
+    <published>2021-01-18T07:44:52.000Z</published>
+    <updated>2026-11-02T11:46:49.333Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文介绍了如何给Goland编辑器配置文件头的默认信息。</p><a id="more"></a><p>点击Goland-&gt;Preference进入goland配置页面。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20210118154352.png" alt=""><br>一图搞定！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文介绍了如何给Goland编辑器配置文件头的默认信息。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="工具与效率" scheme="https://blog.kingwen.cn/categories/%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
+    
+    
+      <category term="GoLand" scheme="https://blog.kingwen.cn/tags/Goland/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>curl命令下载资源速度缓慢解决方案</title>
+    <link href="https://blog.kingwen.cn/2020/12/15/curl%E5%91%BD%E4%BB%A4%E4%B8%8B%E8%BD%BD%E8%B5%84%E6%BA%90%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>https://blog.kingwen.cn/2020/12/15/curl%E5%91%BD%E4%BB%A4%E4%B8%8B%E8%BD%BD%E8%B5%84%E6%BA%90%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</id>
+    <published>2020-12-15T01:43:47.000Z</published>
+    <updated>2026-11-02T11:46:49.331Z</updated>
+    
+    <content type="html"><![CDATA[<p>在服务器下载资源往往会通过curl或者wget命令，但是有时部分资源会因为网络问题下载缓慢甚至直接下载失败。<br>本文提出三种解决方案来解决这个问题。</p><a id="more"></a><h2 id="排查DNS解析问题">排查DNS解析问题</h2><p>类似于 <a href="http://raw.githubusercontent.com" target="_blank" rel="noopener">raw.githubusercontent.com</a> 等网站，有时会因为 DNS 解析问题无法访问，但下载缓慢也可能来自代理、连接或传输网络，不能只凭“慢”就认定 DNS 污染。</p><p>当时我通过 <a href="https://www.ipaddress.com/" target="_blank" rel="noopener">ipaddress</a> 查询地址，做过临时修改 hosts 的尝试：<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20201215095532.png" alt=""><br><img src="https://cdn.kingwen.cn/qiniu_kwimg20201215095655.png" alt=""></p><p>截图中的 199.232.96.133、199.232.68.133 都是 2020 年的查询结果。GitHub/CDN 的地址会变化，不能再把这些旧地址直接加入 <code>/etc/hosts</code>，否则还可能影响正常的 DNS 调度。</p><p>如要用 hosts 做临时诊断，应先确认当前网络下的地址有效，保留原配置，并在测试后撤销本次添加的条目。具体可以参考 <a href="https://docs.github.com/en/get-started/using-github/troubleshooting-connectivity-problems" target="_blank" rel="noopener">GitHub 官方连接排查说明</a> 和 <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-githubs-ip-addresses" target="_blank" rel="noopener">IP 地址说明</a>。</p><h2 id="下载源码自行编译">下载源码自行编译</h2><p>有些package会提供多种方式供大家下载使用，比如yum安装、apt-get安装、brew安装，curl下载后sh安装。<br>除此之外，还可以下载项目提供的源代码，自行编译安装。常见的方式是使用make命令，不过具体构建工具、依赖库和安装步骤还是要按项目文档来。</p><h2 id="其他主机拷贝">其他主机拷贝</h2><p>如果两台机器的操作系统、CPU 架构和动态库等运行条件兼容，可以通过scp命令复制已安装的二进制文件；有额外资源或配置的软件不能只复制一个程序文件。相关scp的使用说明可以参见文章<a href="https://www.runoob.com/linux/linux-comm-scp.html" target="_blank" rel="noopener">Linux scp命令</a></p><p>我暂时知道的解决方式就上面三种，如果以后有其他方式可以再补充吧。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在服务器下载资源往往会通过curl或者wget命令，但是有时部分资源会因为网络问题下载缓慢甚至直接下载失败。&lt;br&gt;
+本文提出三种解决方案来解决这个问题。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="系统与运维" scheme="https://blog.kingwen.cn/categories/linux/"/>
+    
+    
+      <category term="curl" scheme="https://blog.kingwen.cn/tags/curl/"/>
+    
+      <category term="DNS" scheme="https://blog.kingwen.cn/tags/DNS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>cron表达式学习</title>
+    <link href="https://blog.kingwen.cn/2020/12/09/learn-cron-expression/"/>
+    <id>https://blog.kingwen.cn/2020/12/09/learn-cron-expression/</id>
+    <published>2020-12-09T02:10:34.000Z</published>
+    <updated>2026-11-02T11:46:49.334Z</updated>
+    
+    <content type="html"><![CDATA[<p>Cron语法经常用于定时任务的设定，如定时进行数据采集任务，定时进行数据备份任务等。<br>本文对cron表达式进行了简单介绍。</p><a id="more"></a><h2 id="语法说明">语法说明</h2><p><img src="https://cdn.kingwen.cn/qiniu_kwimg20201208212253.png" alt=""></p><ol><li>本文先介绍常见 Linux cron 的五个时间字段，分别对应分钟、小时、天、月、周。 每个部分用空格隔开。用户 crontab 在这些字段后还要写要执行的命令；系统 crontab 通常还包含用户名。</li><li>每个部分的通用标志。</li></ol><ul><li>* : 表示任意值</li><li>, ：表示值的列表</li><li>- ：表示值的范围</li><li>/ ：表示值的步长</li></ul><ol start="3"><li>每个值的取值范围</li></ol><ul><li>分钟： 0 - 59</li><li>小时：0 - 23</li><li>天：1 - 31</li><li>月：1 - 12</li><li>周：0 - 7，0 和 7 都表示周日（这里以常见 Vixie/Cronie 实现为例）</li></ul><h2 id="举例说明">举例说明</h2><ol><li>每隔十分钟执行一次</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*&#x2F;10 * * * *</span><br></pre></td></tr></table></figure><p><img src="https://cdn.kingwen.cn/qiniu_kwimg20201208231301.png" alt=""><br>2. 2、4、6、8、10、12 月中，每周一周二的前两个小时（00:00–01:55）每隔5分钟执行一次</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*&#x2F;5 0-1 * 2,4,6,8,10,12 1,2</span><br></pre></td></tr></table></figure><p>这里用 <code>0-1</code> 表示前两个小时，用 <code>2,4,6,8,10,12</code> 明确列出双月。要注意范围包含两端，所以 <code>0-2</code> 实际包含三个小时；月份若写成 <code>*/2</code>，则会从 1 月开始，选中单月。</p><h2 id="后续更新">后续更新</h2><p>前面介绍的是 Linux cron 的写法。在盖若博主的文章中，我还看到了一些带秒和年份的表达式，它们来自其他调度器。以 Quartz 为例：</p><ol><li>Quartz 的 cron 表达式有六个必填字段，第一个是秒，并可加第七个年份字段。</li><li>星期范围、问号等规则也和 Linux cron 不同，详情见 <a href="https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html" target="_blank" rel="noopener">Quartz 官方教程</a>。</li></ol><p>所以使用前要先确认应用或库采用哪一种规则，不能只按字段数量来判断，更不能把 Quartz 表达式直接放进 Linux crontab。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20201209100616.png" alt=""><br><img src="https://cdn.kingwen.cn/qiniu_kwimg20201209100647.png" alt=""></p><h2 id="参考链接">参考链接</h2><ol><li><a href="https://crontab.guru/#*_*_*_*_*" target="_blank" rel="noopener">在线解析crontab guru</a></li><li><a href="https://www.gairuo.com/p/cron-expression-sheet" target="_blank" rel="noopener">盖若-Cron 定时任务表达式手册</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Cron语法经常用于定时任务的设定，如定时进行数据采集任务，定时进行数据备份任务等。&lt;br&gt;
+本文对cron表达式进行了简单介绍。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="系统与运维" scheme="https://blog.kingwen.cn/categories/linux/"/>
+    
+    
+      <category term="Linux" scheme="https://blog.kingwen.cn/tags/linux/"/>
+    
+      <category term="cron" scheme="https://blog.kingwen.cn/tags/cron/"/>
+    
+      <category term="自动化" scheme="https://blog.kingwen.cn/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jupyter设置多编程语言支持</title>
+    <link href="https://blog.kingwen.cn/2020/10/17/jupyter%E8%AE%BE%E7%BD%AE%E5%A4%9A%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/"/>
+    <id>https://blog.kingwen.cn/2020/10/17/jupyter%E8%AE%BE%E7%BD%AE%E5%A4%9A%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/</id>
+    <published>2020-10-17T12:28:47.000Z</published>
+    <updated>2026-11-02T11:46:49.333Z</updated>
+    
+    <content type="html"><![CDATA[<p>本篇文章主要介绍如何设置jupyter notebook使其在支持python的基础上支持octave和R语言。</p><a id="more"></a><p><a href="https://github.com/jupyter/notebook" target="_blank" rel="noopener">jupyter notebook</a>是目前应用非常广泛的一个软件。它最大的亮点在于让用户可以即时编码，即时测试，即时调整，而且支持超过40种编程语言，详情可参考<a href="https://github.com/jupyter/jupyter/wiki/Jupyter-kernels" target="_blank" rel="noopener">jupyter-kernels-list</a>。</p><h2 id="设置多编程语言支持">设置多编程语言支持</h2><p>下面的 pip 与 jupyter 要来自准备使用的同一环境，安装好的 octave 可执行文件也需要在 PATH 中。文中的界面截图对应当时的 Notebook 和插件版本。</p><h3 id="octave支持">octave支持</h3><ol><li>首先本地要安装octave, mac用户可以直接通过如下命令安装</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install octave</span><br></pre></td></tr></table></figure><p>其他系统可以自行参考<a href="https://www.gnu.org/software/octave/download" target="_blank" rel="noopener">octave安装教程</a><br>2. 安装jupyter和octave进行交互的octave_kernel</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install octave_kernel</span><br></pre></td></tr></table></figure><p>更多细节可以参考<a href="https://github.com/Calysto/octave_kernel" target="_blank" rel="noopener">octave_kernel-Github</a></p><h3 id="R语言支持">R语言支持</h3><ol><li>本地安装R语言环境</li></ol><p>下载连接 <a href="https://mirrors.tuna.tsinghua.edu.cn/CRAN/" target="_blank" rel="noopener">tsinghua-cran-download</a></p><p>R语言官网<a href="https://www.r-project.org/" target="_blank" rel="noopener">R-project</a></p><ol start="2"><li>配置R语言kernel</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 进入R语言console</span><br><span class="line">R</span><br><span class="line"># 安装kernel</span><br><span class="line">install.packages(&#39;IRkernel&#39;)</span><br><span class="line"># 按提示选择合适的源</span><br><span class="line"># 为系统所有用户安装，需要对目标目录有写权限；仅当前用户可改 user &#x3D; TRUE</span><br><span class="line">IRkernel::installspec(user &#x3D; FALSE)</span><br></pre></td></tr></table></figure><h3 id="查看jupyter的内核支持">查看jupyter的内核支持</h3><ol><li>通过命令行查看</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter kernelspec list</span><br></pre></td></tr></table></figure><p><img src="https://cdn.kingwen.cn/qiniu_kwimg20201016145435.png" alt=""></p><p>2.通过打开notebook新建文件来查看</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter notebook</span><br></pre></td></tr></table></figure><p><img src="https://cdn.kingwen.cn/qiniu_kwimg20201016145812.png" alt=""></p><h2 id="bug记录">bug记录</h2><ol><li>configurations are cuurently only defined for the following language:</li></ol><p><img src="https://cdn.kingwen.cn/qiniu_kwimg20201016114704.png" alt=""></p><ul><li>问题描述</li></ul><p>这个问题出现在我为本地jupyter新添加了R语言和octave语言的kernel.但是当我新建一个对应的文件的时候，就报错上面的错误。</p><ul><li>解决措施</li></ul><p>问题出现在autopep8插件上，这个插件仅仅支持python，所以在使用其他语言的时候就会报错，所以当我们在编写其他语言相关的文件时候，我们将这个插件关掉即可。</p><p><img src="https://cdn.kingwen.cn/qiniu_kwimg20201016113535.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇文章主要介绍如何设置jupyter notebook使其在支持python的基础上支持octave和R语言。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="工具与效率" scheme="https://blog.kingwen.cn/categories/%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
+    
+    
+      <category term="Jupyter" scheme="https://blog.kingwen.cn/tags/jupyter/"/>
+    
+      <category term="octave" scheme="https://blog.kingwen.cn/tags/octave/"/>
+    
+      <category term="R" scheme="https://blog.kingwen.cn/tags/R/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>七牛云+PicGo制作博客图床</title>
+    <link href="https://blog.kingwen.cn/2020/09/11/%E4%B8%83%E7%89%9B%E4%BA%91-PicGo%E5%88%B6%E4%BD%9C%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/"/>
+    <id>https://blog.kingwen.cn/2020/09/11/%E4%B8%83%E7%89%9B%E4%BA%91-PicGo%E5%88%B6%E4%BD%9C%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/</id>
+    <published>2020-09-11T11:54:19.000Z</published>
+    <updated>2026-11-02T11:46:49.337Z</updated>
+    
+    <content type="html"><![CDATA[<p>用七牛云和PicGo给博客的图片安了一个家，七牛云真香！</p><a id="more"></a><p>对于所有写博客的同学来说，图床是一个必须要考虑的事情，最好图床可以稳定、便宜还要好用。</p><p>我从写博客以来，用过微博的图床(后来外链关闭了)，用过github搭建过图床（访问速度堪忧），用过简书做图床(平台现在越做越差)，后来就直接用有道云笔记了（但是只能自己看），一路走来，充满坎坷。</p><p>最近刚好有点时间，我就把自己的域名和服务器重新认证了一下，准备以后好好做点东西，所以图床的事情也必须要搞一下，于是本篇文章应运而生！</p><h2 id="前期准备">前期准备</h2><ol><li><a href="https://github.com/Molunerfinn/PicGo" target="_blank" rel="noopener">PicGO</a>：到releases下载最新版本的符合自己电脑的安装包，下载即可。注意下载的是稳定版本还是试用版本，带有beta的都是试用版本。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911200650.png" alt=""></li><li><a href="https://www.qiniu.com/" target="_blank" rel="noopener">七牛云</a>对象存储：在七牛云新建存储空间，用来保存图片即可。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911201552.png" alt=""></li><li>实名认证后的域名，可以通过腾讯云或者阿里云购买。注意域名实名认证和 ICP 备案是两回事；使用中国大陆的网站/CDN 服务时，还需按服务商对相应区域和产品的要求完成备案。</li></ol><h2 id="具体步骤">具体步骤</h2><h3 id="1-设置七牛云存储">1.设置七牛云存储</h3><ol><li>对象存储-&gt;空间管理-&gt;新建空间<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911201447.png" alt=""></li></ol><ul><li>存储空间名称：名称自定义即可。要注意长度</li><li>存储区域：自己选一个离自己比较近的区域即可。</li><li>访问控制：要设置为公开</li></ul><ol start="2"><li>设置自己的存储空间<br>刷新列表就可以看到自己刚刚新建的存储空间。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911201842.png" alt=""><br>这里其实最需要干的是要绑定自己的域名，七牛云仅仅提供了一个测试域名，只能有一个月的使用时间，之后便不能访问了。所以需要干的是选择设置，绑定自己的域名。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911202412.png" alt=""><br>具体绑定域名方法七牛云有详细的说明文档，以及https和cdn的绑定，按照说明指导就行。</li></ol><h3 id="2-设置PicGo">2. 设置PicGo</h3><ol><li>右键图标查看详情打开picGO设置面板，左侧图床设置选择七牛图床<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911203034.png" alt=""></li></ol><ul><li>AccessKey和SecretKey：七牛云页面右上角个人中心的密钥管理里面可以设置。实际密钥只填入自己的客户端配置，不要公开到文章、截图或仓库中。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911203301.png" alt=""></li><li>存储空间名称：就是我们前面的存储空间的名称。注意我这里用的是我实际图床使用的名字kwimg，但是我前面演示的是dh-img，那个仅仅是演示。大家在设置的时候此处要和前面创建的保持一致。</li><li>设定访问网址：<br>如果是没有实际绑定自己的域名的话，可以在空间概览中查看。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911203700.png" alt=""><br>如果是自己已经绑定好域名的话，是下面这个样子的。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911203838.png" alt=""><br>还有需要注意的一点是需要自己在网址的前面加上(<strong>http:// 或者 https://</strong>)。</li><li>确认存储区域<br>这里和我们之前申请存储空间的时候选择的区域是相关的。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911204251.png" alt=""></li><li>设定网址后缀： 这个暂时不用设置</li><li>指定存储路径：这里填写图片对象的路径前缀，和前面选择机房位置的“存储区域”不同；修改时也要留意已有图片 URL。</li></ul><ol start="2"><li>设置快捷键<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911204718.png" alt=""></li><li>设置开机自启<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911204812.png" alt=""></li><li>接下来就可以非常开心的将图片提交到七牛云存储啦。</li></ol><ul><li>当我们截图之后直接通过快捷键上传图片，图片上传成功之后对应的markdown地址会在本地的粘贴板。直接在对应的markdown文件中ctrl+v就行啦。</li><li>如果想看之前提交过图片，可以左键点击图标查看；也可以右键查看详情，然后查看对应的相册，点击图片下面的三个按钮最左面一个就可以复制本张图片的markdown地址；中间一个可以修改url地址；最右面一个可以将本张图片在相册中删掉，但是七牛云存储中依然存在。<br><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911205205.png" alt=""></li></ul><h2 id="关于价格">关于价格</h2><p><img src="https://cdn.kingwen.cn/qiniu_kwimg20200911205849.png" alt=""><br>这是 2020 年的价格截图，当时访问量不大的博客可以控制在免费额度内。现在使用前还是要核对服务商的价格，算好存储、流量、请求和 HTTPS/CDN 等费用。</p><p>ok,剩下的就是安心写博客啦,gogogo!</p><h2 id="参考文档">参考文档</h2><ol><li><a href="https://picgo.github.io/PicGo-Doc/zh/guide/" target="_blank" rel="noopener">PicGo-Guide文档</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;用七牛云和PicGo给博客的图片安了一个家，七牛云真香！&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="工具与效率" scheme="https://blog.kingwen.cn/categories/%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
+    
+    
+      <category term="图床" scheme="https://blog.kingwen.cn/tags/%E5%9B%BE%E5%BA%8A/"/>
+    
+      <category term="PicGo" scheme="https://blog.kingwen.cn/tags/PicGo/"/>
+    
+      <category term="七牛云" scheme="https://blog.kingwen.cn/tags/%E4%B8%83%E7%89%9B%E4%BA%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>爬虫项目阶段性总结</title>
+    <link href="https://blog.kingwen.cn/2020/07/18/data-scientist-grow-up/"/>
+    <id>https://blog.kingwen.cn/2020/07/18/data-scientist-grow-up/</id>
+    <published>2020-07-18T09:09:05.000Z</published>
+    <updated>2026-11-02T11:46:49.331Z</updated>
+    
+    <content type="html"><![CDATA[<p>我对于爬虫项目的阶段性总结。<br>包含做项目时的流程、每个流程相关技术概述以及自己的学习经验。<br>方便自己后期查阅，也希望能给别人一点点指引。</p><a id="more"></a><h2 id="【前言】">【前言】</h2><ol><li>本学习计划仅作为参考，具体学习路线根据自己的实际情况酌情调整。</li><li>本学习路线图侧重数据工程师或者数据科学家路线，包括数据爬虫，清洗，存储，分析，展示等一系列流程。</li><li>本文档主要是给大黄写的，大黄写代码要加油啊！</li></ol><h2 id="完整的项目流程">完整的项目流程</h2><ol><li>确定项目内容：可以选择自己感兴趣的内容或者根据工作任务确定。</li><li>确定项目最终效果：根据目标效果反推出需要的数据。</li><li>确定数据源：根据想要的数据确定一个或者多个数据源</li><li>确定技术方案：分析数据源，确定需要的技术方案以及技术可行性。</li><li>开始动手！按照技术方案将数据进行采集，并最终实现预期的项目效果。</li></ol><h2 id="项目详细技术">项目详细技术</h2><h3 id="网页数据获取">网页数据获取</h3><p>本部分工作主要是用爬虫程序模拟浏览器访问对应的网站来获取网页html数据。</p><ol><li>发送请求获取网页数据。以python为例，可以通过类似于<a href="https://requests.readthedocs.io/en/master/" target="_blank" rel="noopener">requests</a>、urllib等package发送请求。</li><li>在正式编写代码前，要首先通过F12开发者选项（chrome浏览器）分析请求内容。或者直接通过网站页面右键-&gt;检查-&gt;network面板进行查看。</li></ol><ul><li>分析请求的url，查看是否存在跳转，是否需要登陆，如果需要登陆则考虑模拟登陆或者保存cookie或者使用cookie池。</li><li>查看能否直接请求对应的api获取目标数据,如果不能,再考虑请求网页原始数据再将目标数据解析出来。</li><li>对于模拟登陆，可以通过输入一个错误的用户名和密码来获得真正的url请求情况，否则可能因为成功跳转而看不到相关内容；</li></ul><ol start="3"><li>注意各种反爬虫措施的处理，包括伪造请求头、设置请求间隔时间、设置ip代理,携带cookie信息等等</li></ol><h3 id="网页解析">网页解析</h3><p>本部分工作是将网页对应的html页面内容进行解析。重点是灵活使用各种解析库，将想要的数据提取出来。<br>其中解析库主要包括<a href="https://www.runoob.com/xpath/xpath-syntax.html" target="_blank" rel="noopener">xpath</a>,<a href="https://www.crummy.com/software/BeautifulSoup/doc" target="_blank" rel="noopener">bs4</a>，<a href="https://pythonhosted.org/pyquery/" target="_blank" rel="noopener">pyquery</a>等，还可以结合正则表达式、字符串操作等多种方式对网页内容进行解析。</p><h3 id="数据处理">数据处理</h3><p>网页解析出来的内容数据可能存在数据缺失、数据格式不一致等问题。所以需要进行数据处理操作。</p><ul><li>数据缺失问题：删除整条数据、填充特殊值、填充中位数、填充众数、数据拟合等</li><li>数据格式不一致问题：确定数据统一格式，包括单位、格式等</li></ul><h3 id="数据存储">数据存储</h3><p>将处理好的数据进行数据存储，方便后期使用。</p><ul><li>关系型数据库：mysql、oracle等</li><li>文档型数据库：mongodb</li><li>图数据库：neo4j</li><li>内存数据库： redis<br>个人比较倾向于爬虫处理后的结果暂时放到mongdb中，原因就是方便读写。等数据处理结束之后可以根据数据类型以及对外服务的类型决定放到图数据库或者关系型数据库。</li></ul><h3 id="数据分析">数据分析</h3><p>根据预期的项目效果对已经爬取的数据进行数据分析。</p><ul><li>按照不同类别进行划分，比如不同的地域，不同季节，不同人群等。</li><li>按照时间线进行分析，比如平均身高，平均薪酬等。</li><li>按照其他统计学的知识对数据进行处理并分析。</li></ul><h3 id="数据展示">数据展示</h3><p>数据分析的结果要通过合适的方式进行展示。</p><ul><li>ppt、word等办公软件。考虑内嵌图表或者截图插入</li><li>个人网站、个人博客等。考虑使用<a href="https://echarts.apache.org/examples/zh/index.html" target="_blank" rel="noopener">echarts.js</a>或者<a href="https://observablehq.com/@d3/gallery" target="_blank" rel="noopener">d3.js</a>等图表库，效果非常好。</li></ul><h3 id="结论">结论</h3><p>我们研究或者调研的内容告诉我们什么内容，说明了什么道理，给我们什么启示，这个也应该作为我们整个项目的一部分进行说明。</p><h2 id="技术进一步提升">技术进一步提升</h2><p>上面介绍的技术仅仅适应于数据量较小的常规数据采集路线。下面说一下其中可以进行扩展和提升的部分。</p><h3 id="爬虫框架的使用">爬虫框架的使用</h3><p>数据采集是一个比较常见的需求，所以程序员们开发出了很多方便扩展的爬虫框架，比如<a href="https://docs.scrapy.org/en/latest/intro/tutorial.html" target="_blank" rel="noopener">scrapy</a>、<a href="http://docs.pyspider.org/en/latest/" target="_blank" rel="noopener">pyspider</a>、<a href="https://scrapy-redis.readthedocs.io/en/stable/" target="_blank" rel="noopener">scrapy-redis</a>、<a href="https://scrapy-cluster.readthedocs.io/en/latest/topics/introduction/overview.html" target="_blank" rel="noopener">scrapy-cluster</a>等，可以让我们将重点放在处理核心业务上。</p><h3 id="docker的使用">docker的使用</h3><p>docker通过镜像来创建容器，为程序提供彼此隔离的运行环境。这些容器共享宿主内核，比各自运行完整内核的虚拟机更轻量，也能帮助我们解决开发、测试、部署环境不一致的问题，方便进行横向扩展。在我们项目构造出对应的镜像之后，便会有镜像在手，天下我有的豪气。<br>在使用新的组件之前，可以先去<a href="https://hub.docker.com/" target="_blank" rel="noopener">dockerhub</a>看看，之后尽量所有的项目要通过docker进行部署，用dockerfile来进行定义。让项目组件化，这样就可以解耦合，从而方便扩展和升级。</p><p>爬虫过程的每一个步骤都可以单独拿出来交给对应的docker镜像来处理。看自己最后的需求进行不同粒度的分解。</p><h3 id="大数据组件">大数据组件</h3><p>在数据清洗、数据分析的时候如果数据量太大，可以和大数据平台进行对接，包括hadoop、mapreduce等，然后将对应的结果保存起来供进一步使用。</p><p>大数据平台的东西由很多，而且环境部署比较麻烦，所以本部分强烈建议使用docker进行部署，然后在部署的时候要注意不同实例之间的通信。</p><h3 id="分布式爬虫部署">分布式爬虫部署</h3><p>当数据量太大，单机爬虫的速率就远远不能满足我们的需求，这个时候就可以考虑使用分布式爬虫，将很多台主机一起来爬取想要的数据，上面说的爬虫框架sacrpy就是单机版本的，scrapy-redis就是在scrapy的基础上添加redis用来做爬取队列，可以作为分布式爬虫使用，scrapy-cluster是在scrapy-redis的基础上添加大数据组件kafka从而与大数据平台对接，也属于分布式爬虫。scrapyd可以用来方便的部署分布式爬虫程序。<a href="https://docs.gerapy.com/en/latest/" target="_blank" rel="noopener">Gerapy</a>也值得关注。</p><h3 id="APP内容的爬取">APP内容的爬取</h3><p>本部分我没有做过，不过知道一些相关工具：Charles、mitmproxy 可以代理和分析网络请求；如果需要自动操作手机 app 的界面，还可以了解一下 UI 自动化框架 Appium。</p><h2 id="学习经验">学习经验</h2><ol><li>要以项目为主导，no bb，show your code！！</li><li>善于使用搜索引擎google、bing</li><li>学会使用<a href="https://stackoverflow.com/" target="_blank" rel="noopener">stackoverflow</a>查找bug</li><li>尽量通过官方文档学习新的技术</li><li>合理使用github这个宝库</li><li>找一本好的参考资料比如<a href="https://item.jd.com/12333540.html" target="_blank" rel="noopener">Python 3网络爬虫开发实战</a>以及网站<a href="https://cuiqingcai.com/" target="_blank" rel="noopener">静觅-崔庆才</a></li></ol><p>最后，开始动手吧！！！！</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;我对于爬虫项目的阶段性总结。&lt;br&gt;
+包含做项目时的流程、每个流程相关技术概述以及自己的学习经验。&lt;br&gt;
+方便自己后期查阅，也希望能给别人一点点指引。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Python与爬虫" scheme="https://blog.kingwen.cn/categories/%E7%88%AC%E8%99%AB/"/>
+    
+    
+      <category term="spider" scheme="https://blog.kingwen.cn/tags/spider/"/>
+    
+      <category term="总结" scheme="https://blog.kingwen.cn/tags/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker-容器内安装vim编辑器</title>
+    <link href="https://blog.kingwen.cn/2020/06/15/docker-4-install-vim-in-container/"/>
+    <id>https://blog.kingwen.cn/2020/06/15/docker-4-install-vim-in-container/</id>
+    <published>2020-06-15T07:40:03.000Z</published>
+    <updated>2026-11-02T11:46:49.331Z</updated>
+    
+    <content type="html"><![CDATA[<p>本篇文章将会介绍在 Debian/Ubuntu 系 container 中用 apt-get 安装vim编辑器，执行安装需要容器内 root 权限。其他发行版的容器应使用对应的包管理器。<br>需要注意在正式开发时要通过dockerfile来进行所有环境的设置。</p><a id="more"></a><p>在有些容器中使用vim命令的时候，会提示如下错误。</p><blockquote><p>vim: command not found</p></blockquote><p>说明容器中没有安装vim.<br>我们可以通过如下命令进行安装</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure><p>如果安装的时候报错，报错信息如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Reading package lists... Done</span><br><span class="line">Building dependency tree       </span><br><span class="line">Reading state information... Done</span><br><span class="line">E: Unable to locate package vim</span><br></pre></td></tr></table></figure><p>可以通过如下命令来解决</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install vim</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇文章将会介绍在 Debian/Ubuntu 系 container 中用 apt-get 安装vim编辑器，执行安装需要容器内 root 权限。其他发行版的容器应使用对应的包管理器。&lt;br&gt;
+需要注意在正式开发时要通过dockerfile来进行所有环境的设置。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Docker与容器" scheme="https://blog.kingwen.cn/categories/docker/"/>
+    
+    
+      <category term="Docker" scheme="https://blog.kingwen.cn/tags/docker/"/>
+    
+      <category term="vim" scheme="https://blog.kingwen.cn/tags/vim/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker提升-实现原理</title>
+    <link href="https://blog.kingwen.cn/2020/06/15/docker-3-principle/"/>
+    <id>https://blog.kingwen.cn/2020/06/15/docker-3-principle/</id>
+    <published>2020-06-15T07:05:44.000Z</published>
+    <updated>2026-11-02T11:46:49.331Z</updated>
+    
+    <content type="html"><![CDATA[<p>docker镜像是一个特殊的文件系统。<br>本篇文章将介绍docker镜像的层级结构，同时学习如何查看中间层镜像。</p><a id="more"></a><blockquote><p>本文的 intermediate image 输出主要对应旧版 legacy builder。现代 BuildKit 的构建缓存不完全等同于这些中间镜像，不能只用 docker image ls 判断全部缓存。</p></blockquote><h2 id="docker的原理">docker的原理</h2><p>Docker 的镜像就是它的文件系统，一个镜像可以放在另外一个镜像的上层，那么位于下层的就是它的父镜像。所以，Docker 会存在很多镜像层，每个镜像层都是只读的，并且不会改变。当我们创建一个新的容器时，Docker 会构建出一个镜像栈，并在栈的最顶层添加一个读写层，如图所示。<br><img src="https://user-gold-cdn.xitu.io/2019/4/9/16a02cdbf9e98a71?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="image"></p><p>旧版构建器在构建过程中还会生成中间镜像，它和图中的文件系统层不是同一个概念。被其他镜像依赖的内容不能随意删除，下面先看看如何查看这些中间镜像。</p><h2 id="如何查看中间层镜像">如何查看中间层镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 查看镜像</span><br><span class="line">docker image ls</span><br><span class="line"># 查看所有镜像（包含中间层镜像）</span><br><span class="line">docker image ls -a</span><br></pre></td></tr></table></figure><p>带 -a 参数就可以把旧构建器的中间镜像也列出来。</p><h2 id="none-none-标签镜像">none:none 标签镜像</h2><p>列表中的 <code>&lt;none&gt;:&lt;none&gt;</code> 又是什么意思呢？它表示没有对应的仓库名和标签，不能仅凭这一点判断镜像是不是 intermediate image。还有一类 dangling image（悬空镜像），也可能通过下面的命令看到：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image ls</span><br></pre></td></tr></table></figure><p>如果只想查看悬空镜像，可以使用 docker image ls --filter dangling=true。</p><p>那么dangling image是如何产生的呢？<br>比如我们最开始通过如下命令构造一个名称为test:v1的镜像，</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t test:v1 .</span><br></pre></td></tr></table></figure><p>然后我们后期对代码进行了修改，所以我们会重新构造一个镜像。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t test:v1 .</span><br></pre></td></tr></table></figure><p>我们没有为它分配新的名字，新构造的镜像还是叫做test:v1，原来的镜像就会失去这个标签。不过旧镜像可能仍被已有容器使用，清理前要先确认是否还需要它。</p><p>对于没有被容器使用、也不再需要的悬空镜像，可以通过如下命令清理。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image prune</span><br></pre></td></tr></table></figure><h2 id="写在最后">写在最后</h2><p>记得多关注一下docker的help文档,以查看镜像命令为例</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">➜  log docker image ls --help</span><br><span class="line"></span><br><span class="line">Usage:  docker image ls [OPTIONS] [REPOSITORY[:TAG]]</span><br><span class="line"></span><br><span class="line">List images</span><br><span class="line"></span><br><span class="line">Aliases:</span><br><span class="line">  ls, images, list</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -a, --all             Show all images (default hides intermediate images)</span><br><span class="line">      --digests         Show digests</span><br><span class="line">  -f, --filter filter   Filter output based on conditions provided</span><br><span class="line">      --format string   Pretty-print images using a Go template</span><br><span class="line">      --no-trunc        Don&#39;t truncate output</span><br><span class="line">  -q, --quiet           Only show numeric IDs</span><br></pre></td></tr></table></figure><p>前面用到的 -a 选项就是从这里找到的。多翻翻 help，既能了解命令的默认行为，也能发现一些平时没用过的选项。</p><p>更细节的原理可以查看这篇文章<a href="https://www.projectatomic.io/blog/2015/07/what-are-docker-none-none-images/" target="_blank" rel="noopener">What are Docker <code>&lt;none&gt;:&lt;none&gt;</code> images?</a>。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;docker镜像是一个特殊的文件系统。&lt;br&gt;
+本篇文章将介绍docker镜像的层级结构，同时学习如何查看中间层镜像。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Docker与容器" scheme="https://blog.kingwen.cn/categories/docker/"/>
+    
+    
+      <category term="Docker" scheme="https://blog.kingwen.cn/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker进阶-Dockerfile的编写和使用</title>
+    <link href="https://blog.kingwen.cn/2020/06/15/docker-2-dockerfile/"/>
+    <id>https://blog.kingwen.cn/2020/06/15/docker-2-dockerfile/</id>
+    <published>2020-06-15T06:55:13.000Z</published>
+    <updated>2026-11-02T11:46:49.331Z</updated>
+    
+    <content type="html"><![CDATA[<p>在实际开发中完全使用他人构造好的镜像是不现实的。<br>所以本篇文章我们将会学习Dockerfile的知识，从而学习如何构造符合项目要求的镜像。</p><a id="more"></a><blockquote><p>本文保留 2020 年 Ubuntu 16.04/Python 环境的示例；新项目请使用受支持的基础镜像，并验证依赖版本。下面重点介绍 Dockerfile 指令的含义。</p></blockquote><h2 id="Dockerfile文档展示">Dockerfile文档展示</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:16.04</span><br><span class="line"></span><br><span class="line">RUN apt-get update -y &amp;&amp; \</span><br><span class="line">    apt-get install -y python3-pip python3-dev</span><br><span class="line"></span><br><span class="line"># We copy just the requirements.txt first to leverage Docker cache</span><br><span class="line">COPY .&#x2F;requirements.txt &#x2F;app&#x2F;requirements.txt</span><br><span class="line"></span><br><span class="line">WORKDIR &#x2F;app</span><br><span class="line"></span><br><span class="line">RUN python3 -m pip install --upgrade pip</span><br><span class="line">RUN pip3 install -r requirements.txt</span><br><span class="line"></span><br><span class="line">COPY . &#x2F;app</span><br><span class="line"></span><br><span class="line"># ENTRYPOINT [ &quot;python3&quot; ]</span><br><span class="line"></span><br><span class="line">CMD [ &quot;python3&quot;, &quot;main.py&quot; ]</span><br></pre></td></tr></table></figure><h2 id="逐行命令解释">逐行命令解释</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">1. FROM ubuntu:16.04</span><br><span class="line"></span><br><span class="line">FROM 关键字会初始化一个image构造，并为后续的所有操作设置基础镜像，，上面的例子表示，该image是以ubuntu:16.04为基础构建的。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2. RUN apt-get update -y &amp;&amp; \</span><br><span class="line">    apt-get install -y python3-pip python3-dev</span><br><span class="line"></span><br><span class="line">RUN 会在上一层的基础上添加新的layer,并将结果提交给下一层。RUN命令有两种形式。一种是shell格式，格式如下</span><br><span class="line">RUN &lt;command&gt; (shell form, the command is run in a shell, which by default is &#x2F;bin&#x2F;sh -c on Linux or cmd &#x2F;S &#x2F;C on Windows)</span><br><span class="line"></span><br><span class="line">另一种是exec格式，格式如下</span><br><span class="line">RUN [&quot;executable&quot;, &quot;param1&quot;, &quot;param2&quot;] (exec form)</span><br><span class="line"></span><br><span class="line">&amp;&amp; 是 shell 的条件连接符：前一条命令成功才执行后一条；\ 用于续行。将两条命令放在同一个 RUN 中，会形成同一层的文件系统变更；两个 RUN 则分别构建。</span><br><span class="line"></span><br><span class="line">3. COPY .&#x2F;requirements.txt &#x2F;app&#x2F;requirements.txt</span><br><span class="line">COPY 命令同样有两种形式，可以实现将源文件复制到目标位置，支持按 Go filepath.Match 规则匹配的通配符（glob），不是正则表达式。</span><br><span class="line">COPY [--chown&#x3D;&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</span><br><span class="line">COPY [--chown&#x3D;&lt;user&gt;:&lt;group&gt;] [&quot;&lt;src&gt;&quot;,... &quot;&lt;dest&gt;&quot;]</span><br><span class="line"></span><br><span class="line">4. WORKDIR &#x2F;app</span><br><span class="line">- WORKDIR 会设置当前的工作目录，之后的 RUN、CMD、ENTRYPOINT 使用这个工作目录，COPY 和 ADD 的相对目标路径也以它为基准；COPY&#x2F;ADD 的本地源路径仍相对于构建上下文。</span><br><span class="line">- WORKDIR 可以出现多次，从而更换shell的执行路径</span><br><span class="line"></span><br><span class="line">5. RUN python3 -m pip install --upgrade pip</span><br><span class="line">6. RUN pip3 install -r requirements.txt</span><br><span class="line">RUN命令的shell形式，更新pip同时安装依赖。</span><br><span class="line"></span><br><span class="line">7. COPY . &#x2F;app</span><br><span class="line">复制命令 将当前目录的所有文件复制到&#x2F;app目录下</span><br><span class="line"></span><br><span class="line">8.CMD [ &quot;python3&quot;, &quot;main.py&quot; ]</span><br><span class="line">CMD的作用是提供容器的默认指令，也就是我们docker run 的最后一个参数。CMD有三种形式，在一个Dockerfile中，如果有多个CMD指令，那么只有最后一个CMD命令会起作用。</span><br><span class="line">CMD [&quot;executable&quot;,&quot;param1&quot;,&quot;param2&quot;] (exec form, this is the preferred form)</span><br><span class="line">CMD [&quot;param1&quot;,&quot;param2&quot;] (as default parameters to ENTRYPOINT)</span><br><span class="line">CMD command param1 param2 (shell form)</span><br><span class="line"></span><br><span class="line">如果CMD命令后只有参数，没有可执行的命令，那么它肯定是配合ENTRYPOINT使用的。同时要注意，如果是配合ENTRYPOINT的时候，CMD和ENTRYPOINT都要使用使用 JSON array 格式。如果用ENTRYPOINT进行改写，则如下所示。</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [ &quot;python3&quot; ]</span><br><span class="line">CMD [ &quot;main.py&quot; ]</span><br></pre></td></tr></table></figure><h2 id="打包镜像">打包镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker build -t kuakua:latest .</span><br><span class="line"> -t 设置镜像名称和标签，如果标签没有设定，默认是latest</span><br><span class="line"> .  在当前目录寻找Dockerfile进行镜像打包。</span><br></pre></td></tr></table></figure><h2 id="运行容器">运行容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> docker run -d -p 5001:5000 --name kuakua -v &#x2F;Users&#x2F;liqingwen&#x2F;workplace&#x2F;temp&#x2F;kuakua&#x2F;log:&#x2F;log kuakua:latest</span><br><span class="line"></span><br><span class="line"># 详细解释</span><br><span class="line">-d  表示以守护进程的形式进行执行，后台运行</span><br><span class="line">-p 5001:5000 将容器的5000端口映射到宿主机的5001端口</span><br><span class="line">--name kuakua 将当前容器命名为kuakua</span><br><span class="line">-v bind mount a volumn 将容器的log目录和本地的&#x2F;Users&#x2F;liqingwen&#x2F;workplace&#x2F;temp&#x2F;kuakua&#x2F;log做一个映射。如果容器端log目录下有内容更新，则本地的log目录也会同步更新。</span><br><span class="line">kuakua:latest 镜像名称</span><br></pre></td></tr></table></figure><h2 id="项目地址">项目地址</h2><p>本项目完整代码已经在github开源，项目地址<a href="https://github.com/aweng126/TestProject/tree/master/kuakua" target="_blank" rel="noopener">夸夸机器人</a>,欢迎大家去尝试一下。</p><h2 id="参考">参考</h2><ol><li><a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener">dockerfile 官方参考文档</a></li><li><a href="https://runnable.com/docker/python/dockerize-your-flask-application" target="_blank" rel="noopener">Dockerize your Flask Application</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在实际开发中完全使用他人构造好的镜像是不现实的。&lt;br&gt;
+所以本篇文章我们将会学习Dockerfile的知识，从而学习如何构造符合项目要求的镜像。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Docker与容器" scheme="https://blog.kingwen.cn/categories/docker/"/>
+    
+    
+      <category term="Docker" scheme="https://blog.kingwen.cn/tags/docker/"/>
+    
+      <category term="Dockerfile" scheme="https://blog.kingwen.cn/tags/Dockerfile/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker初探-认识并使用docker</title>
+    <link href="https://blog.kingwen.cn/2020/06/15/docker-fundamentals/"/>
+    <id>https://blog.kingwen.cn/2020/06/15/docker-fundamentals/</id>
+    <published>2020-06-15T03:14:10.000Z</published>
+    <updated>2026-11-02T11:46:49.331Z</updated>
+    
+    <content type="html"><![CDATA[<p>docker是目前最流行的虚拟化技术。<br>本篇文章主要介绍docker的基本概念以及初步尝试使用docker技术。</p><a id="more"></a><h2 id="docker是什么">docker是什么</h2><p>Docker 属于 Linux容器的一种封装，提供简单易用的容器使用接口。它是目前最流行的 Linux 容器解决方案。</p><p>Docker将应用程序与该程序的依赖，打包在一个文件里面。只要运行这个文件，就会生成一个虚拟容器。程序在这个虚拟容器里运行，就好像在真实的物理机上运行一样。</p><h2 id="docker好在哪">docker好在哪</h2><ol><li>更高效的利用系统资源</li><li>更快速的启动时间</li><li>一致的运行环境</li><li>持续交付和部署</li><li>容易迁移、维护和扩展</li></ol><h2 id="docker专有名词">docker专有名词</h2><ol><li>镜像，image, 包括各种环境的定义和说明。</li><li>容器，container, 是一个镜像的运行实体，不同容器之间是相互隔离的。</li><li>仓库，镜像的仓库，用于用户发布自己的镜像或者查找自己需要的镜像，目前最大的公开仓库为<a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker hub</a>,star数量可以作为关注度参考，是否适合使用还要看维护状态、来源与更新记录。</li></ol><p><img src="https://user-gold-cdn.xitu.io/2019/4/9/16a02cdab4a554d0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt=""></p><h2 id="常用命令">常用命令</h2><h3 id="启动docker">启动docker</h3><p>如果是mac或者windows用户，可以直接使用Docker Desktop来可视化处理<br>如果是linux用户，需要通过命令行来启动</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker start</span><br><span class="line"># 停止或重启时，将 start 分别换成 stop 或 restart；systemd 系统也可用 systemctl。</span><br></pre></td></tr></table></figure><h3 id="使用docker">使用docker</h3><ol><li>help帮助命令</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image --help</span><br></pre></td></tr></table></figure><p>通过这条命令可以查看与docker的镜像相关的命令<br>将image替换为container，则可以查看到关于container的相关帮助。<br>同时，可以进一步查看相关命令的细节，比如下面的命令就可以查看image下prune命令的细节。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image prune --help</span><br></pre></td></tr></table></figure><ol start="2"><li>搜索并拉取镜像</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 搜索与ubuntu相关的image</span><br><span class="line">docker search ubuntu</span><br><span class="line"></span><br><span class="line"># 拉取镜像到本地</span><br><span class="line">docker pull ubuntu</span><br><span class="line"></span><br><span class="line"># 如果没有特别声明tag,会默认使用latest标签。</span><br><span class="line"># 当然可以去docker hub去查找image并查看更加细节的东西，比如版本信息，然后在拉取的时候可以指定版本。</span><br><span class="line">docker pull ubuntu:18.04</span><br></pre></td></tr></table></figure><ol start="3"><li>列出当前本地的所有镜像</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br><span class="line">或者</span><br><span class="line">docker image ls</span><br></pre></td></tr></table></figure><p>如果想同时查看中间层镜像</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker images -a</span><br><span class="line">或者</span><br><span class="line">docker image ls -a</span><br></pre></td></tr></table></figure><ol start="4"><li>删除本地镜像</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 删除固定的某个镜像</span><br><span class="line">docker rmi imageid</span><br><span class="line">docker image rm imageid</span><br><span class="line"></span><br><span class="line">#删除所有玄虚镜像</span><br><span class="line">docker image prune</span><br><span class="line"></span><br><span class="line"># 删除所有玄虚镜像和未使用的景象</span><br><span class="line">docker image prune -a</span><br><span class="line"></span><br><span class="line"># 删除所有仓库名为redis的镜像</span><br><span class="line">docker image rm $(docker image ls -q redis)</span><br></pre></td></tr></table></figure><ol start="5"><li>启动一个容器</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 从image启动一个容器</span><br><span class="line">docker run -it --name ubuntu  ubuntu:18.04  &#x2F;bin&#x2F;bash</span><br><span class="line"> -i : Keep STDIN open even if not attached 即使没有连接，也要保持标准输入保持打开状态</span><br><span class="line"> -t : Allocate a pseudo-TTY  分配一个伪tty</span><br><span class="line"> --name ubuntu : 为当前容器分配名字为ubuntu</span><br><span class="line"> ubuntu:18.04 ：要运行的镜像</span><br><span class="line"> &#x2F;bin&#x2F;bash ：要执行的命令。</span><br><span class="line"></span><br><span class="line">还有一个参数非常常见 </span><br><span class="line"> -d : Run container in background and print container ID 在后台运行容器，且打印容器id</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 把之前停止的容器重新启动</span><br><span class="line">docker start containerid</span><br><span class="line">docker attach containerid</span><br></pre></td></tr></table></figure><p>在默认 Linux bridge 网络的常见配置下，使用docker run启动容器的大致过程包括</p><pre><code>1. 检查本地是否存在指定的镜像，不存在则从公有仓库下载2. 使用镜像创建并启动容器3.分配一个文件系统，并在只读的镜像层外面挂载一层可读可写层4.从宿主主机配置的网桥接口中桥接一个虚拟接口道容器中去5.从地址池分配一个ip地址给容器6.执行用户指定的应用程序7.执行完毕之后容器被终止</code></pre><p>需要注意的是，对于容器要执行的命令而言，如果执行结束，那么容器就会关闭。</p><ol start="6"><li>查看当前正在运行的容器</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure><p>如果还想查看已经退出的容器</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure><ol start="7"><li>连接一个执行之中的容器</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container exec -it containerid sh</span><br></pre></td></tr></table></figure><ol start="8"><li>退出正在运行的容器</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ctrl + D</span><br><span class="line">或者</span><br><span class="line">exit</span><br></pre></td></tr></table></figure><ol start="9"><li>查看镜像所占空间</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker system df</span><br></pre></td></tr></table></figure><ol start="10"><li>删除某些名称中含有dingms的container</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container rm $(docker ps -a |grep dingms | awk &#39;&#123;print $1&#125;&#39;)</span><br></pre></td></tr></table></figure><ol start="11"><li>守护态进程<br>很多时候，需要让docker在后台运行而不是直接把结果输出到当前宿主下面，这个时候可以用守护态运行。</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 没有使用守护态，始终在本地终端输出</span><br><span class="line">docker run  ubuntu:18.04 &#x2F;bin&#x2F;sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</span><br><span class="line"></span><br><span class="line">#使用守护态,不在本地终端输出，但是在最后结果输出</span><br><span class="line">docker run -d ubuntu:18.04 &#x2F;bin&#x2F;sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</span><br><span class="line"># 查看当前contain</span><br><span class="line">docker container ls</span><br><span class="line">docker container logs containerid</span><br></pre></td></tr></table></figure><ol start="12"><li>终止某个容器</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container stop containerid</span><br></pre></td></tr></table></figure><p>对于正在运行中的容器，重新启动</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container restart containerid</span><br></pre></td></tr></table></figure><ol start="13"><li>进入容器</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker attach containerid</span><br><span class="line"></span><br><span class="line">docker exec -it containerid bash</span><br><span class="line"></span><br><span class="line">用attach连接到容器主进程的 shell 时，exit 会结束该 shell，并使容器终止。</span><br><span class="line">exec 启动的是额外的 shell，exit 通常只结束该 shell。</span><br></pre></td></tr></table></figure><ol start="14"><li>镜像打包和加载</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 打包镜像</span><br><span class="line">docker save -o ~&#x2F;Desktop&#x2F;kuakua.tar kuakua:latest</span><br><span class="line"># 加载tar包到对应的镜像</span><br><span class="line">docker load -i ~&#x2F;Desktop&#x2F;kuakua.tar</span><br></pre></td></tr></table></figure><ol start="15"><li>导出和导入容器</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 导出容器快照文件到本地文件</span><br><span class="line">docker export containerid &gt; name.tar</span><br><span class="line"># 从容器快照文件再导入为镜像</span><br><span class="line">cat name.tar | docker import - test&#x2F;name:v1.0</span><br><span class="line"># 查看所属镜像</span><br><span class="line">docker images</span><br></pre></td></tr></table></figure><p>注意：docker export 不包含挂载卷的数据，也不保留镜像的完整历史和运行配置；需要备份卷时要单独处理。</p><p>从网上找到一个非常棒的图<br><img src="https://user-gold-cdn.xitu.io/2019/4/9/16a02cdbf14142a0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="image"></p><h2 id="参考文章">参考文章</h2><ol><li><a href="https://yeasy.gitbooks.io/docker_practice/" target="_blank" rel="noopener">Docker 从入门到实践</a></li><li><a href="https://docs.docker.com/engine/reference/run/" target="_blank" rel="noopener">Docker-cli官方文档</a></li><li><a href="https://juejin.im/post/5cacbfd7e51d456e8833390c#heading-0" target="_blank" rel="noopener">30 分钟快速入门 Docker 教程</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;docker是目前最流行的虚拟化技术。&lt;br&gt;
+本篇文章主要介绍docker的基本概念以及初步尝试使用docker技术。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Docker与容器" scheme="https://blog.kingwen.cn/categories/docker/"/>
+    
+    
+      <category term="Docker" scheme="https://blog.kingwen.cn/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>go-get碰到timeout怎么办</title>
+    <link href="https://blog.kingwen.cn/2020/04/23/go-micro-bug-io-timeout/"/>
+    <id>https://blog.kingwen.cn/2020/04/23/go-micro-bug-io-timeout/</id>
+    <published>2020-04-23T12:49:48.000Z</published>
+    <updated>2026-11-02T11:46:49.332Z</updated>
+    
+    <content type="html"><![CDATA[<p>go get 下载资源的时候下载缓慢甚至遇到timeout,可以通过设置代理的方式来解决。</p><a id="more"></a><blockquote><p>本文记录 2020 年的 Go Modules/GoLand 设置。现代 Go 默认启用 Modules；安装命令行工具时还要区分 go install 与用于依赖管理的 go get。下面的启动文件示例针对 bash，zsh 用户应按自己的启动方式使用 ~/.zshrc 或 ~/.zprofile。</p></blockquote><p>通过如下命令可以查看go对应的各类变量</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go env</span><br></pre></td></tr></table></figure><p>我们重点要看 GOPROXY、GO111MODULE 这两个选项。</p><ol><li>GOPROXY: 代表是使用代理。</li><li>GO111MODULE: 控制是否使用 module，设为 on 可以显式启用 Go Modules 来管理依赖。</li></ol><h2 id="Linux-或者-Mac环境下">Linux 或者 Mac环境下</h2><p>直接修改环境变量就可以啦。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim ~&#x2F;.bash_profile</span><br><span class="line">export GO111MODULE&#x3D;on</span><br><span class="line">export GOPROXY&#x3D;https:&#x2F;&#x2F;goproxy.io </span><br><span class="line">source ~&#x2F;.bash_profile</span><br></pre></td></tr></table></figure><p>通过go env再查看一下，上面的路径是否生效。若已经生效，则重新 go get 下载资源即可。</p><h2 id="GO-Land-开发">GO Land 开发</h2><p>GoLand项目同样沿用上面的环境变量设置，也可以在IDE中设置proxy。当时的操作路径如下，新版界面名称可能不同。<br>GOLAND-&gt;Preferences-&gt;Go-&gt;Go modules(vgo)-&gt;选中Enable Go module integration.<br>同时设置proxy的值为 <a href="https://goproxy.io" target="_blank" rel="noopener">https://goproxy.io</a> 或者 <a href="https://goproxy.cn" target="_blank" rel="noopener">https://goproxy.cn</a>,direct<br>点击apply就行。</p><p>保存设置后，在GoLand中重新下载依赖即可。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;go get 下载资源的时候下载缓慢甚至遇到timeout,可以通过设置代理的方式来解决。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Go与微服务" scheme="https://blog.kingwen.cn/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
+    
+    
+      <category term="Go" scheme="https://blog.kingwen.cn/tags/Go/"/>
+    
+      <category term="timeout" scheme="https://blog.kingwen.cn/tags/timeout/"/>
+    
+      <category term="proxy" scheme="https://blog.kingwen.cn/tags/proxy/"/>
+    
+  </entry>
+  
+</feed>

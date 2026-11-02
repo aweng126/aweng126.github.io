@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="alternate" href="/atom.xml" title="Kingwen's blog" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。 本篇文章探究c++编译过程的第三篇，属于本系列暂时的最后一篇，总结了本次对于整个编译过程的探究结果，同时解释了动态链接和静态链接以及g++和gcc的一些区别和联系。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="终探c++编译过程">
+<meta property="og:url" content="https://blog.kingwen.cn/2019/12/03/%E7%BB%88%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Kingwen&#39;s blog">
+<meta property="og:description" content="在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。 本篇文章探究c++编译过程的第三篇，属于本系列暂时的最后一篇，总结了本次对于整个编译过程的探究结果，同时解释了动态链接和静态链接以及g++和gcc的一些区别和联系。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.kingwen.cn/images/cpp-compilation.svg">
+<meta property="article:published_time" content="2019-12-03T15:11:35.000Z">
+<meta property="article:modified_time" content="2026-11-02T11:46:49.346Z">
+<meta property="article:author" content="李庆文">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="编译">
+<meta property="article:tag" content="g++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.kingwen.cn/images/cpp-compilation.svg">
+  <link rel="canonical" href="https://blog.kingwen.cn/2019/12/03/%E7%BB%88%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>终探c++编译过程 | Kingwen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kingwen's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">没有输出的输入是不完整的</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="fa fa-fw fa-folder"></i>资源</a>
+
+  </li>
+        <li class="menu-item menu-item-booklist">
+
+    <a href="/booklist/" rel="section"><i class="fa fa-fw fa-book"></i>书单</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.kingwen.cn/2019/12/03/%E7%BB%88%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李庆文">
+      <meta itemprop="description" content="热爱生活，享受生活。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kingwen's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          终探c++编译过程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-03 23:11:35" itemprop="dateCreated datePublished" datetime="2019-12-03T23:11:35+08:00">2019-12-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-11-02 19:46:49" itemprop="dateModified" datetime="2026-11-02T19:46:49+08:00">2026-11-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">C++基础</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在科研项目中碰到了一个c++的程序，需要自己进行编译，所以就顺带着复习了一波c++的编译过程。<br>
+本篇文章探究c++编译过程的第三篇，属于本系列暂时的最后一篇，总结了本次对于整个编译过程的探究结果，同时解释了动态链接和静态链接以及g++和gcc的一些区别和联系。</p>
+<a id="more"></a>
+<p>其实c++编译过程很复杂，一本《编译原理》让无数从业人员感到自己能力有限，我们这里介绍的仅仅是最简单的，比较概括性的内容，如果想继续深入了解可以自行去看《编译原理》书籍。</p>
+<h2 id="编译过程总结">编译过程总结</h2>
+<p><img src="/images/cpp-compilation.svg" alt="C++编译过程"><br>
+我们现在应用的g++编译器其实是一个比较成熟的工具，内部细节我们不做深入探讨。但是从总体上来讲，它将整个编译过程分成了如下的四个步骤：</p>
+<h3 id="预编译">预编译</h3>
+<h4 id="g-执行编译">g++执行编译</h4>
+<p>从源代码文件变成预处理之后的源代码文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -E helloworld.cpp -o helloworld.ii</span><br></pre></td></tr></table></figure>
+<h4 id="原理解释">原理解释</h4>
+<p>简单点说，就是将代码进行整合，包括宏定义，include等都替换进来，没用的东西都删掉，比如注释等。</p>
+<p>详细点说<br>
+预处理相当于根据预处理指令组装新的C/C++程序。经过预处理，会产生一个没有宏定义，没有条件编译指令，没有特殊符号的输出文件，这个文件的含义同原本的文件无异，只是内容上有所不同。</p>
+<ol>
+<li>读取C/C++源程序，对其中的伪指令（以#开头的指令）进行处理
+<ol>
+<li>将所有的“#define”删除，并且展开所有的宏定义</li>
+<li>处理所有的条件编译指令，如：“#if”、“#ifdef”、“#elif”、“#else”、“endif”等。这些伪指令的引入使得程序员可以通过定义不同的宏来决定编译程序对哪些代码进行处理。预编译程序将根据有关的文件，将那些不必要的代码过滤掉。</li>
+<li>处理“#include”预编译指令，将被包含的文件插入到该预编译指令的位置。</li>
+</ol>
+</li>
+</ol>
+<p>（注意：这个过程可能是递归进行的，也就是说被包含的文件可能还包含其他文件）<br>
+2. 删除所有的注释<br>
+3. 添加行号和文件名标识<br>
+以便于编译时编译器产生调试用的行号信息及用于编译时产生的编译错误或警告时能够显示行号<br>
+4. 保留所有的#pragma编译器指令</p>
+<h3 id="编译优化">编译优化</h3>
+<h4 id="g-执行编译-2">g++执行编译</h4>
+<p>从源代码文件变成汇编代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ -S helloworld.cpp -o helloworld.s</span><br></pre></td></tr></table></figure>
+<h4 id="原理解释-2">原理解释</h4>
+<p>将预处理完的文件进行一系列词法分析、语法分析、语义分析及优化后，产生相应的汇编代码文件。</p>
+<h3 id="汇编">汇编</h3>
+<h4 id="g-执行编译-3">g++执行编译</h4>
+<p>从源代码文件变成对象文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ -c talk.cpp -o talk.o</span><br><span class="line">g++ -c talktest.cpp -o talktest.o</span><br></pre></td></tr></table></figure>
+<h4 id="原理解释-3">原理解释</h4>
+<p><strong>将编译完的汇编代码文件翻译成机器指令，并生成可重定位目标程序的.o文件，该文件为二进制文件，字节编码是机器指令。</strong></p>
+<p>汇编器是将汇编代码转变成机器可以执行的指令，每一个汇编语句几乎都对应一条机器指令。所以汇编器的汇编过程相对于编译器来讲比较简单，它没有复杂的语法，也没有语义，也不需要做指令优化，只是根据汇编指令和机器指令的对照表一一翻译即可</p>
+<h3 id="链接">链接</h3>
+<h4 id="gcc执行编译">gcc执行编译</h4>
+<p>从对象文件变成可执行文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ talk.o talktest.o -o talktest</span><br><span class="line">.&#x2F;talktest</span><br></pre></td></tr></table></figure>
+<p>也可以从源代码文件变成可执行文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g++ helloworld.cpp -o helloworld</span><br><span class="line">.&#x2F;helloworld</span><br></pre></td></tr></table></figure>
+<h4 id="原理解释-4">原理解释</h4>
+<p>通过链接器将一个个目标文件（或许还会有库文件）链接在一起生成一个完整的可执行程序</p>
+<h2 id="关于链接过程">关于链接过程</h2>
+<p>在编译器的第四步链接的时候，主要工作是将对象文件和标准库中的文件进行链接，打包成可执行文件，这个大家应该已经很清楚啦。那么怎么链接呢？</p>
+<h3 id="静态链接">静态链接</h3>
+<p>静态链接是直接将所需要的库都直接嵌入到我们的主程序中，然后直接打包成可执行程序。</p>
+<h3 id="动态链接">动态链接</h3>
+<p>在主程序中仅仅对这个库进行一次声明，等到程序执行到这个地方的时候，再去引用这个库。</p>
+<h3 id="共同存在的必要性">共同存在的必要性</h3>
+<p>静态库有容易使用和理解，而且也达到了代码复用的目的，那为什么我们还要有动态库呢？</p>
+<ol>
+<li>静态库容易造成空间浪费。</li>
+<li>静态库对程序的更新、部署和发布页会带来麻烦</li>
+</ol>
+<p>这两个缺点也就决定了动态库存在的必要性。</p>
+<ol>
+<li>动态库在程序编译时并不会被连接到目标代码中，而是在程序运行是才被载入。不同的应用程序如果调用相同的库，那么在内存里只需要有一份该共享库的实例，规避了空间浪费问题。</li>
+<li>动态库在程序运行是才被载入，也解决了静态库对程序的更新、部署和发布页会带来麻烦。用户只需要更新动态库即可，增量更新。</li>
+</ol>
+<h2 id="Gcc和G-区别与联系">Gcc和G++区别与联系</h2>
+<p>gcc和g++都是<a href="https://en.wikipedia.org/wiki/GNU" target="_blank" rel="noopener">GNU组织</a>的编译器。<br>
+1、对于.c后缀的文件，gcc把它当做是C程序；g++ 当做是C++程序；<br>
+2、对于.cpp后缀的文件，gcc和g++ 都会当做c++程序。<br>
+3、编译阶段，g++ 会调用gcc；<br>
+4、连接阶段，通常会用g++ 来完成，这是因为gcc命令不能自动和c++程序使用的库连接</p>
+<h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://blog.csdn.net/wcc27857285/article/details/84945519" target="_blank" rel="noopener">C/C++ 程序编译过程详解</a></li>
+<li><a href="https://blog.csdn.net/baidu_33604078/article/details/79091049" target="_blank" rel="noopener">程序编译的四个过程</a><br>
+3.<a href="https://www.cnblogs.com/mickole/articles/3659112.html" target="_blank" rel="noopener">C/C++程序编译过程详解</a><br>
+4.<a href="https://www.cnblogs.com/skynet/p/3372855.html" target="_blank" rel="noopener">C++静态库与动态库</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+              <a href="/tags/%E7%BC%96%E8%AF%91/" rel="tag"># 编译</a>
+              <a href="/tags/g/" rel="tag"># g++</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/2019/12/03/%E5%86%8D%E6%8E%A2c-%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B/" rel="next" title="再探c++编译过程">
+                  <i class="fa fa-chevron-left"></i> 再探c++编译过程
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/2019/12/05/make%E5%91%BD%E4%BB%A4%E4%B8%8EMakeFile%E6%96%87%E4%BB%B6/" rel="prev" title="make命令与MakeFile文件">
+                  make命令与MakeFile文件 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译过程总结"><span class="nav-number">1.</span> <span class="nav-text">编译过程总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#预编译"><span class="nav-number">1.1.</span> <span class="nav-text">预编译</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#g-执行编译"><span class="nav-number">1.1.1.</span> <span class="nav-text">g++执行编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理解释"><span class="nav-number">1.1.2.</span> <span class="nav-text">原理解释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译优化"><span class="nav-number">1.2.</span> <span class="nav-text">编译优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#g-执行编译-2"><span class="nav-number">1.2.1.</span> <span class="nav-text">g++执行编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理解释-2"><span class="nav-number">1.2.2.</span> <span class="nav-text">原理解释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#汇编"><span class="nav-number">1.3.</span> <span class="nav-text">汇编</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#g-执行编译-3"><span class="nav-number">1.3.1.</span> <span class="nav-text">g++执行编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理解释-3"><span class="nav-number">1.3.2.</span> <span class="nav-text">原理解释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接"><span class="nav-number">1.4.</span> <span class="nav-text">链接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#gcc执行编译"><span class="nav-number">1.4.1.</span> <span class="nav-text">gcc执行编译</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理解释-4"><span class="nav-number">1.4.2.</span> <span class="nav-text">原理解释</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于链接过程"><span class="nav-number">2.</span> <span class="nav-text">关于链接过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态链接"><span class="nav-number">2.1.</span> <span class="nav-text">静态链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态链接"><span class="nav-number">2.2.</span> <span class="nav-text">动态链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共同存在的必要性"><span class="nav-number">2.3.</span> <span class="nav-text">共同存在的必要性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gcc和G-区别与联系"><span class="nav-number">3.</span> <span class="nav-text">Gcc和G++区别与联系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="李庆文"
+    src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">李庆文</p>
+  <div class="site-description" itemprop="description">热爱生活，享受生活。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">94</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/aweng126" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;aweng126" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kingwensli@gmail.com" title="E-Mail &amp;rarr; mailto:kingwensli@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李庆文</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">221k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:05</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.1
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        本站访客共计<span id="busuanzi_value_site_uv"></span>人
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/pjax/pjax.min.js?v=0.2.8"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+<script src="/js/utils.js?v=7.4.1.js"></script>
+
+<script src="/js/motion.js?v=7.4.1.js"></script>
+
+
+<script src="/js/schemes/pisces.js?v=7.4.1.js"></script>
+
+
+<script src="/js/next-boot.js?v=7.4.1.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+  
+<script src="/js/local-search.js?v=7.4.1.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+  
+
+  
+
+    </div>
+</body>
+</html>
